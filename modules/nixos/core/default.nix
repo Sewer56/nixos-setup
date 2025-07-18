@@ -1,4 +1,4 @@
-{ ... }: {
+{...}: {
   imports = [
     ./audio.nix
     ./locale.nix
@@ -6,6 +6,5 @@
     ./nix.nix
     ./packages.nix
     ./security.nix
-    ./desktop
   ];
 }

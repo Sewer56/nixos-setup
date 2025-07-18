@@ -1,8 +1,18 @@
 {pkgs, ...}: {
+  imports = [
+    ../../../modules/home-manager/default.nix
+    ./packages.nix
+    ./desktop/hyprland.nix
+    ./shell.nix
+  ];
+
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "sewer";
   home.homeDirectory = "/home/sewer";
+
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -53,33 +63,10 @@
     # '';
   };
 
-  # Home Manager can also manage your environment variables through
-  # 'home.sessionVariables'. These will be explicitly sourced when using a
-  # shell provided by Home Manager. If you don't want to manage your shell
-  # through Home Manager then you have to manually source 'hm-session-vars.sh'
-  # located at either
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/sewer/etc/profile.d/hm-session-vars.sh
-  #
-  home.sessionVariables = {
-    # EDITOR = "emacs";
-  };
-
   # Git configuration
   programs.git = {
     enable = true;
     userName = "Sewer56";
     userEmail = "sewer56lol@googlemail.com";
   };
-
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
 }

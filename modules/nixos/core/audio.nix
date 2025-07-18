@@ -1,4 +1,9 @@
-{ ... }: {
+{ pkgs, ... }: {
+  # Audio packages
+  environment.systemPackages = with pkgs; [
+    pavucontrol
+  ];
+
   # rtkit (optional, recommended) allows Pipewire to use the realtime scheduler
   # for increased performance.
   security.rtkit.enable = true;

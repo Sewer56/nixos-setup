@@ -5,9 +5,14 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ../../modules/common
-    ../../modules/hardware/nvidia.nix
-    ../../users/sewer
+    # Core System Stuff
+    ../../modules/nixos/core/default.nix
+    # Nvidia GPU Support (except laptop, which is in this file)
+    ../../modules/nixos/hardware/nvidia.nix
+    # Hyprland desktop
+    ../../modules/nixos/desktop/default.nix
+    # My user stuff
+    ../../users/sewer/default.nix
   ];
 
   # Host-specific settings
@@ -19,6 +24,12 @@
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  # Machine-specific Intel iGPU driver
+  services.xserver.videoDrivers = [
+    "modesetting" # Intel iGPU;
+    "nvidia"
+  ];
 
   # Machine-specific nvidia prime configuration
   hardware.nvidia.prime = {
@@ -33,30 +44,10 @@
     # amdgpuBusId = "PCI:54:0:0"; For AMD GPU
   };
 
-  # Machine-specific Intel iGPU driver
-  services.xserver.videoDrivers = [
-    "modesetting" # Intel iGPU;
-    "nvidia"
-  ];
-
-  # Machine-specific SDDM autologin
-  services.displayManager.sddm.settings = {
-    Autologin = {
-      Session = "hyprland-uwsm.desktop";
-      User = "sewer";
-    };
-  };
-
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

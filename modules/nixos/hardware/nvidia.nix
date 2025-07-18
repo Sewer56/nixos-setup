@@ -1,5 +1,9 @@
-{ config, ... }: {
-  # TODO: Move graphics to machine specific location.
+{config, pkgs, ...}: {
+  # Nvidia packages
+  environment.systemPackages = with pkgs; [
+    nvitop
+  ];
+
   # Enable OpenGL
   hardware.graphics = {
     enable = true;
