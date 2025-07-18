@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:docs.anthropic.com)",
+      "Bash(claude mcp:*)",
+      "Bash(mkdir:*)",
+      "mcp__mcp-nixos__nixos_search",
+      "mcp__mcp-nixos__home_manager_search",
+      "mcp__mcp-nixos__home_manager_info",
+      "mcp__mcp-nixos__home_manager_options_by_prefix"
+    ],
+    "deny": []
+  }
+}
