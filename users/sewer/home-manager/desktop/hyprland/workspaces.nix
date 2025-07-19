@@ -58,11 +58,5 @@
       "nm-applet --indicator"
       "blueman-applet"
     ];
-
-    # Environment variables
-    env = [
-      "XCURSOR_SIZE,24"
-      "WLR_NO_HARDWARE_CURSORS,1"
-    ];
   };
 }

@@ -5,6 +5,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    catppuccin = {
+      url = "github:catppuccin/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -18,6 +22,7 @@
       modules = [
         ./hosts/laptop/default.nix
         inputs.home-manager.nixosModules.default
+        inputs.catppuccin.nixosModules.catppuccin
       ];
     };
   };

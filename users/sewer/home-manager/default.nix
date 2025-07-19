@@ -1,8 +1,13 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   imports = [
     ./packages.nix
     ./desktop/hyprland.nix
     ./shell.nix
+    inputs.catppuccin.homeModules.catppuccin
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -12,6 +17,10 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  # Enable Catppuccin theme globally
+  catppuccin.enable = true;
+  catppuccin.flavor = "mocha";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
