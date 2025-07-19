@@ -7,6 +7,10 @@
     ./packages.nix
     ./desktop/hyprland.nix
     ./shell.nix
+    ./programs/terminal.nix
+    ./programs/monitor.nix
+    ./programs/fetch.nix
+    ./programs/email.nix
     inputs.catppuccin.homeModules.catppuccin
   ];
 
