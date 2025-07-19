@@ -1,6 +1,6 @@
 {...}: {
   home.shell.enableZshIntegration = true;
-  
+
   # Zsh configuration with oh-my-zsh
   programs.zsh = {
     enable = true;
