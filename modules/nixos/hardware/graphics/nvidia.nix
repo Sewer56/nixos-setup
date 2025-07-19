@@ -1,13 +1,19 @@
-{config, pkgs, ...}: {
-  # Nvidia packages
+# NVIDIA GPU configuration
+# This module configures NVIDIA graphics cards with Intel Prime offloading
+# Reference: https://wiki.nixos.org/wiki/Nvidia
+{
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [
+    ./common.nix
+  ];
+
+  # NVIDIA-specific packages
   environment.systemPackages = with pkgs; [
     nvitop
   ];
-
-  # Enable OpenGL
-  hardware.graphics = {
-    enable = true;
-  };
 
   hardware.nvidia = {
     # Modesetting is required.

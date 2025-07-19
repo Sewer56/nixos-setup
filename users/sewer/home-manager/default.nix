@@ -1,6 +1,5 @@
 {pkgs, ...}: {
   imports = [
-    ../../../modules/home-manager/default.nix
     ./packages.nix
     ./desktop/hyprland.nix
     ./shell.nix

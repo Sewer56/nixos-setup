@@ -1,23 +1,15 @@
 # User Module for Me (sewer)
-# This defines my user profile, home-manager setup, and everything else
-{
-  inputs,
-  pkgs,
-  ...
-}: {
+# This is the NixOS entry point that combines:
+# - NixOS-specific user configuration (./nixos/)
+# - Portable home-manager configuration (./home-manager/)
+{inputs, ...}: {
   imports = [
-    # Import home-manager, and friends
+    # NixOS-specific user settings (user account, groups, etc.)
+    ./nixos/default.nix
+
+    # Import home-manager module
     inputs.home-manager.nixosModules.default
   ];
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.sewer = {
-    isNormalUser = true;
-    description = "sewer";
-    extraGroups = ["networkmanager" "wheel"];
-    shell = pkgs.zsh;
-  };
-  programs.zsh.enable = true;
 
   home-manager = {
     useGlobalPkgs = true;

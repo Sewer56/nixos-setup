@@ -7,8 +7,9 @@
     ./hardware-configuration.nix
     # Core System Stuff
     ../../modules/nixos/core/default.nix
-    # Nvidia GPU Support (except laptop, which is in this file)
-    ../../modules/nixos/hardware/nvidia.nix
+    # Base Nvidia driver support.
+    # PRIME Sync (Multi-GPU) is configured below in current file.
+    ../../modules/nixos/hardware/graphics/nvidia.nix
     # Hyprland desktop
     ../../modules/nixos/desktop/default.nix
     # My user stuff
@@ -31,7 +32,8 @@
     "nvidia"
   ];
 
-  # Machine-specific nvidia prime configuration
+  # Machine-specific nvidia dual-GPU setup.
+  # Ignore if not on Nvidia.
   hardware.nvidia.prime = {
     offload = {
       enable = true;
@@ -43,11 +45,6 @@
     nvidiaBusId = "PCI:01:0:0";
     # amdgpuBusId = "PCI:54:0:0"; For AMD GPU
   };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

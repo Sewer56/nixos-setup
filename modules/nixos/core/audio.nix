@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   # Audio packages
   environment.systemPackages = with pkgs; [
     pavucontrol

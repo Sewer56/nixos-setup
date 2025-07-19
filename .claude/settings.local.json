@@ -7,7 +7,13 @@
       "mcp__mcp-nixos__nixos_search",
       "mcp__mcp-nixos__home_manager_search",
       "mcp__mcp-nixos__home_manager_info",
-      "mcp__mcp-nixos__home_manager_options_by_prefix"
+      "mcp__mcp-nixos__home_manager_options_by_prefix",
+      "mcp__mcp-nixos__nixos_info",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(find:*)",
+      "WebFetch(domain:wiki.nixos.org)",
+      "WebFetch(domain:discourse.nixos.org)"
     ],
     "deny": []
   }
