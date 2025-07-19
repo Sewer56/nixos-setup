@@ -11,7 +11,7 @@
     ./programs/monitor.nix
     ./programs/fetch.nix
     ./programs/email.nix
-    inputs.catppuccin.homeModules.catppuccin
+    ./theme.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -22,25 +22,6 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  # Enable Catppuccin theme globally
-  catppuccin.enable = true;
-  catppuccin.flavor = "mocha";
-  catppuccin.accent = "lavender";
-
-  # This is technically deprecated.
-  catppuccin.gtk.enable = true;
-
-  gtk = {
-    enable = true;
-    gtk2.extraConfig = "gtk-application-prefer-dark-theme = true";
-    gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
-  };
-
-  qt = {
-    enable = true;
-    platformTheme.name = "kvantum";
-    style.name = "kvantum";
-  };
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
