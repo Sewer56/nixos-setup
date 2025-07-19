@@ -27,6 +27,21 @@
   catppuccin.flavor = "mocha";
   catppuccin.accent = "lavender";
 
+  # This is technically deprecated.
+  catppuccin.gtk.enable = true;
+
+  gtk = {
+    enable = true;
+    gtk2.extraConfig = "gtk-application-prefer-dark-theme = true";
+    gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
+  };
+
+  qt = {
+    enable = true;
+    platformTheme.name = "kvantum";
+    style.name = "kvantum";
+  };
+
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
