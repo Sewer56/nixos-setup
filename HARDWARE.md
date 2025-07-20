@@ -68,6 +68,15 @@ This document covers hardware-specific setup, configuration, and debugging for N
 
 For systems with both integrated and discrete GPUs, you may need additional configuration in your host file (see `hosts/laptop/default.nix` for Prime offloading example).
 
+## Monitor Configuration
+
+### Hyprland Monitor Setup
+
+The system automatically creates an empty `~/.config/hypr/monitors.conf` file during home-manager activation if it doesn't exist when using hyprland.
+
+Use `nwg-displays` to modify this.
+This is made non-declarative to allow for manual adjustments on the fly, e.g. without needing to rebuild the entire system configuration.
+
 ## Graphics Debugging and Utilities
 
 The graphics modules provide minimal configurations. For debugging graphics issues, use these utilities temporarily:

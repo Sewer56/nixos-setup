@@ -4,19 +4,16 @@
     nwg-displays
   ];
 
-  # Create monitors.conf file for nwg-displays compatibility
-  wayland.windowManager.hyprland.settings = {
-    # Monitor configuration
-    # Samsung Odyssey G95NC ultrawide
-    monitor = [
-      # Format: name,resolution@rate,position,scale
-      "desc:Samsung Electric Company Odyssey G95NC HNTXC00136,7680x2160@120,0x0,1.5"
-      # Laptop display - AU Optronics
-      "desc:AU Optronics 0x7DB2,2560x1600@240,0x0,1.33333333333"
-      # Fallback for any other monitor
-      ",preferred,auto,1"
-    ];
-  };
+  # Create empty monitors.conf if it doesn't exist
+  # This allows for non-declarative monitor configuration
+  home.activation.createMonitorsConf = ''
+    MONITORS_CONF="$HOME/.config/hypr/monitors.conf"
+    if [ ! -f "$MONITORS_CONF" ]; then
+      run echo "Creating empty monitors.conf at $MONITORS_CONF"
+      run mkdir -p "$(dirname "$MONITORS_CONF")"
+      run touch "$MONITORS_CONF"
+    fi
+  '';
 
   # Source the monitors.conf file in Hyprland
   # Allow non-declarative overrides of monitor settings
