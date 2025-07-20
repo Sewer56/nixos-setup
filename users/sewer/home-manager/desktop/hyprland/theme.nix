@@ -1,32 +1,9 @@
 {...}: {
   wayland.windowManager.hyprland.settings = {
-    # Catppuccin Mocha color definitions
-    "$rosewater" = "rgb(f5e0dc)";
-    "$flamingo" = "rgb(f2cdcd)";
-    "$pink" = "rgb(f5c2e7)";
-    "$mauve" = "rgb(cba6f7)";
-    "$red" = "rgb(f38ba8)";
-    "$maroon" = "rgb(eba0ac)";
-    "$peach" = "rgb(fab387)";
-    "$yellow" = "rgb(f9e2af)";
-    "$green" = "rgb(a6e3a1)";
-    "$teal" = "rgb(94e2d5)";
-    "$sky" = "rgb(89dceb)";
-    "$sapphire" = "rgb(74c7ec)";
-    "$blue" = "rgb(89b4fa)";
-    "$lavender" = "rgb(b4befe)";
-    "$text" = "rgb(cdd6f4)";
-    "$subtext1" = "rgb(bac2de)";
-    "$subtext0" = "rgb(a6adc8)";
-    "$overlay2" = "rgb(9399b2)";
-    "$overlay1" = "rgb(7f849c)";
-    "$overlay0" = "rgb(6c7086)";
-    "$surface2" = "rgb(585b70)";
-    "$surface1" = "rgb(45475a)";
-    "$surface0" = "rgb(313244)";
-    "$base" = "rgb(1e1e2e)";
-    "$mantle" = "rgb(181825)";
-    "$crust" = "rgb(11111b)";
+    # Theme color definitions
+    "$accent" = "rgb(33ccff)";
+    "$accent2" = "rgb(00ff99)";
+    "$inactive" = "rgb(595959)";
 
     # Window transparency rules
     windowrulev2 = [
@@ -45,19 +22,6 @@
       "opacity 0.9 0.9, class:^(dolphin)$"
     ];
 
-    # Cursor configuration with dynamic effects
-    cursor = {
-      no_break_fs_vrr = false;
-      min_refresh_rate = 60;
-      persistent_warps = true;
-      warp_on_change_workspace = true;
-      default_monitor = "monitor";
-      zoom_factor = 1;
-      zoom_rigid = false;
-      enable_hyprcursor = true;
-      hide_on_key_press = false;
-      hide_on_touch = false;
-    };
 
     # Plugin configuration for dynamic cursors
     plugin = {
