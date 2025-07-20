@@ -16,7 +16,6 @@
     grim
     slurp
     swappy
-    qalculate-gtk
 
     # System tray utilities
     networkmanagerapplet
@@ -28,5 +27,8 @@
     # Development tools
     telegram-desktop
     slack
+
+    # General Tools
+    qalculate-gtk
   ];
 }
