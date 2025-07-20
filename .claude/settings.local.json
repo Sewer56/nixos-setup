@@ -13,7 +13,8 @@
       "WebFetch(domain:raw.githubusercontent.com)",
       "Bash(find:*)",
       "WebFetch(domain:wiki.nixos.org)",
-      "WebFetch(domain:discourse.nixos.org)"
+      "WebFetch(domain:discourse.nixos.org)",
+      "Bash(git add:*)"
     ],
     "deny": []
   }
