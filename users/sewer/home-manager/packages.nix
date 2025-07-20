@@ -16,6 +16,7 @@
     grim
     slurp
     swappy
+    qalculate-gtk
 
     # System tray utilities
     networkmanagerapplet
