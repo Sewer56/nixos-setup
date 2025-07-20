@@ -3,6 +3,11 @@
     ./hyprland/default.nix
   ];
 
+  # Enable Wayland support for Chrome/Chromium-based applications
+  home.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+  };
+
   # Hyprland Window Manager (User Configuration)
   wayland.windowManager.hyprland = {
     enable = true;
