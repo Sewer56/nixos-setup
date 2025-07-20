@@ -62,6 +62,7 @@
     misc = {
       force_default_wallpaper = -1;
       disable_hyprland_logo = true;
+      vfr = true; # Reduce amount of processed frames, saving battery.
     };
 
     # Cursor settings
