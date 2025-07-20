@@ -24,7 +24,6 @@
 
     # Audio control
     pavucontrol
-    playerctl
 
     # Development tools
     telegram-desktop

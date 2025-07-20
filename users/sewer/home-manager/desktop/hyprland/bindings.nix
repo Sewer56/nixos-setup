@@ -1,4 +1,7 @@
-{...}: {
+{pkgs, ...}: {
+  home.packages = with pkgs; [
+    playerctl # Music controls.
+  ];
   wayland.windowManager.hyprland.settings = {
     # Set main modifier
     "$mod" = "SUPER";
