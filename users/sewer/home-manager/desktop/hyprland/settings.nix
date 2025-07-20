@@ -1,45 +1,47 @@
 {...}: {
   wayland.windowManager.hyprland.settings = {
+    # See https://wiki.hyprland.org/Configuring/Keywords/ for more
+
     # General settings
     general = {
       layout = "dwindle";
-      allow_tearing = false;
+    };
+
+    misc = {
+      animate_manual_resizes = true; # enables animations for manual (keyboard) resizes
+      vfr = true; # Reduce amount of processed frames, saving battery.
     };
 
     # Layout settings
     dwindle = {
-      pseudotile = true;
-      preserve_split = true;
+      # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
+      pseudotile = true; # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
+      preserve_split = true; # you probably want this
     };
 
     master = {
-      new_status = "master";
+      # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
+      orientation = "center";
+      always_keep_position = true;
+      slave_count_for_center_master = 0;
+      allow_small_split = true;
     };
 
     # Gestures
     gestures = {
+      # See https://wiki.hyprland.org/Configuring/Variables/ for more
       workspace_swipe = false;
     };
 
-    # Misc settings
-    misc = {
-      force_default_wallpaper = -1;
-      disable_hyprland_logo = true;
-      vfr = true; # Reduce amount of processed frames, saving battery.
-    };
+    # Example windowrule v1
+    windowrule = [
+      # WINE fix
+      "nomaxsize,class:^(winecfg\.exe)$"
+      "nomaxsize,class:^(.*)$"
+    ];
 
-    # Cursor settings
-    cursor = {
-      enable_hyprcursor = true;
-      no_warps = false;
-      persistent_warps = true;
-      warp_on_change_workspace = true;
-      default_monitor = "monitor";
-      zoom_factor = 1;
-      zoom_rigid = false;
-      use_cpu_buffer = false;
-      hide_on_key_press = false;
-      hide_on_touch = false;
+    debug = {
+      disable_logs = false;
     };
   };
 }

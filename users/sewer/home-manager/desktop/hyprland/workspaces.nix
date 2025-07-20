@@ -8,7 +8,9 @@
       "4, persistent:true"
     ];
 
-    # Window rules for specific applications
+    # Example windowrule v2
+    # windowrulev2 = float,class:^(kitty)$,title:^(kitty)$
+    # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
     windowrulev2 = [
       # Workspace 1: Code editors and browsers
       "workspace 1, class:^(Code)$"

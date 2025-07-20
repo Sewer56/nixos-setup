@@ -4,6 +4,7 @@
     ./bindings.nix
     ./workspaces.nix
     ./theme.nix
+    ./plugins.nix
     ./monitors.nix
     ./input.nix
     ./programs/waybar.nix
