@@ -1,7 +1,9 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     playerctl # Music controls.
+    killall
   ];
+
   wayland.windowManager.hyprland.settings = {
     # Set main modifier
     "$mod" = "SUPER";
@@ -12,7 +14,8 @@
       "$mod, Return, exec, alacritty"
       "$mod, D, exec, rofi -show drun"
       "$mod, R, exec, rofi -show run"
-      "$mod, B, exec, killall waybar || waybar"
+      # Toggle bar. NixOS wrapping shenanigans
+      "$mod, B, exec, killall waybar || killall .waybar-wrapped || waybar"
       "$mod, Escape, exec, hyprlock"
 
       # Window management
