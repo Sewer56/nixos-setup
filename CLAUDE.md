@@ -41,7 +41,7 @@ This is a modular NixOS configuration using flakes with clear separation between
 After making changes, follow these steps to validate:
 
 1. **Stage Changes**: Use `git add .` to stage all files which previously have not existed. This is required by flakes.
-2. **Test Configuration**: Run `sudo nixos-rebuild dry-build` to validate changes without applying them.
+2. **Test Configuration**: Run `nixos-rebuild dry-build` to validate changes without applying them.
 3. **Format All Files**: Run `alejandra *` to format all files.
 
 If the dry build does not pass, any new added files will need to be staged.

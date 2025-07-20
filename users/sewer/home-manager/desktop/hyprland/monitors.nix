@@ -1,4 +1,10 @@
-{...}: {
+{pkgs, ...}: {
+  # Install nwg-displays for monitor configuration
+  home.packages = with pkgs; [
+    nwg-displays
+  ];
+
+  # Create monitors.conf file for nwg-displays compatibility
   wayland.windowManager.hyprland.settings = {
     # Monitor configuration
     # Samsung Odyssey G95NC ultrawide
@@ -10,6 +16,11 @@
       # Fallback for any other monitor
       ",preferred,auto,1"
     ];
-
   };
+
+  # Source the monitors.conf file in Hyprland
+  # Allow non-declarative overrides of monitor settings
+  wayland.windowManager.hyprland.extraConfig = ''
+    source = ~/.config/hypr/monitors.conf
+  '';
 }
