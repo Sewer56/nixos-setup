@@ -1,2 +1,45 @@
 {
+    "nix.enableLanguageServer": true,
+    "nix.serverPath": "nixd", // or "nil"
+    "nix.serverSettings": {
+        // check https://github.com/nix-community/nixd/blob/main/nixd/docs/configuration.md for all nixd config
+        "nixd": {
+            "formatting": {
+                "command": [
+                    "alejandra"
+                ],
+            },
+            // Tell the language server your desired option set, for completion
+            // This is lazily evaluated.
+            "options": { // Map of eval information
+                // By default, this entriy will be read from `import <nixpkgs> { }`
+                // You can write arbitary nix expression here, to produce valid "options" declaration result.
+                //
+                // *NOTE*: Replace "<name>" below with your actual configuration name.
+                // If you're unsure what to use, you can verify with `nix repl` by evaluating
+                // the expression directly.
+                //
+                "nixos": {
+                    "expr": "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.laptop.options"
+                },
+                // Before configuring Home Manager options, consider your setup:
+                // Which command do you use for home-manager switching?
+                //
+                //  A. home-manager switch --flake .#... (standalone Home Manager)
+                //  B. nixos-rebuild switch --flake .#... (NixOS with integrated Home Manager)
+                //
+                // Configuration examples for both approaches are shown below.
+                "home-manager": {
+                    // A:
+                    //"expr": "(builtins.getFlake (builtins.toString ./.)).homeConfigurations.<name>.options"
+                    // B:
+                    "expr": "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.laptop.config.home-manager.users.sewer"
+                },
+                //"catppuccin-nixos": {
+                // B:
+                //    "expr": "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.<name>.options.home-manager.users.type.getSubOptions []"
+                //}
+            }
+        }
+    },
 }
