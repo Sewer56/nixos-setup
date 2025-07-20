@@ -23,6 +23,11 @@
         ./hosts/laptop/default.nix
         inputs.home-manager.nixosModules.default
         inputs.catppuccin.nixosModules.catppuccin
+        {
+          nixpkgs.overlays = [
+            (import ./overlays/catppuccin-papirus-folders.nix)
+          ];
+        }
       ];
     };
   };
