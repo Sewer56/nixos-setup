@@ -154,7 +154,7 @@ error-message {
     border:                      0px solid;
     border-radius:               0px;
     border-color:                @selected;
-    background-color:            @background-light;
+    background-color:            @background-dark;
     text-color:                  @foreground;
 }
 textbox {
