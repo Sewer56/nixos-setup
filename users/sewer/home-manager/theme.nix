@@ -7,7 +7,7 @@
   catppuccin.enable = true;
   catppuccin.flavor = "mocha";
   catppuccin.accent = "lavender";
-  
+
   # Enable Catppuccin for Hyprland
   catppuccin.hyprland.enable = true;
 
