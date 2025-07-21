@@ -1,9 +1,19 @@
 {...}: {
-  # Install shared theme files
-  home.file.".config/rofi/themes/shared" = {
-    source = ./shared;
-    recursive = true;
-  };
+  # Generate shared theme files
+  home.file.".config/rofi/themes/shared/colors.rasi".text = ''
+    * {
+        background-alt: #282839FF;
+        foreground:     #D9E0EEFF;
+        selected:       #7AA2F7FF;
+    }
+  '';
+
+  home.file.".config/rofi/themes/shared/fonts.rasi".text = ''
+    * {
+        /* font: "Iosevka Nerd Font 10"; */
+        /* Font configuration commented out until system font is decided */
+    }
+  '';
 
   # Install applauncher theme files
   home.file.".config/rofi/themes/applauncher" = {
@@ -17,20 +27,4 @@
     recursive = true;
   };
 
-  # Color schemes
-  home.file.".config/rofi/colors/catppuccin.rasi".text = ''
-    /**
-     * Catppuccin Mocha color scheme for Rofi
-     * Adapted to match the system theme
-     **/
-
-    * {
-        background:     #1E1D2FFF;
-        background-alt: #282839FF;
-        foreground:     #D9E0EEFF;
-        selected:       #7AA2F7FF;
-        active:         #ABE9B3FF;
-        urgent:         #F28FADFF;
-    }
-  '';
 }
