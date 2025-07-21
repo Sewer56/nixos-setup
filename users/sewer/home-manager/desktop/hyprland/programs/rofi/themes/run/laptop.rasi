@@ -1,0 +1,14 @@
+/*****----- Run Menu Theme -----*****/
+/* Based on clipboard theme with overrides for run command usage */
+/* Import base clipboard theme and override specific properties */
+@import                          "../clipboard/laptop.rasi"
+
+/*****----- Override Inputbar for Run Command -----*****/
+entry {
+    placeholder:                 "Run command";
+}
+
+/*****----- Override Listview for 4 Columns -----*****/
+listview {
+    columns:                      4;
+}

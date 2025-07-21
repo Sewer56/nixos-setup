@@ -52,6 +52,12 @@ in {
     recursive = true;
   };
 
+  # Install run theme files
+  home.file.".config/rofi/themes/run" = {
+    source = ./run;
+    recursive = true;
+  };
+
   # Install emoji theme files
   home.file.".config/rofi/themes/emoji" = {
     source = ./emoji;
