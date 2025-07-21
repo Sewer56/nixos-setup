@@ -1,12 +1,7 @@
-/*****----- Configuration -----*****/
-configuration {
-	modi:                       "drun";
-    show-icons:                 true;
-    display-drun:               "";
-	drun-display-format:        "{name}";
-}
-
 /*****----- Global Properties -----*****/
+/* Rofi Theme Documentation: https://github.com/davatorium/rofi/blob/next/doc/rofi-theme.5.markdown */
+/* Rofi CSS Properties: https://github.com/davatorium/rofi/blob/next/doc/rofi-theme.5.markdown#properties */
+/* App launcher theme optimized for icons and grid display */
 @import                          "../shared/colors.rasi"
 @import                          "../shared/fonts.rasi"
 

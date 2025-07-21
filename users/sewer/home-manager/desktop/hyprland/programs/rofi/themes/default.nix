@@ -2,6 +2,11 @@
   colors = config.lib.catppuccin.colors;
   accentColor = colors.${config.catppuccin.accent};
 in {
+  # Rofi theme file generation for Home Manager
+  # Documentation:
+  # - Rofi Theming: https://github.com/davatorium/rofi/blob/next/doc/rofi-theme.5.markdown
+  # - Catppuccin Colors: https://github.com/catppuccin/catppuccin#-palette
+  # - Catppuccin Style Guide: https://github.com/catppuccin/catppuccin/blob/main/docs/style-guide.md
   # Generate shared theme files
   # Colors follow Catppuccin style guide: https://github.com/catppuccin/catppuccin/blob/main/docs/style-guide.md
   home.file.".config/rofi/themes/shared/colors.rasi".text = ''
@@ -45,6 +50,12 @@ in {
   # Install clipboard theme files
   home.file.".config/rofi/themes/clipboard" = {
     source = ./clipboard;
+    recursive = true;
+  };
+
+  # Install emoji theme files
+  home.file.".config/rofi/themes/emoji" = {
+    source = ./emoji;
     recursive = true;
   };
 }
