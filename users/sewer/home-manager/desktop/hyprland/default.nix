@@ -7,7 +7,7 @@
     ./plugins.nix
     ./monitors.nix
     ./input.nix
-    ./programs/waybar.nix
+    ./programs/waybar/default.nix
     ./programs/rofi/default.nix
     ./programs/notifications.nix
     ./programs/bluetooth.nix

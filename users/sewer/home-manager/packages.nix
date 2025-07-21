@@ -15,6 +15,9 @@
     # General Tools
     qalculate-gtk
 
+    # Desktop environment
+    waybar
+
     # Fonts
     inter
   ];
