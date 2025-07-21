@@ -3,15 +3,29 @@
   accentColor = colors.${config.catppuccin.accent};
 in {
   # Generate shared theme files
+  # Colors follow Catppuccin style guide: https://github.com/catppuccin/catppuccin/blob/main/docs/style-guide.md
   home.file.".config/rofi/themes/shared/colors.rasi".text = ''
     * {
-        background-alt:      ${colors.mantle}FF;
-        foreground:          ${colors.text}FF;
-        selected:            ${accentColor}FF;
-        background-dark:     ${colors.base}99;
-        border-subtle:       ${colors.overlay0}FF;
-        background-input:    ${colors.surface1}FF;
-        background-selected: ${colors.overlay2}4D;
+        /* Catppuccin Text - used for all text elements (body copy, labels) */
+        text:                ${colors.text}FF;
+
+        /* User accent color - used for highlights, scrollbar handle, borders */
+        accent:              ${accentColor}FF;
+
+        /* Catppuccin Base (0x99 opacity) - main window backdrop */
+        window-background:   ${colors.base}99;
+
+        /* Catppuccin Surface1 - input field background */
+        search-background:   ${colors.surface1}FF;
+
+        /* Catppuccin Overlay0 - subtle borders for input elements */
+        search-border:       ${colors.overlay0}FF;
+
+        /* Catppuccin Mantle - scrollbar track background */
+        scrollbar-background: ${colors.mantle}FF;
+
+        /* Catppuccin Overlay2 (30% opacity) - selected item highlight */
+        selection-background: ${colors.overlay2}4D;
     }
   '';
 
