@@ -8,6 +8,7 @@
     ./programs/fetch.nix
     ./programs/email.nix
     ./theme.nix
+    ./catppuccin-colors.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should

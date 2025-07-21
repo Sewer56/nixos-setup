@@ -1,10 +1,13 @@
-{...}: {
+{config, ...}: let
+  colors = config.lib.catppuccin.colors;
+  accentColor = colors.${config.catppuccin.accent};
+in {
   # Generate shared theme files
   home.file.".config/rofi/themes/shared/colors.rasi".text = ''
     * {
         background-alt:      #282839FF;
         foreground:          #D9E0EEFF;
-        selected:            #7AA2F7FF;
+        selected:            ${accentColor}FF;
         background-dark:     black / 60%;
         background-medium:   black / 40%;
         background-light:    black / 10%;
