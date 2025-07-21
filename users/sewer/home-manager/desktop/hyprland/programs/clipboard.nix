@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   # Clipboard management for Hyprland
   home.packages = with pkgs; [
-    cliphist  # Clipboard history manager for Wayland
+    cliphist # Clipboard history manager for Wayland
   ];
 
   wayland.windowManager.hyprland.settings = {

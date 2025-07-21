@@ -53,7 +53,6 @@
       "telegram-desktop"
       "tidal"
       "thunderbird"
-
     ];
   };
 }

@@ -8,7 +8,6 @@
     vivaldi
     vivaldi-ffmpeg-codecs
 
-
     # Development tools
     telegram-desktop
     slack

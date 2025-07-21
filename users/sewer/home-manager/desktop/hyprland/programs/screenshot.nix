@@ -1,9 +1,9 @@
 {pkgs, ...}: {
   # Screenshot functionality for Hyprland
   home.packages = with pkgs; [
-    grim   # Screenshot utility for Wayland
-    slurp  # Region selection for screenshots
-    wl-clipboard  # Wayland clipboard utilities
+    grim # Screenshot utility for Wayland
+    slurp # Region selection for screenshots
+    wl-clipboard # Wayland clipboard utilities
   ];
 
   # Create Screenshots directory

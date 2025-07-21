@@ -10,7 +10,7 @@
 
   # Enable Catppuccin for Hyprland
   catppuccin.hyprland.enable = true;
-  
+
   # Disable Catppuccin rofi theme (using custom theme instead)
   catppuccin.rofi.enable = false;
 

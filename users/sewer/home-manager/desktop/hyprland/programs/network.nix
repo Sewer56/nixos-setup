@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   # Network management GUI for system tray
   home.packages = with pkgs; [
-    networkmanagerapplet  # NetworkManager system tray applet
+    networkmanagerapplet # NetworkManager system tray applet
   ];
 
   wayland.windowManager.hyprland.settings = {
