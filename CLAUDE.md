@@ -19,6 +19,10 @@ This is a modular NixOS configuration using flakes with clear separation between
 - **Home Manager Integration**: User packages and dotfiles managed through Home Manager
 - **Flake-based**: All dependencies locked for reproducibility
 
+### Formatting Rules
+
+When importing, always give the full path e.g. `rofi/default.nix` instead of `rofi/`.
+
 ## Development Workflow
 
 ### Adding User Packages
