@@ -10,6 +10,8 @@
     # Base Nvidia driver support.
     # PRIME Sync (Multi-GPU) is configured below in current file.
     ../../modules/nixos/hardware/graphics/nvidia.nix
+    # Bluetooth support (laptop-specific)
+    ../../modules/nixos/hardware/bluetooth.nix
     # Hyprland desktop
     ../../modules/nixos/desktop/default.nix
     # My user stuff
