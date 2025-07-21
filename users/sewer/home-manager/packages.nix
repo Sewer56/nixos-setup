@@ -8,17 +8,6 @@
     vivaldi
     vivaldi-ffmpeg-codecs
 
-    # Desktop environment utilities
-    hyprlock
-    hypridle
-    cliphist
-    wl-clipboard
-    grim
-    slurp
-    swappy
-
-    # System tray utilities
-    networkmanagerapplet
 
     # Development tools
     telegram-desktop

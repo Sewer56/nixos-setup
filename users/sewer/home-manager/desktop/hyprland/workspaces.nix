@@ -44,8 +44,6 @@
       # System services
       "waybar"
       "dunst"
-      "wl-paste --type text --watch cliphist store"
-      "wl-paste --type image --watch cliphist store"
       "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 
       # Startup applications
@@ -56,9 +54,6 @@
       "tidal"
       "thunderbird"
 
-      # Background services
-      "nm-applet --indicator"
-      "blueman-applet"
     ];
   };
 }

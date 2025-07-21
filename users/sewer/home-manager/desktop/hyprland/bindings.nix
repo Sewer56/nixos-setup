@@ -16,7 +16,7 @@
       "$mod, R, exec, rofi -show run"
       # Toggle bar. NixOS wrapping shenanigans
       "$mod, B, exec, killall waybar || killall .waybar-wrapped || waybar"
-      "$mod, Escape, exec, hyprlock"
+      # Lock screen binding moved to programs/idle-lock.nix
 
       # Window management
       "$mod, Q, killactive,"
@@ -78,17 +78,15 @@
       "$mod, mouse_down, workspace, e+1"
       "$mod, mouse_up, workspace, e-1"
 
-      # Screenshot bindings
-      ", Print, exec, grim -g \"$(slurp)\" - | wl-copy"
-      "SHIFT, Print, exec, grim - | wl-copy"
-      "CTRL, Print, exec, grim -g \"$(slurp)\" ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"
-      "CTRL SHIFT, Print, exec, grim ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"
+      # Screenshot bindings moved to programs/screenshot.nix
+      # Print = area to clipboard, Shift+Print = full to clipboard
+      # Ctrl+Print = area to file, Ctrl+Shift+Print = full to file
 
       # Window switcher (Alt+Tab)
       "ALT, Tab, exec, rofi -show window"
 
-      # Clipboard manager
-      "$mod, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
+      # Clipboard manager binding moved to programs/clipboard.nix
+      # Super+V = open clipboard history
     ];
 
     # Repeat key bindings

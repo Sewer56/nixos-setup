@@ -11,5 +11,9 @@
     ./programs/rofi.nix
     ./programs/notifications.nix
     ./programs/bluetooth.nix
+    ./programs/screenshot.nix
+    ./programs/idle-lock.nix
+    ./programs/clipboard.nix
+    ./programs/network.nix
   ];
 }
