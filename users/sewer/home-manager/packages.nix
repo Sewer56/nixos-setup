@@ -20,9 +20,6 @@
     # System tray utilities
     networkmanagerapplet
 
-    # Audio control
-    pavucontrol
-
     # Development tools
     telegram-desktop
     slack
