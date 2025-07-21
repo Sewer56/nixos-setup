@@ -3,46 +3,46 @@
 # This creates a smooth color progression for window borders
 {
   # red (hue: 11.19) → maroon (hue: 14.37)
-  red = "rgb(eba0ac)"; # maroon
+  red = "$maroon";
 
   # maroon (hue: 14.37) → flamingo (hue: 18.12)
-  maroon = "rgb(f2cdcd)"; # flamingo
+  maroon = "$flamingo";
 
   # flamingo (hue: 18.12) → rosewater (hue: 31.13)
-  flamingo = "rgb(f5e0dc)"; # rosewater
+  flamingo = "$rosewater";
 
   # rosewater (hue: 31.13) → peach (hue: 49.64)
-  rosewater = "rgb(fab387)"; # peach
+  rosewater = "$peach";
 
   # peach (hue: 49.64) → yellow (hue: 84.75)
-  peach = "rgb(f9e2af)"; # yellow
+  peach = "$yellow";
 
   # yellow (hue: 84.75) → green (hue: 138.15)
-  yellow = "rgb(a6e3a1)"; # green
+  yellow = "$green";
 
   # green (hue: 138.15) → teal (hue: 184.1)
-  green = "rgb(94e2d5)"; # teal
+  green = "$teal";
 
   # teal (hue: 184.1) → sky (hue: 209.37)
-  teal = "rgb(89dceb)"; # sky
+  teal = "$sky";
 
   # sky (hue: 209.37) → sapphire (hue: 228.38)
-  sky = "rgb(74c7ec)"; # sapphire
+  sky = "$sapphire";
 
   # sapphire (hue: 228.38) → blue (hue: 263.81)
-  sapphire = "rgb(89b4fa)"; # blue
+  sapphire = "$blue";
 
   # blue (hue: 263.81) → lavender (hue: 277.31)
-  blue = "rgb(b4befe)"; # lavender
+  blue = "$lavender";
 
   # lavender (hue: 277.31) → mauve (hue: 303.9)
-  lavender = "rgb(cba6f7)"; # mauve
+  lavender = "$mauve";
 
   # mauve (hue: 303.9) → pink (hue: 336.18)
-  mauve = "rgb(f5c2e7)"; # pink
+  mauve = "$pink";
 
   # pink (hue: 336.18) → red (hue: 11.19) [wraps around]
-  pink = "rgb(f38ba8)"; # red
+  pink = "$red";
 }
 # Original Catppuccin Mocha colors in OKLCh format (sorted by hue):
 # red = oklch(0.737 0.1252 11.19)
