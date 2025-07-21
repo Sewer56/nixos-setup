@@ -10,7 +10,7 @@
       # - ALT + Tab: Window switcher
       # Theme is set via programs.rofi.theme in default.nix
       "$mod, D, exec, rofi -show drun"
-      "$mod, R, exec, rofi -show run"
+      "$mod, R, exec, rofi -show run -theme ~/.config/rofi/themes/clipboard/laptop.rasi"
       "ALT, Tab, exec, rofi -show window"
     ];
   };
