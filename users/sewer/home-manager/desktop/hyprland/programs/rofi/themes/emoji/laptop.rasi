@@ -77,8 +77,7 @@ entry {
 /*****----- Listview -----*****/
 listview {
     enabled:                     true;
-    columns:                     2;
-    lines:                       4;
+    columns:                     3;
     cycle:                       true;
     dynamic:                     true;
     scrollbar:                   true;
@@ -87,7 +86,7 @@ listview {
     fixed-height:                true;
     fixed-columns:               true;
     
-    spacing:                     25px;
+    spacing:                     0px;
     margin:                      0px;
     padding:                     0px;
     border:                      0px solid;
@@ -107,9 +106,8 @@ scrollbar {
 /*****----- Elements -----*****/
 element {
     enabled:                     true;
-    spacing:                     15px;
     margin:                      0px;
-    padding:                     35px 20px;
+    padding:                     20px 20px;
     border:                      0px solid;
     border-radius:               15px;
     border-color:                @accent;
@@ -141,7 +139,7 @@ element-text {
     horizontal-align:            0.0;
     width:                       100%;
     text-truncate:               true;
-    font:                        "Noto Color Emoji 24";
+    font:                        "Inter 24";
     padding:                     0px;
     margin:                      0px;
 }

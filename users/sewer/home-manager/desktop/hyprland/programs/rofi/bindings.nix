@@ -17,7 +17,7 @@
       # Theme is set via programs.rofi.theme in default.nix
       "$mod, D, exec, rofi -show drun"
       "$mod, R, exec, rofi -show run -theme ~/.config/rofi/themes/clipboard/laptop.rasi"
-      "$mod, period, exec, rofi -show emoji -emoji-mode copy -emoji-format '{emoji} {name}' -theme ~/.config/rofi/themes/emoji/laptop.rasi"
+      "$mod, period, exec, rofi -show emoji -emoji-mode copy -emoji-format '{emoji} <span weight=\"light\">{name}</span>' -theme ~/.config/rofi/themes/emoji/laptop.rasi"
       "ALT, Tab, exec, rofi -show window"
     ];
   };

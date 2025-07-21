@@ -36,8 +36,7 @@ in {
 
   home.file.".config/rofi/themes/shared/fonts.rasi".text = ''
     * {
-        /* font: "Iosevka Nerd Font 10"; */
-        /* Font configuration commented out until system font is decided */
+        font: "Inter 12";
     }
   '';
 

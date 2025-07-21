@@ -17,7 +17,8 @@
       "Bash(git add:*)",
       "mcp__github__get_file_contents",
       "Bash(nixos-rebuild dry-build:*)",
-      "Bash(alejandra:*)"
+      "Bash(alejandra:*)",
+      "WebFetch(domain:iamvdo.me)"
     ],
     "deny": []
   }

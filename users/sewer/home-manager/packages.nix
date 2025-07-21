@@ -14,5 +14,8 @@
 
     # General Tools
     qalculate-gtk
+
+    # Fonts
+    inter
   ];
 }
