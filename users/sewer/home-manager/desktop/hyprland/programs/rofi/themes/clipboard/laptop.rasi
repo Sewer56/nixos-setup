@@ -27,7 +27,7 @@ window {
     border:                      0px solid;
     border-radius:               0px;
     border-color:                @selected;
-    background-color:            black / 60%;
+    background-color:            @background-dark;
     cursor:                      "default";
 }
 
@@ -52,8 +52,8 @@ inputbar {
     padding:                     10px;
     border:                      1px solid;
     border-radius:               6px;
-    border-color:                white / 25%;
-    background-color:            white / 5%;
+    border-color:                @border-subtle;
+    background-color:            @background-input;
     text-color:                  @foreground;
     children:                    [ "prompt", "entry" ];
 }
@@ -128,7 +128,7 @@ element normal.normal {
     text-color:                  @foreground;
 }
 element selected.normal {
-    background-color:            white / 15%;
+    background-color:            @background-selected;
     text-color:                  @foreground;
 }
 element-icon {
@@ -154,7 +154,7 @@ error-message {
     border:                      0px solid;
     border-radius:               0px;
     border-color:                @selected;
-    background-color:            black / 10%;
+    background-color:            @background-light;
     text-color:                  @foreground;
 }
 textbox {

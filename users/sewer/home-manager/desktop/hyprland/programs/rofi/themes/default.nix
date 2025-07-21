@@ -2,9 +2,15 @@
   # Generate shared theme files
   home.file.".config/rofi/themes/shared/colors.rasi".text = ''
     * {
-        background-alt: #282839FF;
-        foreground:     #D9E0EEFF;
-        selected:       #7AA2F7FF;
+        background-alt:      #282839FF;
+        foreground:          #D9E0EEFF;
+        selected:            #7AA2F7FF;
+        background-dark:     black / 60%;
+        background-medium:   black / 40%;
+        background-light:    black / 10%;
+        border-subtle:       white / 25%;
+        background-input:    white / 5%;
+        background-selected: white / 15%;
     }
   '';
 
@@ -26,5 +32,4 @@
     source = ./clipboard;
     recursive = true;
   };
-
 }
