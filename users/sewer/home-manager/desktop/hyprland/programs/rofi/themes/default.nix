@@ -36,7 +36,7 @@ in {
 
   home.file.".config/rofi/themes/shared/fonts.rasi".text = ''
     * {
-        font: "Inter 12";
+        font: "Inter 16";
     }
   '';
 
