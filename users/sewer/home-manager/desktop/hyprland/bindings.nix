@@ -12,8 +12,7 @@
     bind = [
       # Applications
       "$mod, Return, exec, alacritty"
-      "$mod, D, exec, rofi -show drun"
-      "$mod, R, exec, rofi -show run"
+      # Rofi bindings moved to programs/rofi/bindings.nix
       # Toggle bar. NixOS wrapping shenanigans
       "$mod, B, exec, killall waybar || killall .waybar-wrapped || waybar"
       # Lock screen binding moved to programs/idle-lock.nix
@@ -83,7 +82,7 @@
       # Ctrl+Print = area to file, Ctrl+Shift+Print = full to file
 
       # Window switcher (Alt+Tab)
-      "ALT, Tab, exec, rofi -show window"
+      # ALT+Tab binding moved to programs/rofi/bindings.nix
 
       # Clipboard manager binding moved to programs/clipboard.nix
       # Super+V = open clipboard history

@@ -13,7 +13,7 @@
 
     bind = [
       # Open clipboard manager
-      "$mod, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
+      "$mod, V, exec, cliphist list | rofi -dmenu -theme ~/.config/rofi/themes/clipboard/laptop.rasi | cliphist decode | wl-copy"
     ];
   };
 }

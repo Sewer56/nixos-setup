@@ -1,0 +1,9 @@
+/**
+ * Colors - Using Catppuccin theme by default
+ *
+ * Available Colors Schemes:
+ * catppuccin (default)
+ **/
+
+/* Import color-scheme from colors directory */
+@import "~/.config/rofi/colors/catppuccin.rasi"

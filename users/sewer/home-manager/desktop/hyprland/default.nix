@@ -8,7 +8,7 @@
     ./monitors.nix
     ./input.nix
     ./programs/waybar.nix
-    ./programs/rofi.nix
+    ./programs/rofi/default.nix
     ./programs/notifications.nix
     ./programs/bluetooth.nix
     ./programs/screenshot.nix
