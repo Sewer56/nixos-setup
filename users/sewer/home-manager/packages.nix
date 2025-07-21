@@ -19,7 +19,6 @@
 
     # System tray utilities
     networkmanagerapplet
-    blueman
 
     # Audio control
     pavucontrol

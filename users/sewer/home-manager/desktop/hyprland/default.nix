@@ -10,5 +10,6 @@
     ./programs/waybar.nix
     ./programs/rofi.nix
     ./programs/notifications.nix
+    ./programs/bluetooth.nix
   ];
 }

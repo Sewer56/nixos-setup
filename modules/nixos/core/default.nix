@@ -8,5 +8,6 @@
     ./nix.nix
     ./packages.nix
     ./security.nix
+    ../hardware/bluetooth.nix
   ];
 }
