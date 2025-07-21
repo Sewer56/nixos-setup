@@ -72,7 +72,7 @@
       background: rgba(21, 21, 32, 0.75);
       transition: all 0.15s ease-in-out;
       border-radius: 8pt;
-      padding-left: 2238px;
+      padding-left: 1800px;
     }
 
     #waybar.second #battery.critical.discharging {
