@@ -23,23 +23,25 @@
       "$mod, F, fullscreen,"
       "$mod, Space, togglefloating,"
       "$mod, P, pseudo," # dwindle
-      "$mod, T, togglesplit," # dwindle
+      "$mod, J, togglesplit," # dwindle
 
       # Focus movement
-      "$mod, H, movefocus, l"
-      "$mod, L, movefocus, r"
-      "$mod, K, movefocus, u"
-      "$mod, J, movefocus, d"
       "$mod, left, movefocus, l"
       "$mod, right, movefocus, r"
       "$mod, up, movefocus, u"
       "$mod, down, movefocus, d"
 
+      # Layout management
+      "$mod, W, layoutmsg, swapwithmaster" # Swap with previous window
+      "$mod, E, layoutmsg, swapnext" # Swap with next window
+      "$mod, O, layoutmsg, addmaster" # Add master window
+
+      # Application pass-through bindings
+      "ALT, 3, pass, ^(com\.obsproject\.Studio)$"
+      "ALT, 4, pass, ^(com\.obsproject\.Studio)$"
+      "$mod, C, pass, ^(qemu)$"
+
       # Window movement
-      "$mod SHIFT, H, movewindow, l"
-      "$mod SHIFT, L, movewindow, r"
-      "$mod SHIFT, K, movewindow, u"
-      "$mod SHIFT, J, movewindow, d"
       "$mod SHIFT, left, movewindow, l"
       "$mod SHIFT, right, movewindow, r"
       "$mod SHIFT, up, movewindow, u"
@@ -69,10 +71,6 @@
       "$mod SHIFT, 9, movetoworkspace, 9"
       "$mod SHIFT, 0, movetoworkspace, 10"
 
-      # Special workspace (scratchpad)
-      "$mod, S, togglespecialworkspace, magic"
-      "$mod SHIFT, S, movetoworkspace, special:magic"
-
       # Scroll through workspaces
       "$mod, mouse_down, workspace, e+1"
       "$mod, mouse_up, workspace, e-1"
@@ -91,14 +89,10 @@
     # Repeat key bindings
     binde = [
       # Resize windows
-      "$mod CTRL, H, resizeactive, -10 0"
-      "$mod CTRL, L, resizeactive, 10 0"
-      "$mod CTRL, K, resizeactive, 0 -10"
-      "$mod CTRL, J, resizeactive, 0 10"
-      "$mod CTRL, left, resizeactive, -10 0"
-      "$mod CTRL, right, resizeactive, 10 0"
-      "$mod CTRL, up, resizeactive, 0 -10"
-      "$mod CTRL, down, resizeactive, 0 10"
+      "$mod CTRL, right, resizeactive, 50 0"
+      "$mod CTRL, left, resizeactive, -50 0"
+      "$mod CTRL, up, resizeactive, 0 -50"
+      "$mod CTRL, down, resizeactive, 0 50"
     ];
 
     # Mouse bindings
@@ -111,6 +105,9 @@
     bindel = [
       ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
       ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+      # Mouse button volume controls
+      ", mouse:281, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+      ", mouse:282, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
     ];
 
     bindl = [
