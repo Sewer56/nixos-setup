@@ -1,4 +1,5 @@
 # Accent to accent2 color mapping
+# This is fully custom, by me.
 # Uses Catppuccin Mocha colors sorted by hue, with each accent mapped to the next color in hue order
 # This creates a smooth color progression for window borders
 {

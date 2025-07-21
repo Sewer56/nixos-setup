@@ -1,6 +1,6 @@
 {config, ...}: let
   # Import accent mapping
-  accentMappings = import ./accent-mapping.nix;
+  accentMappings = import ./catppuccin/accent-mapping.nix;
   accent2Color = accentMappings.${config.catppuccin.accent} or "rgb(00ff99)";
 in {
   wayland.windowManager.hyprland.settings = {
