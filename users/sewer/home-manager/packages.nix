@@ -14,6 +14,8 @@
 
     # General Tools
     qalculate-gtk
+    qdirstat
+    iwgtk
 
     # Desktop environment
     waybar
