@@ -58,5 +58,29 @@ in {
       source = ./modules/battery/bat-pp.sh;
       executable = true;
     };
+    "waybar/scripts/audio-input-volume-up.sh" = {
+      source = ./scripts/audio-input-volume-up.sh;
+      executable = true;
+    };
+    "waybar/scripts/audio-input-volume-down.sh" = {
+      source = ./scripts/audio-input-volume-down.sh;
+      executable = true;
+    };
+    "waybar/scripts/launch-audio-control.sh" = {
+      source = ./scripts/launch-audio-control.sh;
+      executable = true;
+    };
+    "waybar/scripts/launch-calendar.sh" = {
+      source = ./scripts/launch-calendar.sh;
+      executable = true;
+    };
+    "waybar/scripts/launch-wifi-manager.sh" = {
+      source = ./scripts/launch-wifi-manager.sh;
+      executable = true;
+    };
+    "waybar/scripts/launch-disk-analyzer.sh" = {
+      source = ./scripts/launch-disk-analyzer.sh;
+      executable = true;
+    };
   };
 }
