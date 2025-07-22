@@ -11,6 +11,7 @@
   tray = import ./modules/tray.nix;
   backlight = import ./modules/backlight.nix;
   custom = import ./modules/custom.nix;
+  uptime = import ./modules/uptime.nix;
 in {
   home.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
@@ -35,6 +36,7 @@ in {
         // tray.config
         // backlight.config
         // custom.config
+        // uptime.config
       )
     ];
     style = ''
@@ -53,6 +55,7 @@ in {
       ${tray.style}
       ${backlight.style}
       ${custom.style}
+      ${uptime.style}
     '';
   };
 
@@ -87,6 +90,10 @@ in {
     };
     "waybar/scripts/launch-bluetooth-manager.sh" = {
       source = ./scripts/launch-bluetooth-manager.sh;
+      executable = true;
+    };
+    "waybar/scripts/uptime-since-resume.sh" = {
+      source = ./scripts/uptime-since-resume.sh;
       executable = true;
     };
   };

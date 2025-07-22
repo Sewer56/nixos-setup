@@ -44,6 +44,7 @@
       "backlight"
       "custom/battery"
       "custom/spacer1"
+      "custom/uptime"
       "clock"
     ];
   };

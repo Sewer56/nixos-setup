@@ -29,4 +29,26 @@
 
   # TLP conflicts with power-profiles-daemon, so we don't enable it
   # services.tlp.enable = false;
+
+  # Systemd sleep hook to track resume timestamps for waybar uptime widget
+  environment.etc."systemd/system-sleep/uptime-tracker" = {
+    text = ''
+      #!${pkgs.bash}/bin/bash
+      # Systemd sleep hook for tracking resume timestamps
+      # Used by waybar uptime widget to show time since last resume
+
+      TIMESTAMP_FILE="/var/log/last-resume"
+
+      case "$1" in
+        post)
+          # Write timestamp on resume (post-suspend/hibernate)
+          if [ "$2" = "suspend" ] || [ "$2" = "hibernate" ] || [ "$2" = "hybrid-sleep" ]; then
+            echo "$(${pkgs.coreutils}/bin/date '+%s')" > "$TIMESTAMP_FILE"
+            ${pkgs.coreutils}/bin/chmod 644 "$TIMESTAMP_FILE"
+          fi
+          ;;
+      esac
+    '';
+    mode = "0755";
+  };
 }

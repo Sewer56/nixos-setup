@@ -1,6 +1,6 @@
 {pkgs, ...}: let
   touchpadToggle = pkgs.writeShellScript "touchpad-toggle" ''
-    #!/bin/bash
+    #!/usr/bin/env bash
 
     # Touchpad toggle script for Hyprland
     # Toggles the touchpad on/off using hyprctl
