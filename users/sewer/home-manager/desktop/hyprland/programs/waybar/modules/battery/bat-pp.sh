@@ -35,7 +35,6 @@ if [[ $MODE == "refresh" ]]; then
         CLASS=$"critical"
     elif [[ $PERCENT -le 20 ]]; then
         CLASS=$"warning"
-        aplay ~/.config/sounds/alarm.wav
     else
         CLASS=$"normal"
     fi

@@ -9,7 +9,7 @@
       tooltip = "{}";
       tooltip-format-wifi = "{ifname}\n{essid}\n{signalStrength}% \n{frequency} GHz\n󰇚 {bandwidthDownBits}\n󰕒 {bandwidthUpBits}";
       tooltip-format-ethernet = "{ifname}\n󰇚 {bandwidthDownBits} \n󰕒 {bandwidthUpBits}";
-      on-click = "iwgtk& aplay ~/.config/sounds/interact.wav";
+      on-click = "~/.config/waybar/scripts/launch-wifi-manager.sh";
       format-icons = [
         "󰤫"
         "󰤟"

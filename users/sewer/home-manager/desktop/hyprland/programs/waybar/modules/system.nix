@@ -47,7 +47,7 @@
       format = " {percentage_used}%";
       tooltip = "{}";
       tooltip-format = "Free {free}";
-      on-click = "qdirstat & aplay ~/.config/sounds/interact.wav";
+      on-click = "~/.config/waybar/scripts/launch-disk-analyzer.sh";
       states = {
         warning = 85;
         critical = 95;

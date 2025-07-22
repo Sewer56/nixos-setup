@@ -17,7 +17,7 @@
           today = "<span color='#f5e0dc'><b><u>{}</u></b></span>";
         };
       };
-      on-click = "chromium --app=https://calendar.google.com & aplay ~/.config/sounds/interact.wav";
+      on-click = "~/.config/waybar/scripts/launch-calendar.sh";
     };
   };
 
