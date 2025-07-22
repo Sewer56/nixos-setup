@@ -53,6 +53,10 @@
       "telegram-desktop"
       "tidal"
       "thunderbird"
+
+      # iwgtk auto enables indicator via systemd service.
+      # I tried to kill it with overrideattrs, but no ball.
+      "pkill -f 'iwgtk -i'"
     ];
   };
 }
