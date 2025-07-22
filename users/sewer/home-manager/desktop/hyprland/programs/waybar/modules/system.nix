@@ -31,6 +31,8 @@
     temperature = {
       critical-threshold = 90;
       interval = 4;
+      # Laptop specific!
+      thermal-zone = 7;
       format = "{icon} {temperatureC}°";
       format-icons = [
         ""
