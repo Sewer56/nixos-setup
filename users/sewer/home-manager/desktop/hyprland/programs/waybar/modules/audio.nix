@@ -19,7 +19,7 @@
       on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
       on-click = "~/.config/waybar/scripts/launch-audio-control.sh";
       tooltip = true;
-      scroll-step = 5;
+      scroll-step = 0.1;
     };
 
     "pulseaudio#input" = {
