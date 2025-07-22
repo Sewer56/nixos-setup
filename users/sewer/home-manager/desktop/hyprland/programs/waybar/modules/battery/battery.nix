@@ -7,19 +7,19 @@
         critical = 10;
       };
       format = "{icon} {capacity}%";
-      format-charging = " {capacity}%";
+      format-charging = " {capacity}%";
       format-balanced = "balanced {capacity}%";
-      format-charging-full = " {capacity}%";
+      format-charging-full = " {capacity}%";
       format-full = "{icon} {capacity}%";
       format-icons = [
-        ""
-        ""
-        ""
-        ""
-        ""
+        ""
+        ""
+        ""
+        ""
+        ""
       ];
       tooltip = "{}";
-      tooltip-format = " {power}W";
+      tooltip-format = " {power}W";
     };
 
     "custom/battery" = {
