@@ -3,6 +3,7 @@
   home.packages = with pkgs; [
     # System utilities
     nemo
+    brightnessctl
 
     # Browser (user-specific)
     vivaldi
