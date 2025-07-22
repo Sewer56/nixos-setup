@@ -9,11 +9,12 @@
   };
 
   # Hyprland Window Manager (User Configuration)
+  xdg.autostart.enable = false;
   wayland.windowManager.hyprland = {
     enable = true;
     systemd = {
       enable = true;
-      enableXdgAutostart = true;
+      enableXdgAutostart = false;
     };
     xwayland.enable = true;
   };
