@@ -1,7 +1,10 @@
 {
   lib,
   osConfig,
+  pkgs,
   ...
 }: {
-  services.blueman-applet.enable = lib.mkIf (osConfig.hardware.bluetooth.enable or false) true;
+  home.packages = lib.mkIf (osConfig.hardware.bluetooth.enable or false) [
+    pkgs.overskride
+  ];
 }

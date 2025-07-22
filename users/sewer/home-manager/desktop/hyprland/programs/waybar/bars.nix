@@ -36,6 +36,7 @@
       "memory#swap"
       "disk"
       "network#info"
+      "bluetooth"
       "custom/spacer1"
       "pulseaudio#input"
       "pulseaudio#output"

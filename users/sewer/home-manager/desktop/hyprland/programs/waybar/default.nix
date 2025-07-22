@@ -5,6 +5,7 @@
   system = import ./modules/system.nix;
   audio = import ./modules/audio.nix;
   network = import ./modules/network.nix;
+  bluetooth = import ./modules/bluetooth.nix;
   battery = import ./modules/battery/battery.nix;
   clock = import ./modules/clock.nix;
   tray = import ./modules/tray.nix;
@@ -28,6 +29,7 @@ in {
         // system.config
         // audio.config
         // network.config
+        // bluetooth.config
         // battery.config
         // clock.config
         // tray.config
@@ -45,6 +47,7 @@ in {
       ${system.style}
       ${audio.style}
       ${network.style}
+      ${bluetooth.style}
       ${battery.style}
       ${clock.style}
       ${tray.style}
@@ -80,6 +83,10 @@ in {
     };
     "waybar/scripts/launch-disk-analyzer.sh" = {
       source = ./scripts/launch-disk-analyzer.sh;
+      executable = true;
+    };
+    "waybar/scripts/launch-bluetooth-manager.sh" = {
+      source = ./scripts/launch-bluetooth-manager.sh;
       executable = true;
     };
   };
