@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   # Audio packages
   environment.systemPackages = with pkgs; [
-    pavucontrol
+    pwvucontrol
   ];
 
   # rtkit (optional, recommended) allows Pipewire to use the realtime scheduler

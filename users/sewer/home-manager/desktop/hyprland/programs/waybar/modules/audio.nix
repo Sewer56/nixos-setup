@@ -16,8 +16,8 @@
           ""
         ];
       };
-      on-click-right = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
-      on-click = "pwvucontrol & aplay ~/.config/sounds/interact.wav";
+      on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+      on-click = "~/.config/waybar/scripts/launch-audio-control.sh";
       tooltip = true;
       scroll-step = 5;
     };
@@ -26,11 +26,11 @@
       format = " {format_source}%";
       format-source = "{volume}";
       format-source-muted = "{volume}";
-      on-scroll-up = "sh -c 'vol=$(pactl get-source-volume @DEFAULT_SOURCE@ | grep -oP \"\\d+(?=%)\" | head -1); if [ \"$vol\" -lt 100 ]; then pactl set-source-volume @DEFAULT_SOURCE@ +5%; fi'";
-      on-scroll-down = "pactl set-source-volume @DEFAULT_SOURCE@ -5%";
+      on-scroll-up = "~/.config/waybar/scripts/audio-input-volume-up.sh";
+      on-scroll-down = "~/.config/waybar/scripts/audio-input-volume-down.sh";
       max-volume = "100";
-      on-click-right = "pactl set-source-mute @DEFAULT_SOURCE@ toggle";
-      on-click = "pwvucontrol & aplay ~/.config/sounds/interact.wav";
+      on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
+      on-click = "~/.config/waybar/scripts/launch-audio-control.sh";
       tooltip-format = "{source_desc}";
     };
   };

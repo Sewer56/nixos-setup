@@ -31,11 +31,11 @@
 
       # Floating windows
       "float, title:^(Picture-in-Picture)$"
-      "float, class:^(pavucontrol)$"
+      "float, class:^(pwvucontrol)$"
       "float, class:^(nm-connection-editor)$"
 
       # Size rules for floating windows
-      "size 800 600, class:^(pavucontrol)$"
+      "size 800 600, class:^(pwvucontrol)$"
       "size 800 600, class:^(nm-connection-editor)$"
     ];
 
