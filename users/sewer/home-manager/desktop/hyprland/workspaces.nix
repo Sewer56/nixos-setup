@@ -53,6 +53,9 @@
       "telegram-desktop"
       "tidal"
       "thunderbird"
+
+      # Kill that wifi applet which I can't disable for the life of me.
+      "sleep 5 && pkill -f 'iwgtk -i'"
     ];
   };
 }
