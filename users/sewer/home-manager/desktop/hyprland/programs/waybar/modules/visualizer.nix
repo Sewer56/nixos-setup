@@ -45,6 +45,7 @@
   style = ''
     #waybar.bar #cava {
       font-size: 18pt;
+      /* Sink the bar into the border, so 100% audio doesn't cover whole bar. */
       margin-bottom: -10px;
       color: #45475a;
     }

@@ -15,9 +15,9 @@
       "custom/spacer3"
       "hyprland/submap"
       "hyprland/window"
-      "cava"
     ];
     modules-right = [
+      "cava"
       "custom/spacer1"
       "cpu"
       "temperature"
