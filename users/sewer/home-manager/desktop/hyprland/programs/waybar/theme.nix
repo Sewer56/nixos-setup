@@ -63,9 +63,7 @@
 
   moduleBaseStyle = ''
     #waybar.bar #custom-battery,
-    #waybar.bar #keyboard-state,
     #waybar.bar #network,
-    #waybar.bar #battery,
     #waybar.bar #backlight,
     #waybar.bar #clock,
     #waybar.bar #cpu,
@@ -92,8 +90,7 @@
     #waybar.bar #memory.swap.critical,
     #waybar.bar #memory.ram.critical,
     #waybar.bar #cpu.critical,
-    #waybar.bar #temperature.critical,
-    #waybar.bar #battery.critical.discharging {
+    #waybar.bar #temperature.critical {
       color: #45475a;
       animation-iteration-count: infinite;
       animation-direction: alternate;
@@ -104,8 +101,7 @@
   '';
 
   chargingAnimationStyle = ''
-    #waybar.bar #custom-battery.charging,
-    #waybar.bar #battery.charging {
+    #waybar.bar #custom-battery.charging {
       color: #94e2d5;
       animation-iteration-count: infinite;
       animation-direction: alternate;

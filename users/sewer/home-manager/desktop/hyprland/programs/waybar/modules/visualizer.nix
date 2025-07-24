@@ -1,20 +1,5 @@
 {
   config = {
-    "custom/spacer1" = {
-      format = " \\\\ ";
-      tooltip = false;
-    };
-
-    "custom/spacer2" = {
-      format = " ";
-      tooltip = false;
-    };
-
-    "custom/spacer3" = {
-      format = " // ";
-      tooltip = false;
-    };
-
     cava = {
       framerate = 60;
       autosens = 1;
@@ -28,6 +13,7 @@
       noise_reduction = 0.25;
       input_delay = 0;
       hide_on_silence = true;
+      monstercat = true;
       format-icons = [
         "▁"
         "▂"
@@ -53,22 +39,10 @@
         "█"
         "█"
       ];
-      actions = {
-        on-click-right = "mode";
-      };
     };
   };
 
   style = ''
-    #waybar.bar #custom-spacer1,
-    #waybar.bar #custom-spacer2,
-    #waybar.bar #custom-spacer3 {
-      font-size: 10pt;
-      font-weight: bold;
-      color: #45475a;
-      background: transparent;
-    }
-
     #waybar.bar #cava {
       font-size: 18pt;
       margin-bottom: -10px;

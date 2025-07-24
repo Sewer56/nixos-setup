@@ -10,7 +10,8 @@
   clock = import ./modules/clock.nix;
   tray = import ./modules/tray.nix;
   backlight = import ./modules/backlight.nix;
-  custom = import ./modules/custom.nix;
+  spacers = import ./modules/spacers.nix;
+  visualizer = import ./modules/visualizer.nix;
   uptime = import ./modules/uptime.nix;
 in {
   home.packages = with pkgs; [
@@ -34,7 +35,8 @@ in {
         // clock.config
         // tray.config
         // backlight.config
-        // custom.config
+        // spacers.config
+        // visualizer.config
         // uptime.config
       )
     ];
@@ -53,7 +55,8 @@ in {
       ${clock.style}
       ${tray.style}
       ${backlight.style}
-      ${custom.style}
+      ${spacers.style}
+      ${visualizer.style}
       ${uptime.style}
     '';
   };

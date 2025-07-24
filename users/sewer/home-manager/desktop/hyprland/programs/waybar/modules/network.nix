@@ -21,23 +21,6 @@
         normal = 25;
       };
     };
-
-    "network#up" = {
-      interval = 4;
-      format = " ";
-      format-wifi = "󰕒 {bandwidthUpBits}";
-      format-ethernet = "󰕒 {bandwidthUpBits}";
-      format-disconnected = " ";
-      min-length = 11;
-    };
-
-    "network#down" = {
-      interval = 4;
-      format = "󰇚 {bandwidthDownBits}";
-      format-wifi = "󰇚 {bandwidthDownBits}";
-      format-ethernet = "󰇚 {bandwidthDownBits}";
-      min-length = 11;
-    };
   };
 
   style = ''

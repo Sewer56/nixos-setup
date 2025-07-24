@@ -1,27 +1,5 @@
 {
   config = {
-    battery = {
-      interval = 5;
-      states = {
-        warning = 20;
-        critical = 10;
-      };
-      format = "{icon} {capacity}%";
-      format-charging = " {capacity}%";
-      format-balanced = "balanced {capacity}%";
-      format-charging-full = " {capacity}%";
-      format-full = "{icon} {capacity}%";
-      format-icons = [
-        ""
-        ""
-        ""
-        ""
-        ""
-      ];
-      tooltip = "{}";
-      tooltip-format = " {power}W";
-    };
-
     "custom/battery" = {
       interval = 5;
       return-type = "json";
@@ -35,13 +13,11 @@
   };
 
   style = ''
-    #waybar.bar #custom-battery,
-    #waybar.bar #battery {
+    #waybar.bar #custom-battery {
       color: #94e2d5;
     }
 
-    #waybar.bar #custom-battery.warning,
-    #waybar.bar #battery.warning.discharging {
+    #waybar.bar #custom-battery.warning {
       color: #f38ba8;
     }
   '';
