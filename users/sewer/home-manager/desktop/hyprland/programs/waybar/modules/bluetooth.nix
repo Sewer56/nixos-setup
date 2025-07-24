@@ -14,17 +14,17 @@
   };
 
   style = ''
-    #waybar.first #bluetooth {
+    #waybar.bar #bluetooth {
       color: #f5c2e7;
       padding-right: 15px;
     }
 
-    #waybar.first #bluetooth.disabled {
+    #waybar.bar #bluetooth.disabled {
       color: #45475a;
       padding-right: 15px;
     }
 
-    #waybar.first #bluetooth.off {
+    #waybar.bar #bluetooth.off {
       color: #45475a;
       padding-right: 15px;
     }

@@ -58,11 +58,11 @@
   };
 
   style = ''
-    #waybar.first #cpu,
-    #waybar.first #temperature,
-    #waybar.first #memory.ram,
-    #waybar.first #memory.swap,
-    #waybar.first #disk {
+    #waybar.bar #cpu,
+    #waybar.bar #temperature,
+    #waybar.bar #memory.ram,
+    #waybar.bar #memory.swap,
+    #waybar.bar #disk {
       color: #f5c2e7;
     }
   '';

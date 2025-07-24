@@ -15,7 +15,7 @@
   };
 
   style = ''
-    #waybar.first #backlight {
+    #waybar.bar #backlight {
       color: #94e2d5;
     }
   '';

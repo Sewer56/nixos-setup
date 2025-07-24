@@ -22,7 +22,7 @@
   };
 
   style = ''
-    #waybar.first #clock {
+    #waybar.bar #clock {
       color: #a6e3a1;
     }
   '';

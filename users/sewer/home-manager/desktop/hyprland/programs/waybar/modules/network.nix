@@ -41,24 +41,24 @@
   };
 
   style = ''
-    #waybar.first #network {
+    #waybar.bar #network {
       color: #f5c2e7;
     }
 
-    #waybar.first #network.info {
+    #waybar.bar #network.info {
       padding-right: 10px;
       padding-left: 10px;
       color: #45475a;
       background: transparent;
     }
 
-    #waybar.first #network.info.wifi.normal,
-    #waybar.first #network.info.ethernet {
+    #waybar.bar #network.info.wifi.normal,
+    #waybar.bar #network.info.ethernet {
       color: #f5c2e7;
       padding-right: 15px;
     }
 
-    #waybar.first #network.info.wifi {
+    #waybar.bar #network.info.wifi {
       color: #f38ba8;
       padding-right: 15px;
     }

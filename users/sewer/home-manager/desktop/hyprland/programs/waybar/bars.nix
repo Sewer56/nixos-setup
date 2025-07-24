@@ -2,7 +2,7 @@
   mainBar = {
     layer = "top";
     position = "top";
-    name = "first";
+    name = "bar";
     margin-top = 8;
     margin-left = 24;
     margin-right = 24;
@@ -38,7 +38,7 @@
   };
 
   mainBarStyle = ''
-    #waybar.first {
+    #waybar.bar {
       background: rgba(21, 21, 32, 0.75);
       border: 2.5px solid #45475a;
       border-radius: 8pt;

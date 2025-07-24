@@ -35,13 +35,13 @@
   };
 
   style = ''
-    #waybar.first #custom-battery,
-    #waybar.first #battery {
+    #waybar.bar #custom-battery,
+    #waybar.bar #battery {
       color: #94e2d5;
     }
 
-    #waybar.first #custom-battery.warning,
-    #waybar.first #battery.warning.discharging {
+    #waybar.bar #custom-battery.warning,
+    #waybar.bar #battery.warning.discharging {
       color: #f38ba8;
     }
   '';

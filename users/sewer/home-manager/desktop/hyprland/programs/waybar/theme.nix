@@ -35,13 +35,13 @@
       }
     }
 
-    #waybar.first {
+    #waybar.bar {
       font-family: "JetBrains Mono Nerd Font";
       font-size: 10pt;
       font-weight: 500;
     }
 
-    #waybar.first button {
+    #waybar.bar button {
       font-family: JetBrains Mono Nerd Font;
       font-size: 12pt;
       font-weight: 500;
@@ -54,7 +54,7 @@
       border-radius: 8px;
     }
 
-    #waybar.first #tray menu {
+    #waybar.bar #tray menu {
       background: rgba(21, 21, 32, 0.75);
       border: 3px solid #45475a;
       border-radius: 8px;
@@ -62,21 +62,21 @@
   '';
 
   moduleBaseStyle = ''
-    #waybar.first #custom-battery,
-    #waybar.first #keyboard-state,
-    #waybar.first #network,
-    #waybar.first #battery,
-    #waybar.first #backlight,
-    #waybar.first #clock,
-    #waybar.first #cpu,
-    #waybar.first #memory.swap,
-    #waybar.first #memory.ram,
-    #waybar.first #submap,
-    #waybar.first #pulseaudio,
-    #waybar.first #temperature,
-    #waybar.first #tray,
-    #waybar.first #window,
-    #waybar.first #disk {
+    #waybar.bar #custom-battery,
+    #waybar.bar #keyboard-state,
+    #waybar.bar #network,
+    #waybar.bar #battery,
+    #waybar.bar #backlight,
+    #waybar.bar #clock,
+    #waybar.bar #cpu,
+    #waybar.bar #memory.swap,
+    #waybar.bar #memory.ram,
+    #waybar.bar #submap,
+    #waybar.bar #pulseaudio,
+    #waybar.bar #temperature,
+    #waybar.bar #tray,
+    #waybar.bar #window,
+    #waybar.bar #disk {
       padding-left: 8pt;
       padding-right: 8pt;
       padding-bottom: 4px;
@@ -86,14 +86,14 @@
   '';
 
   criticalAnimationStyle = ''
-    #waybar.first #custom-battery.critical,
-    #waybar.first #workspaces button.urgent,
-    #waybar.first #workspaces button.special.urgent,
-    #waybar.first #memory.swap.critical,
-    #waybar.first #memory.ram.critical,
-    #waybar.first #cpu.critical,
-    #waybar.first #temperature.critical,
-    #waybar.first #battery.critical.discharging {
+    #waybar.bar #custom-battery.critical,
+    #waybar.bar #workspaces button.urgent,
+    #waybar.bar #workspaces button.special.urgent,
+    #waybar.bar #memory.swap.critical,
+    #waybar.bar #memory.ram.critical,
+    #waybar.bar #cpu.critical,
+    #waybar.bar #temperature.critical,
+    #waybar.bar #battery.critical.discharging {
       color: #45475a;
       animation-iteration-count: infinite;
       animation-direction: alternate;
@@ -104,8 +104,8 @@
   '';
 
   chargingAnimationStyle = ''
-    #waybar.first #custom-battery.charging,
-    #waybar.first #battery.charging {
+    #waybar.bar #custom-battery.charging,
+    #waybar.bar #battery.charging {
       color: #94e2d5;
       animation-iteration-count: infinite;
       animation-direction: alternate;

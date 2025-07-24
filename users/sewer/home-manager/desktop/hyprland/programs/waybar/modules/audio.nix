@@ -36,12 +36,12 @@
   };
 
   style = ''
-    #waybar.first #pulseaudio {
+    #waybar.bar #pulseaudio {
       color: #cba6f7;
     }
 
-    #waybar.first #pulseaudio.output.muted,
-    #waybar.first #pulseaudio.input.source-muted {
+    #waybar.bar #pulseaudio.output.muted,
+    #waybar.bar #pulseaudio.input.source-muted {
       color: #45475a;
     }
   '';

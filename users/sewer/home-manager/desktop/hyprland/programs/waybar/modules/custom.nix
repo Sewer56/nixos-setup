@@ -60,16 +60,16 @@
   };
 
   style = ''
-    #waybar.first #custom-spacer1,
-    #waybar.first #custom-spacer2,
-    #waybar.first #custom-spacer3 {
+    #waybar.bar #custom-spacer1,
+    #waybar.bar #custom-spacer2,
+    #waybar.bar #custom-spacer3 {
       font-size: 10pt;
       font-weight: bold;
       color: #45475a;
       background: transparent;
     }
 
-    #waybar.first #cava {
+    #waybar.bar #cava {
       font-size: 18pt;
       margin-bottom: -10px;
       color: #45475a;

@@ -10,7 +10,7 @@
   };
 
   style = ''
-    #waybar.first #custom-uptime {
+    #waybar.bar #custom-uptime {
       color: #94e2d5;
     }
   '';

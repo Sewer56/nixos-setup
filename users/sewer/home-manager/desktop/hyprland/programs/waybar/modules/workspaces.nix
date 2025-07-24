@@ -31,7 +31,7 @@
   };
 
   style = ''
-    #waybar.first #workspaces button {
+    #waybar.bar #workspaces button {
       color: #45475a;
       background: transparent;
       border: 1.5px solid transparent;
@@ -46,20 +46,20 @@
       transition: all 0.25s ease;
     }
 
-    #waybar.first #workspaces button.visible {
+    #waybar.bar #workspaces button.visible {
       color: #b4befe;
     }
 
-    #waybar.first #workspaces button.active {
+    #waybar.bar #workspaces button.active {
       color: #b4befe;
       border: 1.5px solid #45475a;
     }
 
-    #waybar.first #workspaces button:hover {
+    #waybar.bar #workspaces button:hover {
       color: #b4befe;
     }
 
-    #waybar.first #workspaces button.special.active {
+    #waybar.bar #workspaces button.special.active {
       border: 1.5px solid transparent;
       color: #b4befe;
       transition: all 0s ease;
@@ -70,7 +70,7 @@
       animation-timing-function: steps(15);
     }
 
-    #waybar.first #submap.RESIZE {
+    #waybar.bar #submap.RESIZE {
       color: #eba0ac;
       animation-iteration-count: infinite;
       animation-direction: alternate;
@@ -79,7 +79,7 @@
       animation-timing-function: steps(15);
     }
 
-    #waybar.first #window {
+    #waybar.bar #window {
       color: #b4befe;
       margin-top: -0px;
     }
