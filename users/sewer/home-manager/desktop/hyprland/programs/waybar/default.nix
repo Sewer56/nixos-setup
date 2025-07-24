@@ -17,6 +17,9 @@ in {
     nerd-fonts.jetbrains-mono
   ];
 
+  # For Visualizer
+  programs.cava.enable = true;
+
   programs.waybar = {
     enable = true;
     settings = [

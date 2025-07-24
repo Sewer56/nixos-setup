@@ -16,7 +16,7 @@
     };
 
     cava = {
-      framerate = 45;
+      framerate = 60;
       autosens = 1;
       bars = 24;
       lower_cutoff_freq = 50;

@@ -15,6 +15,7 @@
       "custom/spacer3"
       "hyprland/submap"
       "hyprland/window"
+      "cava"
     ];
     modules-right = [
       "custom/spacer1"
