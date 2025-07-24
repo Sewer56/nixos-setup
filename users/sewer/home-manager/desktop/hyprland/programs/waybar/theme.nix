@@ -36,7 +36,6 @@
     }
 
     #waybar.first {
-      background: transparent;
       font-family: "JetBrains Mono Nerd Font";
       font-size: 10pt;
       font-weight: 500;

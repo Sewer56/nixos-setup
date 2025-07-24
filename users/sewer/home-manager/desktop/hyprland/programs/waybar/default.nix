@@ -20,10 +20,6 @@ in {
   programs.waybar = {
     enable = true;
     settings = [
-      (bars.indicatorBar
-        // {
-          battery = battery.config.battery;
-        })
       (
         bars.mainBar
         // workspaces.config
@@ -44,7 +40,7 @@ in {
       ${theme.moduleBaseStyle}
       ${theme.criticalAnimationStyle}
       ${theme.chargingAnimationStyle}
-      ${bars.indicatorBarStyle}
+      ${bars.mainBarStyle}
       ${workspaces.style}
       ${system.style}
       ${audio.style}
