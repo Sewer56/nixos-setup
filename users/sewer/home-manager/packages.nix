@@ -3,6 +3,7 @@
   home.packages = with pkgs; [
     # System utilities
     nemo
+    brightnessctl
 
     # Browser (user-specific)
     vivaldi
@@ -14,6 +15,11 @@
 
     # General Tools
     qalculate-gtk
+    qdirstat
+    iwgtk
+
+    # Desktop environment
+    waybar
 
     # Fonts
     inter

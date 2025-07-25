@@ -9,4 +9,6 @@
     ./packages.nix
     ./security.nix
   ];
+
+  hardware.enableAllFirmware = true;
 }

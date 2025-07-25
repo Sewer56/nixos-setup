@@ -1,4 +1,35 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  touchpadToggle = pkgs.writeShellScript "touchpad-toggle" ''
+    #!/usr/bin/env bash
+
+    # Touchpad toggle script for Hyprland
+    # Toggles the touchpad on/off using hyprctl
+
+    # Find the touchpad device name
+    TOUCHPAD=$(hyprctl devices | grep touchpad | sed "s/^[[:space:]]*//")
+
+    if [ -z "$TOUCHPAD" ]; then
+        echo "No touchpad found"
+        exit 1
+    fi
+
+    # State file to track touchpad status
+    STATE_FILE="/tmp/touchpad_enabled"
+
+    # Toggle touchpad based on state file
+    if [ -f "$STATE_FILE" ]; then
+        # Touchpad is currently disabled, enable it
+        hyprctl keyword "device[$TOUCHPAD]:enabled" true
+        rm "$STATE_FILE"
+        echo "Touchpad enabled"
+    else
+        # Touchpad is currently enabled, disable it
+        hyprctl keyword "device[$TOUCHPAD]:enabled" false
+        touch "$STATE_FILE"
+        echo "Touchpad disabled"
+    fi
+  '';
+in {
   home.packages = with pkgs; [
     playerctl # Music controls.
     killall
@@ -108,10 +139,16 @@
       # Mouse button volume controls
       ", mouse:281, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
       ", mouse:282, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+      # Brightness controls
+      ", XF86MonBrightnessUp, exec, brightnessctl set 5%+"
+      ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
     ];
 
     bindl = [
       ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+      ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+      # XF86TouchpadToggle . Broken on hyprland.
+      ", code:269025193, exec, ${touchpadToggle}"
       ", XF86AudioPlay, exec, playerctl play-pause"
       ", XF86AudioNext, exec, playerctl next"
       ", XF86AudioPrev, exec, playerctl previous"
