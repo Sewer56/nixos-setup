@@ -75,13 +75,10 @@
     #waybar.bar #cpu,
     #waybar.bar #temperature,
     #waybar.bar #group-memory-storage,
+    #waybar.bar .memory-storage-drawer
     #waybar.bar #memory.ram,
     #waybar.bar #memory.swap,
     #waybar.bar #disk {
-      color: #f5c2e7;
-    }
-
-    #waybar.bar .memory-storage-drawer {
       color: #f5c2e7;
     }
   '';

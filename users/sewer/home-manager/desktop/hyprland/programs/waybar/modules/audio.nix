@@ -1,7 +1,20 @@
 {
   config = {
+    "group/audio" = {
+      orientation = "horizontal";
+      drawer = {
+        transition-duration = 300;
+        children-class = "audio-drawer";
+        transition-left-to-right = true;
+      };
+      modules = [
+        "pulseaudio#output"
+        "pulseaudio#input"
+      ];
+    };
+
     "pulseaudio#output" = {
-      format = "{icon} {volume}%";
+      format = "{icon}  {volume}%";
       format-bluetooth = "{icon} {volume}%";
       format-source-muted = "{volume}";
       format-icons = {
@@ -36,7 +49,9 @@
   };
 
   style = ''
-    #waybar.bar #pulseaudio {
+    #waybar.bar #group-audio,
+    #waybar.bar #pulseaudio
+    #waybar.bar .audio-drawer {
       color: #cba6f7;
     }
 
