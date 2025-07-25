@@ -2,10 +2,10 @@ catppuccin: {
   colors = {
     background = "rgba(21, 21, 32, 0.75)";
     warning = catppuccin.red;
-    caution = catppuccin.surface1;
+    border = catppuccin.surface1;
     performance = catppuccin.pink;
     audio = catppuccin.mauve;
-    misc = catppuccin.teal;
+    power = catppuccin.teal;
     date = catppuccin.green;
     work = catppuccin.lavender;
     window = catppuccin.lavender;

@@ -14,7 +14,7 @@ theme: {
 
   style = ''
     #waybar.bar #custom-battery {
-      color: ${theme.colors.misc};
+      color: ${theme.colors.power};
     }
 
     #waybar.bar #custom-battery.warning {

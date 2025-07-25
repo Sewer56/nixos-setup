@@ -31,7 +31,7 @@ theme: {
     #waybar.bar #network.info {
       padding-right: 10px;
       padding-left: 10px;
-      color: ${theme.colors.caution};
+      color: ${theme.colors.border};
       background: transparent;
     }
 

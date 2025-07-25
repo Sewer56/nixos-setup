@@ -32,7 +32,7 @@ theme: {
 
   style = ''
     #waybar.bar #workspaces button {
-      color: ${theme.colors.caution};
+      color: ${theme.colors.border};
       background: transparent;
       border: 1.5px solid transparent;
       font-size: 10pt;
@@ -52,7 +52,7 @@ theme: {
 
     #waybar.bar #workspaces button.active {
       color: ${theme.colors.work};
-      border: 1.5px solid ${theme.colors.caution};
+      border: 1.5px solid ${theme.colors.border};
     }
 
     #waybar.bar #workspaces button:hover {

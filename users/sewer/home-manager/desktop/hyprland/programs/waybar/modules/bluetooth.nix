@@ -20,12 +20,12 @@ theme: {
     }
 
     #waybar.bar #bluetooth.disabled {
-      color: ${theme.colors.caution};
+      color: ${theme.colors.border};
       padding-right: 15px;
     }
 
     #waybar.bar #bluetooth.off {
-      color: ${theme.colors.caution};
+      color: ${theme.colors.border};
       padding-right: 15px;
     }
   '';

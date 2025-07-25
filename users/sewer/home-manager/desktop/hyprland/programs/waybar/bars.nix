@@ -39,7 +39,7 @@ theme: {
   mainBarStyle = ''
     #waybar.bar {
       background: rgba(21, 21, 32, 0.75);
-      border: 2.5px solid ${theme.colors.caution};
+      border: 2.5px solid ${theme.colors.border};
       border-radius: 8pt;
     }
   '';

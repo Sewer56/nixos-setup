@@ -57,7 +57,7 @@ theme: {
 
     #waybar.bar #pulseaudio.output.muted,
     #waybar.bar #pulseaudio.input.source-muted {
-      color: ${theme.colors.caution};
+      color: ${theme.colors.border};
     }
   '';
 }

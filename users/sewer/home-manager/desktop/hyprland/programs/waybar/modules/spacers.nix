@@ -22,7 +22,7 @@ theme: {
     #waybar.bar #custom-spacer3 {
       font-size: 10pt;
       font-weight: bold;
-      color: ${theme.colors.caution};
+      color: ${theme.colors.border};
       background: transparent;
     }
   '';

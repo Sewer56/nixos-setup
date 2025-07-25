@@ -16,7 +16,7 @@ theme: {
 
   style = ''
     #waybar.bar #backlight {
-      color: ${theme.colors.misc};
+      color: ${theme.colors.power};
     }
   '';
 }

@@ -12,7 +12,7 @@ theme: {
         format = {
           months = "<span color='${theme.colors.audio}'><b>{}</b></span>";
           days = "<span color='${theme.colors.text}'><b>{}</b></span>";
-          weeks = "<span color='${theme.colors.misc}'> W{}</span>";
+          weeks = "<span color='${theme.colors.power}'> W{}</span>";
           weekdays = "<span color='${theme.colors.yellow}'><b>{}</b></span>";
           today = "<span color='${theme.colors.rosewater}'><b><u>{}</u></b></span>";
         };

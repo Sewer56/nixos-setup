@@ -11,7 +11,7 @@ theme: {
 
   style = ''
     #waybar.bar #custom-uptime {
-      color: ${theme.colors.misc};
+      color: ${theme.colors.power};
     }
   '';
 }
