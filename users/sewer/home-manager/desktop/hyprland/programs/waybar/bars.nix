@@ -17,7 +17,6 @@
       "hyprland/window"
     ];
     modules-right = [
-      "cava"
       "custom/spacer1"
       "cpu"
       "temperature"
