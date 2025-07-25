@@ -122,4 +122,14 @@
 
   # Convenience accessor for current flavor colors
   config.lib.catppuccin.colors = config.lib.catppuccin.palette.${config.catppuccin.flavor};
+
+  # Helper functions for hyprland color format conversion
+  config.lib.catppuccin.helpers = {
+    # Convert hex color (#rrggbb) to hyprland rgb format: rgb(rrggbb)
+    hexToRgb = hex: "rgb(${builtins.substring 1 6 hex})";
+
+    # Convert hex color (#rrggbb) to hyprland rgba format: rgba(rrggbbaa)
+    # alpha is hex string (00-ff)
+    hexToRgba = hex: alpha: "rgba(${builtins.substring 1 6 hex}${alpha})";
+  };
 }

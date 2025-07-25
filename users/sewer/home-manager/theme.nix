@@ -1,4 +1,8 @@
-{inputs, config, ...}: {
+{
+  inputs,
+  config,
+  ...
+}: {
   imports = [
     inputs.catppuccin.homeModules.catppuccin
   ];
@@ -10,6 +14,7 @@
 
   # Disable Catppuccin rofi theme (using custom theme instead)
   catppuccin.rofi.enable = false;
+  catppuccin.hyprlock.enable = false;
 
   # Enable Catppuccin for Cursors
   catppuccin.cursors.enable = true;
