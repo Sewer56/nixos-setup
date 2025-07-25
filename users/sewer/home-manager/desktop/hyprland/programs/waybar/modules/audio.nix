@@ -50,7 +50,7 @@
 
   style = ''
     #waybar.bar #group-audio,
-    #waybar.bar #pulseaudio
+    #waybar.bar #pulseaudio,
     #waybar.bar .audio-drawer {
       color: #cba6f7;
     }
