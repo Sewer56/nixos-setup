@@ -1,4 +1,4 @@
-{inputs, ...}: {
+{inputs, config, ...}: {
   imports = [
     inputs.catppuccin.homeModules.catppuccin
   ];
@@ -8,11 +8,15 @@
   catppuccin.flavor = "mocha";
   catppuccin.accent = "lavender";
 
-  # Enable Catppuccin for Hyprland
-  catppuccin.hyprland.enable = true;
-
   # Disable Catppuccin rofi theme (using custom theme instead)
   catppuccin.rofi.enable = false;
+
+  # Enable Catppuccin for Cursors
+  catppuccin.cursors.enable = true;
+  home.sessionVariables = {
+    HYPRCURSOR_SIZE = config.home.pointerCursor.size;
+    HYPRCURSOR_THEME = "catppuccin-${config.catppuccin.flavor}-${config.catppuccin.accent}-cursors";
+  };
 
   # This is technically deprecated.
   catppuccin.gtk.enable = true;
