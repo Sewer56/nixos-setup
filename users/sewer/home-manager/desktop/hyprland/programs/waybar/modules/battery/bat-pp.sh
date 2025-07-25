@@ -7,11 +7,11 @@ MODE=$1
 if [[ $MODE == "toggle" ]]; then
     PROFILE=$(powerprofilesctl get)
     if [[ $PROFILE == "power-saver" ]]; then
-        powerprofilesctl set performance &
-    elif [[ $PROFILE == "balanced" ]]; then
-        powerprofilesctl set power-saver &
-    else
         powerprofilesctl set balanced &
+    elif [[ $PROFILE == "balanced" ]]; then
+        powerprofilesctl set performance &
+    else
+        powerprofilesctl set power-saver &
     fi
 fi
 
@@ -50,11 +50,11 @@ if [[ $MODE == "refresh" ]]; then
     # Nerd font used in this case.
     PROFILE=$(powerprofilesctl get)
     case "$PROFILE" in
-        performance) PROFILE=$" 󱀚"
+        performance) PROFILE=$" 󰓅"
             ;;
-        balanced) PROFILE=$" "
+        balanced) PROFILE=$" 󰾅"
             ;;
-        power-saver) PROFILE=$" "
+        power-saver) PROFILE=$" 󰾆"
             ;;
     esac
 
