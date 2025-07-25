@@ -1,9 +1,9 @@
 {
   mainBar = {
     layer = "top";
-    position = "top";
+    position = "bottom";
     name = "bar";
-    margin-top = 8;
+    mode = "hide";
     margin-left = 24;
     margin-right = 24;
     modules-left = [
