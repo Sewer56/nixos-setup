@@ -10,6 +10,20 @@
       };
     };
 
+    "group/memory-storage" = {
+      orientation = "horizontal";
+      drawer = {
+        transition-duration = 300;
+        children-class = "memory-storage-drawer";
+        transition-left-to-right = true;
+      };
+      modules = [
+        "memory#ram"
+        "memory#swap"
+        "disk"
+      ];
+    };
+
     "memory#ram" = {
       interval = 4;
       format = " {percentage}%";
@@ -60,9 +74,14 @@
   style = ''
     #waybar.bar #cpu,
     #waybar.bar #temperature,
+    #waybar.bar #group-memory-storage,
     #waybar.bar #memory.ram,
     #waybar.bar #memory.swap,
     #waybar.bar #disk {
+      color: #f5c2e7;
+    }
+
+    #waybar.bar .memory-storage-drawer {
       color: #f5c2e7;
     }
   '';
