@@ -66,6 +66,7 @@ catppuccin: {
 
   moduleBaseStyle = ''
     #waybar.bar #custom-battery,
+    #waybar.bar #custom-uptime,
     #waybar.bar #network,
     #waybar.bar #backlight,
     #waybar.bar #clock,
