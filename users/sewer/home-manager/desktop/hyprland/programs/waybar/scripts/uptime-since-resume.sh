@@ -2,7 +2,7 @@
 # Script to calculate uptime since last resume from suspend/hibernate
 # Used by waybar uptime widget
 
-TIMESTAMP_FILE="/var/log/last-resume"
+TIMESTAMP_FILE="/tmp/last-resume"
 
 # Function to format seconds into human-readable time
 format_time() {

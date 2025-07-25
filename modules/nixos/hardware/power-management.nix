@@ -37,7 +37,7 @@
       # Systemd sleep hook for tracking resume timestamps
       # Used by waybar uptime widget to show time since last resume
 
-      TIMESTAMP_FILE="/var/log/last-resume"
+      TIMESTAMP_FILE="/tmp/last-resume"
 
       case "$1" in
         post)
