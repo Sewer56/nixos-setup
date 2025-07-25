@@ -4,6 +4,8 @@
     position = "bottom";
     name = "bar";
     mode = "hide";
+    # Bar will stretch to actual needed width.
+    width = 2;
     margin-left = 24;
     margin-right = 24;
     modules-left = [

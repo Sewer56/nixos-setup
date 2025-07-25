@@ -83,5 +83,9 @@
       color: #b4befe;
       margin-top: -0px;
     }
+
+    #waybar.bar #window {
+      min-width: 300px;
+    }
   '';
 }
