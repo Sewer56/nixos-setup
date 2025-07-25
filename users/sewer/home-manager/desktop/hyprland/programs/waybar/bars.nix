@@ -1,4 +1,4 @@
-{
+theme: {
   mainBar = {
     layer = "top";
     position = "bottom";
@@ -39,7 +39,7 @@
   mainBarStyle = ''
     #waybar.bar {
       background: rgba(21, 21, 32, 0.75);
-      border: 2.5px solid #45475a;
+      border: 2.5px solid ${theme.colors.caution};
       border-radius: 8pt;
     }
   '';

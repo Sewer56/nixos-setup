@@ -1,4 +1,4 @@
-{
+theme: {
   config = {
     "hyprland/workspaces" = {
       disable-scroll-wraparound = true;
@@ -32,7 +32,7 @@
 
   style = ''
     #waybar.bar #workspaces button {
-      color: #45475a;
+      color: ${theme.colors.caution};
       background: transparent;
       border: 1.5px solid transparent;
       font-size: 10pt;
@@ -47,21 +47,21 @@
     }
 
     #waybar.bar #workspaces button.visible {
-      color: #b4befe;
+      color: ${theme.colors.work};
     }
 
     #waybar.bar #workspaces button.active {
-      color: #b4befe;
-      border: 1.5px solid #45475a;
+      color: ${theme.colors.work};
+      border: 1.5px solid ${theme.colors.caution};
     }
 
     #waybar.bar #workspaces button:hover {
-      color: #b4befe;
+      color: ${theme.colors.work};
     }
 
     #waybar.bar #workspaces button.special.active {
       border: 1.5px solid transparent;
-      color: #b4befe;
+      color: ${theme.colors.work};
       transition: all 0s ease;
       animation-iteration-count: infinite;
       animation-direction: alternate;
@@ -71,7 +71,7 @@
     }
 
     #waybar.bar #submap.RESIZE {
-      color: #eba0ac;
+      color: ${theme.colors.resize};
       animation-iteration-count: infinite;
       animation-direction: alternate;
       animation-name: blink-modifier-text;
@@ -80,7 +80,7 @@
     }
 
     #waybar.bar #window {
-      color: #b4befe;
+      color: ${theme.colors.work};
       margin-top: -0px;
     }
 

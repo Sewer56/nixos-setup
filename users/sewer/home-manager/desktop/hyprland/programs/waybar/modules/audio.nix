@@ -1,4 +1,4 @@
-{
+theme: {
   config = {
     "group/audio" = {
       orientation = "horizontal";
@@ -52,12 +52,12 @@
     #waybar.bar #group-audio,
     #waybar.bar #pulseaudio,
     #waybar.bar .audio-drawer {
-      color: #cba6f7;
+      color: ${theme.colors.audio};
     }
 
     #waybar.bar #pulseaudio.output.muted,
     #waybar.bar #pulseaudio.input.source-muted {
-      color: #45475a;
+      color: ${theme.colors.caution};
     }
   '';
 }

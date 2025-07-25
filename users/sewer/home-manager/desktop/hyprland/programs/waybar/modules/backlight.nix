@@ -1,4 +1,4 @@
-{
+theme: {
   config = {
     backlight = {
       device = "intel_backlight";
@@ -16,7 +16,7 @@
 
   style = ''
     #waybar.bar #backlight {
-      color: #94e2d5;
+      color: ${theme.colors.misc};
     }
   '';
 }

@@ -1,4 +1,4 @@
-{
+theme: {
   config = {
     "network#info" = {
       interval = 2;
@@ -25,24 +25,24 @@
 
   style = ''
     #waybar.bar #network {
-      color: #f5c2e7;
+      color: ${theme.colors.performance};
     }
 
     #waybar.bar #network.info {
       padding-right: 10px;
       padding-left: 10px;
-      color: #45475a;
+      color: ${theme.colors.caution};
       background: transparent;
     }
 
     #waybar.bar #network.info.wifi.normal,
     #waybar.bar #network.info.ethernet {
-      color: #f5c2e7;
+      color: ${theme.colors.performance};
       padding-right: 15px;
     }
 
     #waybar.bar #network.info.wifi {
-      color: #f38ba8;
+      color: ${theme.colors.warning};
       padding-right: 15px;
     }
   '';

@@ -1,4 +1,4 @@
-{
+theme: {
   config = {
     "bluetooth" = {
       format = "󰂯";
@@ -15,17 +15,17 @@
 
   style = ''
     #waybar.bar #bluetooth {
-      color: #f5c2e7;
+      color: ${theme.colors.performance};
       padding-right: 15px;
     }
 
     #waybar.bar #bluetooth.disabled {
-      color: #45475a;
+      color: ${theme.colors.caution};
       padding-right: 15px;
     }
 
     #waybar.bar #bluetooth.off {
-      color: #45475a;
+      color: ${theme.colors.caution};
       padding-right: 15px;
     }
   '';

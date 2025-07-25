@@ -1,18 +1,23 @@
-{pkgs, ...}: let
-  theme = import ./theme.nix;
-  bars = import ./bars.nix;
-  workspaces = import ./modules/workspaces.nix;
-  system = import ./modules/system.nix;
-  audio = import ./modules/audio.nix;
-  network = import ./modules/network.nix;
-  bluetooth = import ./modules/bluetooth.nix;
-  battery = import ./modules/battery/battery.nix;
-  clock = import ./modules/clock.nix;
+{
+  config,
+  pkgs,
+  ...
+}: let
+  catppuccin = config.lib.catppuccin.colors;
+  theme = import ./theme.nix catppuccin;
+  bars = import ./bars.nix theme;
+  workspaces = import ./modules/workspaces.nix theme;
+  system = import ./modules/system.nix theme;
+  audio = import ./modules/audio.nix theme;
+  network = import ./modules/network.nix theme;
+  bluetooth = import ./modules/bluetooth.nix theme;
+  battery = import ./modules/battery/battery.nix theme;
+  clock = import ./modules/clock.nix theme;
   tray = import ./modules/tray.nix;
-  backlight = import ./modules/backlight.nix;
-  spacers = import ./modules/spacers.nix;
-  visualizer = import ./modules/visualizer.nix;
-  uptime = import ./modules/uptime.nix;
+  backlight = import ./modules/backlight.nix theme;
+  spacers = import ./modules/spacers.nix theme;
+  visualizer = import ./modules/visualizer.nix theme;
+  uptime = import ./modules/uptime.nix theme;
 in {
   home.packages = with pkgs; [
     nerd-fonts.jetbrains-mono

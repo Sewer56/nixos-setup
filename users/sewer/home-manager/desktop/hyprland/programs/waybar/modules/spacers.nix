@@ -1,4 +1,4 @@
-{
+theme: {
   config = {
     "custom/spacer1" = {
       format = " \\\\ ";
@@ -22,7 +22,7 @@
     #waybar.bar #custom-spacer3 {
       font-size: 10pt;
       font-weight: bold;
-      color: #45475a;
+      color: ${theme.colors.caution};
       background: transparent;
     }
   '';

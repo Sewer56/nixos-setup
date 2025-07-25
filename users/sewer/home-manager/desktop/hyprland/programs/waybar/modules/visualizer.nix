@@ -1,4 +1,4 @@
-{
+theme: {
   config = {
     cava = {
       framerate = 60;
@@ -47,7 +47,7 @@
       font-size: 18pt;
       /* Sink the bar into the border, so 100% audio doesn't cover whole bar. */
       margin-bottom: -10px;
-      color: #45475a;
+      color: ${theme.colors.caution};
     }
   '';
 }

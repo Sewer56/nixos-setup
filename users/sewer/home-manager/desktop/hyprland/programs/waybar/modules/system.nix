@@ -1,4 +1,4 @@
-{
+theme: {
   config = {
     cpu = {
       interval = 4;
@@ -79,7 +79,7 @@
     #waybar.bar #memory.ram,
     #waybar.bar #memory.swap,
     #waybar.bar #disk {
-      color: #f5c2e7;
+      color: ${theme.colors.performance};
     }
   '';
 }

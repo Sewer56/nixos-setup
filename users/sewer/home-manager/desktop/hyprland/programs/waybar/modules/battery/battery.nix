@@ -1,4 +1,4 @@
-{
+theme: {
   config = {
     "custom/battery" = {
       interval = 5;
@@ -14,11 +14,11 @@
 
   style = ''
     #waybar.bar #custom-battery {
-      color: #94e2d5;
+      color: ${theme.colors.misc};
     }
 
     #waybar.bar #custom-battery.warning {
-      color: #f38ba8;
+      color: ${theme.colors.warning};
     }
   '';
 }

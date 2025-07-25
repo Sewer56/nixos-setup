@@ -1,4 +1,4 @@
-{
+theme: {
   config = {
     "custom/uptime" = {
       exec = "~/.config/waybar/scripts/uptime-since-resume.sh";
@@ -11,7 +11,7 @@
 
   style = ''
     #waybar.bar #custom-uptime {
-      color: #94e2d5;
+      color: ${theme.colors.misc};
     }
   '';
 }

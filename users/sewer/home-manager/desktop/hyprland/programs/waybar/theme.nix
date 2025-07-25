@@ -1,15 +1,18 @@
-{
+catppuccin: {
   colors = {
     background = "rgba(21, 21, 32, 0.75)";
-    warning = "#f38ba8";
-    caution = "#45475a";
-    performance = "#f5c2e7";
-    audio = "#cba6f7";
-    misc = "#94e2d5";
-    date = "#a6e3a1";
-    work = "#b4befe";
-    window = "#b4befe";
-    resize = "#eba0ac";
+    warning = catppuccin.red;
+    caution = catppuccin.surface1;
+    performance = catppuccin.pink;
+    audio = catppuccin.mauve;
+    misc = catppuccin.teal;
+    date = catppuccin.green;
+    work = catppuccin.lavender;
+    window = catppuccin.lavender;
+    resize = catppuccin.maroon;
+    text = catppuccin.text;
+    yellow = catppuccin.yellow;
+    rosewater = catppuccin.rosewater;
   };
 
   baseStyle = ''
@@ -25,13 +28,13 @@
 
     @keyframes blink-critical-text {
       to {
-        color: #f38ba8;
+        color: ${catppuccin.red};
       }
     }
 
     @keyframes blink-modifier-text {
       to {
-        color: #45475a;
+        color: ${catppuccin.surface1};
       }
     }
 
@@ -50,13 +53,13 @@
 
     tooltip {
       background: rgba(21, 21, 32, 0.75);
-      border: 3px solid #45475a;
+      border: 3px solid ${catppuccin.surface1};
       border-radius: 8px;
     }
 
     #waybar.bar #tray menu {
       background: rgba(21, 21, 32, 0.75);
-      border: 3px solid #45475a;
+      border: 3px solid ${catppuccin.surface1};
       border-radius: 8px;
     }
   '';
@@ -91,7 +94,7 @@
     #waybar.bar #memory.ram.critical,
     #waybar.bar #cpu.critical,
     #waybar.bar #temperature.critical {
-      color: #45475a;
+      color: ${catppuccin.surface1};
       animation-iteration-count: infinite;
       animation-direction: alternate;
       animation-name: blink-critical-text;
@@ -102,7 +105,7 @@
 
   chargingAnimationStyle = ''
     #waybar.bar #custom-battery.charging {
-      color: #94e2d5;
+      color: ${catppuccin.teal};
       animation-iteration-count: infinite;
       animation-direction: alternate;
       animation-name: blink-modifier-text;
