@@ -30,8 +30,8 @@ theme: {
       "custom/spacer1"
       "backlight"
       "custom/battery"
-      "custom/spacer1"
       "custom/uptime"
+      "custom/spacer1"
       "clock"
     ];
   };
