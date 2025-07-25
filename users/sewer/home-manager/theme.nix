@@ -26,8 +26,8 @@
   # This is technically deprecated.
   catppuccin.gtk.enable = true;
   catppuccin.gtk.icon.enable = true;
-  catppuccin.gtk.icon.flavor = "mocha";
-  catppuccin.gtk.icon.accent = "lavender";
+  catppuccin.gtk.icon.flavor = config.catppuccin.flavor;
+  catppuccin.gtk.icon.accent = config.catppuccin.accent;
 
   gtk = {
     enable = true;
