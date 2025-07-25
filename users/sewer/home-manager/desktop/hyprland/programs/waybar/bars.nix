@@ -14,9 +14,9 @@
       "custom/spacer2"
       "hyprland/workspaces"
       "custom/spacer2"
-      "custom/spacer3"
-      "hyprland/submap"
-      "hyprland/window"
+      # "custom/spacer3"
+      # "hyprland/submap"
+      # "hyprland/window"
     ];
     modules-right = [
       "custom/spacer1"
