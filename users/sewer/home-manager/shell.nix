@@ -6,7 +6,6 @@ in {
   # Zsh configuration with oh-my-zsh
   programs.zsh = {
     enable = true;
-    autosuggestion.enable = true;
 
     # Enable syntax highlighting with Catppuccin colors
     syntaxHighlighting = {
@@ -59,6 +58,56 @@ in {
         "command-not-found"
       ];
     };
+
+    # Configure autosuggestion colors
+    autosuggestion = {
+      enable = true;
+      highlight = "fg=${colors.overlay0}";
+    };
+
+    # Configure history substring search colors and completion colors
+    sessionVariables = {
+      # History substring search highlighting
+      HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND = "bg=${colors.surface1},fg=${colors.yellow},bold";
+      HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND = "bg=${colors.surface1},fg=${colors.red},bold";
+
+      # Zsh completion colors - make them more visible
+      LS_COLORS = "di=${colors.blue}:ln=${colors.teal}:ex=${colors.green}";
+    };
+
+    # Additional zsh configuration for better completion colors
+    localVariables = {
+      # Configure completion list colors
+      ZLS_COLORS = "\${LS_COLORS}";
+    };
+
+    # Custom initialization for completion styling
+    initContent = ''
+      # Configure zsh completion menu colors
+      zstyle ':completion:*' list-colors "\''${(s.:.)LS_COLORS}"
+      zstyle ':completion:*:default' list-colors "\''${(s.:.)LS_COLORS}"
+
+      # Highlight the current selection in completion menu
+      zstyle ':completion:*' menu select
+      zstyle ':completion:*:*:*:*:*' menu select
+
+      # Use Catppuccin colors for completion menu
+      zstyle ':completion:*:matches' group 'yes'
+      zstyle ':completion:*:options' description 'yes'
+      zstyle ':completion:*:options' auto-description '%d'
+      zstyle ':completion:*:corrections' format ' %F{${colors.green}}-- %d (errors: %e) --%f'
+      zstyle ':completion:*:descriptions' format ' %F{${colors.yellow}}-- %d --%f'
+      zstyle ':completion:*:messages' format ' %F{${colors.mauve}}-- %d --%f'
+      zstyle ':completion:*:warnings' format ' %F{${colors.red}}-- no matches found --%f'
+      zstyle ':completion:*:default' list-prompt '%S%M matches%s'
+
+      # Highlight selected completion with contrasting colors
+      zstyle ':completion:*' list-colors 'ma=48;5;67;38;5;15'  # Use surface2 background with text foreground
+
+      # Fix history substring search colors
+      export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=8,fg=11,bold'     # surface1 bg, yellow fg
+      export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=8,fg=9,bold'  # surface1 bg, red fg
+    '';
   };
 
   # Home Manager can also manage your environment variables through
