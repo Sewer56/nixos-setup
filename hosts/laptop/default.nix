@@ -30,6 +30,14 @@
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  # Swapfile sized to match RAM (32GB) for hibernation support
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 32768;
+    }
+  ];
+
   # Machine-specific Intel iGPU driver
   services.xserver.videoDrivers = [
     "modesetting" # Intel iGPU;
