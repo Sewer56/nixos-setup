@@ -109,14 +109,14 @@ in {
       battery = {
         full_symbol = "🔋 ";
         charging_symbol = "⚡️ ";
-        discharging_symbol = "💀 ";
+        discharging_symbol = "🪫 ";
         display = [
           {
             threshold = 10;
             style = "bold ${colors.red}";
           }
           {
-            threshold = 30;
+            threshold = 20;
             style = "bold ${colors.yellow}";
           }
         ];
