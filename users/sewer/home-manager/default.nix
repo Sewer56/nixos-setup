@@ -4,6 +4,7 @@
     ./desktop/hyprland.nix
     ./shell.nix
     ./programs/terminal.nix
+    ./programs/starship.nix
     ./programs/monitor.nix
     ./programs/fetch.nix
     ./programs/email.nix

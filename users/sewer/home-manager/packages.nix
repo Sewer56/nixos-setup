@@ -23,5 +23,7 @@
 
     # Fonts
     inter
+    jetbrains-mono
+    nerd-fonts.jetbrains-mono
   ];
 }

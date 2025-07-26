@@ -19,7 +19,8 @@
       "Bash(nixos-rebuild dry-build:*)",
       "Bash(alejandra:*)",
       "WebFetch(domain:iamvdo.me)",
-      "Bash(wget:*)"
+      "Bash(wget:*)",
+      "WebFetch(domain:wiki.hypr.land)"
     ],
     "deny": []
   }
