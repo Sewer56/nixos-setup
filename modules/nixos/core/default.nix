@@ -1,6 +1,7 @@
 {...}: {
   imports = [
     ./audio.nix
+    ./boot.nix
     ./docker.nix
     ./input.nix
     ./locale.nix
