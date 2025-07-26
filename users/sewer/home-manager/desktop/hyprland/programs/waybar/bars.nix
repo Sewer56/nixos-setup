@@ -14,6 +14,8 @@ theme: {
       "custom/spacer2"
       "hyprland/workspaces"
       "custom/spacer2"
+      "group/wallpaper"
+      "custom/spacer2"
       # "custom/spacer3"
       # "hyprland/submap"
       # "hyprland/window"

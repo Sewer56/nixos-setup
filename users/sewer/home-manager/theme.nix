@@ -3,7 +3,6 @@
   config,
   ...
 }: {
-
   # Enable Catppuccin theme globally
   catppuccin.enable = true;
   catppuccin.flavor = "mocha";

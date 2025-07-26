@@ -15,5 +15,6 @@
     ./programs/idle-lock.nix
     ./programs/clipboard.nix
     ./programs/network.nix
+    ./programs/hyprpaper.nix
   ];
 }
