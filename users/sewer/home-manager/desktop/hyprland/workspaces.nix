@@ -43,7 +43,6 @@
     exec-once = [
       # System services
       "waybar"
-      "dunst"
       "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 
       # Startup applications
