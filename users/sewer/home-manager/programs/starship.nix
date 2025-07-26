@@ -61,7 +61,8 @@ in {
       cmd_duration = {
         format = "[$duration]($style) ";
         style = "bold ${colors.yellow}";
-        min_time = 2000;
+        min_time = 500;
+        show_milliseconds = true;
       };
 
       # Programming languages with Catppuccin colors
