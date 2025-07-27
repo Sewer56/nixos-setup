@@ -59,7 +59,7 @@ def main():
         
         # Short delay to ensure hyprpaper is fully initialized
         # Needed for nixOS rebuild.
-        time.sleep(0.5) # TERRIBLE HACK.
+        time.sleep(1.0) # TERRIBLE HACK.
 
         # Set random wallpaper directly
         try:
