@@ -14,6 +14,7 @@
     windowrulev2 = [
       # Workspace 1: Code editors and browsers
       "workspace 1, class:^(Code)$"
+      "workspace 1, class:^(code)$"
       "workspace 1, class:^(code-url-handler)$"
       "workspace 1, class:^(chromium-browser)$"
 
