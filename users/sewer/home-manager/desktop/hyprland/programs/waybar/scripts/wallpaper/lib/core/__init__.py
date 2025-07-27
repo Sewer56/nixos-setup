@@ -1,0 +1,1 @@
+"""Core utilities for wallpaper management"""

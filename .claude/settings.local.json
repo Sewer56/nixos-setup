@@ -17,7 +17,9 @@
       "Bash(alejandra:*)",
       "Bash(wget:*)",
       "Bash(python3:*)",
-      "Bash(chmod:*)"
+      "Bash(chmod:*)",
+      "Bash(mv:*)",
+      "Bash(rm:*)"
     ],
     "deny": []
   }

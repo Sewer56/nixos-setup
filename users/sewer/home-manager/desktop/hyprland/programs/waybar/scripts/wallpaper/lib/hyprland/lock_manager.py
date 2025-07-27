@@ -64,33 +64,3 @@ def hyprpaper_lock(silent_exit: bool = False) -> Generator[None, None, None]:
         else:
             # Operation-level usage - raise exception
             raise HyprpaperLockError("Another hyprpaper operation is in progress")
-
-
-def with_hyprpaper_lock(silent_exit: bool = False):
-    """Decorator for functions that perform hyprpaper operations
-    
-    Args:
-        silent_exit: If True, calls sys.exit(0) when lock is busy.
-                    If False, function returns None when lock is busy.
-    
-    Example:
-        @with_hyprpaper_lock(silent_exit=True)
-        def main():
-            # Script logic here
-            pass
-            
-        @with_hyprpaper_lock(silent_exit=False)
-        def set_wallpaper():
-            # Returns None if lock is busy
-            pass
-    """
-    def decorator(func):
-        def wrapper(*args, **kwargs):
-            try:
-                with hyprpaper_lock(silent_exit=silent_exit):
-                    return func(*args, **kwargs)
-            except HyprpaperLockError:
-                # Operation-level usage - return None when busy
-                return None
-        return wrapper
-    return decorator

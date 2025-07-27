@@ -7,13 +7,14 @@ Set a random wallpaper matching the current accent color
 import sys
 from pathlib import Path
 
-# Add script directory to Python path for lib module imports
-script_dir = Path(__file__).parent
-sys.path.insert(0, str(script_dir))
-sys.path.insert(0, str(script_dir / "lib"))
+# Setup library path
+sys.path.insert(0, str(Path(__file__).parent))
+from lib.path_setup import setup_lib_path
+setup_lib_path()
 
-from lib.notifications import notify_info
-from lib.lock_manager import hyprpaper_lock
+# Now import from organized modules
+from lib.core.notifications import notify_info
+from lib.hyprland.lock_manager import hyprpaper_lock
 
 
 def main():

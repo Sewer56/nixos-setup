@@ -6,17 +6,14 @@ Wallhaven search functionality with caching
 
 import random
 from typing import Dict, Optional, List, Any
-from pathlib import Path
 
-from .wallhaven_api import WallhavenAPI
-from .cache_manager import CacheManager
-from .downloaders.base import BaseDownloader
-
+from .client import WallhavenClient
+from ..core.cache_manager import CacheManager
 
 class WallhavenSearch:
     """Handles wallpaper searches with caching"""
     
-    def __init__(self, api_client: WallhavenAPI, cache_manager: CacheManager):
+    def __init__(self, api_client: WallhavenClient, cache_manager: CacheManager):
         """Initialize search manager
         
         Args:
@@ -28,7 +25,8 @@ class WallhavenSearch:
     
     def search_random_wallpaper(self, min_resolution: str, 
                               categories: str = '110', 
-                              purity: str = '100') -> Optional[Dict[str, Any]]:
+                              purity: str = '100',
+                              max_pages: int = 10) -> Optional[Dict[str, Any]]:
         """Search for a random wallpaper matching criteria
         
         Args:
@@ -41,6 +39,7 @@ class WallhavenSearch:
                    - First digit: SFW (1=yes, 0=no)
                    - Second digit: sketchy (1=yes, 0=no)
                    - Third digit: NSFW (1=yes, 0=no)
+            max_pages: Maximum pages to fetch from API (default 10, ~240 wallpapers)
                    
         Returns:
             Random wallpaper data or None if search failed
@@ -64,7 +63,8 @@ class WallhavenSearch:
         wallpapers = self._fetch_top_wallpapers(
             min_resolution=min_resolution,
             categories=categories,
-            purity=purity
+            purity=purity,
+            max_pages=max_pages
         )
         
         if wallpapers:
@@ -78,13 +78,15 @@ class WallhavenSearch:
     
     def _fetch_top_wallpapers(self, min_resolution: str, 
                             categories: str, 
-                            purity: str) -> List[Dict[str, Any]]:
+                            purity: str,
+                            max_pages: int = 10) -> List[Dict[str, Any]]:
         """Fetch top wallpapers from API
         
         Args:
             min_resolution: Minimum resolution
             categories: Category filter
             purity: Purity filter
+            max_pages: Maximum pages to fetch (default 10)
             
         Returns:
             List of wallpaper data
@@ -92,12 +94,9 @@ class WallhavenSearch:
         wallpapers = []
         
         try:
-            # To get approximately top 1000, fetch multiple pages
-            # API returns 24 results per page, so ~42 pages for 1000 results
-            # But we'll fetch fewer pages and randomize from those
-            num_pages = 10  # Fetch 240 wallpapers
-            
-            for page in range(1, num_pages + 1):
+            # Fetch wallpapers from multiple pages
+            # API returns 24 results per page
+            for page in range(1, max_pages + 1):
                 params = {
                     'categories': categories,
                     'purity': purity,
@@ -120,46 +119,3 @@ class WallhavenSearch:
             pass
         
         return wallpapers
-    
-    def search_by_color(self, color: str, min_resolution: str,
-                       categories: str = '110',
-                       purity: str = '100') -> Optional[Dict[str, Any]]:
-        """Search for wallpapers by color (for future implementation)
-        
-        Args:
-            color: Hex color code
-            min_resolution: Minimum resolution
-            categories: Category filter
-            purity: Purity filter
-            
-        Returns:
-            Random wallpaper matching color or None
-        """
-        # This would be implemented when color matching is added
-        # For now, just return None
-        return None
-
-
-class WallpaperDownloader(BaseDownloader):
-    """Handles downloading wallpapers from Wallhaven search without JXL conversion"""
-    
-    def _get_default_download_dir(self) -> Path:
-        """Get default download directory for search downloads"""
-        return Path.home() / "Pictures" / "wallpapers" / "downloads"
-    
-    def _post_process_download(self, downloaded_path: Path, wallpaper_id: str) -> Path:
-        """No post-processing for search downloads - keep original format
-        
-        Args:
-            downloaded_path: Path to downloaded file
-            wallpaper_id: Wallpaper ID
-            
-        Returns:
-            Path to original downloaded file
-        """
-        return downloaded_path
-    
-    
-    def clear_temp_directory(self) -> None:
-        """Clear all files from the temp directory"""
-        self.clear_directory()

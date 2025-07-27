@@ -10,14 +10,16 @@ import time
 import sys
 from pathlib import Path
 
-# Add script directory to Python path for lib module imports
-script_dir = Path(__file__).parent
-sys.path.insert(0, str(script_dir))
-sys.path.insert(0, str(script_dir / "lib"))
+# Setup library path
+sys.path.insert(0, str(Path(__file__).parent))
+from lib.path_setup import setup_lib_path
+setup_lib_path()
 
-from lib.notifications import notify_error, notify_wallpaper_change
-from lib.wallpaper import WallpaperManager
-from lib.lock_manager import hyprpaper_lock, HyprpaperLockError
+# Now import from organized modules
+from lib.config import WallpaperConfig
+from lib.core.notifications import notify_error, notify_wallpaper_change
+from lib.services.wallpaper_manager import WallpaperManager
+from lib.hyprland.lock_manager import hyprpaper_lock, HyprpaperLockError
 
 def wait_for_hyprpaper(timeout=5, poll_interval=0.1):
     """Wait for hyprpaper to be ready
@@ -65,15 +67,29 @@ def main():
             # Needed for nixOS rebuild.
             time.sleep(0.75) # TERRIBLE HACK.
 
-            # Set random wallpaper directly
+            # Restore saved wallpapers for each monitor
             try:
-                manager = WallpaperManager()
-                result = manager.set_random_wallpaper()
+                config = WallpaperConfig()
+                manager = WallpaperManager(config)
                 
-                if result.success:
-                    notify_wallpaper_change(result.wallpaper_name)
-                else:
-                    notify_error("Failed to set random wallpaper", result.error_message)
+                # Clean up any missing wallpapers from state file
+                manager.clean_missing_wallpapers()
+                
+                # Restore wallpapers for all monitors
+                results = manager.restore_monitor_wallpapers()
+                
+                # Check results and notify
+                successful_monitors = [name for name, result in results.items() if result.success]
+                failed_monitors = [name for name, result in results.items() if not result.success]
+                
+                if successful_monitors:
+                    monitor_list = ", ".join(successful_monitors)
+                    notify_wallpaper_change(f"Restored wallpapers\nMonitors: {monitor_list}")
+                
+                if failed_monitors:
+                    monitor_list = ", ".join(failed_monitors)
+                    notify_error("Some wallpapers failed", f"Failed monitors: {monitor_list}")
+                    
             except Exception as e:
                 notify_error("Wallpaper startup failed", f"Unexpected error: {str(e)}")
             

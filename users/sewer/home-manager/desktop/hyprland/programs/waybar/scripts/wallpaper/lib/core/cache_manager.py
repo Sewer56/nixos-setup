@@ -6,9 +6,8 @@ Cache management for Wallhaven API responses
 
 import json
 import hashlib
-import time
 from pathlib import Path
-from typing import Any, Optional, List
+from typing import Any, Optional
 from datetime import datetime, timedelta
 
 

@@ -1,0 +1,1 @@
+"""Wallhaven API and search functionality"""

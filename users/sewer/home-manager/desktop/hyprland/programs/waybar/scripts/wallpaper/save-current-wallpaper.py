@@ -7,14 +7,16 @@ Save the current wallpaper to the saved collection with JXL conversion
 import sys
 from pathlib import Path
 
-# Add script directory to Python path for lib module imports
-script_dir = Path(__file__).parent
-sys.path.insert(0, str(script_dir))
-sys.path.insert(0, str(script_dir / "lib"))
+# Setup library path
+sys.path.insert(0, str(Path(__file__).parent))
+from lib.path_setup import setup_lib_path
+setup_lib_path()
 
-from lib.wallpaper import WallpaperManager
-from lib.notifications import notify_error, notify_success
-from lib.lock_manager import hyprpaper_lock
+# Now import from organized modules
+from lib.config import WallpaperConfig
+from lib.services.wallpaper_manager import WallpaperManager
+from lib.core.notifications import notify_error, notify_success
+from lib.hyprland.lock_manager import hyprpaper_lock
 
 
 def main():
@@ -22,7 +24,9 @@ def main():
     # Prevent concurrent execution using file locking
     with hyprpaper_lock(silent_exit=True):
         try:
-            manager = WallpaperManager()
+            # Create config
+            config = WallpaperConfig()
+            manager = WallpaperManager(config)
             
             # Check if current wallpaper is a downloaded one (from temp directory)
             current_wallpaper = manager.get_current_wallpaper()
@@ -31,7 +35,7 @@ def main():
                 sys.exit(1)
             
             # Only allow saving if the wallpaper is from the temp directory
-            temp_dir = Path.home() / "Pictures" / "wallpapers" / "temp"
+            temp_dir = config.temp_dir
             try:
                 # Check if current wallpaper is in temp directory
                 current_wallpaper.relative_to(temp_dir)

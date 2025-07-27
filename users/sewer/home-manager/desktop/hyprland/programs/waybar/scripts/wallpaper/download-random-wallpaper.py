@@ -7,36 +7,41 @@ Download and set a random wallpaper from Wallhaven
 import sys
 from pathlib import Path
 
-# Add script directory to Python path for lib module imports
-script_dir = Path(__file__).parent
-sys.path.insert(0, str(script_dir))
-sys.path.insert(0, str(script_dir / "lib"))
+# Setup library path
+sys.path.insert(0, str(Path(__file__).parent))
+from lib.path_setup import setup_lib_path
+setup_lib_path()
 
-from lib.wallpaper import WallpaperManager
-from lib.wallhaven_api import WallhavenAPI
-from lib.wallhaven_search import WallhavenSearch, WallpaperDownloader
-from lib.cache_manager import CacheManager
-from lib.screen_utils import get_screen_resolution
-from lib.notifications import notify_error, notify_wallpaper_change, notify_info
-from lib.lock_manager import hyprpaper_lock
+# Now import from organized modules
+from lib.config import WallpaperConfig
+from lib.services.wallpaper_manager import WallpaperManager
+from lib.wallhaven.client import WallhavenClient
+from lib.wallhaven.search import WallhavenSearch
+from lib.wallhaven.downloader import WallpaperDownloader
+from lib.core.cache_manager import CacheManager
+from lib.hyprland.screen_utils import get_search_resolution
+from lib.core.notifications import notify_error, notify_wallpaper_change, notify_info
+from lib.hyprland.lock_manager import hyprpaper_lock
 
-
+# TODO: Add function to set per monitor wallpaper, rather than all same monitor.
 def main():
     """Main function to download and set random wallpaper"""
     # Prevent concurrent execution using file locking
     with hyprpaper_lock(silent_exit=True):
         try:
-            # Get current screen resolution
-            resolution = get_screen_resolution()
+            # Create config with custom paths if needed
+            config = WallpaperConfig()
+            
+            # Get optimal search resolution for all monitors
+            resolution = get_search_resolution()
             
             # Initialize components
-            api = WallhavenAPI()
+            api = WallhavenClient()
             cache = CacheManager()
             search = WallhavenSearch(api, cache)
             
-            # Use temp directory for temporary downloads
-            temp_dir = Path.home() / "Pictures" / "wallpapers" / "temp"
-            downloader = WallpaperDownloader(download_dir=temp_dir)
+            # Initialize downloader with config
+            downloader = WallpaperDownloader(config)
             
             # Clear any previous temp wallpapers
             downloader.clear_temp_directory()
@@ -66,7 +71,7 @@ def main():
                 sys.exit(1)
             
             # Set as wallpaper
-            manager = WallpaperManager()
+            manager = WallpaperManager(config)
             result = manager.set_wallpaper(download_result.file_path)
             
             if result.success:

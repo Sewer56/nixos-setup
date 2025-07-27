@@ -7,21 +7,24 @@ Set a random wallpaper from available collection
 import sys
 from pathlib import Path
 
-# Add script directory to Python path for lib module imports
-script_dir = Path(__file__).parent
-sys.path.insert(0, str(script_dir))
-sys.path.insert(0, str(script_dir / "lib"))
+# Setup library path
+sys.path.insert(0, str(Path(__file__).parent))
+from lib.path_setup import setup_lib_path
+setup_lib_path()
 
-from lib.wallpaper import WallpaperManager
-from lib.notifications import notify_error, notify_wallpaper_change
-from lib.lock_manager import hyprpaper_lock
+# Now import from organized modules
+from lib.config import WallpaperConfig
+from lib.services.wallpaper_manager import WallpaperManager
+from lib.core.notifications import notify_error, notify_wallpaper_change
+from lib.hyprland.lock_manager import hyprpaper_lock
 
 def main():
     """Main function to set random wallpaper"""
     # Prevent concurrent execution using file locking
     with hyprpaper_lock(silent_exit=True):
         try:
-            manager = WallpaperManager()
+            config = WallpaperConfig()
+            manager = WallpaperManager(config)
             result = manager.set_random_wallpaper()
             
             if result.success:

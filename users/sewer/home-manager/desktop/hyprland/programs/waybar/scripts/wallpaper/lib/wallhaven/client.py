@@ -11,14 +11,15 @@ from urllib.request import urlopen, Request
 from urllib.parse import urlencode
 from urllib.error import HTTPError
 
+from ..constants import USER_AGENT, WALLHAVEN_RATE_LIMIT, WALLHAVEN_RATE_LIMIT_WINDOW
 
-class WallhavenAPI:
+
+class WallhavenClient:
     """Client for Wallhaven API with rate limiting support"""
     
     BASE_URL = "https://wallhaven.cc/api/v1"
-    RATE_LIMIT = 45  # calls per minute
-    RATE_LIMIT_WINDOW = 60  # seconds
-    USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36'
+    RATE_LIMIT = WALLHAVEN_RATE_LIMIT  # calls per minute
+    RATE_LIMIT_WINDOW = WALLHAVEN_RATE_LIMIT_WINDOW  # seconds
     
     def __init__(self, api_key: Optional[str] = None):
         """Initialize Wallhaven API client
@@ -77,7 +78,7 @@ class WallhavenAPI:
             url = f"{url}?{urlencode(params)}"
         
         # Make request
-        request = Request(url, headers={'User-Agent': self.USER_AGENT})
+        request = Request(url, headers={'User-Agent': USER_AGENT})
         
         try:
             with urlopen(request, timeout=30) as response:
