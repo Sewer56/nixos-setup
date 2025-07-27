@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import List, Optional
 
 from .results import WallpaperResult
+from .jxl_utils import JXLConverter
 
 
 class WallpaperManager:
@@ -200,7 +201,6 @@ class WallpaperManager:
         Returns:
             WallpaperResult with success status and details
         """
-        from .jxl_utils import JXLConverter
         
         current_wallpaper = self.get_current_wallpaper()
         if not current_wallpaper:

@@ -7,11 +7,10 @@ Wallhaven search functionality with caching
 import random
 from typing import Dict, Optional, List, Any
 from pathlib import Path
-from urllib.request import urlopen, Request
 
 from .wallhaven_api import WallhavenAPI
 from .cache_manager import CacheManager
-from .results import DownloadResult
+from .downloaders.base import BaseDownloader
 
 
 class WallhavenSearch:
@@ -141,86 +140,26 @@ class WallhavenSearch:
         return None
 
 
-class WallpaperDownloader:
-    """Handles downloading wallpapers from Wallhaven"""
+class WallpaperDownloader(BaseDownloader):
+    """Handles downloading wallpapers from Wallhaven search without JXL conversion"""
     
-    def __init__(self, download_dir: Optional[Path] = None):
-        """Initialize downloader
+    def _get_default_download_dir(self) -> Path:
+        """Get default download directory for search downloads"""
+        return Path.home() / "Pictures" / "wallpapers" / "downloads"
+    
+    def _post_process_download(self, downloaded_path: Path, wallpaper_id: str) -> Path:
+        """No post-processing for search downloads - keep original format
         
         Args:
-            download_dir: Directory to save wallpapers.
-                         Defaults to ~/Pictures/wallpapers/downloads
-        """
-        if download_dir is None:
-            download_dir = Path.home() / "Pictures" / "wallpapers" / "downloads"
-        self.download_dir = Path(download_dir)
-        self.download_dir.mkdir(parents=True, exist_ok=True)
-    
-    def download_wallpaper(self, wallpaper_data: Dict[str, Any]) -> DownloadResult:
-        """Download a wallpaper from Wallhaven
-        
-        Args:
-            wallpaper_data: Wallpaper data from API
+            downloaded_path: Path to downloaded file
+            wallpaper_id: Wallpaper ID
             
         Returns:
-            DownloadResult with download status
+            Path to original downloaded file
         """
-        from .jxl_utils import JXLConverter
-        
-        wallpaper_id = wallpaper_data.get('id')
-        wallpaper_url = wallpaper_data.get('path')
-        
-        if not wallpaper_id or not wallpaper_url:
-            return DownloadResult(
-                success=False,
-                wallpaper_id=wallpaper_id or "unknown",
-                error_message="Missing wallpaper ID or URL"
-            )
-        
-        # Check if already downloaded in any format
-        existing_file = JXLConverter.find_existing_wallpaper(wallpaper_id, self.download_dir)
-        if existing_file:
-            return DownloadResult(
-                success=True,
-                wallpaper_id=wallpaper_id,
-                file_path=existing_file,
-                was_cached=True
-            )
-        
-        try:
-            # Download wallpaper
-            file_extension = Path(wallpaper_url).suffix
-            final_path = self.download_dir / f"{wallpaper_id}{file_extension}"
-            
-            request = Request(wallpaper_url, headers={
-                'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36'
-            })
-            
-            with urlopen(request, timeout=60) as response:
-                with open(final_path, 'wb') as f:
-                    f.write(response.read())
-            
-            return DownloadResult(
-                success=True,
-                wallpaper_id=wallpaper_id,
-                file_path=final_path,
-                was_cached=False
-            )
-                
-        except Exception as e:
-            return DownloadResult(
-                success=False,
-                wallpaper_id=wallpaper_id,
-                error_message=str(e)
-            )
+        return downloaded_path
+    
     
     def clear_temp_directory(self) -> None:
         """Clear all files from the temp directory"""
-        if self.download_dir.exists():
-            for file_path in self.download_dir.iterdir():
-                if file_path.is_file():
-                    try:
-                        file_path.unlink()
-                    except Exception:
-                        # Ignore errors when removing files
-                        pass
+        self.clear_directory()

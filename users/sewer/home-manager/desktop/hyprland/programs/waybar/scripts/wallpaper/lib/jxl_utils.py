@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Tuple, Optional
 
 from .results import WallpaperResult
+from .file_manager import WallpaperFileManager
 
 
 class JXLConverter:
@@ -165,29 +166,3 @@ class JXLConverter:
         """
         return target_dir / f"{wallpaper_id}.jxl"
     
-    @staticmethod
-    def find_existing_wallpaper(wallpaper_id: str, search_dir: Path) -> Optional[Path]:
-        """Find existing wallpaper file in various formats
-        
-        Args:
-            wallpaper_id: Wallpaper ID to search for
-            search_dir: Directory to search in
-            
-        Returns:
-            Path to existing file or None if not found
-        """
-        if not search_dir.exists():
-            return None
-        
-        # Check for JXL first (preferred format)
-        jxl_path = search_dir / f"{wallpaper_id}.jxl"
-        if jxl_path.exists():
-            return jxl_path
-        
-        # Check for other common formats
-        for ext in ['.jpg', '.jpeg', '.png', '.webp']:
-            file_path = search_dir / f"{wallpaper_id}{ext}"
-            if file_path.exists():
-                return file_path
-        
-        return None

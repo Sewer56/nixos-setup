@@ -12,6 +12,38 @@ from urllib.request import urlopen, Request
 from urllib.error import URLError
 
 from .results import DownloadResult
+from .downloaders.base import BaseDownloader
+from .file_manager import WallpaperFileManager
+
+
+class WallhavenCollectionDownloader(BaseDownloader):
+    """Downloads wallpapers from Wallhaven collections with JXL conversion"""
+    
+    def _get_default_download_dir(self) -> Path:
+        """Get default download directory for collection downloads"""
+        return Path.home() / "Pictures" / "wallpapers" / "wallhaven"
+    
+    def _post_process_download(self, downloaded_path: Path, wallpaper_id: str) -> Path:
+        """Convert downloaded wallpaper to JXL format
+        
+        Args:
+            downloaded_path: Path to downloaded file
+            wallpaper_id: Wallpaper ID
+            
+        Returns:
+            Path to final file (JXL if conversion succeeded, original otherwise)
+        """
+        from .jxl_utils import JXLConverter
+        
+        jxl_path = self.download_dir / f"{wallpaper_id}.jxl"
+        conversion_result = JXLConverter.convert_to_jxl(
+            downloaded_path, jxl_path, remove_source=True
+        )
+        
+        if conversion_result.success:
+            return jxl_path
+        else:
+            return downloaded_path
 
 
 class WallhavenManager:
@@ -28,10 +60,7 @@ class WallhavenManager:
         Args:
             cache_dir: Directory to cache wallpapers. Defaults to ~/Pictures/wallpapers/wallhaven
         """
-        if cache_dir is None:
-            cache_dir = Path.home() / "Pictures" / "wallpapers" / "wallhaven"
-        self.cache_dir = Path(cache_dir)
-        self.cache_dir.mkdir(parents=True, exist_ok=True)
+        self.downloader = WallhavenCollectionDownloader(cache_dir)
     
     def fetch_collection_with_retry(self) -> Optional[List[dict]]:
         """Fetch wallpaper collection with exponential backoff retry
@@ -63,60 +92,5 @@ class WallhavenManager:
         Returns:
             DownloadResult with success status and details
         """
-        from .jxl_utils import JXLConverter
-        
-        wallpaper_id = wallpaper_data.get('id')
-        wallpaper_url = wallpaper_data.get('path')
-        
-        if not wallpaper_id or not wallpaper_url:
-            return DownloadResult(
-                success=False,
-                wallpaper_id=wallpaper_id or "unknown",
-                error_message="Missing wallpaper ID or URL"
-            )
-        
-        # Check if already cached
-        existing_file = JXLConverter.find_existing_wallpaper(wallpaper_id, self.cache_dir)
-        if existing_file:
-            return DownloadResult(
-                success=True,
-                wallpaper_id=wallpaper_id,
-                file_path=existing_file,
-                was_cached=True
-            )
-        
-        try:
-            request = Request(wallpaper_url, headers={'User-Agent': self.USER_AGENT})
-            
-            file_extension = Path(wallpaper_url).suffix
-            temp_path = self.cache_dir / f"{wallpaper_id}{file_extension}"
-            
-            with urlopen(request) as response, open(temp_path, 'wb') as f:
-                f.write(response.read())
-            
-            # Try to convert to JXL
-            jxl_path = self.cache_dir / f"{wallpaper_id}.jxl"
-            conversion_result = JXLConverter.convert_to_jxl(temp_path, jxl_path, remove_source=True)
-            
-            if conversion_result.success:
-                return DownloadResult(
-                    success=True,
-                    wallpaper_id=wallpaper_id,
-                    file_path=jxl_path,
-                    was_cached=False
-                )
-            else:
-                # Keep original file if conversion failed
-                return DownloadResult(
-                    success=True,
-                    wallpaper_id=wallpaper_id,
-                    file_path=temp_path,
-                    was_cached=False
-                )
-        except Exception as e:
-            return DownloadResult(
-                success=False,
-                wallpaper_id=wallpaper_id,
-                error_message=str(e)
-            )
+        return self.downloader.download_wallpaper(wallpaper_data)
     
