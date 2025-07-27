@@ -6,6 +6,7 @@
   imports = [
     ./packages.nix
     ./desktop/hyprland.nix
+    ./desktop/desktop-entries.nix
     ./shell.nix
     ./programs/terminal.nix
     ./programs/starship.nix
