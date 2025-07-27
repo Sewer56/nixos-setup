@@ -57,6 +57,10 @@ def main():
             notify_error("Startup timeout", "hyprpaper not ready after 30 seconds")
             sys.exit(1)
         
+        # Short delay to ensure hyprpaper is fully initialized
+        # Needed for nixOS rebuild.
+        time.sleep(0.5) # TERRIBLE HACK.
+
         # Set random wallpaper directly
         try:
             manager = WallpaperManager()
