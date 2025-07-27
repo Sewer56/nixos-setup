@@ -52,15 +52,15 @@ class WallpaperManager:
         return sorted(list(set(wallpapers)))  # Remove duplicates and sort
     
     def get_favorite_wallpapers(self) -> List[Path]:
-        """Get list of wallpapers from favorites sources only (wallhaven + saved)
+        """Get list of wallpapers from favorites sources only (saved)
         
         Returns:
             List of Path objects for favorite wallpaper files
         """
         wallpapers = []
         
-        # Only search in wallhaven and saved directories
-        search_dirs = [self.wallhaven_dir, self.saved_dir]
+        # Only search in saved directory (wallhaven sync removed)
+        search_dirs = [self.saved_dir]
         
         for search_dir in search_dirs:
             if search_dir.exists():

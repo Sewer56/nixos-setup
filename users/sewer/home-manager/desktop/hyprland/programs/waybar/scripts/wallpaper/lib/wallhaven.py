@@ -11,7 +11,7 @@ from typing import List, Optional
 from urllib.request import urlopen, Request
 from urllib.error import URLError
 
-from .results import SyncResult, DownloadResult
+from .results import DownloadResult
 
 
 class WallhavenManager:
@@ -120,46 +120,3 @@ class WallhavenManager:
                 error_message=str(e)
             )
     
-    def sync_collection(self) -> SyncResult:
-        """Sync collection synchronously
-        
-        Returns:
-            SyncResult with detailed sync statistics
-        """
-        wallpapers = self.fetch_collection_with_retry()
-        if not wallpapers:
-            return SyncResult(
-                total_wallpapers=0,
-                downloaded_count=0,
-                cached_count=0,
-                failed_count=0,
-                errors=["Failed to fetch wallpaper collection from API"],
-                success=False
-            )
-        
-        total_count = len(wallpapers)
-        downloaded_count = 0
-        cached_count = 0
-        failed_count = 0
-        errors = []
-        
-        for wallpaper_data in wallpapers:
-            result = self.download_wallpaper(wallpaper_data)
-            if result.success:
-                if result.was_cached:
-                    cached_count += 1
-                else:
-                    downloaded_count += 1
-            else:
-                failed_count += 1
-                if result.error_message:
-                    errors.append(f"ID {result.wallpaper_id}: {result.error_message}")
-        
-        return SyncResult(
-            total_wallpapers=total_count,
-            downloaded_count=downloaded_count,
-            cached_count=cached_count,
-            failed_count=failed_count,
-            errors=errors,
-            success=True
-        )

@@ -23,6 +23,23 @@ def main():
     with hyprpaper_lock(silent_exit=True):
         try:
             manager = WallpaperManager()
+            
+            # Check if current wallpaper is a downloaded one (from temp directory)
+            current_wallpaper = manager.get_current_wallpaper()
+            if not current_wallpaper:
+                notify_error("No wallpaper set", "No current wallpaper to save")
+                sys.exit(1)
+            
+            # Only allow saving if the wallpaper is from the temp directory
+            temp_dir = Path.home() / "Pictures" / "wallpapers" / "temp"
+            try:
+                # Check if current wallpaper is in temp directory
+                current_wallpaper.relative_to(temp_dir)
+            except ValueError:
+                # Wallpaper is not in temp directory - it's not a downloaded wallpaper
+                notify_error("Cannot save wallpaper", "Only downloaded wallpapers can be saved")
+                sys.exit(1)
+            
             result = manager.save_current_wallpaper()
             
             if result.success:

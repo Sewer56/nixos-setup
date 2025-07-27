@@ -12,7 +12,6 @@ theme: {
         "custom/wallpaper-save"
         "custom/wallpaper-random"
         "custom/wallpaper-colour"
-        "custom/wallpaper-sync"
       ];
     };
 
@@ -39,12 +38,6 @@ theme: {
       tooltip-format = "Random wallpaper matching accent color";
       on-click = "~/.config/waybar/scripts/wallpaper/random-colour-wallpaper.py";
     };
-
-    "custom/wallpaper-sync" = {
-      format = "󰑓";
-      tooltip-format = "Sync favourite wallpapers collection";
-      on-click = "~/.config/waybar/scripts/wallpaper/sync-wallpapers.py";
-    };
   };
 
   style = ''
@@ -53,7 +46,6 @@ theme: {
     #waybar.bar #custom-wallpaper-save,
     #waybar.bar #custom-wallpaper-random,
     #waybar.bar #custom-wallpaper-colour,
-    #waybar.bar #custom-wallpaper-sync,
     #waybar.bar .wallpaper-drawer {
       color: ${theme.colors.rosewater};
       padding-left: 8pt;
@@ -66,8 +58,7 @@ theme: {
     #waybar.bar #custom-wallpaper-download:hover,
     #waybar.bar #custom-wallpaper-save:hover,
     #waybar.bar #custom-wallpaper-random:hover,
-    #waybar.bar #custom-wallpaper-colour:hover,
-    #waybar.bar #custom-wallpaper-sync:hover {
+    #waybar.bar #custom-wallpaper-colour:hover {
       color: ${theme.colors.yellow};
       background: rgba(255, 229, 196, 0.2);
       border-radius: 4px;

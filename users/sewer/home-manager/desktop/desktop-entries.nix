@@ -7,7 +7,7 @@
     terminal = false;
     type = "Application";
     icon = "feh";
-    categories = [ "Graphics" "2DGraphics" "Viewer" ];
+    categories = ["Graphics" "2DGraphics" "Viewer"];
     mimeType = [
       "image/bmp"
       "image/gif"
