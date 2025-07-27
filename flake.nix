@@ -9,6 +9,10 @@
       url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -16,6 +20,12 @@
     nixpkgs,
     ...
   } @ inputs: {
+    # Shared modules for better IDE completion
+    sharedModules = [
+      inputs.home-manager.nixosModules.default
+      inputs.catppuccin.nixosModules.catppuccin
+    ];
+
     nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = {inherit inputs;};

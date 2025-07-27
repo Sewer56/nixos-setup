@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   imports = [
     ./packages.nix
     ./desktop/hyprland.nix
@@ -77,5 +81,15 @@
     enable = true;
     userName = "Sewer56";
     userEmail = "sewer56lol@googlemail.com";
+  };
+
+  # Agenix configuration for secrets management
+  age.secrets = {
+    # Example secret configurations (uncomment as needed):
+    wallhaven-api-key = {
+      file = ./secrets/wallhaven-api-key.age;
+      path = "${config.home.homeDirectory}/.secrets/wallhaven-api-key";
+      mode = "600";
+    };
   };
 }

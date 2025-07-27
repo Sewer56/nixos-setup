@@ -3,9 +3,6 @@
   config,
   ...
 }: {
-  imports = [
-    inputs.catppuccin.homeModules.catppuccin
-  ];
 
   # Enable Catppuccin theme globally
   catppuccin.enable = true;
