@@ -18,7 +18,7 @@
     # Shared modules for better IDE completion
     sharedModules = [
       inputs.agenix.homeManagerModules.default
-      inputs.catppuccin.homeManagerModules.catppuccin
+      inputs.catppuccin.homeModules.catppuccin
     ];
 
     # also pass inputs to home-manager modules
