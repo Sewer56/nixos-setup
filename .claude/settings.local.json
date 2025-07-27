@@ -9,18 +9,13 @@
       "mcp__mcp-nixos__home_manager_info",
       "mcp__mcp-nixos__home_manager_options_by_prefix",
       "mcp__mcp-nixos__nixos_info",
-      "WebFetch(domain:github.com)",
-      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch",
       "Bash(find:*)",
-      "WebFetch(domain:wiki.nixos.org)",
-      "WebFetch(domain:discourse.nixos.org)",
       "Bash(git add:*)",
       "mcp__github__get_file_contents",
       "Bash(nixos-rebuild dry-build:*)",
       "Bash(alejandra:*)",
-      "WebFetch(domain:iamvdo.me)",
-      "Bash(wget:*)",
-      "WebFetch(domain:wiki.hypr.land)"
+      "Bash(wget:*)"
     ],
     "deny": []
   }
