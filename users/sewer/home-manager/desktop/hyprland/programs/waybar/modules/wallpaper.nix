@@ -36,7 +36,7 @@ theme: {
     "custom/wallpaper-startup" = {
       format = "󰑓";
       tooltip-format = "Sync favourite wallpapers (wallhaven)";
-      on-click = "~/.config/waybar/scripts/wallpaper/startup-wallpaper.py";
+      on-click = "~/.config/waybar/scripts/wallpaper/sync-wallpapers.py";
     };
   };
 

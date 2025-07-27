@@ -1,8 +1,9 @@
 {...}: {
   services.hyprpaper.enable = true;
 
-  # Start wallpaper management at login
+  # Set random wallpaper at login and sync collection in background
   wayland.windowManager.hyprland.settings.exec-once = [
-    "~/.config/waybar/scripts/wallpaper/startup-wallpaper.py"
+    "~/.config/waybar/scripts/wallpaper/random-wallpaper.py"
+    "~/.config/waybar/scripts/wallpaper/sync-wallpapers.py"
   ];
 }
