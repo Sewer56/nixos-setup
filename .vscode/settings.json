@@ -33,12 +33,8 @@
                     // A:
                     //"expr": "(builtins.getFlake (builtins.toString ./.)).homeConfigurations.<name>.options"
                     // B:
-                    "expr": "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.laptop.config.home-manager.users.sewer"
+                    "expr": "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.laptop.options.home-manager.users.type.getSubOptions []"
                 },
-                //"catppuccin-nixos": {
-                // B:
-                //    "expr": "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.<name>.options.home-manager.users.type.getSubOptions []"
-                //}
             }
         }
     },
