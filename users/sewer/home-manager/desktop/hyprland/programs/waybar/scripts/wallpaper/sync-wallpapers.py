@@ -14,12 +14,13 @@ sys.path.insert(0, str(script_dir))
 sys.path.insert(0, str(script_dir / "lib"))
 
 from lib.wallhaven import WallhavenManager
-from lib.notifications import notify_success, notify_error
+from lib.notifications import notify_success, notify_error, notify_info
 
 def main():
     """Main function to sync wallpaper collection"""
     try:
         # Start Wallhaven collection sync
+        notify_info("Wallpaper sync started\nSyncing wallpaper collection from Wallhaven...")
         wallhaven = WallhavenManager()
         sync_result = wallhaven.sync_collection()
         
