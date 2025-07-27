@@ -5,7 +5,6 @@ Wallhaven API integration for wallpaper management
 """
 
 import json
-import subprocess
 import time
 from pathlib import Path
 from typing import List, Optional
@@ -64,6 +63,8 @@ class WallhavenManager:
         Returns:
             DownloadResult with success status and details
         """
+        from .jxl_utils import JXLConverter
+        
         wallpaper_id = wallpaper_data.get('id')
         wallpaper_url = wallpaper_data.get('path')
         
@@ -74,13 +75,13 @@ class WallhavenManager:
                 error_message="Missing wallpaper ID or URL"
             )
         
-        jxl_path = self.cache_dir / f"{wallpaper_id}.jxl"
-        
-        if jxl_path.exists():
+        # Check if already cached
+        existing_file = JXLConverter.find_existing_wallpaper(wallpaper_id, self.cache_dir)
+        if existing_file:
             return DownloadResult(
                 success=True,
                 wallpaper_id=wallpaper_id,
-                file_path=jxl_path,
+                file_path=existing_file,
                 was_cached=True
             )
         
@@ -93,11 +94,11 @@ class WallhavenManager:
             with urlopen(request) as response, open(temp_path, 'wb') as f:
                 f.write(response.read())
             
-            result = subprocess.run(['cjxl', str(temp_path), str(jxl_path)], 
-                                  capture_output=True, text=True)
+            # Try to convert to JXL
+            jxl_path = self.cache_dir / f"{wallpaper_id}.jxl"
+            conversion_result = JXLConverter.convert_to_jxl(temp_path, jxl_path, remove_source=True)
             
-            if result.returncode == 0:
-                temp_path.unlink()
+            if conversion_result.success:
                 return DownloadResult(
                     success=True,
                     wallpaper_id=wallpaper_id,
@@ -105,6 +106,7 @@ class WallhavenManager:
                     was_cached=False
                 )
             else:
+                # Keep original file if conversion failed
                 return DownloadResult(
                     success=True,
                     wallpaper_id=wallpaper_id,

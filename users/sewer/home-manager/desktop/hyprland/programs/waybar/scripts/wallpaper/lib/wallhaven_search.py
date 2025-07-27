@@ -7,7 +7,6 @@ Wallhaven search functionality with caching
 import random
 from typing import Dict, Optional, List, Any
 from pathlib import Path
-import subprocess
 from urllib.request import urlopen, Request
 
 from .wallhaven_api import WallhavenAPI
@@ -166,6 +165,8 @@ class WallpaperDownloader:
         Returns:
             DownloadResult with download status
         """
+        from .jxl_utils import JXLConverter
+        
         wallpaper_id = wallpaper_data.get('id')
         wallpaper_url = wallpaper_data.get('path')
         
@@ -176,67 +177,35 @@ class WallpaperDownloader:
                 error_message="Missing wallpaper ID or URL"
             )
         
-        # Check if already downloaded (as JXL)
-        jxl_path = self.download_dir / f"{wallpaper_id}.jxl"
-        if jxl_path.exists():
+        # Check if already downloaded in any format
+        existing_file = JXLConverter.find_existing_wallpaper(wallpaper_id, self.download_dir)
+        if existing_file:
             return DownloadResult(
                 success=True,
                 wallpaper_id=wallpaper_id,
-                file_path=jxl_path,
+                file_path=existing_file,
                 was_cached=True
             )
-        
-        # Check for other formats
-        for ext in ['.jpg', '.jpeg', '.png', '.webp']:
-            existing_path = self.download_dir / f"{wallpaper_id}{ext}"
-            if existing_path.exists():
-                return DownloadResult(
-                    success=True,
-                    wallpaper_id=wallpaper_id,
-                    file_path=existing_path,
-                    was_cached=True
-                )
         
         try:
             # Download wallpaper
             file_extension = Path(wallpaper_url).suffix
-            temp_path = self.download_dir / f"{wallpaper_id}{file_extension}"
+            final_path = self.download_dir / f"{wallpaper_id}{file_extension}"
             
             request = Request(wallpaper_url, headers={
                 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36'
             })
             
             with urlopen(request, timeout=60) as response:
-                with open(temp_path, 'wb') as f:
+                with open(final_path, 'wb') as f:
                     f.write(response.read())
             
-            # Try to convert to JXL if cjxl is available
-            try:
-                result = subprocess.run(
-                    ['cjxl', str(temp_path), str(jxl_path)],
-                    capture_output=True,
-                    text=True,
-                    check=True
-                )
-                
-                # If conversion successful, remove original
-                temp_path.unlink()
-                
-                return DownloadResult(
-                    success=True,
-                    wallpaper_id=wallpaper_id,
-                    file_path=jxl_path,
-                    was_cached=False
-                )
-                
-            except (subprocess.CalledProcessError, FileNotFoundError):
-                # cjxl not available or conversion failed, keep original
-                return DownloadResult(
-                    success=True,
-                    wallpaper_id=wallpaper_id,
-                    file_path=temp_path,
-                    was_cached=False
-                )
+            return DownloadResult(
+                success=True,
+                wallpaper_id=wallpaper_id,
+                file_path=final_path,
+                was_cached=False
+            )
                 
         except Exception as e:
             return DownloadResult(
@@ -244,3 +213,14 @@ class WallpaperDownloader:
                 wallpaper_id=wallpaper_id,
                 error_message=str(e)
             )
+    
+    def clear_temp_directory(self) -> None:
+        """Clear all files from the temp directory"""
+        if self.download_dir.exists():
+            for file_path in self.download_dir.iterdir():
+                if file_path.is_file():
+                    try:
+                        file_path.unlink()
+                    except Exception:
+                        # Ignore errors when removing files
+                        pass

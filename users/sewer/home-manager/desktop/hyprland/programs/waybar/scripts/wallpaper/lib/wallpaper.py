@@ -26,6 +26,11 @@ class WallpaperManager:
         if wallpaper_dir is None:
             wallpaper_dir = Path.home() / "Pictures" / "wallpapers"
         self.wallpaper_dir = Path(wallpaper_dir)
+        
+        # Define subdirectories
+        self.wallhaven_dir = self.wallpaper_dir / "wallhaven"
+        self.saved_dir = self.wallpaper_dir / "saved"
+        self.temp_dir = self.wallpaper_dir / "temp"
     
     def get_wallpapers(self) -> List[Path]:
         """Get list of all available wallpaper files
@@ -33,12 +38,34 @@ class WallpaperManager:
         Returns:
             List of Path objects for wallpaper files
         """
-        if not self.wallpaper_dir.exists():
-            return []
-        
         wallpapers = []
-        for ext in self.SUPPORTED_EXTENSIONS:
-            wallpapers.extend(self.wallpaper_dir.rglob(f"*{ext}"))
+        
+        # Search in all directories including root
+        search_dirs = [self.wallpaper_dir, self.wallhaven_dir, self.saved_dir, self.temp_dir]
+        
+        for search_dir in search_dirs:
+            if search_dir.exists():
+                for ext in self.SUPPORTED_EXTENSIONS:
+                    # Use glob instead of rglob to avoid duplicates from subdirectories
+                    wallpapers.extend(search_dir.glob(f"*{ext}"))
+        
+        return sorted(list(set(wallpapers)))  # Remove duplicates and sort
+    
+    def get_favorite_wallpapers(self) -> List[Path]:
+        """Get list of wallpapers from favorites sources only (wallhaven + saved)
+        
+        Returns:
+            List of Path objects for favorite wallpaper files
+        """
+        wallpapers = []
+        
+        # Only search in wallhaven and saved directories
+        search_dirs = [self.wallhaven_dir, self.saved_dir]
+        
+        for search_dir in search_dirs:
+            if search_dir.exists():
+                for ext in self.SUPPORTED_EXTENSIONS:
+                    wallpapers.extend(search_dir.glob(f"*{ext}"))
         
         return sorted(wallpapers)
     
@@ -68,12 +95,12 @@ class WallpaperManager:
             return None
     
     def get_random_wallpaper(self) -> Optional[Path]:
-        """Get a random wallpaper from available collection, excluding current wallpaper
+        """Get a random wallpaper from favorites collection, excluding current wallpaper
         
         Returns:
             Path to random wallpaper file, or None if no wallpapers found or only current wallpaper available
         """
-        wallpapers = self.get_wallpapers()
+        wallpapers = self.get_favorite_wallpapers()
         if not wallpapers:
             return None
         
@@ -125,16 +152,16 @@ class WallpaperManager:
     
     
     def set_random_wallpaper(self) -> WallpaperResult:
-        """Set a random wallpaper, excluding the currently active one
+        """Set a random wallpaper from favorites, excluding the currently active one
         
         Returns:
             WallpaperResult with success status and details
         """
-        all_wallpapers = self.get_wallpapers()
-        if not all_wallpapers:
+        favorite_wallpapers = self.get_favorite_wallpapers()
+        if not favorite_wallpapers:
             return WallpaperResult(
                 success=False,
-                error_message=f"No wallpapers found in {self.wallpaper_dir}"
+                error_message=f"No favorite wallpapers found in wallhaven or saved directories"
             )
         
         random_wallpaper = self.get_random_wallpaper()
@@ -166,3 +193,25 @@ class WallpaperManager:
             )
         
         return self.set_wallpaper(wallpaper_path)
+    
+    def save_current_wallpaper(self) -> WallpaperResult:
+        """Save the current wallpaper to the saved directory with JXL conversion
+        
+        Returns:
+            WallpaperResult with success status and details
+        """
+        from .jxl_utils import JXLConverter
+        
+        current_wallpaper = self.get_current_wallpaper()
+        if not current_wallpaper:
+            return WallpaperResult(
+                success=False,
+                error_message="No current wallpaper to save"
+            )
+        
+        # Use JXL utility to copy with conversion
+        return JXLConverter.copy_with_jxl_conversion(
+            source_path=current_wallpaper,
+            target_dir=self.saved_dir,
+            target_name=current_wallpaper.stem
+        )

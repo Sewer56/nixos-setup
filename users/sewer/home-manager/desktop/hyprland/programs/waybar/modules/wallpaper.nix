@@ -9,6 +9,7 @@ theme: {
       };
       modules = [
         "custom/wallpaper-download"
+        "custom/wallpaper-save"
         "custom/wallpaper-random"
         "custom/wallpaper-colour"
         "custom/wallpaper-sync"
@@ -19,6 +20,12 @@ theme: {
       format = "󰇚";
       tooltip-format = "Download random wallpaper from Wallhaven";
       on-click = "~/.config/waybar/scripts/wallpaper/download-random-wallpaper.py";
+    };
+
+    "custom/wallpaper-save" = {
+      format = "󰆓";
+      tooltip-format = "Save current wallpaper to collection";
+      on-click = "~/.config/waybar/scripts/wallpaper/save-current-wallpaper.py";
     };
 
     "custom/wallpaper-random" = {
@@ -43,6 +50,7 @@ theme: {
   style = ''
     #waybar.bar #group-wallpaper,
     #waybar.bar #custom-wallpaper-download,
+    #waybar.bar #custom-wallpaper-save,
     #waybar.bar #custom-wallpaper-random,
     #waybar.bar #custom-wallpaper-colour,
     #waybar.bar #custom-wallpaper-sync,
@@ -56,6 +64,7 @@ theme: {
     }
 
     #waybar.bar #custom-wallpaper-download:hover,
+    #waybar.bar #custom-wallpaper-save:hover,
     #waybar.bar #custom-wallpaper-random:hover,
     #waybar.bar #custom-wallpaper-colour:hover,
     #waybar.bar #custom-wallpaper-sync:hover {

@@ -33,7 +33,13 @@ def main():
             api = WallhavenAPI()
             cache = CacheManager()
             search = WallhavenSearch(api, cache)
-            downloader = WallpaperDownloader()
+            
+            # Use temp directory for temporary downloads
+            temp_dir = Path.home() / "Pictures" / "wallpapers" / "temp"
+            downloader = WallpaperDownloader(download_dir=temp_dir)
+            
+            # Clear any previous temp wallpapers
+            downloader.clear_temp_directory()
             
             # Clean expired cache entries (older than 7 days)
             cache.clear(max_age_days=7)
