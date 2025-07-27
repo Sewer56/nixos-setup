@@ -1,5 +1,12 @@
 {...}: {
-  services.hyprpaper.enable = true;
+  services.hyprpaper = {
+    enable = true;
+
+    settings = {
+      ipc = "on";
+      splash = false;
+    };
+  };
 
   # Set random wallpaper and sync collection in background
   wayland.windowManager.hyprland.settings = {
