@@ -15,6 +15,12 @@
     useGlobalPkgs = true;
     useUserPackages = true;
 
+    # Shared modules for better IDE completion
+    sharedModules = [
+      inputs.agenix.homeManagerModules.default
+      inputs.catppuccin.homeManagerModules.catppuccin
+    ];
+
     # also pass inputs to home-manager modules
     extraSpecialArgs = {inherit inputs;};
     users = {
