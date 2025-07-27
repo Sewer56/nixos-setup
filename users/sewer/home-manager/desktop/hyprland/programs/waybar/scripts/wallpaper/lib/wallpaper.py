@@ -106,18 +106,9 @@ class WallpaperManager:
             )
         
         try:
-            # Smooth wallpaper transition process:
-            # 1. Preload new wallpaper while old one is still visible
-            # 2. Switch to new wallpaper (hyprpaper handles fade transition)
-            # 3. Clean up old wallpapers after transition completes
-            
-            subprocess.run(['hyprctl', 'hyprpaper', 'preload', str(wallpaper_path)], 
-                         check=True, capture_output=True)
-            
-            subprocess.run(['hyprctl', 'hyprpaper', 'wallpaper', f', {wallpaper_path}'], 
-                         check=True, capture_output=True)
-            
-            subprocess.run(['hyprctl', 'hyprpaper', 'unload', 'all'], 
+            # Use reload command which combines preload, set, and unload in one step
+            # Syntax: hyprctl hyprpaper reload ",<wallpaper_path>" (empty monitor = all monitors)
+            subprocess.run(['hyprctl', 'hyprpaper', 'reload', f',{wallpaper_path}'], 
                          check=True, capture_output=True)
             
             return WallpaperResult(
