@@ -22,13 +22,13 @@ theme: {
     };
 
     "custom/wallpaper-random" = {
-      format = "󰸉";
+      format = "";
       tooltip-format = "Random favourite wallpaper";
       on-click = "~/.config/waybar/scripts/wallpaper/random-favourite-wallpaper.py";
     };
 
     "custom/wallpaper-colour" = {
-      format = "󰌈";
+      format = "";
       tooltip-format = "Random wallpaper matching accent color";
       on-click = "~/.config/waybar/scripts/wallpaper/random-colour-wallpaper.py";
     };
