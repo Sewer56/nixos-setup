@@ -14,13 +14,18 @@ sys.path.insert(0, str(script_dir))
 sys.path.insert(0, str(script_dir / "lib"))
 
 from lib.wallhaven import WallhavenManager
+from lib.cache_manager import CacheManager
 from lib.notifications import notify_success, notify_error, notify_info
 
 def main():
     """Main function to sync wallpaper collection"""
     try:
+        # Clean expired cache entries first
+        cache = CacheManager()
+        cleared = cache.clear(max_age_days=7)
+        
         # Start Wallhaven collection sync
-        notify_info("Wallpaper sync started\nSyncing wallpaper collection from Wallhaven...")
+        notify_info(f"Wallpaper sync started\nCleaned {cleared} expired cache entries\nSyncing wallpaper collection...")
         wallhaven = WallhavenManager()
         sync_result = wallhaven.sync_collection()
         

@@ -19,7 +19,7 @@ from lib.notifications import notify_error, notify_wallpaper_change
 from lib.wallpaper import WallpaperManager
 from lib.lock_manager import hyprpaper_lock, HyprpaperLockError
 
-def wait_for_hyprpaper(timeout=30, poll_interval=0.1):
+def wait_for_hyprpaper(timeout=5, poll_interval=0.1):
     """Wait for hyprpaper to be ready
     
     Args:
@@ -33,23 +33,23 @@ def wait_for_hyprpaper(timeout=30, poll_interval=0.1):
     
     while time.time() - start_time < timeout:
         try:
-            # Check if hyprpaper is responding with lock protection
-            with hyprpaper_lock(silent_exit=False):
-                subprocess.run(
-                    ['hyprctl', 'hyprpaper', 'listloaded'], 
-                    check=True, 
-                    capture_output=True, 
-                    text=True,
-                    timeout=5
-                )
-                # If command succeeds, hyprpaper is ready
-                return True
+            # Check if hyprpaper is responding
+            subprocess.run(
+                ['hyprctl', 'hyprpaper', 'listactive'], 
+                check=True, 
+                capture_output=True, 
+                text=True,
+                timeout=5
+            )
+            # If command succeeds, hyprpaper is ready
+            return True
                 
-        except (subprocess.CalledProcessError, subprocess.TimeoutExpired, HyprpaperLockError):
-            # hyprpaper not ready yet or lock busy, wait and retry
+        except (subprocess.CalledProcessError, subprocess.TimeoutExpired):
+            # hyprpaper not ready yet, wait and retry
             time.sleep(poll_interval)
     
     return False
+
 
 def main():
     """Main function to wait for hyprpaper and run wallpaper scripts"""
@@ -58,12 +58,12 @@ def main():
         try:
             # Wait for hyprpaper to be ready
             if not wait_for_hyprpaper():
-                notify_error("Startup timeout", "hyprpaper not ready after 30 seconds")
+                notify_error("Startup timeout", "hyprpaper not ready after waiting")
                 sys.exit(1)
             
             # Short delay to ensure hyprpaper is fully initialized
             # Needed for nixOS rebuild.
-            time.sleep(1.0) # TERRIBLE HACK.
+            time.sleep(0.75) # TERRIBLE HACK.
 
             # Set random wallpaper directly
             try:

@@ -8,44 +8,44 @@ theme: {
         transition-left-to-right = true;
       };
       modules = [
+        "custom/wallpaper-download"
         "custom/wallpaper-random"
-        "custom/wallpaper-favourite"
         "custom/wallpaper-colour"
-        "custom/wallpaper-startup"
+        "custom/wallpaper-sync"
       ];
+    };
+
+    "custom/wallpaper-download" = {
+      format = "󰇚";
+      tooltip-format = "Download random wallpaper from Wallhaven";
+      on-click = "~/.config/waybar/scripts/wallpaper/download-random-wallpaper.py";
     };
 
     "custom/wallpaper-random" = {
       format = "󰸉";
-      tooltip-format = "Random wallpaper from Wallhaven collection";
-      on-click = "~/.config/waybar/scripts/wallpaper/random-wallpaper.py";
-    };
-
-    "custom/wallpaper-favourite" = {
-      format = "󰋩";
-      tooltip-format = "Favourite wallpaper (TBD)";
-      on-click = "~/.config/waybar/scripts/wallpaper/favourite-wallpaper.py";
+      tooltip-format = "Random favourite wallpaper";
+      on-click = "~/.config/waybar/scripts/wallpaper/random-favourite-wallpaper.py";
     };
 
     "custom/wallpaper-colour" = {
       format = "󰌈";
-      tooltip-format = "Favourite colour wallpaper (TBD)";
-      on-click = "~/.config/waybar/scripts/wallpaper/favourite-colour-wallpaper.py";
+      tooltip-format = "Random wallpaper matching accent color";
+      on-click = "~/.config/waybar/scripts/wallpaper/random-colour-wallpaper.py";
     };
 
-    "custom/wallpaper-startup" = {
+    "custom/wallpaper-sync" = {
       format = "󰑓";
-      tooltip-format = "Sync favourite wallpapers (wallhaven)";
+      tooltip-format = "Sync favourite wallpapers collection";
       on-click = "~/.config/waybar/scripts/wallpaper/sync-wallpapers.py";
     };
   };
 
   style = ''
     #waybar.bar #group-wallpaper,
+    #waybar.bar #custom-wallpaper-download,
     #waybar.bar #custom-wallpaper-random,
-    #waybar.bar #custom-wallpaper-favourite,
     #waybar.bar #custom-wallpaper-colour,
-    #waybar.bar #custom-wallpaper-startup,
+    #waybar.bar #custom-wallpaper-sync,
     #waybar.bar .wallpaper-drawer {
       color: ${theme.colors.rosewater};
       padding-left: 8pt;
@@ -55,10 +55,10 @@ theme: {
       background: transparent;
     }
 
+    #waybar.bar #custom-wallpaper-download:hover,
     #waybar.bar #custom-wallpaper-random:hover,
-    #waybar.bar #custom-wallpaper-favourite:hover,
     #waybar.bar #custom-wallpaper-colour:hover,
-    #waybar.bar #custom-wallpaper-startup:hover {
+    #waybar.bar #custom-wallpaper-sync:hover {
       color: ${theme.colors.yellow};
       background: rgba(255, 229, 196, 0.2);
       border-radius: 4px;
