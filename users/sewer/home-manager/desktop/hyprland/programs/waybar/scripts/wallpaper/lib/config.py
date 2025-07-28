@@ -38,8 +38,16 @@ class WallpaperConfig:
         return self.get_path('saved')
     
     @property
-    def temp_dir(self) -> Path:
-        return self.get_path('temp')
+    def current_random_dir(self) -> Path:
+        return self.get_path('current_random')
+    
+    @property
+    def next_random_dir(self) -> Path:
+        return self.get_path('next_random')
+    
+    @property
+    def download_temp_dir(self) -> Path:
+        return self.get_path('download_temp')
     
     @property
     def state_file(self) -> Path:

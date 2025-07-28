@@ -9,6 +9,7 @@ from typing import Dict, Any
 from urllib.request import urlopen, Request
 
 from ..core.results import DownloadResult
+from ..core.file_utils import clear_directory_contents
 from pathlib import Path as PathType
 from typing import Optional
 from ..constants import USER_AGENT, DEFAULT_TIMEOUT
@@ -24,9 +25,12 @@ class WallpaperDownloader:
             config: WallpaperConfig instance
         """
         self.config = config
-        self.config.temp_dir.mkdir(parents=True, exist_ok=True)
+        # Ensure directories exist
+        self.config.current_random_dir.mkdir(parents=True, exist_ok=True)
+        self.config.next_random_dir.mkdir(parents=True, exist_ok=True)
+        self.config.download_temp_dir.mkdir(parents=True, exist_ok=True)
     
-    def download_wallpaper(self, wallpaper_data: Dict[str, Any]) -> DownloadResult:
+    def download_wallpaper(self, wallpaper_data: Dict[str, Any], target_dir: Optional[PathType] = None) -> DownloadResult:
         """Download a wallpaper if not already cached
         
         Args:
@@ -39,6 +43,7 @@ class WallpaperDownloader:
                                 'path': 'https://w.wallhaven.cc/full/8z/wallhaven-8572jd.jpg',
                                 'resolution': '1920x1080'
                             }
+            target_dir: Optional directory to download to. Defaults to download_temp_dir.
             
         Returns:
             DownloadResult with download status
@@ -64,7 +69,7 @@ class WallpaperDownloader:
             )
         
         try:
-            return self._perform_download(wallpaper_id, wallpaper_url)
+            return self._perform_download(wallpaper_id, wallpaper_url, target_dir)
         except Exception as e:
             return DownloadResult(
                 success=False,
@@ -72,12 +77,13 @@ class WallpaperDownloader:
                 error_message=str(e)
             )
     
-    def _perform_download(self, wallpaper_id: str, wallpaper_url: str) -> DownloadResult:
+    def _perform_download(self, wallpaper_id: str, wallpaper_url: str, target_dir: Optional[PathType] = None) -> DownloadResult:
         """Perform the actual download operation
         
         Args:
             wallpaper_id: Wallpaper ID
             wallpaper_url: Wallpaper URL
+            target_dir: Optional directory to download to. Defaults to download_temp_dir.
             
         Returns:
             DownloadResult with download status
@@ -85,7 +91,9 @@ class WallpaperDownloader:
         request = Request(wallpaper_url, headers={'User-Agent': USER_AGENT})
         
         file_extension = Path(wallpaper_url).suffix
-        temp_path = self.config.temp_dir / f"{wallpaper_id}{file_extension}"
+        download_dir = target_dir if target_dir else self.config.download_temp_dir
+        download_dir.mkdir(parents=True, exist_ok=True)
+        temp_path = download_dir / f"{wallpaper_id}{file_extension}"
         
         with urlopen(request, timeout=DEFAULT_TIMEOUT) as response:
             with open(temp_path, 'wb') as f:
@@ -98,15 +106,13 @@ class WallpaperDownloader:
             was_cached=False
         )
     
-    def clear_temp_directory(self) -> None:
-        """Clear all files from the temp directory"""
-        if self.config.temp_dir.exists():
-            for file_path in self.config.temp_dir.iterdir():
-                if file_path.is_file():
-                    try:
-                        file_path.unlink()
-                    except Exception:
-                        pass
+    def clear_current_random_directory(self) -> None:
+        """Clear all files from the current random wallpaper directory"""
+        clear_directory_contents(self.config.current_random_dir)
+    
+    def clear_download_temp_directory(self) -> None:
+        """Clear all files from the download temp directory"""
+        clear_directory_contents(self.config.download_temp_dir)
     
     # Supported wallpaper formats in order of preference
     SUPPORTED_FORMATS = ['.jxl', '.jpg', '.jpeg', '.png', '.webp']
@@ -120,8 +126,8 @@ class WallpaperDownloader:
         Returns:
             Path to existing file or None if not found
         """
-        # Get search directories - prioritize saved over temp
-        search_dirs = [self.config.saved_dir, self.config.base_dir, self.config.temp_dir]
+        # Get search directories - prioritize saved over current/next random dirs
+        search_dirs = [self.config.saved_dir, self.config.base_dir, self.config.current_random_dir, self.config.next_random_dir]
         
         # Check for formats in order of preference across all directories
         for search_dir in search_dirs:

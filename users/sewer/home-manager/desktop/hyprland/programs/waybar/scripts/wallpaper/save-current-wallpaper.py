@@ -34,13 +34,13 @@ def main():
                 notify_error("No wallpaper set", "No current wallpaper to save")
                 sys.exit(1)
             
-            # Only allow saving if the wallpaper is from the temp directory
-            temp_dir = config.temp_dir
+            # Only allow saving if the wallpaper is from the current random directory
+            current_random_dir = config.current_random_dir
             try:
-                # Check if current wallpaper is in temp directory
-                current_wallpaper.relative_to(temp_dir)
+                # Check if current wallpaper is in current random directory
+                current_wallpaper.relative_to(current_random_dir)
             except ValueError:
-                # Wallpaper is not in temp directory - it's not a downloaded wallpaper
+                # Wallpaper is not in current random directory - it's not a downloaded wallpaper
                 notify_error("Cannot save wallpaper", "Only downloaded wallpapers can be saved")
                 sys.exit(1)
             

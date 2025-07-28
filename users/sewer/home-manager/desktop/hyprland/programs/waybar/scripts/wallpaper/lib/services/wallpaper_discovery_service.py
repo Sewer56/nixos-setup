@@ -24,7 +24,8 @@ class WallpaperDiscoveryService:
         self.config = config
         self.wallpaper_dir = config.base_dir
         self.saved_dir = config.saved_dir
-        self.temp_dir = config.temp_dir
+        self.current_random_dir = config.current_random_dir
+        self.next_random_dir = config.next_random_dir
     
     def get_all_wallpapers(self) -> List[Path]:
         """Get list of all available wallpaper files
@@ -35,7 +36,7 @@ class WallpaperDiscoveryService:
         wallpapers = []
         
         # Search in all directories including root
-        search_dirs = [self.wallpaper_dir, self.saved_dir, self.temp_dir]
+        search_dirs = [self.wallpaper_dir, self.saved_dir, self.current_random_dir, self.next_random_dir]
         
         for search_dir in search_dirs:
             if search_dir.exists():

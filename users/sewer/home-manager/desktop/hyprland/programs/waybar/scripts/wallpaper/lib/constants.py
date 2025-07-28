@@ -9,7 +9,9 @@ USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36'
 DEFAULT_WALLPAPER_DIR = "~/Pictures/wallpapers"
 DEFAULT_SUBDIRS = {
     'saved': 'saved',
-    'temp': 'temp'
+    'current_random': 'current_random_wallpaper',
+    'next_random': 'next_random_wallpaper',
+    'download_temp': 'download_temp'
 }
 
 # File extensions
