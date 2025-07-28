@@ -69,6 +69,8 @@ in {
     '';
   };
 
+  home.file."Pictures/wallpapers/monitor_state.json".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/users/sewer/home-manager/desktop/hyprland/programs/waybar/scripts/wallpaper/state/monitor_state.json";
+
   xdg.configFile = {
     "waybar/modules/battery/bat-pp.sh" = {
       source = ./modules/battery/bat-pp.sh;
