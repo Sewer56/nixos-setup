@@ -43,7 +43,7 @@ def handle_prefetched_wallpaper(config: WallpaperConfig, prefetch: WallpaperPref
     # Initialize shared components for prefetch
     api = WallhavenClient()
     cache = CacheManager()
-    search = WallhavenSearch(api, cache)
+    search = WallhavenSearch(api, cache, config.cache_max_age_days)
     downloader = WallpaperDownloader(config)
     
     # Start prefetch BEFORE setting wallpaper for parallel execution
@@ -76,14 +76,14 @@ def handle_regular_download(config: WallpaperConfig, prefetch: WallpaperPrefetch
     # Initialize components
     api = WallhavenClient()
     cache = CacheManager()
-    search = WallhavenSearch(api, cache)
+    search = WallhavenSearch(api, cache, config.cache_max_age_days)
     downloader = WallpaperDownloader(config)
     
     # Clear any previous temp downloads
     downloader.clear_download_temp_directory()
     
-    # Clean expired cache entries (older than 7 days)
-    cache.clear(max_age_days=7)
+    # Clean expired cache entries
+    cache.clear(max_age_days=config.cache_max_age_days)
     
     # Show searching notification
     notify_info(f"Searching Wallhaven\nFinding wallpapers ≥{resolution}")

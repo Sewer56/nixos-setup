@@ -14,15 +14,17 @@ from ..constants import ITEMS_PER_PAGE
 class WallhavenSearch:
     """Handles wallpaper searches with caching"""
     
-    def __init__(self, api_client: WallhavenClient, cache_manager: CacheManager):
+    def __init__(self, api_client: WallhavenClient, cache_manager: CacheManager, cache_max_age_days: int = 7):
         """Initialize search manager
         
         Args:
             api_client: Wallhaven API client
             cache_manager: Cache manager instance
+            cache_max_age_days: Maximum age for cache entries in days (defaults to 7)
         """
         self.api = api_client
         self.cache = cache_manager
+        self.cache_max_age_days = cache_max_age_days
     
     def search_random_wallpaper(self, min_resolution: str, 
                               categories: str = '110', 
@@ -56,7 +58,7 @@ class WallhavenSearch:
         )
         
         # Get total available wallpapers from cache, or fetch if not available
-        cached_total = self.cache.get(total_cache_key, max_age_days=7)
+        cached_total = self.cache.get(total_cache_key, max_age_days=self.cache_max_age_days)
         if cached_total and 'total_available' in cached_total:
             total_available = cached_total['total_available']
         else:
@@ -92,7 +94,7 @@ class WallhavenSearch:
         )
         
         # Check if we already have this page cached
-        cached_page = self.cache.get(page_cache_key, max_age_days=7)
+        cached_page = self.cache.get(page_cache_key, max_age_days=self.cache_max_age_days)
         if cached_page and 'wallpapers' in cached_page:
             wallpapers = cached_page['wallpapers']
         else:

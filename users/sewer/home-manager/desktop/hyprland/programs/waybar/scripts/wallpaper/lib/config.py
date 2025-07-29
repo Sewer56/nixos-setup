@@ -12,7 +12,8 @@ class WallpaperConfig:
     def __init__(self, 
                  base_dir: Optional[str] = None,
                  subdirs: Optional[Dict[str, str]] = None,
-                 state_file: Optional[str] = None):
+                 state_file: Optional[str] = None,
+                 cache_max_age_days: int = 7):
         """Initialize configuration
         
         Args:
@@ -21,10 +22,12 @@ class WallpaperConfig:
                     Example: {'saved': 'favorites', 'temp': 'downloads', 'archive': 'old'}
                     Results in directories: favorites/, downloads/, old/
             state_file: Monitor state file name (defaults to monitor_state.json)
+            cache_max_age_days: Maximum age for cache entries in days (defaults to 7)
         """
         self.base_dir = Path(base_dir).expanduser() if base_dir else Path(DEFAULT_WALLPAPER_DIR).expanduser()
         self.subdirs = {**DEFAULT_SUBDIRS, **(subdirs or {})}
         self.state_file_name = state_file or "monitor_state.json"
+        self.cache_max_age_days = cache_max_age_days
         
         # Ensure all directories exist
         self._ensure_directories_exist()
