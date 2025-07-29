@@ -11,13 +11,8 @@ from typing import Optional, Dict, Any
 
 from ..config import WallpaperConfig
 from ..core.file_utils import clear_directory_contents
-from ..wallhaven.client import WallhavenClient
-from ..wallhaven.search import WallhavenSearch
 from ..wallhaven.downloader import WallpaperDownloader
-from ..core.cache_manager import CacheManager
-from ..hyprland.screen_utils import get_search_resolution
-from ..core.notifications import notify_error
-
+from ..wallhaven.search import WallhavenSearch
 
 class WallpaperPrefetch:
     """Handles wallpaper prefetching for fast switching"""
@@ -87,7 +82,7 @@ class WallpaperPrefetch:
         """Start background thread to prefetch next wallpaper
         
         Args:
-            search_params: Search parameters (resolution, categories, purity)
+            search_params: Search parameters (resolution, categories, purity, max_items, percentage_of_items)
             search: WallhavenSearch instance to use
             downloader: WallpaperDownloader instance to use
             
@@ -109,7 +104,7 @@ class WallpaperPrefetch:
         
         Args:
             search_params: Search parameters for wallpaper
-            search: WallhavenSearch instance to use  
+            search: WallhavenSearch instance to use
             downloader: WallpaperDownloader instance to use
         """
         try:

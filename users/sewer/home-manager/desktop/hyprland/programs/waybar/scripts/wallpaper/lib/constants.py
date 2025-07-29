@@ -21,3 +21,4 @@ SUPPORTED_EXTENSIONS = {'.jxl', '.jpg', '.jpeg', '.png', '.webp'}
 WALLHAVEN_RATE_LIMIT = 45
 WALLHAVEN_RATE_LIMIT_WINDOW = 60
 DEFAULT_TIMEOUT = 60
+ITEMS_PER_PAGE = 24 # Search pagination

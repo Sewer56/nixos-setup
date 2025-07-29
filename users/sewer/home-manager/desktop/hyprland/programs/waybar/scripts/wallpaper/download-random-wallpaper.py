@@ -26,9 +26,10 @@ from lib.hyprland.lock_manager import hyprpaper_lock
 
 # Search parameters configuration
 SEARCH_PARAMS = {
-    'categories': '110',  # general + anime
-    'purity': '100',      # SFW only
-    'max_pages': 40       # ~1000 wallpapers
+    'categories': '110',        # general + anime
+    'purity': '100',            # SFW only
+    'max_items': 10000,         # Maximum number of wallpapers to consider
+    'percentage_of_items': 0.1, # 10% of available wallpapers
 }
 
 def handle_prefetched_wallpaper(config: WallpaperConfig, prefetch: WallpaperPrefetch, resolution: str) -> bool:

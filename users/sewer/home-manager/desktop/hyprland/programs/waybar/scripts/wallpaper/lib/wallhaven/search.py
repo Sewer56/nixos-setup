@@ -5,10 +5,11 @@ Wallhaven search functionality with caching
 """
 
 import random
-from typing import Dict, Optional, List, Any
+from typing import Dict, Optional, Any
 
 from .client import WallhavenClient
 from ..core.cache_manager import CacheManager
+from ..constants import ITEMS_PER_PAGE
 
 class WallhavenSearch:
     """Handles wallpaper searches with caching"""
@@ -26,7 +27,8 @@ class WallhavenSearch:
     def search_random_wallpaper(self, min_resolution: str, 
                               categories: str = '110', 
                               purity: str = '100',
-                              max_pages: int = 10) -> Optional[Dict[str, Any]]:
+                              max_items: int = 10000,
+                              percentage_of_items: float = 0.1) -> Optional[Dict[str, Any]]:
         """Search for a random wallpaper matching criteria
         
         Args:
@@ -39,83 +41,107 @@ class WallhavenSearch:
                    - First digit: SFW (1=yes, 0=no)
                    - Second digit: sketchy (1=yes, 0=no)
                    - Third digit: NSFW (1=yes, 0=no)
-            max_pages: Maximum pages to fetch from API (default 10, ~240 wallpapers)
+            max_items: Maximum number of wallpapers to consider (default: 10000)
+            percentage_of_items: Percentage of total available wallpapers (0.0-1.0, default: 0.1)
                    
         Returns:
             Random wallpaper data or None if search failed
         """
-        # Generate cache key
-        cache_key = self.cache.generate_search_key(
+        # Generate cache key for total count
+        total_cache_key = self.cache.generate_search_key(
             min_resolution=min_resolution,
             categories=categories,
             purity=purity,
-            search_type='random_top1000'
+            search_type='total_count'
         )
         
-        # Check cache first
-        cached_data = self.cache.get(cache_key, max_age_days=7)
-        
-        if cached_data and 'wallpapers' in cached_data:
-            # Return random wallpaper from cached results
-            return random.choice(cached_data['wallpapers'])
-        
-        # Perform API search
-        wallpapers = self._fetch_top_wallpapers(
-            min_resolution=min_resolution,
-            categories=categories,
-            purity=purity,
-            max_pages=max_pages
-        )
-        
-        if wallpapers:
-            # Cache the results
-            self.cache.set(cache_key, {'wallpapers': wallpapers})
+        # Get total available wallpapers from cache, or fetch if not available
+        cached_total = self.cache.get(total_cache_key, max_age_days=7)
+        if cached_total and 'total_available' in cached_total:
+            total_available = cached_total['total_available']
+        else:
+            # Fetch first page to get total count
+            first_page_data = self._fetch_page_with_metadata(1, min_resolution, categories, purity)
+            if not first_page_data:
+                return None
             
-            # Return random wallpaper
-            return random.choice(wallpapers)
+            total_available = first_page_data['total_available']
+            # Cache the total count
+            self.cache.set(total_cache_key, {'total_available': total_available})
+        
+        # Calculate target pool size from parameters
+        from_percentage = int(percentage_of_items * total_available)
+        target_size = min(max_items, from_percentage)
+        if target_size <= 0:
+            return None
+        
+        # Pick random index within target size
+        random_index = random.randint(0, min(target_size, total_available) - 1)
+        
+        # Calculate which page this index falls on (pages start at 1)
+        page_num = (random_index // ITEMS_PER_PAGE) + 1
+        index_in_page = random_index % ITEMS_PER_PAGE
+        
+        # Generate cache key for this specific page
+        page_cache_key = self.cache.generate_search_key(
+            min_resolution=min_resolution,
+            categories=categories,
+            purity=purity,
+            search_type='page',
+            page_num=page_num
+        )
+        
+        # Check if we already have this page cached
+        cached_page = self.cache.get(page_cache_key, max_age_days=7)
+        if cached_page and 'wallpapers' in cached_page:
+            wallpapers = cached_page['wallpapers']
+        else:
+            # Fetch the specific page and cache it
+            page_data = self._fetch_page_with_metadata(page_num, min_resolution, categories, purity)
+            if not page_data:
+                return None
+            
+            wallpapers = page_data['wallpapers']
+            # Cache this page for future use
+            self.cache.set(page_cache_key, {'wallpapers': wallpapers})
+        
+        if wallpapers and index_in_page < len(wallpapers):
+            return wallpapers[index_in_page]
         
         return None
     
-    def _fetch_top_wallpapers(self, min_resolution: str, 
-                            categories: str, 
-                            purity: str,
-                            max_pages: int = 10) -> List[Dict[str, Any]]:
-        """Fetch top wallpapers from API
+    
+    def _fetch_page_with_metadata(self, page_num: int, min_resolution: str, 
+                                categories: str, purity: str) -> Optional[Dict[str, Any]]:
+        """Fetch wallpapers from a specific page with metadata
         
         Args:
+            page_num: Page number to fetch
             min_resolution: Minimum resolution
             categories: Category filter
             purity: Purity filter
-            max_pages: Maximum pages to fetch (default 10)
             
         Returns:
-            List of wallpaper data
+            Dict with 'wallpapers' and 'total_available' or None if failed
         """
-        wallpapers = []
-        
         try:
-            # Fetch wallpapers from multiple pages
-            # API returns 24 results per page
-            for page in range(1, max_pages + 1):
-                params = {
-                    'categories': categories,
-                    'purity': purity,
-                    'sorting': 'favorites',
-                    'order': 'desc',
-                    'topRange': '1y',  # Top from last year
-                    'atleast': min_resolution,
-                    'page': page
+            params = {
+                'categories': categories,
+                'purity': purity,
+                'sorting': 'favorites',
+                'order': 'desc',
+                'topRange': '1y',
+                'atleast': min_resolution,
+                'page': page_num
+            }
+            
+            response = self.api.search(params)
+            if 'data' in response and 'meta' in response:
+                return {
+                    'wallpapers': response['data'],
+                    'total_available': response['meta'].get('total', 10800)  # fallback
                 }
-                
-                try:
-                    response = self.api.search(params)
-                    if 'data' in response:
-                        wallpapers.extend(response['data'])
-                except Exception:
-                    # Continue fetching other pages even if one fails
-                    continue
-                
         except Exception:
             pass
         
-        return wallpapers
+        return None
