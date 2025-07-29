@@ -29,3 +29,15 @@ class DownloadResult:
     file_path: Optional[Path] = None
     was_cached: bool = False
     error_message: Optional[str] = None
+
+@dataclass
+class SyncResult:
+    """Result of collection sync operations"""
+    success: bool
+    downloaded_count: int = 0
+    failed_count: int = 0
+    errors: List[str] = None
+    
+    def __post_init__(self):
+        if self.errors is None:
+            self.errors = []

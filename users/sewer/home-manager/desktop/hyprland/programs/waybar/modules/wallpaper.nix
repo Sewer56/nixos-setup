@@ -12,11 +12,14 @@ theme: {
         "custom/wallpaper-save"
         "custom/wallpaper-random"
         "custom/wallpaper-colour"
+        "custom/wallpaper-sync"
+        "custom/wallpaper-update"
+        "custom/wallpaper-cleanup"
       ];
     };
 
     "custom/wallpaper-download" = {
-      format = "󰇚";
+      format = "";
       tooltip-format = "Download random wallpaper from Wallhaven";
       on-click = "~/.config/waybar/scripts/wallpaper/download-random-wallpaper.py";
     };
@@ -25,6 +28,24 @@ theme: {
       format = "󰆓";
       tooltip-format = "Save current wallpaper to collection";
       on-click = "~/.config/waybar/scripts/wallpaper/save-current-wallpaper.py";
+    };
+
+    "custom/wallpaper-sync" = {
+      format = "󰑓";
+      tooltip-format = "Sync wallpaper collection\n(download missing wallpapers from wallpaper_collection.json)";
+      on-click = "~/.config/waybar/scripts/wallpaper/sync-collection.py";
+    };
+
+    "custom/wallpaper-update" = {
+      format = "󰁝";
+      tooltip-format = "Update collection from disk\n(add missing wallpapers on disk to wallpaper_collection.json)";
+      on-click = "~/.config/waybar/scripts/wallpaper/update-collection.py";
+    };
+
+    "custom/wallpaper-cleanup" = {
+      format = "󰃢";
+      tooltip-format = "Remove untracked wallpapers\n(remove wallpapers on disk not in wallpaper_collection.json)";
+      on-click = "~/.config/waybar/scripts/wallpaper/cleanup-collection.py";
     };
 
     "custom/wallpaper-random" = {
@@ -44,6 +65,9 @@ theme: {
     #waybar.bar #group-wallpaper,
     #waybar.bar #custom-wallpaper-download,
     #waybar.bar #custom-wallpaper-save,
+    #waybar.bar #custom-wallpaper-sync,
+    #waybar.bar #custom-wallpaper-update,
+    #waybar.bar #custom-wallpaper-cleanup,
     #waybar.bar #custom-wallpaper-random,
     #waybar.bar #custom-wallpaper-colour,
     #waybar.bar .wallpaper-drawer {
@@ -57,6 +81,9 @@ theme: {
 
     #waybar.bar #custom-wallpaper-download:hover,
     #waybar.bar #custom-wallpaper-save:hover,
+    #waybar.bar #custom-wallpaper-sync:hover,
+    #waybar.bar #custom-wallpaper-update:hover,
+    #waybar.bar #custom-wallpaper-cleanup:hover,
     #waybar.bar #custom-wallpaper-random:hover,
     #waybar.bar #custom-wallpaper-colour:hover {
       color: ${theme.colors.yellow};

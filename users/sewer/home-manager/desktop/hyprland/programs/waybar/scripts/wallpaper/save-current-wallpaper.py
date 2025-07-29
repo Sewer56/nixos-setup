@@ -16,6 +16,8 @@ setup_lib_path()
 from lib.config import WallpaperConfig
 from lib.services.wallpaper_manager import WallpaperManager
 from lib.core.notifications import notify_error, notify_success
+from lib.core.collection_manager import CollectionManager
+from lib.core.file_utils import get_image_resolution
 from lib.hyprland.lock_manager import hyprpaper_lock
 
 
@@ -48,6 +50,29 @@ def main():
             
             if result.success:
                 wallpaper_name = result.wallpaper_path.name if result.wallpaper_path else "Unknown"
+                
+                # Add to collection
+                try:
+                    collection_manager = CollectionManager(config)
+                    
+                    # Extract wallpaper ID from filename (stem removes extension)
+                    wallpaper_id = result.wallpaper_path.stem
+                    
+                    # Get actual resolution from the image file
+                    resolution = get_image_resolution(result.wallpaper_path) or "unknown"
+                    
+                    # Get file extension
+                    file_extension = result.wallpaper_path.suffix
+                    
+                    collection_manager.add_wallpaper(
+                        wallpaper_id=wallpaper_id,
+                        resolution=resolution,
+                        file_extension=file_extension
+                    )
+                except Exception:
+                    # Don't fail the save if collection update fails
+                    pass
+                
                 notify_success("Wallpaper saved", f"Saved: {wallpaper_name}")
                 sys.exit(0)
             else:

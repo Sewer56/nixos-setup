@@ -15,6 +15,7 @@
     ];
     exec-once = [
       "~/.config/waybar/scripts/wallpaper/sync-wallpapers.py"
+      "~/.config/waybar/scripts/wallpaper/startup-sync.py"
     ];
   };
 }
