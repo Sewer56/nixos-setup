@@ -24,6 +24,13 @@ from lib.hyprland.screen_utils import get_search_resolution
 from lib.core.notifications import notify_error, notify_wallpaper_change, notify_info
 from lib.hyprland.lock_manager import hyprpaper_lock
 
+# Search parameters configuration
+SEARCH_PARAMS = {
+    'categories': '110',  # general + anime
+    'purity': '100',      # SFW only
+    'max_pages': 40       # ~1000 wallpapers
+}
+
 def handle_prefetched_wallpaper(config: WallpaperConfig, prefetch: WallpaperPrefetch, resolution: str) -> bool:
     """Handle case where prefetched wallpaper is available"""
     # Use prefetched wallpaper for instant switching
@@ -41,8 +48,7 @@ def handle_prefetched_wallpaper(config: WallpaperConfig, prefetch: WallpaperPref
     # Start prefetch BEFORE setting wallpaper for parallel execution
     search_params = {
         'min_resolution': resolution,
-        'categories': '110',  # general + anime
-        'purity': '100'       # SFW only
+        **SEARCH_PARAMS
     }
     prefetch_thread = prefetch.start_background_prefetch(
         search_params, search, downloader
@@ -84,8 +90,7 @@ def handle_regular_download(config: WallpaperConfig, prefetch: WallpaperPrefetch
     # Search for a random wallpaper
     wallpaper_data = search.search_random_wallpaper(
         min_resolution=resolution,
-        categories='110',  # general + anime
-        purity='100'       # SFW only
+        **SEARCH_PARAMS
     )
     
     if not wallpaper_data:
@@ -108,8 +113,7 @@ def handle_regular_download(config: WallpaperConfig, prefetch: WallpaperPrefetch
     # Start prefetch BEFORE setting wallpaper for parallel execution
     search_params = {
         'min_resolution': resolution,
-        'categories': '110',  # general + anime
-        'purity': '100'       # SFW only
+        **SEARCH_PARAMS
     }
     prefetch_thread = prefetch.start_background_prefetch(
         search_params, search, downloader
