@@ -137,7 +137,7 @@ class HyprlandWallpaperService:
         return result
     
     def set_wallpaper_all_monitors(self, wallpaper_path: Path, save_state: bool = True) -> WallpaperResult:
-        """Set same wallpaper on all connected monitors
+        """Set same wallpaper on all connected monitors using explicit monitor names
         
         Args:
             wallpaper_path: Path to wallpaper file
@@ -146,14 +146,61 @@ class HyprlandWallpaperService:
         Returns:
             WallpaperResult with success status and details
         """
-        result = self._execute_wallpaper_command(wallpaper_path, "")
+        # Get all connected monitors
+        monitors = get_monitor_info()
         
-        if result.success and save_state:
-            # Get all monitor info and pass it to save state
-            monitors = get_monitor_info()
-            self._save_wallpaper_state(wallpaper_path, monitors)
+        if not monitors:
+            return WallpaperResult(
+                success=False,
+                wallpaper_path=wallpaper_path,
+                error_message="No monitors detected"
+            )
         
-        return result
+        # Set wallpaper on each monitor individually
+        results = []
+        failed_monitors = []
+        
+        for monitor in monitors:
+            # Use save_state=False to avoid individual saves, we'll save all at once at the end
+            result = self.set_wallpaper_for_monitor(wallpaper_path, monitor.name, save_state=False)
+            results.append(result)
+            
+            if not result.success:
+                failed_monitors.append(monitor.name)
+        
+        # Check if any monitors succeeded
+        successful_results = [r for r in results if r.success]
+        
+        if successful_results:
+            # At least some monitors succeeded
+            if save_state:
+                # Save state for all monitors (both successful and failed attempts)
+                # This maintains the existing behavior where state is saved optimistically
+                self._save_wallpaper_state(wallpaper_path, monitors)
+            
+            if failed_monitors:
+                # Partial success
+                return WallpaperResult(
+                    success=True,
+                    wallpaper_path=wallpaper_path,
+                    error_message=f"Set wallpaper on {len(successful_results)}/{len(monitors)} monitors. Failed: {', '.join(failed_monitors)}"
+                )
+            else:
+                # Complete success
+                return WallpaperResult(
+                    success=True,
+                    wallpaper_path=wallpaper_path
+                )
+        else:
+            # All monitors failed
+            error_messages = [f"{monitors[i].name}: {results[i].error_message}" for i in range(len(monitors)) if results[i].error_message]
+            combined_error = "; ".join(error_messages) if error_messages else "All monitors failed"
+            
+            return WallpaperResult(
+                success=False,
+                wallpaper_path=wallpaper_path,
+                error_message=f"Failed to set wallpaper on all monitors. {combined_error}"
+            )
     
     def restore_monitor_wallpapers(self, fallback_wallpaper_provider) -> Dict[str, WallpaperResult]:
         """Restore saved wallpapers for all connected monitors
