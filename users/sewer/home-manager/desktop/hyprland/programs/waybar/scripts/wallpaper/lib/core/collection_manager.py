@@ -5,7 +5,6 @@ Declarative wallpaper collection management
 """
 
 import json
-from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional
 
@@ -59,7 +58,6 @@ class CollectionManager:
             "wallhaven_id": wallpaper_id,
             "resolution": resolution,
             "primary_colors": ["#000000"],  # Placeholder for now
-            "date_added": datetime.now().isoformat(),
             "file_extension": file_extension
         }
         

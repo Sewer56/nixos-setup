@@ -5,7 +5,6 @@ Monitor wallpaper state persistence for multi-monitor setups
 """
 
 import json
-from datetime import datetime
 from pathlib import Path
 from typing import Dict, Optional
 
@@ -69,8 +68,7 @@ class MonitorStateManager:
         
         state["monitors"][monitor_name] = {
             "wallpaper_path": str(wallpaper_path),
-            "resolution": resolution,
-            "last_updated": datetime.now().isoformat()
+            "resolution": resolution
         }
         
         self._save_state_file(state)
