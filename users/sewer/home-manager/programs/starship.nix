@@ -1,5 +1,6 @@
 {config, ...}: let
-  colors = config.lib.catppuccin.colors;
+  colors = config.lib.theme.colors;
+  semantic = config.lib.theme.semantic;
 in {
   programs.starship = {
     enable = true;
@@ -37,7 +38,7 @@ in {
 
       # Git status
       git_status = {
-        style = "bold ${colors.yellow}";
+        style = "bold ${semantic.command}";
         ahead = "⇡\${count}";
         behind = "⇣\${count}";
         diverged = "⇕⇡\${ahead_count}⇣\${behind_count}";
@@ -60,12 +61,12 @@ in {
       # Command duration
       cmd_duration = {
         format = "[$duration]($style) ";
-        style = "bold ${colors.yellow}";
+        style = "bold ${semantic.command}";
         min_time = 500;
         show_milliseconds = true;
       };
 
-      # Programming languages with Catppuccin colors
+      # Programming languages with theme colors
       nix_shell = {
         symbol = "❄️ ";
         style = "bold ${colors.blue}";
@@ -93,7 +94,7 @@ in {
       # Package
       package = {
         symbol = "📦 ";
-        style = "bold ${colors.peach}";
+        style = "bold ${semantic.contentHighlight}";
         format = "[$symbol$version]($style) ";
       };
 
@@ -118,7 +119,7 @@ in {
           }
           {
             threshold = 20;
-            style = "bold ${colors.yellow}";
+            style = "bold ${semantic.warning}";
           }
         ];
       };

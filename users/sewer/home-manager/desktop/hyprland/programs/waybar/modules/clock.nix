@@ -1,4 +1,4 @@
-theme: {
+semantic: {
   config = {
     clock = {
       interval = 1;
@@ -10,11 +10,11 @@ theme: {
         weeks-pos = "right";
         on-scroll = 1;
         format = {
-          months = "<span color='${theme.colors.audio}'><b>{}</b></span>";
-          days = "<span color='${theme.colors.text}'><b>{}</b></span>";
-          weeks = "<span color='${theme.colors.power}'> W{}</span>";
-          weekdays = "<span color='${theme.colors.yellow}'><b>{}</b></span>";
-          today = "<span color='${theme.colors.rosewater}'><b><u>{}</u></b></span>";
+          months = "<span color='${semantic.audio}'><b>{}</b></span>";
+          days = "<span color='${semantic.text}'><b>{}</b></span>";
+          weeks = "<span color='${semantic.power}'> W{}</span>";
+          weekdays = "<span color='${semantic.interactive}'><b>{}</b></span>";
+          today = "<span color='${semantic.interactiveHighlight}'><b><u>{}</u></b></span>";
         };
       };
       on-click = "~/.config/waybar/scripts/launch-calendar.sh";
@@ -23,7 +23,7 @@ theme: {
 
   style = ''
     #waybar.bar #clock {
-      color: ${theme.colors.date};
+      color: ${semantic.date};
     }
   '';
 }

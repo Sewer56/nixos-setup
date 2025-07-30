@@ -22,7 +22,7 @@ def main():
     # Prevent concurrent execution using file locking
     with hyprpaper_lock(silent_exit=True):
         # TODO: Implement color matching logic
-        # 1. Get current accent color from catppuccin config
+        # 1. Get current accent color from theme config
         #    - Read from nix config or environment variable
         # 2. Extract dominant colors from wallpapers
         #    - Use PIL/Pillow or ImageMagick to analyze images

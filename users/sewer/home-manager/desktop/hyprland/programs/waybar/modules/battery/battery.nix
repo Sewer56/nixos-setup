@@ -1,4 +1,4 @@
-theme: {
+semantic: {
   config = {
     "custom/battery" = {
       interval = 5;
@@ -14,11 +14,11 @@ theme: {
 
   style = ''
     #waybar.bar #custom-battery {
-      color: ${theme.colors.power};
+      color: ${semantic.power};
     }
 
     #waybar.bar #custom-battery.warning {
-      color: ${theme.colors.warning};
+      color: ${semantic.warning};
     }
   '';
 }

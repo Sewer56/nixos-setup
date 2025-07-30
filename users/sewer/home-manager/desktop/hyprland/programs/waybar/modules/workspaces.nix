@@ -1,4 +1,4 @@
-theme: {
+semantic: {
   config = {
     "hyprland/workspaces" = {
       disable-scroll-wraparound = true;
@@ -32,7 +32,7 @@ theme: {
 
   style = ''
     #waybar.bar #workspaces button {
-      color: ${theme.colors.border};
+      color: ${semantic.border};
       background: transparent;
       border: 1.5px solid transparent;
       font-size: 10pt;
@@ -47,21 +47,21 @@ theme: {
     }
 
     #waybar.bar #workspaces button.visible {
-      color: ${theme.colors.work};
+      color: ${semantic.work};
     }
 
     #waybar.bar #workspaces button.active {
-      color: ${theme.colors.work};
-      border: 1.5px solid ${theme.colors.border};
+      color: ${semantic.work};
+      border: 1.5px solid ${semantic.border};
     }
 
     #waybar.bar #workspaces button:hover {
-      color: ${theme.colors.work};
+      color: ${semantic.work};
     }
 
     #waybar.bar #workspaces button.special.active {
       border: 1.5px solid transparent;
-      color: ${theme.colors.work};
+      color: ${semantic.work};
       transition: all 0s ease;
       animation-iteration-count: infinite;
       animation-direction: alternate;
@@ -71,7 +71,7 @@ theme: {
     }
 
     #waybar.bar #submap.RESIZE {
-      color: ${theme.colors.resize};
+      color: ${semantic.resize};
       animation-iteration-count: infinite;
       animation-direction: alternate;
       animation-name: blink-modifier-text;
@@ -80,7 +80,7 @@ theme: {
     }
 
     #waybar.bar #window {
-      color: ${theme.colors.work};
+      color: ${semantic.work};
       margin-top: -0px;
     }
 

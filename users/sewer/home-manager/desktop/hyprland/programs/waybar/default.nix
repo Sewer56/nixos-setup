@@ -3,22 +3,22 @@
   pkgs,
   ...
 }: let
-  catppuccin = config.lib.catppuccin.colors;
-  theme = import ./theme.nix catppuccin;
-  bars = import ./bars.nix theme;
-  workspaces = import ./modules/workspaces.nix theme;
-  system = import ./modules/system.nix theme;
-  audio = import ./modules/audio.nix theme;
-  network = import ./modules/network.nix theme;
-  bluetooth = import ./modules/bluetooth.nix theme;
-  battery = import ./modules/battery/battery.nix theme;
-  clock = import ./modules/clock.nix theme;
+  semantic = config.lib.theme.semantic;
+  theme = import ./theme.nix semantic;
+  bars = import ./bars.nix semantic;
+  workspaces = import ./modules/workspaces.nix semantic;
+  system = import ./modules/system.nix semantic;
+  audio = import ./modules/audio.nix semantic;
+  network = import ./modules/network.nix semantic;
+  bluetooth = import ./modules/bluetooth.nix semantic;
+  battery = import ./modules/battery/battery.nix semantic;
+  clock = import ./modules/clock.nix semantic;
   tray = import ./modules/tray.nix;
-  backlight = import ./modules/backlight.nix theme;
-  spacers = import ./modules/spacers.nix theme;
-  visualizer = import ./modules/visualizer.nix theme;
-  uptime = import ./modules/uptime.nix theme;
-  wallpaper = import ./modules/wallpaper.nix theme;
+  backlight = import ./modules/backlight.nix semantic;
+  spacers = import ./modules/spacers.nix semantic;
+  visualizer = import ./modules/visualizer.nix semantic;
+  uptime = import ./modules/uptime.nix semantic;
+  wallpaper = import ./modules/wallpaper.nix semantic;
 in {
   home.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
@@ -52,6 +52,7 @@ in {
       ${theme.moduleBaseStyle}
       ${theme.criticalAnimationStyle}
       ${theme.chargingAnimationStyle}
+
       ${bars.mainBarStyle}
       ${workspaces.style}
       ${system.style}

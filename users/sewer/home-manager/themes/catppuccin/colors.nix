@@ -1,8 +1,7 @@
-{config, ...}: {
-  # Catppuccin color palette for all flavors
-  # Source: https://github.com/catppuccin/palette/blob/main/palette.json
-
-  config.lib.catppuccin.palette = {
+# Catppuccin color palette for all flavors
+# Source: https://github.com/catppuccin/palette/blob/main/palette.json
+{
+  palette = {
     latte = {
       rosewater = "#dc8a78";
       flamingo = "#dd7878";
@@ -118,18 +117,5 @@
       mantle = "#181825";
       crust = "#11111b";
     };
-  };
-
-  # Convenience accessor for current flavor colors
-  config.lib.catppuccin.colors = config.lib.catppuccin.palette.${config.catppuccin.flavor};
-
-  # Helper functions for hyprland color format conversion
-  config.lib.catppuccin.helpers = {
-    # Convert hex color (#rrggbb) to hyprland rgb format: rgb(rrggbb)
-    hexToRgb = hex: "rgb(${builtins.substring 1 6 hex})";
-
-    # Convert hex color (#rrggbb) to hyprland rgba format: rgba(rrggbbaa)
-    # alpha is hex string (00-ff)
-    hexToRgba = hex: alpha: "rgba(${builtins.substring 1 6 hex}${alpha})";
   };
 }

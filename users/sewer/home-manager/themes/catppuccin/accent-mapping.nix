@@ -1,49 +1,49 @@
-# Accent to accent2 color mapping
-# This is fully custom, by me.
-# Uses Catppuccin Mocha colors sorted by hue, with each accent mapped to the next color in hue order
-# This creates a smooth color progression for window borders
+# Accent to accent2 color mapping for Catppuccin
+# Maps each accent color to the next color in hue progression for smooth gradients
+# Used for borders, transitions, and multi-color effects
+# Based on Catppuccin Mocha colors sorted by hue order
 {
   # red (hue: 11.19) → maroon (hue: 14.37)
-  red = "$maroon";
+  red = "maroon";
 
   # maroon (hue: 14.37) → flamingo (hue: 18.12)
-  maroon = "$flamingo";
+  maroon = "flamingo";
 
   # flamingo (hue: 18.12) → rosewater (hue: 31.13)
-  flamingo = "$rosewater";
+  flamingo = "rosewater";
 
   # rosewater (hue: 31.13) → peach (hue: 49.64)
-  rosewater = "$peach";
+  rosewater = "peach";
 
   # peach (hue: 49.64) → yellow (hue: 84.75)
-  peach = "$yellow";
+  peach = "yellow";
 
   # yellow (hue: 84.75) → green (hue: 138.15)
-  yellow = "$green";
+  yellow = "green";
 
   # green (hue: 138.15) → teal (hue: 184.1)
-  green = "$teal";
+  green = "teal";
 
   # teal (hue: 184.1) → sky (hue: 209.37)
-  teal = "$sky";
+  teal = "sky";
 
   # sky (hue: 209.37) → sapphire (hue: 228.38)
-  sky = "$sapphire";
+  sky = "sapphire";
 
   # sapphire (hue: 228.38) → blue (hue: 263.81)
-  sapphire = "$blue";
+  sapphire = "blue";
 
   # blue (hue: 263.81) → lavender (hue: 277.31)
-  blue = "$lavender";
+  blue = "lavender";
 
   # lavender (hue: 277.31) → mauve (hue: 303.9)
-  lavender = "$mauve";
+  lavender = "mauve";
 
   # mauve (hue: 303.9) → pink (hue: 336.18)
-  mauve = "$pink";
+  mauve = "pink";
 
   # pink (hue: 336.18) → red (hue: 11.19) [wraps around]
-  pink = "$red";
+  pink = "red";
 }
 # Original Catppuccin Mocha colors in OKLCh format (sorted by hue):
 # red = oklch(0.737 0.1252 11.19)

@@ -1,5 +1,6 @@
 {config, ...}: let
-  colors = config.lib.catppuccin.colors;
+  colors = config.lib.theme.colors;
+  semantic = config.lib.theme.semantic;
 in {
   home.shell.enableZshIntegration = true;
 
@@ -7,7 +8,7 @@ in {
   programs.zsh = {
     enable = true;
 
-    # Enable syntax highlighting with Catppuccin colors
+    # Enable syntax highlighting with theme colors
     syntaxHighlighting = {
       enable = true;
       styles = {
@@ -23,24 +24,24 @@ in {
         "path" = "fg=${colors.blue}";
         "path_pathseparator" = "fg=${colors.overlay0}";
         "path_prefix" = "fg=${colors.blue}";
-        "globbing" = "fg=${colors.yellow}";
+        "globbing" = "fg=${semantic.command}";
         "history-expansion" = "fg=${colors.mauve}";
         "command-substitution" = "fg=${colors.text}";
         "command-substitution-delimiter" = "fg=${colors.overlay0}";
         "process-substitution" = "fg=${colors.text}";
         "process-substitution-delimiter" = "fg=${colors.overlay0}";
-        "single-hyphen-option" = "fg=${colors.yellow}";
-        "double-hyphen-option" = "fg=${colors.yellow}";
+        "single-hyphen-option" = "fg=${semantic.command}";
+        "double-hyphen-option" = "fg=${semantic.command}";
         "back-quoted-argument" = "fg=${colors.green}";
         "single-quoted-argument" = "fg=${colors.green}";
         "double-quoted-argument" = "fg=${colors.green}";
         "dollar-quoted-argument" = "fg=${colors.green}";
         "rc-quote" = "fg=${colors.green}";
-        "dollar-double-quoted-argument" = "fg=${colors.peach}";
-        "back-double-quoted-argument" = "fg=${colors.peach}";
-        "back-dollar-quoted-argument" = "fg=${colors.peach}";
+        "dollar-double-quoted-argument" = "fg=${semantic.contentHighlight}";
+        "back-double-quoted-argument" = "fg=${semantic.contentHighlight}";
+        "back-dollar-quoted-argument" = "fg=${semantic.contentHighlight}";
         "assign" = "fg=${colors.text}";
-        "redirection" = "fg=${colors.yellow}";
+        "redirection" = "fg=${semantic.command}";
         "comment" = "fg=${colors.overlay0}";
         "named-fd" = "fg=${colors.text}";
         "numeric-fd" = "fg=${colors.text}";
@@ -68,7 +69,7 @@ in {
     # Configure history substring search colors and completion colors
     sessionVariables = {
       # History substring search highlighting
-      HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND = "bg=${colors.surface1},fg=${colors.yellow},bold";
+      HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND = "bg=${colors.surface1},fg=${semantic.highlight},bold";
       HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND = "bg=${colors.surface1},fg=${colors.red},bold";
 
       # Zsh completion colors - make them more visible
@@ -96,7 +97,7 @@ in {
       zstyle ':completion:*:options' description 'yes'
       zstyle ':completion:*:options' auto-description '%d'
       zstyle ':completion:*:corrections' format ' %F{${colors.green}}-- %d (errors: %e) --%f'
-      zstyle ':completion:*:descriptions' format ' %F{${colors.yellow}}-- %d --%f'
+      zstyle ':completion:*:descriptions' format ' %F{${semantic.highlight}}-- %d --%f'
       zstyle ':completion:*:messages' format ' %F{${colors.mauve}}-- %d --%f'
       zstyle ':completion:*:warnings' format ' %F{${colors.red}}-- no matches found --%f'
       zstyle ':completion:*:default' list-prompt '%S%M matches%s'

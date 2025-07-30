@@ -1,20 +1,6 @@
-catppuccin: {
-  colors = {
-    background = "rgba(21, 21, 32, 0.75)";
-    warning = catppuccin.red;
-    border = catppuccin.surface1;
-    performance = catppuccin.pink;
-    audio = catppuccin.mauve;
-    power = catppuccin.teal;
-    date = catppuccin.green;
-    work = catppuccin.lavender;
-    window = catppuccin.lavender;
-    resize = catppuccin.maroon;
-    text = catppuccin.text;
-    yellow = catppuccin.yellow;
-    rosewater = catppuccin.rosewater;
-  };
-
+semantic: let
+  helpers = import ../../../../themes/shared/helpers.nix;
+in {
   baseStyle = ''
     * {
       border: none;
@@ -28,13 +14,13 @@ catppuccin: {
 
     @keyframes blink-critical-text {
       to {
-        color: ${catppuccin.red};
+        color: ${semantic.warning};
       }
     }
 
     @keyframes blink-modifier-text {
       to {
-        color: ${catppuccin.surface1};
+        color: ${semantic.border};
       }
     }
 
@@ -52,14 +38,14 @@ catppuccin: {
     }
 
     tooltip {
-      background: rgba(21, 21, 32, 0.75);
-      border: 3px solid ${catppuccin.surface1};
+      background: ${helpers.hexAlphaToCssRgba semantic.backgroundTransparent};
+      border: 3px solid ${semantic.border};
       border-radius: 8px;
     }
 
     #waybar.bar #tray menu {
-      background: rgba(21, 21, 32, 0.75);
-      border: 3px solid ${catppuccin.surface1};
+      background: ${helpers.hexAlphaToCssRgba semantic.backgroundTransparent};
+      border: 3px solid ${semantic.border};
       border-radius: 8px;
     }
   '';
@@ -95,7 +81,7 @@ catppuccin: {
     #waybar.bar #memory.ram.critical,
     #waybar.bar #cpu.critical,
     #waybar.bar #temperature.critical {
-      color: ${catppuccin.surface1};
+      color: ${semantic.border};
       animation-iteration-count: infinite;
       animation-direction: alternate;
       animation-name: blink-critical-text;
@@ -106,7 +92,7 @@ catppuccin: {
 
   chargingAnimationStyle = ''
     #waybar.bar #custom-battery.charging {
-      color: ${catppuccin.teal};
+      color: ${semantic.power};
       animation-iteration-count: infinite;
       animation-direction: alternate;
       animation-name: blink-modifier-text;

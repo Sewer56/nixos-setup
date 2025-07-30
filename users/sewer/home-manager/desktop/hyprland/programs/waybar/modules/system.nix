@@ -1,4 +1,4 @@
-theme: {
+semantic: {
   config = {
     cpu = {
       interval = 4;
@@ -79,7 +79,7 @@ theme: {
     #waybar.bar #memory.ram,
     #waybar.bar #memory.swap,
     #waybar.bar #disk {
-      color: ${theme.colors.performance};
+      color: ${semantic.performance};
     }
   '';
 }

@@ -1,4 +1,4 @@
-theme: {
+semantic: {
   config = {
     "custom/spacer1" = {
       format = " \\\\ ";
@@ -22,7 +22,7 @@ theme: {
     #waybar.bar #custom-spacer3 {
       font-size: 10pt;
       font-weight: bold;
-      color: ${theme.colors.border};
+      color: ${semantic.border};
       background: transparent;
     }
   '';

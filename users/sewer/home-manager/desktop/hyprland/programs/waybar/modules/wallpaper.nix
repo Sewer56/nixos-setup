@@ -1,4 +1,4 @@
-theme: {
+semantic: {
   config = {
     "group/wallpaper" = {
       orientation = "horizontal";
@@ -71,7 +71,7 @@ theme: {
     #waybar.bar #custom-wallpaper-random,
     #waybar.bar #custom-wallpaper-colour,
     #waybar.bar .wallpaper-drawer {
-      color: ${theme.colors.rosewater};
+      color: ${semantic.interactiveHighlight};
       padding-left: 8pt;
       padding-right: 8pt;
       padding-bottom: 4px;
@@ -86,7 +86,7 @@ theme: {
     #waybar.bar #custom-wallpaper-cleanup:hover,
     #waybar.bar #custom-wallpaper-random:hover,
     #waybar.bar #custom-wallpaper-colour:hover {
-      color: ${theme.colors.yellow};
+      color: ${semantic.interactive};
       background: rgba(255, 229, 196, 0.2);
       border-radius: 4px;
     }

@@ -1,4 +1,4 @@
-theme: {
+semantic: {
   config = {
     "group/audio" = {
       orientation = "horizontal";
@@ -52,12 +52,12 @@ theme: {
     #waybar.bar #group-audio,
     #waybar.bar #pulseaudio,
     #waybar.bar .audio-drawer {
-      color: ${theme.colors.audio};
+      color: ${semantic.audio};
     }
 
     #waybar.bar #pulseaudio.output.muted,
     #waybar.bar #pulseaudio.input.source-muted {
-      color: ${theme.colors.border};
+      color: ${semantic.border};
     }
   '';
 }
