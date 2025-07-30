@@ -56,8 +56,8 @@ semantic: {
 
     "custom/wallpaper-colour" = {
       format = "";
-      tooltip-format = "Random wallpaper matching accent color";
-      on-click = "~/.config/waybar/scripts/wallpaper/random-colour-wallpaper.py";
+      tooltip-format = "Auto adjust accent colour based on current wallpaper";
+      on-click = "~/.config/waybar/scripts/wallpaper/auto-accent-colour.py";
     };
   };
 

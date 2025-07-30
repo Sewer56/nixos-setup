@@ -28,6 +28,20 @@ class JXLConverter:
             return False
     
     @staticmethod
+    def is_djxl_available() -> bool:
+        """Check if djxl command is available
+        
+        Returns:
+            True if djxl is available, False otherwise
+        """
+        try:
+            subprocess.run(['djxl', '--version'], 
+                         capture_output=True, check=True)
+            return True
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            return False
+    
+    @staticmethod
     def convert_to_jxl(source_path: Path, target_path: Path, 
                       remove_source: bool = True, overwrite: bool = False) -> WallpaperResult:
         """Convert an image to JXL format
@@ -90,4 +104,52 @@ class JXLConverter:
                 error_message=f"JXL conversion failed: {e}"
             )
     
+    @staticmethod
+    def convert_from_jxl(jxl_path: Path, target_format: str = "ppm") -> Tuple[bool, Path]:
+        """Convert JXL file to PIL-compatible format for analysis
+        
+        Args:
+            jxl_path: Path to JXL file
+            target_format: Target format (png, jpg, etc.)
+            
+        Returns:
+            Tuple of (success, converted_file_path)
+        """
+        if not jxl_path.exists():
+            return False, jxl_path
+        
+        if not JXLConverter.is_djxl_available():
+            return False, jxl_path
+        
+        # Create temporary file in same directory
+        temp_file = jxl_path.parent / f"{jxl_path.stem}_temp.{target_format}"
+        
+        try:
+            subprocess.run(
+                ['djxl', str(jxl_path), str(temp_file)],
+                capture_output=True,
+                text=True,
+                check=True
+            )
+            
+            return True, temp_file
+            
+        except subprocess.CalledProcessError:
+            # Clean up temp file if it was created
+            if temp_file.exists():
+                temp_file.unlink()
+            return False, jxl_path
+    
+    @staticmethod
+    def cleanup_temp_file(temp_path: Path) -> None:
+        """Clean up temporary converted file
+        
+        Args:
+            temp_path: Path to temporary file to remove
+        """
+        try:
+            if temp_path.exists():
+                temp_path.unlink()
+        except Exception:
+            pass  # Ignore cleanup errors
     
