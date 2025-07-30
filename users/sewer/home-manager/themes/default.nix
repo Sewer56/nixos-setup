@@ -39,7 +39,6 @@ in {
       description = "Theme accent color";
       example = "lavender";
     };
-
   };
 
   # Provide the universal theme interface
