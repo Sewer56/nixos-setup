@@ -17,6 +17,8 @@
     qalculate-gtk
     qdirstat
     iwgtk
+    feh
+    libjxl
 
     # Desktop environment
     waybar

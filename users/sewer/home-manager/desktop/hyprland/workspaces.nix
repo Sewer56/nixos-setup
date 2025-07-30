@@ -2,10 +2,11 @@
   wayland.windowManager.hyprland.settings = {
     # Workspace rules
     workspace = [
-      "1, persistent:true"
+      "1, persistent:true, default:true"
       "2, persistent:true"
       "3, persistent:true"
       "4, persistent:true"
+      "5, persistent:true"
     ];
 
     # Example windowrule v2
@@ -14,6 +15,7 @@
     windowrulev2 = [
       # Workspace 1: Code editors and browsers
       "workspace 1, class:^(Code)$"
+      "workspace 1, class:^(code)$"
       "workspace 1, class:^(code-url-handler)$"
       "workspace 1, class:^(chromium-browser)$"
 
@@ -28,6 +30,9 @@
       # Workspace 4: Misc applications
       "workspace 4, class:^(Tidal)$"
       "workspace 4, class:^(thunderbird)$"
+
+      # Workspace 5: Vivaldi browser (desktop config may differ)
+      "workspace 5, class:^(vivaldi-stable)$"
 
       # Floating windows
       "float, title:^(Picture-in-Picture)$"
@@ -52,6 +57,7 @@
       "telegram-desktop"
       "tidal"
       "thunderbird"
+      "vivaldi"
 
       # Kill that wifi applet which I can't disable for the life of me.
       "sleep 5 && pkill -f 'iwgtk -i'"

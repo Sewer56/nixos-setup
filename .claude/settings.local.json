@@ -15,7 +15,11 @@
       "mcp__github__get_file_contents",
       "Bash(nixos-rebuild dry-build:*)",
       "Bash(alejandra:*)",
-      "Bash(wget:*)"
+      "Bash(wget:*)",
+      "Bash(python3:*)",
+      "Bash(chmod:*)",
+      "Bash(mv:*)",
+      "Bash(rm:*)"
     ],
     "deny": []
   }

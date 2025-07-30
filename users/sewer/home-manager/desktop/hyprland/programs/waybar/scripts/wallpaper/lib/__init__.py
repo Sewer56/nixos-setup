@@ -1,0 +1,3 @@
+"""
+Wallpaper management library modules
+"""

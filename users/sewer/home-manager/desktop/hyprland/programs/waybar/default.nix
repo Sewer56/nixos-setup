@@ -18,6 +18,7 @@
   spacers = import ./modules/spacers.nix theme;
   visualizer = import ./modules/visualizer.nix theme;
   uptime = import ./modules/uptime.nix theme;
+  wallpaper = import ./modules/wallpaper.nix theme;
 in {
   home.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
@@ -43,6 +44,7 @@ in {
         // spacers.config
         // visualizer.config
         // uptime.config
+        // wallpaper.config
       )
     ];
     style = ''
@@ -63,45 +65,23 @@ in {
       ${spacers.style}
       ${visualizer.style}
       ${uptime.style}
+      ${wallpaper.style}
     '';
   };
+
+  home.file."Pictures/wallpapers/monitor_state.json".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/users/sewer/home-manager/desktop/hyprland/programs/waybar/scripts/wallpaper/state/monitor_state.json";
+  home.file."Pictures/wallpapers/wallpaper_collection.json".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/users/sewer/home-manager/desktop/hyprland/programs/waybar/scripts/wallpaper/state/wallpaper_collection.json";
 
   xdg.configFile = {
     "waybar/modules/battery/bat-pp.sh" = {
       source = ./modules/battery/bat-pp.sh;
       executable = true;
     };
-    "waybar/scripts/audio-input-volume-up.sh" = {
-      source = ./scripts/audio-input-volume-up.sh;
-      executable = true;
-    };
-    "waybar/scripts/audio-input-volume-down.sh" = {
-      source = ./scripts/audio-input-volume-down.sh;
-      executable = true;
-    };
-    "waybar/scripts/launch-audio-control.sh" = {
-      source = ./scripts/launch-audio-control.sh;
-      executable = true;
-    };
-    "waybar/scripts/launch-calendar.sh" = {
-      source = ./scripts/launch-calendar.sh;
-      executable = true;
-    };
-    "waybar/scripts/launch-wifi-manager.sh" = {
-      source = ./scripts/launch-wifi-manager.sh;
-      executable = true;
-    };
-    "waybar/scripts/launch-disk-analyzer.sh" = {
-      source = ./scripts/launch-disk-analyzer.sh;
-      executable = true;
-    };
-    "waybar/scripts/launch-bluetooth-manager.sh" = {
-      source = ./scripts/launch-bluetooth-manager.sh;
-      executable = true;
-    };
-    "waybar/scripts/uptime-since-resume.sh" = {
-      source = ./scripts/uptime-since-resume.sh;
-      executable = true;
+    "waybar/scripts" = {
+      source = ./scripts;
+      recursive = true;
+      # Note: Executable does not work on folders.
+      # Remember to chmod +x
     };
   };
 }
