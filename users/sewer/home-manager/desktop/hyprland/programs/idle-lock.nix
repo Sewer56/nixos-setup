@@ -3,7 +3,6 @@
   config,
   ...
 }: let
-  colors = config.lib.theme.colors;
   semantic = config.lib.theme.semantic;
   inherit (config.lib.theme.helpers) hexToRgbHyprland;
 in {

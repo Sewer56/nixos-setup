@@ -31,6 +31,24 @@ in {
   # Theme helpers
   helpers = sharedHelpers;
 
+  # Available accent colors for this theme
+  accentColors = {
+    rosewater = colors.rosewater;
+    flamingo = colors.flamingo;
+    pink = colors.pink;
+    mauve = colors.mauve;
+    red = colors.red;
+    maroon = colors.maroon;
+    peach = colors.peach;
+    yellow = colors.yellow;
+    green = colors.green;
+    teal = colors.teal;
+    sky = colors.sky;
+    sapphire = colors.sapphire;
+    blue = colors.blue;
+    lavender = colors.lavender;
+  };
+
   # Theme metadata
   metadata = {
     name = "Catppuccin";

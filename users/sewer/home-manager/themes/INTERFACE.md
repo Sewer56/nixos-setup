@@ -43,6 +43,13 @@ Secondary accent color - next color in hue progression for smooth gradients.
 Useful for borders, transitions, and multi-color effects like Hyprland borders.
 Falls back to `accent` if not provided.
 
+#### `accentColors` (optional)
+
+Available accent colors for this theme as an attribute set of color names to hex values.
+Used for accent color export functionality. For catppuccin themes, should include
+all 14 accent colors: rosewater, flamingo, pink, mauve, red, maroon, peach, yellow,
+green, teal, sky, sapphire, blue, lavender.
+
 #### `helpers` (optional)
 
 Universal helper functions. All themes automatically inherit shared helpers from `../shared/helpers.nix`:
@@ -69,6 +76,7 @@ Programs should access theme colors via:
   semantic = config.lib.theme.semantic;     # Semantic mappings
   accent = config.lib.theme.accent;         # Current accent
   accent2 = config.lib.theme.accent2;       # Secondary accent for gradients
+  accentColors = config.lib.theme.accentColors; # Available accent colors
   helpers = config.lib.theme.helpers;       # Theme helpers
 in {
   # Use colors.colorname or semantic.purpose
@@ -137,11 +145,42 @@ lib.mkMerge [
 ]
 ```
 
+### Accent Color Export
+
+The system automatically generates `~/.config/theme/accent-colors.json` during build with the following format:
+
+```json
+{
+  "theme": "catppuccin",
+  "variant": "mocha",
+  "currentAccent": "lavender",
+  "colors": {
+    "rosewater": "#f5e0dc",
+    "flamingo": "#f2cdcd",
+    "pink": "#f5c2e7",
+    "mauve": "#cba6f7",
+    "red": "#f38ba8",
+    "maroon": "#eba0ac",
+    "peach": "#fab387",
+    "yellow": "#f9e2af",
+    "green": "#a6e3a1",
+    "teal": "#94e2d5",
+    "sky": "#89dceb",
+    "sapphire": "#74c7ec",
+    "blue": "#89b4fa",
+    "lavender": "#b4befe"
+  }
+}
+```
+
+This enables external tools to access theme accent colors programmatically.
+
 ### Adding New Themes
 
 1. Create `themes/themename/` directory
 2. Implement `themes/themename/default.nix` with required interface
-3. (Optional) Create `themes/themename/system.nix` for system integration
-4. Add theme to `themes/default.nix` availableThemes
-5. Add conditional system integration import if system.nix exists
-6. Test with `nixos-rebuild dry-build`
+3. (Optional) Add `accentColors` attribute set for accent color export
+4. (Optional) Create `themes/themename/system.nix` for system integration
+5. Add theme to `themes/default.nix` availableThemes
+6. Add conditional system integration import if system.nix exists
+7. Test with `nixos-rebuild dry-build`
