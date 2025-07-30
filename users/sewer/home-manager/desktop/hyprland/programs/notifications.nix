@@ -1,14 +1,19 @@
-{config, ...}: let
-  colors = config.lib.catppuccin.colors;
+{
+  config,
+  lib,
+  ...
+}: let
+  colors = config.lib.theme.colors;
+  semantic = config.lib.theme.semantic;
 in {
   services.mako = {
     enable = true;
     settings = {
-      # Colors using Catppuccin theme
-      background-color = colors.base;
-      text-color = colors.text;
-      border-color = colors.${config.catppuccin.accent};
-      progress-color = "over ${colors.surface0}";
+      # Colors using current theme
+      background-color = semantic.background;
+      text-color = semantic.foreground;
+      border-color = semantic.accent;
+      progress-color = "over ${semantic.surface0}";
 
       # Layout and appearance
       max-visible = 10;
@@ -23,7 +28,7 @@ in {
 
       # High urgency notifications
       "urgency=high" = {
-        border-color = colors.peach;
+        border-color = lib.mkForce semantic.warning;
       };
     };
   };

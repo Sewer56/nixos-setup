@@ -1,4 +1,4 @@
-theme: {
+semantic: {
   config = {
     backlight = {
       device = "intel_backlight";
@@ -16,7 +16,7 @@ theme: {
 
   style = ''
     #waybar.bar #backlight {
-      color: ${theme.colors.power};
+      color: ${semantic.power};
     }
   '';
 }

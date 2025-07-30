@@ -1,4 +1,4 @@
-theme: {
+semantic: {
   config = {
     "custom/uptime" = {
       exec = "~/.config/waybar/scripts/uptime-since-resume.sh";
@@ -11,7 +11,7 @@ theme: {
 
   style = ''
     #waybar.bar #custom-uptime {
-      color: ${theme.colors.power};
+      color: ${semantic.power};
     }
   '';
 }

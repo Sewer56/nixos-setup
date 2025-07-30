@@ -1,4 +1,6 @@
-theme: {
+semantic: let
+  helpers = import ../../../../themes/shared/helpers.nix;
+in {
   mainBar = {
     layer = "top";
     position = "bottom";
@@ -40,8 +42,8 @@ theme: {
 
   mainBarStyle = ''
     #waybar.bar {
-      background: rgba(21, 21, 32, 0.75);
-      border: 2.5px solid ${theme.colors.border};
+      background: ${helpers.hexAlphaToCssRgba semantic.backgroundTransparent};
+      border: 2.5px solid ${semantic.border};
       border-radius: 8pt;
     }
   '';

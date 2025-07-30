@@ -1,36 +1,36 @@
 {config, ...}: let
-  colors = config.lib.catppuccin.colors;
-  accentColor = colors.${config.catppuccin.accent};
+  colors = config.lib.theme.colors;
+  semantic = config.lib.theme.semantic;
 in {
   # Rofi theme file generation for Home Manager
   # Documentation:
   # - Rofi Theming: https://github.com/davatorium/rofi/blob/next/doc/rofi-theme.5.markdown
-  # - Catppuccin Colors: https://github.com/catppuccin/catppuccin#-palette
-  # - Catppuccin Style Guide: https://github.com/catppuccin/catppuccin/blob/main/docs/style-guide.md
+  # - Theme Colors: Defined in theme configuration
+  # - Theme Style Guide: Follow current theme conventions
   # Generate shared theme files
-  # Colors follow Catppuccin style guide: https://github.com/catppuccin/catppuccin/blob/main/docs/style-guide.md
+  # Colors follow current theme configuration
   home.file.".config/rofi/themes/shared/colors.rasi".text = ''
     * {
-        /* Catppuccin Text - used for all text elements (body copy, labels) */
-        text:                ${colors.text}FF;
+        /* Theme text - used for all text elements (body copy, labels) */
+        text:                ${semantic.foreground}FF;
 
-        /* User accent color - used for highlights, scrollbar handle, borders */
-        accent:              ${accentColor}FF;
+        /* Theme accent color - used for highlights, scrollbar handle, borders */
+        accent:              ${semantic.accent}FF;
 
-        /* Catppuccin Base (0x99 opacity) - main window backdrop */
-        window-background:   ${colors.base}99;
+        /* Theme background (0x99 opacity) - main window backdrop */
+        window-background:   ${semantic.background}99;
 
-        /* Catppuccin Surface1 - input field background */
+        /* Theme surface - input field background */
         search-background:   ${colors.surface1}FF;
 
-        /* Catppuccin Overlay0 - subtle borders for input elements */
-        search-border:       ${colors.overlay0}FF;
+        /* Theme border - subtle borders for input elements */
+        search-border:       ${semantic.border}FF;
 
-        /* Catppuccin Mantle - scrollbar track background */
-        scrollbar-background: ${colors.mantle}FF;
+        /* Theme mantle - scrollbar track background */
+        scrollbar-background: ${semantic.mantle}FF;
 
-        /* Catppuccin Overlay2 (30% opacity) - selected item highlight */
-        selection-background: ${colors.overlay2}4D;
+        /* Theme overlay (30% opacity) - selected item highlight */
+        selection-background: ${semantic.overlay2}4D;
     }
   '';
 

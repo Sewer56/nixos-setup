@@ -3,8 +3,9 @@
   config,
   ...
 }: let
-  colors = config.lib.catppuccin.colors;
-  inherit (config.lib.catppuccin.helpers) hexToRgb;
+  colors = config.lib.theme.colors;
+  semantic = config.lib.theme.semantic;
+  inherit (config.lib.theme.helpers) hexToRgbHyprland;
 in {
   # Idle management and screen locking for Hyprland
   home.packages = with pkgs; [
@@ -48,7 +49,7 @@ in {
         monitor = "";
         path = "screenshot";
         blur_passes = 1;
-        color = hexToRgb colors.base;
+        color = hexToRgbHyprland semantic.background;
       };
 
       # Time display
@@ -56,7 +57,7 @@ in {
         {
           monitor = "";
           text = "$TIME";
-          color = hexToRgb colors.text;
+          color = hexToRgbHyprland semantic.text;
           font_size = 270;
           font_family = "JetBrains Mono Nerd Font";
           position = "0, 300";
@@ -67,7 +68,7 @@ in {
         {
           monitor = "";
           text = "cmd[update:43200000] date +'%A, %d %B %Y'";
-          color = hexToRgb colors.text;
+          color = hexToRgbHyprland semantic.text;
           font_size = 45;
           font_family = "JetBrains Mono Nerd Font";
           position = "0, 100";
@@ -81,7 +82,7 @@ in {
         monitor = "";
         path = "$HOME/.face";
         size = 100;
-        border_color = hexToRgb colors.${config.catppuccin.accent};
+        border_color = hexToRgbHyprland semantic.accent;
         position = "0, 75";
         halign = "center";
         valign = "center";
@@ -95,16 +96,16 @@ in {
         dots_size = 0.2;
         dots_spacing = 0.2;
         dots_center = true;
-        outer_color = hexToRgb colors.${config.catppuccin.accent};
-        inner_color = hexToRgb colors.surface0;
-        font_color = hexToRgb colors.text;
+        outer_color = hexToRgbHyprland semantic.accent;
+        inner_color = hexToRgbHyprland semantic.surface0;
+        font_color = hexToRgbHyprland semantic.text;
         fade_on_empty = false;
-        placeholder_text = "<span foreground='#${colors.text}cc'><i>󰌾 Logged in as </i><span foreground='#${colors.${config.catppuccin.accent}}cc'>$USER</span></span>";
+        placeholder_text = "<span foreground='#${semantic.text}cc'><i>󰌾 Logged in as </i><span foreground='#${semantic.accent}cc'>$USER</span></span>";
         hide_input = false;
-        check_color = hexToRgb colors.${config.catppuccin.accent};
-        fail_color = hexToRgb colors.red;
+        check_color = hexToRgbHyprland semantic.accent;
+        fail_color = hexToRgbHyprland semantic.error;
         fail_text = "<i>$FAIL <b>($ATTEMPTS)</b></i>";
-        capslock_color = hexToRgb colors.yellow;
+        capslock_color = hexToRgbHyprland semantic.warning;
         position = "0, -94";
         halign = "center";
         valign = "center";

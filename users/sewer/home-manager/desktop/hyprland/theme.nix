@@ -1,13 +1,14 @@
 {config, ...}: let
-  # Import accent mapping
-  accentMappings = import ./catppuccin/accent-mapping.nix;
-  accent2Color = accentMappings.${config.catppuccin.accent} or "rgb(00ff99)";
+  # Get colors from theme system
+  colors = config.lib.theme.colors;
+  helpers = config.lib.theme.helpers;
+  accent2Color = helpers.hexToRgbHyprland config.lib.theme.accent2;
 in {
   wayland.windowManager.hyprland.settings = {
-    # Theme color definitions - using Catppuccin colors
-    "$accent" = "$accent"; # This will use Catppuccin's accent color
+    # Theme color definitions - using current theme colors
+    "$accent" = helpers.hexToRgbHyprland config.lib.theme.accent;
     "$accent2" = accent2Color;
-    "$inactive" = "$surface0"; # Using Catppuccin surface color
+    "$inactive" = helpers.hexToRgbHyprland colors.surface0;
 
     general = {
       # See https://wiki.hyprland.org/Configuring/Variables/ for more
