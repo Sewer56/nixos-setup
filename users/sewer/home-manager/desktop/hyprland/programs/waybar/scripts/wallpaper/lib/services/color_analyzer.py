@@ -45,7 +45,7 @@ def extract_dominant_colors(image_path: Path, num_colors: int = 10) -> List[Tupl
         # Scale such that height == 540
         original_width, original_height = img.size
         aspect_ratio = original_width / original_height
-        new_height = 1080
+        new_height = 540
         new_width = int(new_height * aspect_ratio)
         img = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
         
