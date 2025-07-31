@@ -68,8 +68,8 @@ in {
       "$mod, O, layoutmsg, addmaster" # Add master window
 
       # Application pass-through bindings
-      "ALT, 3, pass, ^(com\.obsproject\.Studio)$"
-      "ALT, 4, pass, ^(com\.obsproject\.Studio)$"
+      "ALT, 3, pass, class:^(com\.obsproject\.Studio)$"
+      "ALT, 4, pass, class:^(com\.obsproject\.Studio)$"
       "$mod, C, pass, ^(qemu)$"
 
       # Window movement

@@ -13,6 +13,7 @@
     ./programs/monitor.nix
     ./programs/fetch.nix
     ./programs/email.nix
+    ./programs/obs-studio.nix
     ./themes/default.nix
     ./theme.nix
   ];
