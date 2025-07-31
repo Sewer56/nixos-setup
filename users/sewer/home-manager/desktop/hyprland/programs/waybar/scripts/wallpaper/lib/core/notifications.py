@@ -91,6 +91,27 @@ def notify_info(message: str) -> None:
         pass
 
 
+def notify_warning(message: str, details: Optional[str] = None) -> None:
+    """Send a warning notification
+    
+    Args:
+        message: Main warning message
+        details: Optional warning details
+    """
+    full_message = f"{message}\n{details}" if details else message
+    try:
+        subprocess.run([
+            'notify-send',
+            'Wallpaper Warning',
+            full_message,
+            '-i', 'dialog-warning',
+            '-t', '4000',
+            '-u', 'normal'
+        ], check=True, capture_output=True)
+    except subprocess.CalledProcessError:
+        pass
+
+
 def notify_wallpaper_change(wallpaper_name: str) -> None:
     """Send wallpaper change notification
     

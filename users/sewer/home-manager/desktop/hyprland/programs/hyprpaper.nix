@@ -1,4 +1,4 @@
-{...}: {
+{config, ...}: {
   services.hyprpaper = {
     enable = true;
 
@@ -12,6 +12,7 @@
   wayland.windowManager.hyprland.settings = {
     exec = [
       "~/.config/waybar/scripts/wallpaper/startup-wrapper.py"
+      "hyprctl setcursor catppuccin-${config.theme.variant}-${config.theme.accent}-cursors 32"
     ];
     exec-once = [
       "~/.config/waybar/scripts/wallpaper/sync-wallpapers.py"

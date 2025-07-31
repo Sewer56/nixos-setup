@@ -17,7 +17,7 @@ setup_lib_path()
 
 # Now import from organized modules
 from lib.config import WallpaperConfig
-from lib.core.notifications import notify_error, notify_wallpaper_change
+from lib.core.notifications import notify_error, notify_wallpaper_change, notify_info
 from lib.services.wallpaper_manager import WallpaperManager
 from lib.hyprland.lock_manager import hyprpaper_lock, HyprpaperLockError
 
@@ -55,8 +55,10 @@ def wait_for_hyprpaper(timeout=5, poll_interval=0.1):
 
 def main():
     """Main function to wait for hyprpaper and run wallpaper scripts"""
-    # Prevent concurrent startup wrapper execution using file locking
-    with hyprpaper_lock(silent_exit=True):
+    # Check for --no-lock argument
+    skip_lock = '--no-lock' in sys.argv
+    
+    def run_wallpaper_restoration():
         try:
             # Wait for hyprpaper to be ready
             if not wait_for_hyprpaper():
@@ -65,6 +67,7 @@ def main():
             
             # Short delay to ensure hyprpaper is fully initialized
             # Needed for nixOS rebuild.
+            notify_info("Restoring wallpapers...")
             time.sleep(0.75) # TERRIBLE HACK.
 
             # Restore saved wallpapers for each monitor
@@ -98,6 +101,14 @@ def main():
         except Exception as e:
             notify_error("Startup wrapper error", f"Unexpected error: {str(e)}")
             sys.exit(1)
+    
+    if skip_lock:
+        # Run without lock for manual calls
+        run_wallpaper_restoration()
+    else:
+        # Prevent concurrent startup wrapper execution using file locking
+        with hyprpaper_lock(silent_exit=True):
+            run_wallpaper_restoration()
 
 
 if __name__ == "__main__":

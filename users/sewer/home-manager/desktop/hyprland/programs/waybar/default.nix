@@ -20,6 +20,9 @@
   uptime = import ./modules/uptime.nix semantic;
   wallpaper = import ./modules/wallpaper.nix semantic;
 in {
+  imports = [
+    ./scripts/wallpaper/packages.nix
+  ];
   home.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
   ];

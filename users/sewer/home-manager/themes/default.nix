@@ -42,26 +42,41 @@ in {
   };
 
   # Provide the universal theme interface
-  config = {
-    lib.theme = {
-      # Raw color palette from selected theme
-      colors = selectedTheme.colors;
+  config = lib.mkMerge [
+    {
+      lib.theme = {
+        # Raw color palette from selected theme
+        colors = selectedTheme.colors;
 
-      # Semantic color mappings
-      semantic = selectedTheme.semantic;
+        # Semantic color mappings
+        semantic = selectedTheme.semantic;
 
-      # Theme-specific helpers
-      helpers = selectedTheme.helpers or {};
+        # Theme-specific helpers
+        helpers = selectedTheme.helpers or {};
 
-      # Current accent color
-      accent = selectedTheme.accent;
+        # Current accent color
+        accent = selectedTheme.accent;
 
-      # Secondary accent color - next color in hue progression for smooth gradients
-      # Useful for borders, transitions, and multi-color effects like Hyprland borders
-      accent2 = selectedTheme.accent2 or selectedTheme.accent;
+        # Secondary accent color - next color in hue progression for smooth gradients
+        # Useful for borders, transitions, and multi-color effects like Hyprland borders
+        accent2 = selectedTheme.accent2 or selectedTheme.accent;
 
-      # Theme metadata
-      metadata = selectedTheme.metadata or {};
-    };
-  };
+        # Available accent colors from selected theme
+        accentColors = selectedTheme.accentColors or {};
+
+        # Theme metadata
+        metadata = selectedTheme.metadata or {};
+      };
+    }
+
+    # Always export accent colors to JSON file
+    {
+      xdg.configFile."theme/accent-colors.json".text = builtins.toJSON {
+        theme = cfg.name;
+        variant = cfg.variant;
+        currentAccent = cfg.accent;
+        colors = selectedTheme.accentColors or {};
+      };
+    }
+  ];
 }
