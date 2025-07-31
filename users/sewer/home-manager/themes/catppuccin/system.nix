@@ -19,10 +19,6 @@ themeConfig: {
   catppuccin.gtk.icon.flavor = themeConfig.variant;
   catppuccin.gtk.icon.accent = themeConfig.accent;
 
-  home.sessionVariables = {
-    HYPRCURSOR_THEME = "catppuccin-${themeConfig.variant}-${themeConfig.accent}-cursors";
-  };
-
   gtk = {
     enable = true;
     gtk2.extraConfig = "gtk-application-prefer-dark-theme = true";
