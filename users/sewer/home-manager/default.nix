@@ -14,6 +14,7 @@
     ./programs/fetch.nix
     ./programs/email.nix
     ./programs/obs-studio.nix
+    ./programs/video-player.nix
     ./themes/default.nix
     ./theme.nix
   ];
