@@ -4,4 +4,7 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+
+  # Enable nix-ld for running unpatched binaries
+  programs.nix-ld.enable = true;
 }
