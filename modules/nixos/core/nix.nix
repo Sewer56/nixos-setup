@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   # Enable Flakes and nix commands
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
@@ -7,4 +7,43 @@
 
   # Enable nix-ld for running unpatched binaries
   programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs;
+    [
+      # Needed for electron/playwright based plugins in VSCode.
+      glib
+      nspr
+      nss
+      dbus
+      at-spi2-atk
+      cups
+      expat
+      libxkbcommon
+      xorg.libX11
+      xorg.libXcomposite
+      xorg.libXdamage
+      xorg.libxcb
+      xorg.libXext
+      xorg.libXfixes
+      xorg.libXrandr
+      cairo
+      pango
+      alsa-lib
+
+      # ld-linux-x86-64-linux.so.2 and others
+      glibc
+
+      # dotnet
+      curl
+      icu
+      libunwind
+      libuuid
+      lttng-ust
+      openssl
+      zlib
+
+      # mono
+      krb5
+    ]
+    # Common game related binaries
+    ++ (steam-run.args.multiPkgs pkgs);
 }
