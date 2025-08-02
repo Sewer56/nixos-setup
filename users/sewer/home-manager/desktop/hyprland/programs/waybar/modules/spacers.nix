@@ -20,7 +20,6 @@ semantic: {
     #waybar.bar #custom-spacer1,
     #waybar.bar #custom-spacer2,
     #waybar.bar #custom-spacer3 {
-      font-size: 10pt;
       font-weight: bold;
       color: ${semantic.border};
       background: transparent;

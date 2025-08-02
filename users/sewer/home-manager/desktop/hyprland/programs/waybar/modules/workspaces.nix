@@ -46,8 +46,6 @@ semantic: {
       font-size: 12pt;
       padding-left: 2pt;
       padding-right: 2pt;
-      margin-bottom: 6px;
-      margin-top: 6px;
       margin-left: 4px;
       margin-right: 4px;
       transition: all 0.25s ease;
