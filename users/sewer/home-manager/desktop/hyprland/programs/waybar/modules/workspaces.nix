@@ -15,6 +15,7 @@ semantic: {
         "4" = "󰒱"; # Slack icon
         "5" = "󰆾"; # Telegram icon (alternative)
         "6" = "󰝚"; # General workspace icon
+        "7" = "//"; # Visual separator between low and high workspaces
         "8" = "󰎈"; # Music icon
         "9" = "󰊢"; # Git icon
         "10" = "󰇮"; # Email icon

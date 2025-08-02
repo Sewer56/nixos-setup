@@ -8,6 +8,7 @@
       "2, persistent:true"
       "3, persistent:true"
       "4, persistent:true"
+      "7, persistent:true"
       "8, persistent:true"
       "9, persistent:true"
       "10, persistent:true"
