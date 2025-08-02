@@ -20,4 +20,8 @@
 
   # Polkit agent for privilege escalation in text editors like vscode
   services.hyprpolkitagent.enable = true;
+
+  wayland.windowManager.hyprland.settings = {
+    debug.full_cm_proto = true;
+  };
 }
