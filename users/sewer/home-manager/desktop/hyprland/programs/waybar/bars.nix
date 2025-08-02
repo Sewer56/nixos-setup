@@ -46,7 +46,7 @@ in {
     width = 2;
     margin-left = 24;
     margin-right = 24;
-    margin-bottom = 24;
+    margin-bottom = 4;
     modules-center = [
       "custom/spacer2"
       "hyprland/workspaces"
