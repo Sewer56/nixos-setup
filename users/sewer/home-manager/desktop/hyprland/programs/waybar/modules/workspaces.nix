@@ -42,8 +42,7 @@ semantic: {
     #waybar.bar #workspaces button {
       color: ${semantic.border};
       background: transparent;
-      font-family: "JetBrains Mono Nerd Font Propo";
-      font-size: 12pt;
+      font-size: 14pt; /* Font size + 4 */
       padding-left: 2pt;
       padding-right: 2pt;
       margin-left: 4px;

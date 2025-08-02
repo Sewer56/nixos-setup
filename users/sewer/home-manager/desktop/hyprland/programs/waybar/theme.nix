@@ -25,15 +25,12 @@ in {
     }
 
     #waybar.bar {
-      font-family: "JetBrains Mono Nerd Font";
+      font-family: "JetBrains Mono Nerd Font Propo";
       font-size: 10pt;
       font-weight: 500;
     }
 
     #waybar.bar button {
-      font-family: JetBrains Mono Nerd Font;
-      font-size: 12pt;
-      font-weight: 500;
       transition: all 0.15s ease-in-out;
     }
 
