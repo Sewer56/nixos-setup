@@ -13,7 +13,7 @@ semantic: {
         "2" = "󰨞"; # Code icon
         "3" = "󰙯"; # Discord icon
         "4" = "󰒱"; # Slack icon
-        "5" = "󰔀"; # Telegram icon
+        "5" = "󰆾"; # Telegram icon (alternative)
         "6" = "󰝚"; # General workspace icon
         "8" = "󰎈"; # Music icon
         "9" = "󰊢"; # Git icon
