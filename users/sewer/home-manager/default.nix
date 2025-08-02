@@ -15,6 +15,7 @@
     ./programs/email.nix
     ./programs/obs-studio.nix
     ./programs/video-player.nix
+    ./programs/vesktop.nix
     ./themes/default.nix
     ./theme.nix
   ];

@@ -67,6 +67,7 @@
 
       # Startup applications
       "code"
+      "vesktop"
       "gitkraken"
       "slack"
       "telegram-desktop"
