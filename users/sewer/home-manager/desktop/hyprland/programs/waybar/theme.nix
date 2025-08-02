@@ -77,7 +77,14 @@ in {
     #waybar.bar #memory.swap.critical,
     #waybar.bar #memory.ram.critical,
     #waybar.bar #cpu.critical,
-    #waybar.bar #temperature.critical {
+    #waybar.bar #temperature.critical,
+    #waybar.bottom-bar #custom-battery.critical,
+    #waybar.bottom-bar #workspaces button.urgent,
+    #waybar.bottom-bar #workspaces button.special.urgent,
+    #waybar.bottom-bar #memory.swap.critical,
+    #waybar.bottom-bar #memory.ram.critical,
+    #waybar.bottom-bar #cpu.critical,
+    #waybar.bottom-bar #temperature.critical {
       color: ${semantic.border};
       animation-iteration-count: infinite;
       animation-direction: alternate;
@@ -88,7 +95,8 @@ in {
   '';
 
   chargingAnimationStyle = ''
-    #waybar.bar #custom-battery.charging {
+    #waybar.bar #custom-battery.charging,
+    #waybar.bottom-bar #custom-battery.charging {
       color: ${semantic.power};
       animation-iteration-count: infinite;
       animation-direction: alternate;
