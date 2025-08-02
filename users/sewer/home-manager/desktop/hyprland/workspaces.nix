@@ -1,38 +1,55 @@
 {...}: {
   wayland.windowManager.hyprland.settings = {
     # Workspace rules
+    # Low workspaces (1-5): Common applications
+    # High workspaces (8-0): Uncommonly checked applications
     workspace = [
       "1, persistent:true, default:true"
       "2, persistent:true"
       "3, persistent:true"
       "4, persistent:true"
       "5, persistent:true"
+      "6, persistent:true"
+      "8, persistent:true"
+      "9, persistent:true"
+      "0, persistent:true"
     ];
 
     # Example windowrule v2
     # windowrulev2 = float,class:^(kitty)$,title:^(kitty)$
     # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
     windowrulev2 = [
-      # Workspace 1: Code editors and browsers
-      "workspace 1, class:^(Code)$"
-      "workspace 1, class:^(code)$"
-      "workspace 1, class:^(code-url-handler)$"
+      # Common applications (low workspaces)
+      # Workspace 1: Browsers
       "workspace 1, class:^(chromium-browser)$"
+      "workspace 1, class:^(firefox)$"
+      "workspace 1, class:^(vivaldi-stable)$"
 
-      # Workspace 2: Git and development tools
-      "workspace 2, class:^(GitKraken)$"
+      # Workspace 2: Code editors
+      "workspace 2, class:^(Code)$"
+      "workspace 2, class:^(code)$"
+      "workspace 2, class:^(code-url-handler)$"
 
-      # Workspace 3: Communication
-      "workspace 3, class:^(Slack)$"
-      "workspace 3, class:^(telegram-desktop)$"
-      "workspace 3, class:^(TelegramDesktop)$"
+      # Workspace 3: Discord
+      "workspace 3, class:^(discord)$"
+      "workspace 3, class:^(vesktop)$"
 
-      # Workspace 4: Misc applications
-      "workspace 4, class:^(Tidal)$"
-      "workspace 4, class:^(thunderbird)$"
+      # Workspace 4: Slack
+      "workspace 4, class:^(Slack)$"
 
-      # Workspace 5: Vivaldi browser (desktop config may differ)
-      "workspace 5, class:^(vivaldi-stable)$"
+      # Workspace 5: Communication
+      "workspace 5, class:^(telegram-desktop)$"
+      "workspace 5, class:^(TelegramDesktop)$"
+
+      # Uncommonly checked applications (high workspaces)
+      # Workspace 8: Music
+      "workspace 8, class:^(Tidal)$"
+
+      # Workspace 9: Git
+      "workspace 9, class:^(GitKraken)$"
+
+      # Workspace 0: Email (comes after 9)
+      "workspace 0, class:^(thunderbird)$"
 
       # Floating windows
       "float, title:^(Picture-in-Picture)$"
