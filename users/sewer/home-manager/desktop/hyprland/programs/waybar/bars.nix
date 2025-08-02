@@ -3,7 +3,7 @@ semantic: let
 in {
   mainBar = {
     layer = "top";
-    position = "bottom";
+    position = "top";
     name = "bar";
     mode = "hide";
     # Bar will stretch to actual needed width.
