@@ -14,7 +14,7 @@ semantic: {
     };
 
     "pulseaudio#output" = {
-      format = "{icon}  {volume}%";
+      format = "{icon} {volume}%";
       format-bluetooth = "{icon} {volume}%";
       format-source-muted = "{volume}";
       format-icons = {
