@@ -8,11 +8,9 @@
       "2, persistent:true"
       "3, persistent:true"
       "4, persistent:true"
-      "5, persistent:true"
-      "6, persistent:true"
       "8, persistent:true"
       "9, persistent:true"
-      "0, persistent:true"
+      "10, persistent:true"
     ];
 
     # Example windowrule v2
@@ -48,8 +46,8 @@
       # Workspace 9: Git
       "workspace 9, class:^(GitKraken)$"
 
-      # Workspace 0: Email (comes after 9)
-      "workspace 0, class:^(thunderbird)$"
+      # Workspace 10: Email (bound to '0')
+      "workspace 10, class:^(thunderbird)$"
 
       # Floating windows
       "float, title:^(Picture-in-Picture)$"

@@ -9,7 +9,15 @@ semantic: {
       special-visible-only = false;
       format-icons = {
         magic = "";
-        "10" = "󰊴 ";
+        "1" = "󰈹"; # Browser icon
+        "2" = "󰨞"; # Code icon
+        "3" = "󰙯"; # Discord icon
+        "4" = "󰒱"; # Slack icon
+        "5" = "󰔀"; # Telegram icon
+        "6" = "󰝚"; # General workspace icon
+        "8" = "󰎈"; # Music icon
+        "9" = "󰊢"; # Git icon
+        "10" = "󰇮"; # Email icon
       };
     };
 
