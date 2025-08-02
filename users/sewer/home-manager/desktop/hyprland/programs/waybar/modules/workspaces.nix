@@ -42,12 +42,10 @@ semantic: {
     #waybar.bar #workspaces button {
       color: ${semantic.border};
       background: transparent;
-      border: 1.5px solid transparent;
       font-family: "JetBrains Mono Nerd Font Propo";
-      font-size: 10pt;
+      font-size: 12pt;
       padding-left: 2pt;
       padding-right: 2pt;
-      border-radius: 16px;
       margin-bottom: 6px;
       margin-top: 6px;
       margin-left: 4px;
@@ -61,7 +59,6 @@ semantic: {
 
     #waybar.bar #workspaces button.active {
       color: ${semantic.work};
-      border: 1.5px solid ${semantic.border};
     }
 
     #waybar.bar #workspaces button:hover {
