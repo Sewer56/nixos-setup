@@ -72,10 +72,10 @@ semantic: {
     #waybar.bar #custom-wallpaper-colour,
     #waybar.bar .wallpaper-drawer {
       color: ${semantic.interactiveHighlight};
-      padding-left: 8pt;
-      padding-right: 8pt;
-      padding-bottom: 4px;
-      padding-top: 4px;
+      padding-left: 4pt;
+      padding-right: 4pt;
+      padding-bottom: 2px;
+      padding-top: 2px;
       background: transparent;
     }
 

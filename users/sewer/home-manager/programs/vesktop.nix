@@ -8,7 +8,7 @@
     # Vesktop settings (written to $XDG_CONFIG_HOME/vesktop/settings.json)
     settings = {
       # Minimize to tray when closing the window
-      minimizeToTray = true;
+      minimizeToTray = false;
 
       # Start minimized to tray
       startMinimized = false;

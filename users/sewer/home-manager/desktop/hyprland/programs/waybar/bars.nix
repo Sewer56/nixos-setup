@@ -12,8 +12,6 @@ in {
     margin-right = 24;
     modules-left = [
       "tray"
-      "custom/spacer3"
-      "custom/spacer2"
       "group/wallpaper"
       "custom/spacer2"
       # "custom/spacer3"
