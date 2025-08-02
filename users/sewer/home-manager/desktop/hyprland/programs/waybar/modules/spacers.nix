@@ -19,7 +19,10 @@ semantic: {
   style = ''
     #waybar.bar #custom-spacer1,
     #waybar.bar #custom-spacer2,
-    #waybar.bar #custom-spacer3 {
+    #waybar.bar #custom-spacer3,
+    #waybar.bottom-bar #custom-spacer1,
+    #waybar.bottom-bar #custom-spacer2,
+    #waybar.bottom-bar #custom-spacer3 {
       font-weight: bold;
       color: ${semantic.border};
       background: transparent;

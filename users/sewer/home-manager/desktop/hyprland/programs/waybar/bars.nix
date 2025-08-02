@@ -14,8 +14,6 @@ in {
       "tray"
       "custom/spacer3"
       "custom/spacer2"
-      "hyprland/workspaces"
-      "custom/spacer2"
       "group/wallpaper"
       "custom/spacer2"
       # "custom/spacer3"
@@ -40,8 +38,33 @@ in {
     ];
   };
 
+  bottomBar = {
+    layer = "top";
+    position = "bottom";
+    name = "bottom-bar";
+    mode = "hide";
+    # Center the workspaces
+    width = 2;
+    margin-left = 24;
+    margin-right = 24;
+    margin-bottom = 24;
+    modules-center = [
+      "custom/spacer2"
+      "hyprland/workspaces"
+      "custom/spacer2"
+    ];
+  };
+
   mainBarStyle = ''
     #waybar.bar {
+      background: ${helpers.hexAlphaToCssRgba semantic.backgroundTransparent};
+      border: 2.5px solid ${semantic.border};
+      border-radius: 8pt;
+    }
+  '';
+
+  bottomBarStyle = ''
+    #waybar.bottom-bar {
       background: ${helpers.hexAlphaToCssRgba semantic.backgroundTransparent};
       border: 2.5px solid ${semantic.border};
       border-radius: 8pt;

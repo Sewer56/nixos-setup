@@ -39,7 +39,7 @@ semantic: {
   };
 
   style = ''
-    #waybar.bar #workspaces button {
+    #waybar.bar #workspaces button, #waybar.bottom-bar #workspaces button {
       color: ${semantic.border};
       background: transparent;
       font-size: 14pt; /* Font size + 4 */
@@ -50,19 +50,19 @@ semantic: {
       transition: all 0.25s ease;
     }
 
-    #waybar.bar #workspaces button.visible {
+    #waybar.bar #workspaces button.visible, #waybar.bottom-bar #workspaces button.visible {
       color: ${semantic.work};
     }
 
-    #waybar.bar #workspaces button.active {
+    #waybar.bar #workspaces button.active, #waybar.bottom-bar #workspaces button.active {
       color: ${semantic.work};
     }
 
-    #waybar.bar #workspaces button:hover {
+    #waybar.bar #workspaces button:hover, #waybar.bottom-bar #workspaces button:hover {
       color: ${semantic.work};
     }
 
-    #waybar.bar #workspaces button.special.active {
+    #waybar.bar #workspaces button.special.active, #waybar.bottom-bar #workspaces button.special.active {
       border: 1.5px solid transparent;
       color: ${semantic.work};
       transition: all 0s ease;

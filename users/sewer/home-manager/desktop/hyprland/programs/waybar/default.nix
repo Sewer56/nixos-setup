@@ -35,7 +35,6 @@ in {
     settings = [
       (
         bars.mainBar
-        // workspaces.config
         // system.config
         // audio.config
         // network.config
@@ -49,6 +48,11 @@ in {
         // uptime.config
         // wallpaper.config
       )
+      (
+        bars.bottomBar
+        // workspaces.config
+        // spacers.config
+      )
     ];
     style = ''
       ${theme.baseStyle}
@@ -57,6 +61,7 @@ in {
       ${theme.chargingAnimationStyle}
 
       ${bars.mainBarStyle}
+      ${bars.bottomBarStyle}
       ${workspaces.style}
       ${system.style}
       ${audio.style}
