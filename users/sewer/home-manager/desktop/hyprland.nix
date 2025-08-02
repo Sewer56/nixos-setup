@@ -23,5 +23,7 @@
 
   wayland.windowManager.hyprland.settings = {
     debug.full_cm_proto = true;
+    # unscale XWayland
+    xwayland.force_zero_scaling = true;
   };
 }
