@@ -10,6 +10,7 @@ in {
     width = 2;
     margin-left = 24;
     margin-right = 24;
+    margin-top = 4;
     modules-left = [
       "tray"
       "group/wallpaper"
