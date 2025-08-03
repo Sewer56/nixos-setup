@@ -9,6 +9,7 @@
     ./networking.nix
     ./nix.nix
     ./packages.nix
+    ./rust.nix
     ./security.nix
   ];
 
