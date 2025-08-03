@@ -5,6 +5,7 @@
     ./docker.nix
     ./input.nix
     ./locale.nix
+    ./mount.nix
     ./networking.nix
     ./nix.nix
     ./packages.nix
