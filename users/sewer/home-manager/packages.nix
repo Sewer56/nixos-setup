@@ -2,7 +2,6 @@
   # User-specific packages
   home.packages = with pkgs; [
     # System utilities
-    nemo
     file-roller
     brightnessctl
 

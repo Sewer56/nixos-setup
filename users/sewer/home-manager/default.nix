@@ -17,6 +17,7 @@
     ./programs/video-player.nix
     ./programs/vesktop.nix
     ./programs/udiskie.nix
+    ./programs/file-manager.nix
     ./themes/default.nix
     ./theme.nix
   ];
