@@ -16,6 +16,7 @@
     ./programs/obs-studio.nix
     ./programs/video-player.nix
     ./programs/vesktop.nix
+    ./programs/udiskie.nix
     ./themes/default.nix
     ./theme.nix
   ];
