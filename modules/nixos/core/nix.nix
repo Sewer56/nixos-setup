@@ -1,6 +1,9 @@
 {pkgs, ...}: {
   # Enable Flakes and nix commands
   nix.settings.experimental-features = ["nix-command" "flakes"];
+  
+  # Set trusted users
+  nix.settings.trusted-users = ["root" "sewer"];
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
