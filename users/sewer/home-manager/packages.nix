@@ -28,5 +28,7 @@
     jetbrains-mono
     nerd-fonts.jetbrains-mono
 
+    # Development Environment
+    devenv
   ];
 }
