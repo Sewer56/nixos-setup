@@ -18,6 +18,7 @@
     ./programs/vesktop.nix
     ./programs/udiskie.nix
     ./programs/file-manager.nix
+    ./programs/rust.nix
     ./themes/default.nix
     ./theme.nix
   ];
