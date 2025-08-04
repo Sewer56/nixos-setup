@@ -19,6 +19,7 @@
     ./programs/udiskie.nix
     ./programs/file-manager.nix
     ./programs/rust.nix
+    ./programs/direnv.nix
     ./themes/default.nix
     ./theme.nix
   ];
