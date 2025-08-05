@@ -5,6 +5,9 @@
   # Set trusted users
   nix.settings.trusted-users = ["root" "sewer"];
 
+  # Auto-optimise store to save disk space
+  nix.settings.auto-optimise-store = true;
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
