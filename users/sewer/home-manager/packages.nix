@@ -30,5 +30,6 @@
 
     # Development Environment
     devenv
+    (jetbrains.rider.override {forceWayland = true;})
   ];
 }
