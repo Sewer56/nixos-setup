@@ -55,6 +55,9 @@
 
       # mono
       krb5
+
+      # avalonia
+      fontconfig
     ]
     # Common game related binaries
     ++ (steam-run.args.multiPkgs pkgs);
