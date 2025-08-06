@@ -1,18 +1,24 @@
 #!/usr/bin/env bash
 
+# Configuration: Set to true to use powerprofilesctl, false for simple battery icon
+USE_POWER_PROFILES=false
+
 # This variable selects mode to run.
 MODE=$1
 
 # Power profile switcher
 if [[ $MODE == "toggle" ]]; then
-    PROFILE=$(powerprofilesctl get)
-    if [[ $PROFILE == "power-saver" ]]; then
-        powerprofilesctl set balanced &
-    elif [[ $PROFILE == "balanced" ]]; then
-        powerprofilesctl set performance &
-    else
-        powerprofilesctl set power-saver &
+    if [[ $USE_POWER_PROFILES == "true" ]]; then
+        PROFILE=$(powerprofilesctl get)
+        if [[ $PROFILE == "power-saver" ]]; then
+            powerprofilesctl set balanced &
+        elif [[ $PROFILE == "balanced" ]]; then
+            powerprofilesctl set performance &
+        else
+            powerprofilesctl set power-saver &
+        fi
     fi
+    # When USE_POWER_PROFILES is false, this is a no-op
 fi
 
 # Refreshes the whole module.
@@ -46,20 +52,29 @@ if [[ $MODE == "refresh" ]]; then
         TOOLTIP=$"-$RATE"
     fi
 
-    # Get power profile and format icon.
-    # Nerd font used in this case.
-    PROFILE=$(powerprofilesctl get)
-    case "$PROFILE" in
-        performance) PROFILE=$" 󰓅"
-            ;;
-        balanced) PROFILE=$" 󰾅"
-            ;;
-        power-saver) PROFILE=$" 󰾆"
-            ;;
-    esac
+    # Choose display mode based on configuration
+    if [[ $USE_POWER_PROFILES == "true" ]]; then
+        # Get power profile and format icon.
+        # Nerd font used in this case.
+        PROFILE=$(powerprofilesctl get)
+        case "$PROFILE" in
+            performance) PROFILE=$" 󰓅"
+                ;;
+            balanced) PROFILE=$" 󰾅"
+                ;;
+            power-saver) PROFILE=$" 󰾆"
+                ;;
+        esac
+        DISPLAY_TEXT="$PROFILE $PERCENT"
+    else
+        # Simple battery icon (replacing power profile icons)
+        # Nerd font battery icon
+        BATTERY_ICON="󰁹"
+        DISPLAY_TEXT="$BATTERY_ICON $PERCENT"
+    fi
 
     # Export as json.
-    printf '{"text": "%s", "class": "%s", "alt": "%s"}\n' "$PROFILE $PERCENT" "$CLASS" "$TOOLTIP"
+    printf '{"text": "%s", "class": "%s", "alt": "%s"}\n' "$DISPLAY_TEXT" "$CLASS" "$TOOLTIP"
 fi
 
 # Indicator bar

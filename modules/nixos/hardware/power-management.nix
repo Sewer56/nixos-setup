@@ -2,7 +2,13 @@
   # Power management services
   services = {
     # Power profiles daemon for power management
-    power-profiles-daemon.enable = true;
+    # power-profiles-daemon.enable = true;
+
+    # Sensible defaults for power management
+    tlp.enable = false;
+
+    # Prevent overheating on Intel CPUs
+    thermald.enable = true;
 
     # UPower for battery management
     upower.enable = true;
@@ -26,9 +32,6 @@
     # Enable power saving for SATA devices
     "ahci.mobile_lpm_policy=3"
   ];
-
-  # TLP conflicts with power-profiles-daemon, so we don't enable it
-  # services.tlp.enable = false;
 
   # Systemd sleep hook to track resume timestamps for waybar uptime widget
   environment.etc."systemd/system-sleep/uptime-tracker" = {
