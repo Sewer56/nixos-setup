@@ -23,6 +23,9 @@
   # Host-specific settings
   networking.hostName = "laptop"; # Define your hostname.
 
+  # NFS client support (needed for user-level mounts)
+  services.rpcbind.enable = true;
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

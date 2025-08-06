@@ -7,6 +7,7 @@
     ./locale.nix
     ./mount.nix
     ./networking.nix
+    ./nfs-mounts.nix
     ./nix.nix
     ./packages.nix
     ./security.nix
