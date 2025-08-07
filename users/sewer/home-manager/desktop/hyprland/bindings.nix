@@ -152,6 +152,10 @@ in {
       ", XF86AudioPlay, exec, playerctl play-pause"
       ", XF86AudioNext, exec, playerctl next"
       ", XF86AudioPrev, exec, playerctl previous"
+      # Custom media key bindings
+      "ALT, 1, exec, playerctl previous"
+      "ALT, 2, exec, playerctl play-pause"
+      "ALT, 3, exec, playerctl next"
     ];
   };
 }
