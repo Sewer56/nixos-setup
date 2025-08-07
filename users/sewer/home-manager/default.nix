@@ -20,6 +20,7 @@
     ./programs/file-manager.nix
     ./programs/rust.nix
     ./programs/direnv.nix
+    ./programs/remote-file-sync.nix
     ./themes/default.nix
     ./theme.nix
   ];
@@ -97,6 +98,13 @@
     wallhaven-api-key = {
       file = ./secrets/wallhaven-api-key.age;
       path = "${config.home.homeDirectory}/.secrets/wallhaven-api-key";
+      mode = "600";
+    };
+
+    # RClone Mount
+    rclone-token = {
+      file = ./secrets/rclone-token.age;
+      path = "${config.home.homeDirectory}/.secrets/rclone/token";
       mode = "600";
     };
   };

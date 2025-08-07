@@ -5,6 +5,7 @@ let
 in {
   # Example secrets - uncomment and modify as needed
   "secrets/wallhaven-api-key.age".publicKeys = users;
+  "secrets/rclone-token.age".publicKeys = users;
   # "api-token.age".publicKeys = users;
   # "database-password.age".publicKeys = users;
 }
