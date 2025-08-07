@@ -42,7 +42,7 @@
 
       # Uncommonly checked applications (high workspaces)
       # Workspace 8: Music
-      "workspace 8, class:^(Tidal)$"
+      "workspace 8, class:^(tidal-hifi)$"
 
       # Workspace 9: Git
       "workspace 9, class:^(GitKraken)$"
@@ -72,7 +72,7 @@
       "gitkraken"
       "slack"
       "telegram-desktop"
-      "tidal"
+      "tidal-hifi"
       "thunderbird"
       "vivaldi"
 

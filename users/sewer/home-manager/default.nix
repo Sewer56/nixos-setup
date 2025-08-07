@@ -21,6 +21,7 @@
     ./programs/rust.nix
     ./programs/direnv.nix
     ./programs/remote-file-sync.nix
+    ./programs/music-streaming.nix
     ./themes/default.nix
     ./theme.nix
   ];
