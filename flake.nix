@@ -39,7 +39,6 @@
         inputs.catppuccin.nixosModules.catppuccin
         {
           nixpkgs.overlays = [
-            (import ./overlays/catppuccin-papirus-folders.nix)
             inputs.rust-overlay.overlays.default
           ];
         }
