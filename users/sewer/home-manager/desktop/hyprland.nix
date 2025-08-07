@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   imports = [
     ./hyprland/default.nix
   ];
@@ -11,6 +11,10 @@
   # Hyprland Window Manager (User Configuration)
   wayland.windowManager.hyprland = {
     enable = true;
+    plugins = with pkgs.hyprlandPlugins; [
+      hyprtrails
+      hypr-dynamic-cursors
+    ];
     systemd = {
       enable = true;
       enableXdgAutostart = true;
