@@ -45,6 +45,10 @@
   # release notes.
   home.stateVersion = "25.05"; # Please read the comment before changing.
 
+  # Ensure systemd user services start automatically during Home Manager activation
+  # This is required for services that depend on agenix secrets
+  systemd.user.startServices = "sd-switch";
+
   # User-specific packages
   home.packages = with pkgs; [
     # Development tools
@@ -104,8 +108,6 @@
     # RClone Mount
     rclone-token = {
       file = ./secrets/rclone-token.age;
-      path = "${config.home.homeDirectory}/.secrets/rclone/token";
-      mode = "600";
     };
   };
 }

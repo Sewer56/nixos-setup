@@ -11,7 +11,7 @@
         };
 
         secrets = {
-          token = "${config.home.homeDirectory}/.secrets/rclone/token";
+          token = config.age.secrets.rclone-token.path;
         };
 
         mounts = {
