@@ -44,5 +44,20 @@
         }
       ];
     };
+
+    nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs = {inherit inputs;};
+      modules = [
+        ./hosts/desktop/default.nix
+        inputs.home-manager.nixosModules.default
+        inputs.catppuccin.nixosModules.catppuccin
+        {
+          nixpkgs.overlays = [
+            inputs.rust-overlay.overlays.default
+          ];
+        }
+      ];
+    };
   };
 }
