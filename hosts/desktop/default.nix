@@ -4,16 +4,14 @@
 {pkgs, ...}: {
   imports = [
     # Include the results of the hardware scan.
+    # nixos-generate-config --root /mnt
     ./hardware-configuration.nix
     # Core System Stuff
     ../../modules/nixos/core/default.nix
     # Base Nvidia driver support.
-    # PRIME Sync (Multi-GPU) is configured below in current file.
     ../../modules/nixos/hardware/graphics/nvidia.nix
     # Bluetooth support (laptop-specific)
     ../../modules/nixos/hardware/bluetooth.nix
-    # Power management (laptop-specific)
-    ../../modules/nixos/hardware/power-management.nix
     # Hyprland desktop
     ../../modules/nixos/desktop/default.nix
     # My user stuff
@@ -21,7 +19,7 @@
   ];
 
   # Host-specific settings
-  networking.hostName = "laptop"; # Define your hostname.
+  networking.hostName = "desktop"; # Define your hostname.
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -30,33 +28,18 @@
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # Swapfile sized to match RAM (32GB) for hibernation support
+  # Swapfile sized for desktop use (64GB)
   swapDevices = [
     {
       device = "/swapfile";
-      size = 32768;
+      size = 65536;
     }
   ];
 
-  # Machine-specific Intel iGPU driver
+  # Machine-specific Nvidia driver only (desktop typically has dedicated GPU)
   services.xserver.videoDrivers = [
-    "modesetting" # Intel iGPU;
     "nvidia"
   ];
-
-  # Machine-specific nvidia dual-GPU setup.
-  # Ignore if not on Nvidia.
-  hardware.nvidia.prime = {
-    offload = {
-      enable = true;
-      enableOffloadCmd = true;
-    };
-    #sync.enable = true;
-    # Make sure to use the correct Bus ID values for your system!
-    intelBusId = "PCI:0:2:0";
-    nvidiaBusId = "PCI:01:0:0";
-    # amdgpuBusId = "PCI:54:0:0"; For AMD GPU
-  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
