@@ -25,36 +25,6 @@
       options = [ "subvol=@home" ];
     };
 
-  fileSystems."/root" =
-    { device = "/dev/disk/by-uuid/e5cbac0b-3568-4aa8-b6e0-561c362c8f31";
-      fsType = "btrfs";
-      options = [ "subvol=@root" ];
-    };
-
-  fileSystems."/srv" =
-    { device = "/dev/disk/by-uuid/e5cbac0b-3568-4aa8-b6e0-561c362c8f31";
-      fsType = "btrfs";
-      options = [ "subvol=@srv" ];
-    };
-
-  fileSystems."/var/cache" =
-    { device = "/dev/disk/by-uuid/e5cbac0b-3568-4aa8-b6e0-561c362c8f31";
-      fsType = "btrfs";
-      options = [ "subvol=@cache" ];
-    };
-
-  fileSystems."/var/log" =
-    { device = "/dev/disk/by-uuid/e5cbac0b-3568-4aa8-b6e0-561c362c8f31";
-      fsType = "btrfs";
-      options = [ "subvol=@log" ];
-    };
-
-  fileSystems."/var/tmp" =
-    { device = "/dev/disk/by-uuid/e5cbac0b-3568-4aa8-b6e0-561c362c8f31";
-      fsType = "btrfs";
-      options = [ "subvol=@tmp" ];
-    };
-
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/6B04-23B9";
       fsType = "vfat";
