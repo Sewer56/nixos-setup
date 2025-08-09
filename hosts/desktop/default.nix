@@ -12,6 +12,8 @@
     ../../modules/nixos/hardware/graphics/nvidia.nix
     # Bluetooth support (laptop-specific)
     ../../modules/nixos/hardware/bluetooth.nix
+    # Corsair hardware support
+    ../../modules/nixos/hardware/corsair-hid.nix
     # Hyprland desktop
     ../../modules/nixos/desktop/default.nix
     # My user stuff
