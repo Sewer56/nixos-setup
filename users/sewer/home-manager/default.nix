@@ -118,4 +118,9 @@
       mode = "600";
     };
   };
+
+  # Configure nix access tokens to avoid GitHub rate limiting
+  nix.extraOptions = ''
+    access-tokens = github.com=$(cat ${config.age.secrets.github-token.path})
+  '';
 }
