@@ -19,45 +19,25 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    ...
-  } @ inputs: {
-    # Shared modules for better IDE completion
+  outputs = {nixpkgs, ...} @ inputs: let
     sharedModules = [
       inputs.home-manager.nixosModules.default
       inputs.catppuccin.nixosModules.catppuccin
+      {
+        nixpkgs.overlays = [
+          inputs.rust-overlay.overlays.default
+        ];
+      }
     ];
 
-    nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = {inherit inputs;};
-      modules = [
-        ./hosts/laptop/default.nix
-        inputs.home-manager.nixosModules.default
-        inputs.catppuccin.nixosModules.catppuccin
-        {
-          nixpkgs.overlays = [
-            inputs.rust-overlay.overlays.default
-          ];
-        }
-      ];
-    };
-
-    nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = {inherit inputs;};
-      modules = [
-        ./hosts/desktop/default.nix
-        inputs.home-manager.nixosModules.default
-        inputs.catppuccin.nixosModules.catppuccin
-        {
-          nixpkgs.overlays = [
-            inputs.rust-overlay.overlays.default
-          ];
-        }
-      ];
-    };
+    mkSystem = hostPath:
+      nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs;};
+        modules = [hostPath] ++ sharedModules;
+      };
+  in {
+    nixosConfigurations.laptop = mkSystem ./hosts/laptop/default.nix;
+    nixosConfigurations.desktop = mkSystem ./hosts/desktop/default.nix;
   };
 }
