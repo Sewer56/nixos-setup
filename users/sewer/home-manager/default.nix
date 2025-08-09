@@ -110,5 +110,12 @@
     rclone-token = {
       file = ./secrets/rclone-token.age;
     };
+
+    # GitHub Personal Access Token for Claude Code MCP servers
+    github-token = {
+      file = ./secrets/github-token.age;
+      path = "${config.home.homeDirectory}/.secrets/github-token";
+      mode = "600";
+    };
   };
 }
