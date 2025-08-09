@@ -22,6 +22,7 @@
     ./programs/direnv.nix
     ./programs/remote-file-sync.nix
     ./programs/music-streaming.nix
+    ./programs/claude-code.nix
     ./themes/default.nix
     ./theme.nix
   ];
@@ -54,7 +55,6 @@
   home.packages = with pkgs; [
     # Development tools
     vscode
-    claude-code
     gitkraken
 
     # # Adds the 'hello' command to your environment. It prints a friendly

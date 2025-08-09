@@ -19,6 +19,7 @@
     sharedModules = [
       inputs.agenix.homeManagerModules.default
       inputs.catppuccin.homeModules.catppuccin
+      inputs.claude-code-nix-flake.homeManagerModules.claude-code
     ];
 
     # also pass inputs to home-manager modules
