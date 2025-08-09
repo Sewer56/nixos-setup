@@ -57,13 +57,13 @@
     nvidiaBusId = "PCI:01:0:0";
     # amdgpuBusId = "PCI:54:0:0"; For AMD GPU
   };
-  
+
   hardware.nvidia = {
     # Fine-grained power management. Turns off GPU when not in use.
     # Experimental and only works on modern Nvidia GPUs (Turing or newer).
     powerManagement.finegrained = true;
   };
-  
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It's perfectly fine and recommended to leave
