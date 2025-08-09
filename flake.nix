@@ -31,6 +31,8 @@
     sharedModules = [
       inputs.home-manager.nixosModules.default
       inputs.catppuccin.nixosModules.catppuccin
+      ./hosts/shared-options.nix
+      ./modules/nixos/hardware/corsair-hid.nix
       {
         nixpkgs.overlays = [
           inputs.rust-overlay.overlays.default
@@ -38,14 +40,27 @@
       }
     ];
 
-    mkSystem = hostPath:
+    mkSystem = hostPath: hostOptions:
       nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = {inherit inputs;};
+        specialArgs = {inherit inputs hostOptions;};
         modules = [hostPath] ++ sharedModules;
       };
   in {
-    nixosConfigurations.laptop = mkSystem ./hosts/laptop/default.nix;
-    nixosConfigurations.desktop = mkSystem ./hosts/desktop/default.nix;
+    nixosConfigurations.laptop =
+      mkSystem
+      ./hosts/laptop/default.nix
+      {
+        hardware.corsair.enable = false;
+        desktop.hyprland.ultraWideMode = false;
+      };
+
+    nixosConfigurations.desktop =
+      mkSystem
+      ./hosts/desktop/default.nix
+      {
+        hardware.corsair.enable = true;
+        desktop.hyprland.ultraWideMode = true;
+      };
   };
 }

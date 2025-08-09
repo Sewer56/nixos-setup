@@ -22,6 +22,9 @@
                 "nixos": {
                     "expr": "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.laptop.options"
                 },
+                "hostOptions": {
+                    "expr": "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.laptop.options.hostOptions"
+                },
                 // Before configuring Home Manager options, consider your setup:
                 // Which command do you use for home-manager switching?
                 //
