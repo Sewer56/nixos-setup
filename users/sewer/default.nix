@@ -2,7 +2,11 @@
 # This is the NixOS entry point that combines:
 # - NixOS-specific user configuration (./nixos/)
 # - Portable home-manager configuration (./home-manager/)
-{inputs, hostOptions, ...}: {
+{
+  inputs,
+  hostOptions,
+  ...
+}: {
   imports = [
     # NixOS-specific user settings (user account, groups, etc.)
     ./nixos/default.nix
