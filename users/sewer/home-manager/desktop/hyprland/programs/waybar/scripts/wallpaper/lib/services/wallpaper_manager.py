@@ -52,7 +52,7 @@ class WallpaperManager:
         """Get currently active wallpapers for each monitor
         
         Returns:
-            Dictionary mapping monitor names to wallpaper paths
+            Dictionary mapping monitor port names to wallpaper paths
         """
         return self.hyprland_service.get_current_wallpapers()
     
@@ -60,7 +60,7 @@ class WallpaperManager:
         """Get currently active wallpaper for a specific monitor or primary monitor
         
         Args:
-            monitor_name: Monitor to get wallpaper for. If None, uses primary monitor
+            monitor_name: Monitor port name (DP-1, etc.) to get wallpaper for. If None, uses primary monitor
             
         Returns:
             Path to current wallpaper file, or None if no wallpaper is active
@@ -72,7 +72,7 @@ class WallpaperManager:
         
         Args:
             wallpaper_path: Path to wallpaper file
-            monitor_name: Monitor to set wallpaper on
+            monitor_name: Monitor port name (DP-1, etc.) to set wallpaper on
             
         Returns:
             WallpaperResult with success status and details
@@ -105,7 +105,7 @@ class WallpaperManager:
         """Restore saved wallpapers for all connected monitors
         
         Returns:
-            Dictionary mapping monitor names to WallpaperResult objects
+            Dictionary mapping monitor port names to WallpaperResult objects
         """
         return self.hyprland_service.restore_monitor_wallpapers(
             fallback_wallpaper_provider=self.get_random_wallpaper

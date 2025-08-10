@@ -30,7 +30,7 @@ class HyprlandWallpaperService:
         """Get currently active wallpapers for each monitor
         
         Returns:
-            Dictionary mapping monitor names to wallpaper paths
+            Dictionary mapping monitor port names (DP-1, etc.) to wallpaper paths
         """
         wallpapers = {}
         
@@ -58,7 +58,7 @@ class HyprlandWallpaperService:
         """Get currently active wallpaper for a specific monitor or primary monitor
         
         Args:
-            monitor_name: Monitor to get wallpaper for. If None, uses primary monitor
+            monitor_name: Monitor port name (DP-1, etc.) to get wallpaper for. If None, uses primary monitor
             
         Returns:
             Path to current wallpaper file, or None if no wallpaper is active
@@ -84,7 +84,7 @@ class HyprlandWallpaperService:
         
         Args:
             wallpaper_path: Path to wallpaper file
-            monitor_spec: Monitor specification for hyprctl ("monitor_name" or "" for all)
+            monitor_spec: Monitor specification for hyprctl (port name like "DP-1" or "" for all)
             
         Returns:
             WallpaperResult with success status and details
@@ -119,7 +119,7 @@ class HyprlandWallpaperService:
         
         Args:
             wallpaper_path: Path to wallpaper file
-            monitor_name: Monitor to set wallpaper on
+            monitor_name: Monitor port name (DP-1, etc.) to set wallpaper on
             save_state: Whether to save the state to monitor state manager
             
         Returns:
@@ -137,11 +137,11 @@ class HyprlandWallpaperService:
         return result
     
     def set_wallpaper_all_monitors(self, wallpaper_path: Path, save_state: bool = True) -> WallpaperResult:
-        """Set same wallpaper on all connected monitors using explicit monitor names
+        """Set same wallpaper on all connected monitors using explicit port names
         
         Args:
             wallpaper_path: Path to wallpaper file
-            save_state: Whether to save the state to monitor state manager
+            save_state: Whether to save the state to monitor state manager (using display descriptions)
             
         Returns:
             WallpaperResult with success status and details
@@ -203,29 +203,34 @@ class HyprlandWallpaperService:
             )
     
     def restore_monitor_wallpapers(self, fallback_wallpaper_provider) -> Dict[str, WallpaperResult]:
-        """Restore saved wallpapers for all connected monitors
+        """Restore saved wallpapers for all connected monitors using two-tier resolution
         
         Args:
             fallback_wallpaper_provider: Callable that returns a wallpaper Path for monitors without saved state
         
         Returns:
-            Dictionary mapping monitor names to WallpaperResult objects
+            Dictionary mapping monitor port names to WallpaperResult objects
         """
         results = {}
         monitors = get_monitor_info()
-        saved_wallpapers = self.state_manager.get_all_monitor_wallpapers()
         
         for monitor in monitors:
-            if monitor.name in saved_wallpapers:
-                wallpaper_path = saved_wallpapers[monitor.name]
+            # Use new two-tier resolution system
+            wallpaper_path = self.state_manager.find_monitor_wallpaper(monitor, monitors)
+            
+            if wallpaper_path:
                 # Use without state saving to avoid redundant state saving during restoration
-                results[monitor.name] = self.set_wallpaper_for_monitor(wallpaper_path, monitor.name, save_state=False)
+                results[monitor.name] = self.set_wallpaper_for_monitor(
+                    wallpaper_path, monitor.name, save_state=False
+                )
             else:
                 # Assign fallback wallpaper to monitors without saved wallpaper
                 fallback_wallpaper = fallback_wallpaper_provider()
                 if fallback_wallpaper:
                     # For new assignments, use the regular method that saves state
-                    results[monitor.name] = self.set_wallpaper_for_monitor(fallback_wallpaper, monitor.name, save_state=True)
+                    results[monitor.name] = self.set_wallpaper_for_monitor(
+                        fallback_wallpaper, monitor.name, save_state=True
+                    )
                 else:
                     results[monitor.name] = WallpaperResult(
                         success=False,
@@ -235,7 +240,7 @@ class HyprlandWallpaperService:
         return results
     
     def _save_wallpaper_state(self, wallpaper_path: Path, monitors: Optional[List[MonitorInfo]] = None) -> None:
-        """Save wallpaper state for specified monitors or all monitors
+        """Save wallpaper state for specified monitors using composite key system
         
         Args:
             wallpaper_path: Path to wallpaper file
@@ -244,8 +249,6 @@ class HyprlandWallpaperService:
         if monitors is None:
             monitors = get_monitor_info()
         
-        # Save for all specified monitors
+        # Save for all specified monitors using new simplified API
         for monitor in monitors:
-            self.state_manager.save_monitor_wallpaper(
-                monitor.name, wallpaper_path, monitor.resolution
-            )
+            self.state_manager.save_monitor_wallpaper(monitor, wallpaper_path)

@@ -13,7 +13,8 @@ from typing import List, Optional, Tuple
 @dataclass
 class MonitorInfo:
     """Information about a connected monitor"""
-    name: str          # "DP-1", "HDMI-A-1" 
+    name: str          # Port name: "DP-1", "HDMI-A-1" 
+    description: str   # Display description: "Samsung Electric Company Odyssey G95NC HNTXC00136"
     width: int         # 1920
     height: int        # 1080
     scale: float       # 1.0
@@ -28,6 +29,15 @@ class MonitorInfo:
     def pixel_count(self) -> int:
         """Get total pixel count for comparison"""
         return self.width * self.height
+    
+    @property
+    def composite_key(self) -> str:
+        """Get composite key for state storage
+        
+        Returns:
+            Composite key in format "description|port_name"
+        """
+        return f"{self.description}|{self.name}"
 
 
 def get_monitor_info() -> List[MonitorInfo]:
@@ -51,6 +61,7 @@ def get_monitor_info() -> List[MonitorInfo]:
         for i, monitor_data in enumerate(monitors_data):
             monitor = MonitorInfo(
                 name=monitor_data.get('name', f'UNKNOWN-{i}'),
+                description=monitor_data.get('description', f'Unknown Display {i}'),
                 width=monitor_data.get('width', 1920),
                 height=monitor_data.get('height', 1080),
                 scale=monitor_data.get('scale', 1.0),
@@ -64,6 +75,7 @@ def get_monitor_info() -> List[MonitorInfo]:
         # Fallback to single monitor
         return [MonitorInfo(
             name="FALLBACK-0",
+            description="Fallback Display",
             width=1920,
             height=1080,
             scale=1.0,

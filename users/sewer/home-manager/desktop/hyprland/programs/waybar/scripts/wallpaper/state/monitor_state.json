@@ -1,13 +1,11 @@
 {
-  "version": "1.0",
+  "version": "2.0",
   "monitors": {
-    "DP-4": {
-      "wallpaper_path": "/home/sewer/Pictures/wallpapers/saved/pkvw9p.jxl",
-      "resolution": "7680x2160"
-    },
-    "eDP-1": {
-      "wallpaper_path": "/home/sewer/Pictures/wallpapers/saved/e7vlzo.jxl",
-      "resolution": "2560x1600"
+    "Samsung Electric Company Odyssey G95NC HNTXC00136|DP-4": {
+      "wallpaper_path": "/home/sewer/Pictures/wallpapers/saved/dp19wl.jxl",
+      "resolution": "7680x2160",
+      "description": "Samsung Electric Company Odyssey G95NC HNTXC00136",
+      "port": "DP-4"
     }
   }
 }
