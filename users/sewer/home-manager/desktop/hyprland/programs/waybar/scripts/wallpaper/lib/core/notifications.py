@@ -121,10 +121,10 @@ def notify_wallpaper_change(wallpaper_name: str, resolution: Optional[str] = Non
     """
     # Create message with or without resolution info
     if resolution:
-        message = f'Set to: {wallpaper_name} ({resolution})'
+        message = f'→ {wallpaper_name} ({resolution})'
     else:
-        message = f'Set to: {wallpaper_name}'
-    
+        message = f'→ {wallpaper_name}'
+
     try:
         subprocess.run([
             'notify-send',
