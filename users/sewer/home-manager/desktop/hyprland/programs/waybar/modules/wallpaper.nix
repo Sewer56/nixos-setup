@@ -51,8 +51,9 @@ semantic: {
 
     "custom/wallpaper-random" = {
       format = "";
-      tooltip-format = "Random favourite wallpaper";
-      on-click = "~/.config/waybar/scripts/wallpaper/random-favourite-wallpaper.py";
+      tooltip-format = "Random favourite wallpaper\nLeft: Similar aspect ratio • Right: Any aspect ratio";
+      on-click = "~/.config/waybar/scripts/wallpaper/random-favourite-wallpaper.py --aspect-ratio-mode=similar";
+      on-click-right = "~/.config/waybar/scripts/wallpaper/random-favourite-wallpaper.py --aspect-ratio-mode=any";
     };
 
     "custom/wallpaper-colour" = {

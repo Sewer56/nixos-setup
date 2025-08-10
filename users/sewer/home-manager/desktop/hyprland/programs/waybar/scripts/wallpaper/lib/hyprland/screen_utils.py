@@ -207,6 +207,21 @@ def calculate_aspect_ratio(width: int, height: int) -> str:
     return f"{ratio_width}x{ratio_height}"
 
 
+def calculate_aspect_ratio_from_resolution(resolution: str) -> Optional[str]:
+    """Calculate aspect ratio from resolution string
+    
+    Args:
+        resolution: Resolution string like "2560x1440"
+        
+    Returns:
+        Aspect ratio string like "16x9" or None if parsing fails
+    """
+    width, height = parse_resolution_string(resolution)
+    if width > 0 and height > 0:
+        return calculate_aspect_ratio(width, height)
+    return None
+
+
 def calculate_decimal_ratio(ratio_str: str) -> float:
     """Calculate decimal aspect ratio from ratio string
     

@@ -12,7 +12,7 @@ from ..config import WallpaperConfig
 from .wallpaper_discovery_service import WallpaperDiscoveryService
 from .wallpaper_persistence_service import WallpaperPersistenceService
 from ..hyprland.hyprland_wallpaper_service import HyprlandWallpaperService
-from ..hyprland.screen_utils import meets_resolution_requirement
+from ..hyprland.screen_utils import meets_resolution_requirement, get_monitor_aspect_ratios, calculate_aspect_ratio_from_resolution
 
 
 class WallpaperManager:
@@ -112,11 +112,12 @@ class WallpaperManager:
             fallback_wallpaper_provider=self.get_random_wallpaper
         )
     
-    def get_random_wallpaper(self, min_resolution: Optional[str] = None) -> Optional[Path]:
-        """Get a random wallpaper from favorites collection, excluding current wallpaper and optionally filtering by resolution
+    def get_random_wallpaper(self, min_resolution: Optional[str] = None, aspect_ratio_mode: str = 'similar') -> Optional[Path]:
+        """Get a random wallpaper from favorites collection, excluding current wallpaper and optionally filtering by resolution and aspect ratio
         
         Args:
             min_resolution: Optional minimum resolution string in format "WIDTHxHEIGHT" (e.g., "2560x1440")
+            aspect_ratio_mode: Aspect ratio filtering mode - 'similar' for monitor-compatible ratios, 'any' for all ratios
         
         Returns:
             Path to random wallpaper file, or None if no wallpapers found or no wallpapers meet criteria
@@ -129,27 +130,38 @@ class WallpaperManager:
             if current_wallpaper and path == current_wallpaper:
                 return False
             
+            wallpaper_id = path.stem
+            wallpaper_info = self.discovery_service.collection_manager.get_wallpaper_info(wallpaper_id)
+            
             # Check resolution filter
-            if min_resolution:
-                wallpaper_id = path.stem
-                wallpaper_info = self.discovery_service.collection_manager.get_wallpaper_info(wallpaper_id)
-                if wallpaper_info and wallpaper_info.get('resolution'):
-                    if not meets_resolution_requirement(wallpaper_info['resolution'], min_resolution):
+            if min_resolution and wallpaper_info and wallpaper_info.get('resolution'):
+                if not meets_resolution_requirement(wallpaper_info['resolution'], min_resolution):
+                    return False
+            
+            # Check aspect ratio filter
+            if aspect_ratio_mode == 'similar' and wallpaper_info and wallpaper_info.get('resolution'):
+                # Get compatible aspect ratios for current monitors
+                compatible_ratios = get_monitor_aspect_ratios()
+                if compatible_ratios:
+                    # Calculate wallpaper's aspect ratio
+                    wallpaper_ratio = calculate_aspect_ratio_from_resolution(wallpaper_info['resolution'])
+                    if wallpaper_ratio and wallpaper_ratio not in compatible_ratios:
                         return False
                 
             return True
         
         # Apply filter if any criteria are set
-        if current_wallpaper or min_resolution:
+        if current_wallpaper or min_resolution or aspect_ratio_mode == 'similar':
             return self.discovery_service.get_random_wallpaper(filter_func=filter_predicate)
         else:
             return self.discovery_service.get_random_wallpaper()
     
-    def set_random_wallpaper(self, min_resolution: Optional[str] = None) -> WallpaperResult:
-        """Set a random wallpaper from favorites on all monitors, excluding the currently active one and optionally filtering by resolution
+    def set_random_wallpaper(self, min_resolution: Optional[str] = None, aspect_ratio_mode: str = 'similar') -> WallpaperResult:
+        """Set a random wallpaper from favorites on all monitors, excluding the currently active one and optionally filtering by resolution and aspect ratio
         
         Args:
             min_resolution: Optional minimum resolution string in format "WIDTHxHEIGHT" (e.g., "2560x1440")
+            aspect_ratio_mode: Aspect ratio filtering mode - 'similar' for monitor-compatible ratios, 'any' for all ratios
         
         Returns:
             WallpaperResult with success status and details
@@ -161,13 +173,21 @@ class WallpaperManager:
                 error_message=f"No favorite wallpapers found in saved directories"
             )
         
-        random_wallpaper = self.get_random_wallpaper(min_resolution=min_resolution)
+        random_wallpaper = self.get_random_wallpaper(min_resolution=min_resolution, aspect_ratio_mode=aspect_ratio_mode)
         if not random_wallpaper:
             # Create error message based on filtering criteria
+            criteria_parts = []
             if min_resolution:
+                criteria_parts.append(f"resolution ≥{min_resolution}")
+            if aspect_ratio_mode == 'similar':
+                criteria_parts.append("similar aspect ratio")
+            criteria_parts.append("excluding current")
+            
+            if criteria_parts:
+                criteria_text = ", ".join(criteria_parts)
                 return WallpaperResult(
                     success=False,
-                    error_message=f"No wallpapers available meeting criteria (resolution ≥{min_resolution}, excluding current)"
+                    error_message=f"No wallpapers available meeting criteria ({criteria_text})"
                 )
             else:
                 return WallpaperResult(

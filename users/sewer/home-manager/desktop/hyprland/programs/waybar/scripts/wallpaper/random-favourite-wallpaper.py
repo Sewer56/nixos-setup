@@ -5,6 +5,7 @@ Set a random wallpaper from available collection
 """
 
 import sys
+import argparse
 from pathlib import Path
 
 # Setup library path
@@ -20,8 +21,22 @@ from lib.core.collection_manager import CollectionManager
 from lib.hyprland.lock_manager import hyprpaper_lock
 from lib.hyprland.screen_utils import get_search_resolution
 
+def parse_arguments():
+    """Parse command line arguments"""
+    parser = argparse.ArgumentParser(description='Set a random wallpaper from available collection')
+    parser.add_argument(
+        '--aspect-ratio-mode',
+        choices=['similar', 'any'],
+        default='similar',
+        help='Aspect ratio filtering mode: "similar" matches monitor ratios, "any" allows all ratios (default: similar)'
+    )
+    return parser.parse_args()
+
 def main():
     """Main function to set random wallpaper"""
+    # Parse command line arguments
+    args = parse_arguments()
+    
     # Prevent concurrent execution using file locking
     with hyprpaper_lock(silent_exit=True):
         try:
@@ -31,7 +46,7 @@ def main():
             
             # Get optimal resolution for current monitors
             resolution = get_search_resolution()
-            result = manager.set_random_wallpaper(min_resolution=resolution)
+            result = manager.set_random_wallpaper(min_resolution=resolution, aspect_ratio_mode=args.aspect_ratio_mode)
             
             if result.success:
                 # Get wallpaper name without extension and resolution info
