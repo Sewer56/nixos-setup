@@ -31,7 +31,7 @@ SEARCH_PARAMS = {
     'categories': '110',        # general + anime
     'purity': '100',            # SFW only
     'max_items': 10000,         # Maximum number of wallpapers to consider
-    'percentage_of_items': 0.5, # 50% of available wallpapers
+    'percentage_of_items': 0.25,# 25% of available wallpapers
 }
 
 def parse_arguments():
