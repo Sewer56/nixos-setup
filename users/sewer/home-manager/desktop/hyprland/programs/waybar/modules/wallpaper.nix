@@ -20,8 +20,9 @@ semantic: {
 
     "custom/wallpaper-download" = {
       format = "";
-      tooltip-format = "Download random wallpaper from Wallhaven";
-      on-click = "~/.config/waybar/scripts/wallpaper/download-random-wallpaper.py";
+      tooltip-format = "Download random wallpaper from Wallhaven\nLeft: Similar aspect ratio • Right: Any aspect ratio";
+      on-click = "~/.config/waybar/scripts/wallpaper/download-random-wallpaper.py --aspect-ratio-mode=similar";
+      on-click-right = "~/.config/waybar/scripts/wallpaper/download-random-wallpaper.py --aspect-ratio-mode=any";
     };
 
     "custom/wallpaper-save" = {

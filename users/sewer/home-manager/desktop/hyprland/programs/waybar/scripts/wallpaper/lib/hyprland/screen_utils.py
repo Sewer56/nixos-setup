@@ -166,3 +166,134 @@ def meets_resolution_requirement(wallpaper_resolution: str, min_resolution: str)
     
     # Both dimensions must meet the requirement
     return wall_width >= min_width and wall_height >= min_height
+
+
+def calculate_aspect_ratio(width: int, height: int) -> str:
+    """Calculate aspect ratio from width and height
+    
+    Args:
+        width: Width in pixels
+        height: Height in pixels
+        
+    Returns:
+        Aspect ratio as string (e.g., "16x9", "21x9", "4x3") or "unknown"
+    """
+    if width <= 0 or height <= 0:
+        return "unknown"
+    
+    # Calculate GCD to find the simplified ratio
+    import math
+    gcd = math.gcd(width, height)
+    ratio_width = width // gcd
+    ratio_height = height // gcd
+    
+    # Map common ratios to standard names used by Wallhaven
+    ratio_map = {
+        (16, 9): "16x9",    # Standard widescreen
+        (32, 9): "32x9",    # Super ultrawide
+        (48, 9): "48x9",    # Extreme ultrawide  
+        (21, 9): "21x9",    # Ultrawide
+        (16, 10): "16x10",  # Standard widescreen (older)
+        (4, 3): "4x3",      # Standard 4:3
+        (5, 4): "5x4",      # Standard 5:4
+    }
+    
+    # Check if we have a direct match
+    ratio_key = (ratio_width, ratio_height)
+    if ratio_key in ratio_map:
+        return ratio_map[ratio_key]
+    
+    # Return simplified ratio as fallback
+    return f"{ratio_width}x{ratio_height}"
+
+
+def calculate_decimal_ratio(ratio_str: str) -> float:
+    """Calculate decimal aspect ratio from ratio string
+    
+    Args:
+        ratio_str: Aspect ratio string (e.g., "16x9", "21x9")
+        
+    Returns:
+        Decimal aspect ratio (e.g., 1.78 for 16x9)
+    """
+    if 'x' not in ratio_str:
+        return 0.0
+    
+    try:
+        width_str, height_str = ratio_str.split('x')
+        width = float(width_str)
+        height = float(height_str)
+        if height == 0:
+            return 0.0
+        return width / height
+    except (ValueError, ZeroDivisionError):
+        return 0.0
+
+
+def get_compatible_aspect_ratios(base_ratio: str) -> List[str]:
+    """Get list of compatible aspect ratios optimized for minimal cropping
+    
+    Logic:
+    - Wider ratios are good (can be cropped without black bars)  
+    - Very similar ratios are good (minimal cropping needed)
+    - Narrower ratios are avoided (would cause black bars or stretching)
+    
+    Args:
+        base_ratio: Base aspect ratio (e.g., "16x9")
+        
+    Returns:
+        List of compatible aspect ratios including the base ratio
+    """
+    # All available ratios with their decimal values
+    all_ratios = {
+        "4x3": 4/3,      # 1.33
+        "5x4": 5/4,      # 1.25  
+        "16x10": 16/10,  # 1.6
+        "16x9": 16/9,    # 1.78
+        "21x9": 21/9,    # 2.33
+        "32x9": 32/9,    # 3.56
+        "48x9": 48/9,    # 5.33
+    }
+    
+    base_decimal = calculate_decimal_ratio(base_ratio)
+    if base_decimal == 0.0:
+        return [base_ratio]  # Fallback for unknown ratios
+    
+    compatible = []
+    similarity_threshold = 0.25  # Allow ratios within 0.25 of base ratio
+    
+    for ratio_name, ratio_decimal in all_ratios.items():
+        if ratio_decimal >= base_decimal:
+            # Wider or same ratio - always compatible (can crop without black bars)
+            compatible.append(ratio_name)
+        elif abs(ratio_decimal - base_decimal) <= similarity_threshold:
+            # Close narrower ratio - compatible (minimal cropping/stretching needed)
+            compatible.append(ratio_name)
+        # Skip significantly narrower ratios (would cause black bars)
+    
+    return sorted(compatible)
+
+
+def get_monitor_aspect_ratios() -> List[str]:
+    """Get compatible aspect ratios for all monitors
+    
+    Returns list of aspect ratios that would work well across all connected monitors.
+    
+    Returns:
+        List of aspect ratio strings (e.g., ["16x9", "32x9", "48x9"])
+    """
+    monitors = get_monitor_info()
+    all_compatible_ratios = set()
+    
+    for monitor in monitors:
+        # Calculate this monitor's aspect ratio
+        monitor_ratio = calculate_aspect_ratio(monitor.width, monitor.height)
+        
+        # Get compatible ratios for this monitor
+        compatible_ratios = get_compatible_aspect_ratios(monitor_ratio)
+        
+        # Add to our set of all compatible ratios
+        all_compatible_ratios.update(compatible_ratios)
+    
+    # Return as sorted list for consistent results
+    return sorted(list(all_compatible_ratios))

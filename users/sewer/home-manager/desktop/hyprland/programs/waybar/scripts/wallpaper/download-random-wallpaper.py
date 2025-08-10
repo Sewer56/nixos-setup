@@ -5,6 +5,7 @@ Download and set a random wallpaper from Wallhaven
 """
 
 import sys
+import argparse
 from pathlib import Path
 
 # Setup library path
@@ -21,7 +22,7 @@ from lib.wallhaven.search import WallhavenSearch
 from lib.wallhaven.downloader import WallpaperDownloader
 from lib.core.cache_manager import CacheManager
 from lib.core.metadata_utils import get_wallpaper_display_info
-from lib.hyprland.screen_utils import get_search_resolution
+from lib.hyprland.screen_utils import get_search_resolution, get_monitor_aspect_ratios
 from lib.core.notifications import notify_error, notify_wallpaper_change, notify_info
 from lib.hyprland.lock_manager import hyprpaper_lock
 
@@ -33,7 +34,34 @@ SEARCH_PARAMS = {
     'percentage_of_items': 0.1, # 10% of available wallpapers
 }
 
-def handle_prefetched_wallpaper(config: WallpaperConfig, prefetch: WallpaperPrefetch, resolution: str) -> bool:
+def parse_arguments():
+    """Parse command line arguments"""
+    parser = argparse.ArgumentParser(description='Download and set a random wallpaper from Wallhaven')
+    parser.add_argument(
+        '--aspect-ratio-mode',
+        choices=['similar', 'any'],
+        default='similar',
+        help='Aspect ratio filtering mode: "similar" matches monitor ratios, "any" allows all ratios (default: similar)'
+    )
+    return parser.parse_args()
+
+def get_search_params_with_ratios(aspect_ratio_mode: str, resolution: str) -> dict:
+    """Get search parameters with aspect ratio filtering"""
+    search_params = {
+        'min_resolution': resolution,
+        **SEARCH_PARAMS
+    }
+    
+    if aspect_ratio_mode == 'similar':
+        # Get compatible aspect ratios for current monitors
+        compatible_ratios = get_monitor_aspect_ratios()
+        if compatible_ratios:
+            search_params['ratios'] = ','.join(compatible_ratios)
+    # For 'any' mode, we don't add ratios parameter (allows all ratios)
+    
+    return search_params
+
+def handle_prefetched_wallpaper(config: WallpaperConfig, prefetch: WallpaperPrefetch, resolution: str, aspect_ratio_mode: str) -> bool:
     """Handle case where prefetched wallpaper is available"""
     # Use prefetched wallpaper for instant switching
     wallpaper_path = prefetch.move_prefetched_to_current()
@@ -48,10 +76,7 @@ def handle_prefetched_wallpaper(config: WallpaperConfig, prefetch: WallpaperPref
     downloader = WallpaperDownloader(config)
     
     # Start prefetch BEFORE setting wallpaper for parallel execution
-    search_params = {
-        'min_resolution': resolution,
-        **SEARCH_PARAMS
-    }
+    search_params = get_search_params_with_ratios(aspect_ratio_mode, resolution)
     prefetch_thread = prefetch.start_background_prefetch(
         search_params, search, downloader
     )
@@ -80,7 +105,7 @@ def handle_prefetched_wallpaper(config: WallpaperConfig, prefetch: WallpaperPref
         return False  # Fall through to regular download
 
 
-def handle_regular_download(config: WallpaperConfig, prefetch: WallpaperPrefetch, resolution: str) -> None:
+def handle_regular_download(config: WallpaperConfig, prefetch: WallpaperPrefetch, resolution: str, aspect_ratio_mode: str) -> None:
     """Handle case where no prefetched wallpaper is available"""
     # Initialize components
     api = WallhavenClient()
@@ -98,10 +123,8 @@ def handle_regular_download(config: WallpaperConfig, prefetch: WallpaperPrefetch
     notify_info(f"Searching Wallhaven\nFinding wallpapers ≥{resolution}")
     
     # Search for a random wallpaper
-    wallpaper_data = search.search_random_wallpaper(
-        min_resolution=resolution,
-        **SEARCH_PARAMS
-    )
+    search_params = get_search_params_with_ratios(aspect_ratio_mode, resolution)
+    wallpaper_data = search.search_random_wallpaper(**search_params)
     
     if not wallpaper_data:
         notify_error("Search failed", "No wallpapers found matching criteria")
@@ -121,10 +144,7 @@ def handle_regular_download(config: WallpaperConfig, prefetch: WallpaperPrefetch
         sys.exit(1)
     
     # Start prefetch BEFORE setting wallpaper for parallel execution
-    search_params = {
-        'min_resolution': resolution,
-        **SEARCH_PARAMS
-    }
+    search_params = get_search_params_with_ratios(aspect_ratio_mode, resolution)
     prefetch_thread = prefetch.start_background_prefetch(
         search_params, search, downloader
     )
@@ -157,6 +177,9 @@ def handle_regular_download(config: WallpaperConfig, prefetch: WallpaperPrefetch
 # TODO: Add function to set per monitor wallpaper, rather than all same monitor.
 def main() -> None:
     """Main function to download and set random wallpaper with prefetching"""
+    # Parse command line arguments
+    args = parse_arguments()
+    
     # Prevent concurrent execution using file locking
     with hyprpaper_lock(silent_exit=True):
         try:
@@ -172,12 +195,12 @@ def main() -> None:
             # Check if we have a prefetched wallpaper available
             if prefetch.has_prefetched_wallpaper():
                 # Try to use prefetched wallpaper
-                if handle_prefetched_wallpaper(config, prefetch, resolution):
+                if handle_prefetched_wallpaper(config, prefetch, resolution, args.aspect_ratio_mode):
                     return  # Success, already exited
                 # Fall through to regular download if prefetched failed
             
             # No prefetched wallpaper available or prefetched failed
-            handle_regular_download(config, prefetch, resolution)
+            handle_regular_download(config, prefetch, resolution, args.aspect_ratio_mode)
 
         except Exception as e:
             notify_error("Script error", f"Unexpected error: {str(e)}")

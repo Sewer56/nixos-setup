@@ -30,7 +30,8 @@ class WallhavenSearch:
                               categories: str = '110', 
                               purity: str = '100',
                               max_items: int = 10000,
-                              percentage_of_items: float = 0.1) -> Optional[Dict[str, Any]]:
+                              percentage_of_items: float = 0.1,
+                              ratios: Optional[str] = None) -> Optional[Dict[str, Any]]:
         """Search for a random wallpaper matching criteria
         
         Args:
@@ -45,6 +46,7 @@ class WallhavenSearch:
                    - Third digit: NSFW (1=yes, 0=no)
             max_items: Maximum number of wallpapers to consider (default: 10000)
             percentage_of_items: Percentage of total available wallpapers (0.0-1.0, default: 0.1)
+            ratios: Aspect ratio filter (e.g., "16x9,21x9" or None for any ratio)
                    
         Returns:
             Random wallpaper data or None if search failed
@@ -54,6 +56,7 @@ class WallhavenSearch:
             min_resolution=min_resolution,
             categories=categories,
             purity=purity,
+            ratios=ratios,
             search_type='total_count'
         )
         
@@ -63,7 +66,7 @@ class WallhavenSearch:
             total_available = cached_total['total_available']
         else:
             # Fetch first page to get total count
-            first_page_data = self._fetch_page_with_metadata(1, min_resolution, categories, purity)
+            first_page_data = self._fetch_page_with_metadata(1, min_resolution, categories, purity, ratios)
             if not first_page_data:
                 return None
             
@@ -89,6 +92,7 @@ class WallhavenSearch:
             min_resolution=min_resolution,
             categories=categories,
             purity=purity,
+            ratios=ratios,
             search_type='page',
             page_num=page_num
         )
@@ -99,7 +103,7 @@ class WallhavenSearch:
             wallpapers = cached_page['wallpapers']
         else:
             # Fetch the specific page and cache it
-            page_data = self._fetch_page_with_metadata(page_num, min_resolution, categories, purity)
+            page_data = self._fetch_page_with_metadata(page_num, min_resolution, categories, purity, ratios)
             if not page_data:
                 return None
             
@@ -114,7 +118,7 @@ class WallhavenSearch:
     
     
     def _fetch_page_with_metadata(self, page_num: int, min_resolution: str, 
-                                categories: str, purity: str) -> Optional[Dict[str, Any]]:
+                                categories: str, purity: str, ratios: Optional[str] = None) -> Optional[Dict[str, Any]]:
         """Fetch wallpapers from a specific page with metadata
         
         Args:
@@ -122,6 +126,7 @@ class WallhavenSearch:
             min_resolution: Minimum resolution
             categories: Category filter
             purity: Purity filter
+            ratios: Aspect ratio filter (optional)
             
         Returns:
             Dict with 'wallpapers' and 'total_available' or None if failed
@@ -136,6 +141,10 @@ class WallhavenSearch:
                 'atleast': min_resolution,
                 'page': page_num
             }
+            
+            # Add ratios filter if specified
+            if ratios:
+                params['ratios'] = ratios
             
             response = self.api.search(params)
             if 'data' in response and 'meta' in response:
