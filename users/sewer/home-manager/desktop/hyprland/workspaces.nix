@@ -46,11 +46,6 @@
         "2, monitor:DP-2, layoutopt:wslayout-layout:master"
         "3, monitor:DP-2, layoutopt:wslayout-layout:master"
         "4, monitor:DP-2, layoutopt:wslayout-layout:dwindle"
-        # Retain existing persistent workspace settings for non-layout workspaces
-        "7, persistent:true"
-        "8, persistent:true"
-        "9, persistent:true"
-        "10, persistent:true"
       ];
 
       # Application workspace assignments optimized for ultrawide layout
