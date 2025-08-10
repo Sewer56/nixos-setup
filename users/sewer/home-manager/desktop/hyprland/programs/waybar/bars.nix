@@ -1,4 +1,8 @@
-semantic: let
+{
+  semantic,
+  hostOptions,
+  lib,
+}: let
   helpers = import ../../../../themes/shared/helpers.nix;
 in {
   mainBar = {
@@ -19,22 +23,27 @@ in {
       # "hyprland/submap"
       # "hyprland/window"
     ];
-    modules-right = [
-      "custom/spacer1"
-      "cpu"
-      "temperature"
-      "group/memory-storage"
-      "network#info"
-      # "bluetooth"
-      "custom/spacer1"
-      "group/audio"
-      "custom/spacer1"
-      "backlight"
-      "custom/battery"
-      "custom/uptime"
-      "custom/spacer1"
-      "clock"
-    ];
+    modules-right =
+      [
+        "custom/spacer1"
+        "cpu"
+        "temperature"
+        "group/memory-storage"
+        "network#info"
+        # "bluetooth"
+        "custom/spacer1"
+        "group/audio"
+        "custom/spacer1"
+        "backlight"
+      ]
+      ++ lib.optionals hostOptions.hardware.hasBattery [
+        "custom/battery"
+      ]
+      ++ [
+        "custom/uptime"
+        "custom/spacer1"
+        "clock"
+      ];
   };
 
   bottomBar = {

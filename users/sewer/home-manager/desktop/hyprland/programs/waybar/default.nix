@@ -1,11 +1,13 @@
 {
   config,
+  hostOptions,
+  lib,
   pkgs,
   ...
 }: let
   semantic = config.lib.theme.semantic;
   theme = import ./theme.nix semantic;
-  bars = import ./bars.nix semantic;
+  bars = import ./bars.nix {inherit semantic hostOptions lib;};
   workspaces = import ./modules/workspaces.nix semantic;
   system = import ./modules/system.nix semantic;
   audio = import ./modules/audio.nix semantic;
