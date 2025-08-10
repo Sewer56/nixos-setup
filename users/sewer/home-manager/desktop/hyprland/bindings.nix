@@ -63,7 +63,7 @@ in {
       "$mod, down, movefocus, d"
 
       # Layout management
-      "$mod, W, layoutmsg, swapwithmaster" # Swap with previous window
+      "$mod, W, layoutmsg, swapprev" # Swap with previous window
       "$mod, E, layoutmsg, swapnext" # Swap with next window
       "$mod, O, layoutmsg, addmaster" # Add master window
 
