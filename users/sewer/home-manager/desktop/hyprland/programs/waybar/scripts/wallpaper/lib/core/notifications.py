@@ -112,17 +112,24 @@ def notify_warning(message: str, details: Optional[str] = None) -> None:
         pass
 
 
-def notify_wallpaper_change(wallpaper_name: str) -> None:
+def notify_wallpaper_change(wallpaper_name: str, resolution: Optional[str] = None) -> None:
     """Send wallpaper change notification
     
     Args:
         wallpaper_name: Name of the new wallpaper
+        resolution: Optional resolution string (e.g., "2560x1440")
     """
+    # Create message with or without resolution info
+    if resolution:
+        message = f'Set to: {wallpaper_name} ({resolution})'
+    else:
+        message = f'Set to: {wallpaper_name}'
+    
     try:
         subprocess.run([
             'notify-send',
             'Wallpaper Changed',
-            f'Set to: {wallpaper_name}',
+            message,
             '-i', 'preferences-desktop-wallpaper',
             '-t', '3000',
             '-u', 'low'

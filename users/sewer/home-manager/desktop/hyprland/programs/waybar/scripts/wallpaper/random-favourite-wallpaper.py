@@ -16,6 +16,7 @@ setup_lib_path()
 from lib.config import WallpaperConfig
 from lib.services.wallpaper_manager import WallpaperManager
 from lib.core.notifications import notify_error, notify_wallpaper_change
+from lib.core.collection_manager import CollectionManager
 from lib.hyprland.lock_manager import hyprpaper_lock
 from lib.hyprland.screen_utils import get_search_resolution
 
@@ -26,13 +27,24 @@ def main():
         try:
             config = WallpaperConfig()
             manager = WallpaperManager(config)
+            collection_manager = CollectionManager(config)
             
             # Get optimal resolution for current monitors
             resolution = get_search_resolution()
             result = manager.set_random_wallpaper(min_resolution=resolution)
             
             if result.success:
-                notify_wallpaper_change(result.wallpaper_name)
+                # Get wallpaper name without extension and resolution info
+                wallpaper_name_no_ext = result.wallpaper_path.stem if result.wallpaper_path else "Unknown"
+                wallpaper_resolution = None
+                
+                # Try to get resolution from collection manager
+                if result.wallpaper_path:
+                    wallpaper_info = collection_manager.get_wallpaper_info(result.wallpaper_path.stem)
+                    if wallpaper_info:
+                        wallpaper_resolution = wallpaper_info.get('resolution')
+                
+                notify_wallpaper_change(wallpaper_name_no_ext, wallpaper_resolution)
                 sys.exit(0)
             else:
                 notify_error("Failed to set random wallpaper", result.error_message)
