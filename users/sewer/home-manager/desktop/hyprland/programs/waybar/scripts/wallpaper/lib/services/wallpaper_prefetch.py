@@ -58,7 +58,7 @@ class WallpaperPrefetch:
         return None
     
     def move_prefetched_to_current(self) -> Optional[Path]:
-        """Move prefetched wallpaper to current directory and return its new path
+        """Move prefetched wallpaper and metadata to current directory and return wallpaper path
         
         Returns:
             Path to wallpaper in current directory or None if no prefetched wallpaper
@@ -70,11 +70,15 @@ class WallpaperPrefetch:
         # Clear current directory first
         clear_directory_contents(self.config.current_random_dir)
         
-        # Move prefetched wallpaper to current directory
-        new_path = self.config.current_random_dir / prefetched_path.name
-        shutil.move(str(prefetched_path), str(new_path))
+        # Move ALL files from next_random_dir to current_random_dir
+        # This ensures wallpaper files and their metadata travel together
+        for file_path in self.config.next_random_dir.iterdir():
+            if file_path.is_file():
+                new_path = self.config.current_random_dir / file_path.name
+                shutil.move(str(file_path), str(new_path))
         
-        return new_path
+        # Return path to wallpaper in new location
+        return self.config.current_random_dir / prefetched_path.name
     
     def start_background_prefetch(self, search_params: Dict[str, Any], 
                                   search: WallhavenSearch, 

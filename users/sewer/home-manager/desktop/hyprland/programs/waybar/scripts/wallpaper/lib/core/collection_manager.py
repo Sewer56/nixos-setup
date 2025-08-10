@@ -49,7 +49,7 @@ class CollectionManager:
         with open(self.collection_file, 'w') as f:
             json.dump(collection, f, indent=2, sort_keys=True)
     
-    def add_wallpaper(self, wallpaper_id: str, resolution: str, file_extension: str = ".jxl") -> None:
+    def add_wallpaper(self, wallpaper_id: str, resolution: str, file_extension: str = ".jxl", category: Optional[str] = None) -> None:
         """Add a wallpaper to the collection"""
         collection = self._load_collection()
         
@@ -60,6 +60,10 @@ class CollectionManager:
             "primary_colors": ["#000000"],  # Placeholder for now
             "file_extension": file_extension
         }
+        
+        # Add category if provided
+        if category:
+            wallpaper_entry["category"] = category
         
         collection["wallpapers"][wallpaper_id] = wallpaper_entry
         self._save_collection(collection)

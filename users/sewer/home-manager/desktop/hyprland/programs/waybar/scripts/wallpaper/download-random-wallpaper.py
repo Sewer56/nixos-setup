@@ -20,6 +20,7 @@ from lib.wallhaven.client import WallhavenClient
 from lib.wallhaven.search import WallhavenSearch
 from lib.wallhaven.downloader import WallpaperDownloader
 from lib.core.cache_manager import CacheManager
+from lib.core.metadata_utils import get_wallpaper_display_info
 from lib.hyprland.screen_utils import get_search_resolution
 from lib.core.notifications import notify_error, notify_wallpaper_change, notify_info
 from lib.hyprland.lock_manager import hyprpaper_lock
@@ -60,7 +61,15 @@ def handle_prefetched_wallpaper(config: WallpaperConfig, prefetch: WallpaperPref
     result = manager.set_wallpaper(wallpaper_path)
     
     if result.success:
-        notify_wallpaper_change("Prefetched wallpaper applied")
+        # Get wallpaper display info for notification
+        display_info = get_wallpaper_display_info(wallpaper_path)
+        
+        # Format resolution string with category if available
+        resolution_str = display_info['resolution']
+        if display_info['category']:
+            resolution_str = f"{resolution_str} • {display_info['category']}" if resolution_str else display_info['category']
+        
+        notify_wallpaper_change(display_info['name'], resolution_str)
         # Wait for prefetch to complete before exiting
         prefetch_thread.join()
         sys.exit(0)
@@ -130,11 +139,10 @@ def handle_regular_download(config: WallpaperConfig, prefetch: WallpaperPrefetch
         resolution_info = wallpaper_data.get('resolution', '')
         category = wallpaper_data.get('category', 'unknown')
         
-        status = "Downloaded" if not download_result.was_cached else "Cached"
+        # Format resolution string with category
+        resolution_str = f"{resolution_info} • {category}" if resolution_info else category
         
-        notify_wallpaper_change(
-            f"{status}: {wallpaper_id}\n{resolution_info} • {category}"
-        )
+        notify_wallpaper_change(wallpaper_id, resolution_str)
         
         # Wait for prefetch to complete before exiting
         prefetch_thread.join()
@@ -170,7 +178,7 @@ def main() -> None:
             
             # No prefetched wallpaper available or prefetched failed
             handle_regular_download(config, prefetch, resolution)
-                
+
         except Exception as e:
             notify_error("Script error", f"Unexpected error: {str(e)}")
             sys.exit(1)

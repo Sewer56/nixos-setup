@@ -10,6 +10,7 @@ from urllib.request import urlopen, Request
 
 from ..core.results import DownloadResult
 from ..core.file_utils import clear_directory_contents
+from ..core.metadata_utils import save_wallpaper_metadata
 from pathlib import Path as PathType
 from typing import Optional
 from ..constants import USER_AGENT, DEFAULT_TIMEOUT
@@ -61,6 +62,9 @@ class WallpaperDownloader:
         # Check if already cached
         existing_file = self._find_existing_wallpaper(wallpaper_id)
         if existing_file:
+            # Save metadata if it doesn't exist for cached file
+            save_wallpaper_metadata(existing_file, wallpaper_data)
+            
             return DownloadResult(
                 success=True,
                 wallpaper_id=wallpaper_id,
@@ -69,7 +73,7 @@ class WallpaperDownloader:
             )
         
         try:
-            return self._perform_download(wallpaper_id, wallpaper_url, target_dir)
+            return self._perform_download(wallpaper_data, target_dir)
         except Exception as e:
             return DownloadResult(
                 success=False,
@@ -77,17 +81,19 @@ class WallpaperDownloader:
                 error_message=str(e)
             )
     
-    def _perform_download(self, wallpaper_id: str, wallpaper_url: str, target_dir: Optional[PathType] = None) -> DownloadResult:
+    def _perform_download(self, wallpaper_data: Dict[str, Any], target_dir: Optional[PathType] = None) -> DownloadResult:
         """Perform the actual download operation
         
         Args:
-            wallpaper_id: Wallpaper ID
-            wallpaper_url: Wallpaper URL
+            wallpaper_data: Full wallpaper data dictionary containing ID, URL, and metadata
             target_dir: Optional directory to download to. Defaults to download_temp_dir.
             
         Returns:
             DownloadResult with download status
         """
+        wallpaper_id = wallpaper_data.get('id')
+        wallpaper_url = wallpaper_data.get('path')
+        
         request = Request(wallpaper_url, headers={'User-Agent': USER_AGENT})
         
         file_extension = Path(wallpaper_url).suffix
@@ -98,6 +104,9 @@ class WallpaperDownloader:
         with urlopen(request, timeout=DEFAULT_TIMEOUT) as response:
             with open(temp_path, 'wb') as f:
                 f.write(response.read())
+        
+        # Save metadata sidecar file
+        save_wallpaper_metadata(temp_path, wallpaper_data)
         
         return DownloadResult(
             success=True,
