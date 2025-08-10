@@ -118,10 +118,16 @@
       path = "${config.home.homeDirectory}/.secrets/github-token";
       mode = "600";
     };
+
+    # Nix access tokens for GitHub rate limiting
+    nix-access-tokens = {
+      file = ./secrets/nix-access-tokens.age;
+      mode = "600";
+    };
   };
 
   # Configure nix access tokens to avoid GitHub rate limiting
   nix.extraOptions = ''
-    access-tokens = github.com=$(cat ${config.age.secrets.github-token.path})
+    !include ${config.age.secrets.nix-access-tokens.path}
   '';
 }
