@@ -6,10 +6,11 @@ Wallpaper discovery service for finding and listing wallpapers
 
 import random
 from pathlib import Path
-from typing import List, Optional
+from typing import Callable, List, Optional
 
 from ..config import WallpaperConfig
 from ..constants import SUPPORTED_EXTENSIONS
+from ..core.collection_manager import CollectionManager
 
 
 class WallpaperDiscoveryService:
@@ -26,6 +27,7 @@ class WallpaperDiscoveryService:
         self.saved_dir = config.saved_dir
         self.current_random_dir = config.current_random_dir
         self.next_random_dir = config.next_random_dir
+        self.collection_manager = CollectionManager(config)
     
     def get_all_wallpapers(self) -> List[Path]:
         """Get list of all available wallpaper files
@@ -64,25 +66,26 @@ class WallpaperDiscoveryService:
         
         return sorted(wallpapers)
     
-    def get_random_wallpaper(self, exclude_current: Optional[Path] = None) -> Optional[Path]:
-        """Get a random wallpaper from favorites collection, optionally excluding a specific wallpaper
+    def get_random_wallpaper(self, filter_func: Optional[Callable[[Path], bool]] = None) -> Optional[Path]:
+        """Get a random wallpaper from favorites collection, optionally filtered by a predicate function
         
         Args:
-            exclude_current: Path to wallpaper to exclude from selection
+            filter_func: Optional predicate function that returns True for wallpapers that should be included
             
         Returns:
-            Path to random wallpaper file, or None if no wallpapers found or only excluded wallpaper available
+            Path to random wallpaper file, or None if no wallpapers found or no wallpapers pass filter
         """
         wallpapers = self.get_favorite_wallpapers()
         if not wallpapers:
             return None
         
-        # Filter out excluded wallpaper from choices
-        if exclude_current:
-            available_wallpapers = [w for w in wallpapers if w != exclude_current]
-            # If no different wallpapers available, return None
+        # Apply filter if provided
+        if filter_func:
+            available_wallpapers = [w for w in wallpapers if filter_func(w)]
+            # If no wallpapers pass filter, return None
             if not available_wallpapers:
                 return None
             wallpapers = available_wallpapers
         
         return random.choice(wallpapers)
+    

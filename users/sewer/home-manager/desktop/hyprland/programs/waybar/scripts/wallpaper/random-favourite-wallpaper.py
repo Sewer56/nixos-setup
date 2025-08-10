@@ -17,6 +17,7 @@ from lib.config import WallpaperConfig
 from lib.services.wallpaper_manager import WallpaperManager
 from lib.core.notifications import notify_error, notify_wallpaper_change
 from lib.hyprland.lock_manager import hyprpaper_lock
+from lib.hyprland.screen_utils import get_search_resolution
 
 def main():
     """Main function to set random wallpaper"""
@@ -25,7 +26,10 @@ def main():
         try:
             config = WallpaperConfig()
             manager = WallpaperManager(config)
-            result = manager.set_random_wallpaper()
+            
+            # Get optimal resolution for current monitors
+            resolution = get_search_resolution()
+            result = manager.set_random_wallpaper(min_resolution=resolution)
             
             if result.success:
                 notify_wallpaper_change(result.wallpaper_name)

@@ -8,6 +8,8 @@ import subprocess
 from pathlib import Path
 from typing import Union, Optional
 
+from ..hyprland.screen_utils import parse_resolution_string
+
 
 def clear_directory_contents(directory: Union[str, Path]) -> None:
     """Clear all files from a directory, keeping the directory itself
@@ -57,14 +59,10 @@ def get_image_resolution(image_path: Union[str, Path]) -> Optional[str]:
                         if 'x' in part and part.replace('x', '').replace(' ', '').isdigit():
                             # Found resolution part, extract just the resolution
                             resolution = part.strip()
-                            # Validate it's actually a resolution (numbers with x)
-                            try:
-                                width, height = resolution.split('x')
-                                int(width)
-                                int(height)
+                            # Validate it's actually a resolution using shared utility
+                            width, height = parse_resolution_string(resolution)
+                            if width > 0 and height > 0:
                                 return resolution
-                            except (ValueError, IndexError):
-                                continue
         
         # For other image formats, could add support for imagemagick identify, etc.
         # For now, return None for non-JXL files

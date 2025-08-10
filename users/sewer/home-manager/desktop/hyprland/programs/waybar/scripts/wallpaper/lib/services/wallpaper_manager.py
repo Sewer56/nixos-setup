@@ -12,6 +12,7 @@ from ..config import WallpaperConfig
 from .wallpaper_discovery_service import WallpaperDiscoveryService
 from .wallpaper_persistence_service import WallpaperPersistenceService
 from ..hyprland.hyprland_wallpaper_service import HyprlandWallpaperService
+from ..hyprland.screen_utils import meets_resolution_requirement
 
 
 class WallpaperManager:
@@ -111,17 +112,44 @@ class WallpaperManager:
             fallback_wallpaper_provider=self.get_random_wallpaper
         )
     
-    def get_random_wallpaper(self) -> Optional[Path]:
-        """Get a random wallpaper from favorites collection, excluding current wallpaper
+    def get_random_wallpaper(self, min_resolution: Optional[str] = None) -> Optional[Path]:
+        """Get a random wallpaper from favorites collection, excluding current wallpaper and optionally filtering by resolution
+        
+        Args:
+            min_resolution: Optional minimum resolution string in format "WIDTHxHEIGHT" (e.g., "2560x1440")
         
         Returns:
-            Path to random wallpaper file, or None if no wallpapers found or only current wallpaper available
+            Path to random wallpaper file, or None if no wallpapers found or no wallpapers meet criteria
         """
         current_wallpaper = self.get_current_wallpaper()
-        return self.discovery_service.get_random_wallpaper(exclude_current=current_wallpaper)
+        
+        # Create combined filter predicate
+        def filter_predicate(path: Path) -> bool:
+            # Check exclusion filter
+            if current_wallpaper and path == current_wallpaper:
+                return False
+            
+            # Check resolution filter
+            if min_resolution:
+                wallpaper_id = path.stem
+                wallpaper_info = self.discovery_service.collection_manager.get_wallpaper_info(wallpaper_id)
+                if wallpaper_info and wallpaper_info.get('resolution'):
+                    if not meets_resolution_requirement(wallpaper_info['resolution'], min_resolution):
+                        return False
+                
+            return True
+        
+        # Apply filter if any criteria are set
+        if current_wallpaper or min_resolution:
+            return self.discovery_service.get_random_wallpaper(filter_func=filter_predicate)
+        else:
+            return self.discovery_service.get_random_wallpaper()
     
-    def set_random_wallpaper(self) -> WallpaperResult:
-        """Set a random wallpaper from favorites on all monitors, excluding the currently active one
+    def set_random_wallpaper(self, min_resolution: Optional[str] = None) -> WallpaperResult:
+        """Set a random wallpaper from favorites on all monitors, excluding the currently active one and optionally filtering by resolution
+        
+        Args:
+            min_resolution: Optional minimum resolution string in format "WIDTHxHEIGHT" (e.g., "2560x1440")
         
         Returns:
             WallpaperResult with success status and details
@@ -133,13 +161,19 @@ class WallpaperManager:
                 error_message=f"No favorite wallpapers found in saved directories"
             )
         
-        random_wallpaper = self.get_random_wallpaper()
+        random_wallpaper = self.get_random_wallpaper(min_resolution=min_resolution)
         if not random_wallpaper:
-            # This means only the current wallpaper is available (no alternatives)
-            return WallpaperResult(
-                success=False,
-                error_message="No different wallpaper available - current wallpaper excluded"
-            )
+            # Create error message based on filtering criteria
+            if min_resolution:
+                return WallpaperResult(
+                    success=False,
+                    error_message=f"No wallpapers available meeting criteria (resolution ≥{min_resolution}, excluding current)"
+                )
+            else:
+                return WallpaperResult(
+                    success=False,
+                    error_message="No different wallpaper available - current wallpaper excluded"
+                )
         
         return self.set_wallpaper_all_monitors(random_wallpaper)
 

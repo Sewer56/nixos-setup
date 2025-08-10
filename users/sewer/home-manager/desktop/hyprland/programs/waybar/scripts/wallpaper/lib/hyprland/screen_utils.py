@@ -122,3 +122,47 @@ def get_search_resolution() -> str:
     
     highest_monitor = max(monitors, key=lambda m: m.pixel_count)
     return highest_monitor.resolution
+
+
+def parse_resolution_string(resolution_str: str) -> Tuple[int, int]:
+    """Parse resolution string into width and height integers
+    
+    Args:
+        resolution_str: Resolution string in format "WIDTHxHEIGHT" (e.g., "1920x1080")
+        
+    Returns:
+        Tuple of (width, height) as integers, (0, 0) if parsing fails
+    """
+    try:
+        width_str, height_str = resolution_str.split('x')
+        return int(width_str), int(height_str)
+    except (ValueError, AttributeError):
+        return 0, 0
+
+
+def meets_resolution_requirement(wallpaper_resolution: str, min_resolution: str) -> bool:
+    """Check if wallpaper meets minimum resolution requirement (both width AND height)
+    
+    This matches how Wallhaven's 'atleast' parameter works: both dimensions
+    must be greater than or equal to the minimum requirement.
+    
+    Args:
+        wallpaper_resolution: Wallpaper resolution string (e.g., "3840x2160")
+        min_resolution: Minimum required resolution string (e.g., "1920x1080")
+        
+    Returns:
+        True if wallpaper_width >= min_width AND wallpaper_height >= min_height
+    """
+    if not wallpaper_resolution or not min_resolution:
+        return True  # Don't filter if either resolution is missing
+    
+    wall_width, wall_height = parse_resolution_string(wallpaper_resolution)
+    min_width, min_height = parse_resolution_string(min_resolution)
+    
+    # Both parsing operations must succeed
+    if (wall_width == 0 or wall_height == 0 or 
+        min_width == 0 or min_height == 0):
+        return True  # Don't filter if parsing failed
+    
+    # Both dimensions must meet the requirement
+    return wall_width >= min_width and wall_height >= min_height
