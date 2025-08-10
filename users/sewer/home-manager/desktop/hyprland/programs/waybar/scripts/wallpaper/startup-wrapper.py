@@ -17,9 +17,10 @@ setup_lib_path()
 
 # Now import from organized modules
 from lib.config import WallpaperConfig
-from lib.core.notifications import notify_error, notify_wallpaper_change, notify_info
+from lib.core.notifications import notify_error, notify_wallpaper_change, notify_info, notify_success
 from lib.services.wallpaper_manager import WallpaperManager
 from lib.hyprland.lock_manager import hyprpaper_lock, HyprpaperLockError
+from lib.hyprland.screen_utils import get_monitor_info
 
 def wait_for_hyprpaper(timeout=5, poll_interval=0.1):
     """Wait for hyprpaper to be ready
@@ -81,17 +82,27 @@ def main():
                 # Restore wallpapers for all monitors
                 results = manager.restore_monitor_wallpapers()
                 
+                # Get monitor info for display names
+                monitors = get_monitor_info()
+                monitor_display_map = {monitor.name: monitor.display_name for monitor in monitors}
+                
                 # Check results and notify
-                successful_monitors = [name for name, result in results.items() if result.success]
-                failed_monitors = [name for name, result in results.items() if not result.success]
+                successful_monitors = [monitor_display_map.get(name, name) for name, result in results.items() if result.success]
+                failed_monitors = [monitor_display_map.get(name, name) for name, result in results.items() if not result.success]
                 
                 if successful_monitors:
-                    monitor_list = ", ".join(successful_monitors)
-                    notify_wallpaper_change(f"Restored wallpapers\nMonitors: {monitor_list}")
+                    if len(successful_monitors) == 1:
+                        notify_success(f"Restored wallpaper for {successful_monitors[0]}")
+                    else:
+                        monitor_list = ", ".join(successful_monitors)
+                        notify_success(f"Restored wallpapers", f"Monitors: {monitor_list}")
                 
                 if failed_monitors:
-                    monitor_list = ", ".join(failed_monitors)
-                    notify_error("Some wallpapers failed", f"Failed monitors: {monitor_list}")
+                    if len(failed_monitors) == 1:
+                        notify_error("Wallpaper restore failed", f"Monitor: {failed_monitors[0]}")
+                    else:
+                        monitor_list = ", ".join(failed_monitors)
+                        notify_error("Some wallpapers failed", f"Failed monitors: {monitor_list}")
                     
             except Exception as e:
                 notify_error("Wallpaper startup failed", f"Unexpected error: {str(e)}")

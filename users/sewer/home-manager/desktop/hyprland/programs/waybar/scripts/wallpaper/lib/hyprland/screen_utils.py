@@ -38,6 +38,22 @@ class MonitorInfo:
             Composite key in format "description|port_name"
         """
         return f"{self.description}|{self.name}"
+    
+    @property
+    def display_name(self) -> str:
+        """Get user-friendly display name for notifications
+        
+        Returns:
+            Display name in format "Monitor Description (Port)" or "Port" if description is generic
+        """
+        # Check if description is generic/fallback
+        if (self.description.startswith("Unknown Display") or 
+            self.description == "Fallback Display" or
+            not self.description.strip()):
+            return self.name
+        
+        # Use raw description with port name
+        return f"{self.description} ({self.name})"
 
 
 def get_monitor_info() -> List[MonitorInfo]:

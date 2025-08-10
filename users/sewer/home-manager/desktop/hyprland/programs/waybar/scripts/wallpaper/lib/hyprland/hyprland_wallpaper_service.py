@@ -166,7 +166,7 @@ class HyprlandWallpaperService:
             results.append(result)
             
             if not result.success:
-                failed_monitors.append(monitor.name)
+                failed_monitors.append(monitor.display_name)
         
         # Check if any monitors succeeded
         successful_results = [r for r in results if r.success]
@@ -193,7 +193,7 @@ class HyprlandWallpaperService:
                 )
         else:
             # All monitors failed
-            error_messages = [f"{monitors[i].name}: {results[i].error_message}" for i in range(len(monitors)) if results[i].error_message]
+            error_messages = [f"{monitors[i].display_name}: {results[i].error_message}" for i in range(len(monitors)) if results[i].error_message]
             combined_error = "; ".join(error_messages) if error_messages else "All monitors failed"
             
             return WallpaperResult(
@@ -234,7 +234,7 @@ class HyprlandWallpaperService:
                 else:
                     results[monitor.name] = WallpaperResult(
                         success=False,
-                        error_message=f"No wallpaper to assign to monitor {monitor.name}"
+                        error_message=f"No wallpaper to assign to monitor {monitor.display_name}"
                     )
         
         return results
