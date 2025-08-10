@@ -1,4 +1,8 @@
-semantic: {
+{
+  semantic,
+  lib,
+  hostOptions,
+}: {
   config = {
     "hyprland/workspaces" = {
       disable-scroll-wraparound = true;
@@ -7,19 +11,30 @@ semantic: {
       format = "{icon}";
       show-special = true;
       special-visible-only = false;
-      format-icons = {
-        magic = "";
-        "1" = "󰈹"; # Browser icon
-        "2" = "󰨞"; # Code icon
-        "3" = "󰙯"; # Discord icon
-        "4" = "󰒱"; # Slack icon
-        "5" = "󰆾"; # Telegram icon (alternative)
-        "6" = "󰝚"; # General workspace icon
-        "7" = "//"; # Visual separator between low and high workspaces
-        "8" = "󰎈"; # Music icon
-        "9" = "󰊢"; # Git icon
-        "10" = "󰇮"; # Email icon
-      };
+      format-icons =
+        if hostOptions.desktop.hyprland.ultraWideMode
+        then {
+          # Ultrawide mode: Focus on workspaces 1-4 with layout-optimized assignments
+          magic = "";
+          "1" = "󰈹"; # Code/Browser (master layout)
+          "2" = "󰊢"; # Development tools (master layout)
+          "3" = "󰒱"; # Communications (master layout)
+          "4" = "󰝚"; # Miscellaneous (dwindle layout)
+        }
+        else {
+          # Standard mode: Full workspace range 1-10
+          magic = "";
+          "1" = "󰈹"; # Browser icon
+          "2" = "󰨞"; # Code icon
+          "3" = "󰙯"; # Discord icon
+          "4" = "󰒱"; # Slack icon
+          "5" = "󰆾"; # Telegram icon (alternative)
+          "6" = "󰝚"; # General workspace icon
+          "7" = "//"; # Visual separator between low and high workspaces
+          "8" = "󰎈"; # Music icon
+          "9" = "󰊢"; # Git icon
+          "10" = "󰇮"; # Email icon
+        };
     };
 
     "hyprland/submap" = {
