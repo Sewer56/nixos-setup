@@ -10,7 +10,7 @@
     # In on hyprland, add to autoexecute.
     wayland.windowManager.hyprland.settings = {
       exec-once = [
-        "ckb-next"
+        "ckb-next -b"
       ];
     };
   };
