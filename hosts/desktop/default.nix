@@ -1,7 +1,11 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running 'nixos-help').
-{pkgs, lib, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     # Include the results of the hardware scan.
     # nixos-generate-config --root /mnt
@@ -32,7 +36,7 @@
   swapDevices = [
     {
       device = "/swapfile";
-      size = 65536;
+      size = 114688; # 96GB (RAM) + 16GB (VRAM)
     }
   ];
 
