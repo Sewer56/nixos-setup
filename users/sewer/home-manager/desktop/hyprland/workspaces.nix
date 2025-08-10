@@ -42,10 +42,11 @@
       # High workspaces (7-10): Uncommonly checked applications
       workspace = [
         # Ultrawide-specific workspaces with monitor assignment and layouts
-        "1, monitor:DP-2, layoutopt:wslayout-layout:master, default:true"
-        "2, monitor:DP-2, layoutopt:wslayout-layout:master"
-        "3, monitor:DP-2, layoutopt:wslayout-layout:master"
-        "4, monitor:DP-2, layoutopt:wslayout-layout:dwindle"
+        "0, layoutopt:wslayout-layout:master, default:true"
+        "1, layoutopt:wslayout-layout:master"
+        "2, layoutopt:wslayout-layout:master"
+        "3, layoutopt:wslayout-layout:master"
+        "4, layoutopt:wslayout-layout:dwindle"
       ];
 
       # Application workspace assignments optimized for ultrawide layout
