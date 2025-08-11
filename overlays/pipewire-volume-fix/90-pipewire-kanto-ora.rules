@@ -1,0 +1,8 @@
+# Kanto ORA USB DAC udev rules
+# This file is part of PipeWire adapted from PulseAudio.
+
+SUBSYSTEM!="sound", GOTO="pipewire_kanto_end"
+ACTION!="change", GOTO="pipewire_kanto_end"
+KERNEL!="card*", GOTO="pipewire_kanto_end"
+ATTRS{idVendor}=="8888", ATTRS{idProduct}=="17b6", ENV{ACP_PROFILE_SET}="kanto-ora-usb-dac.conf"
+LABEL="pipewire_kanto_end"

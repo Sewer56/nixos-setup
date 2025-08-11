@@ -1,4 +1,7 @@
 {pkgs, ...}: {
+  imports = [
+    ./pipewire-volume-fix.nix
+  ];
   # Audio packages
   environment.systemPackages = with pkgs; [
     pwvucontrol
@@ -8,6 +11,7 @@
   # rtkit (optional, recommended) allows Pipewire to use the realtime scheduler
   # for increased performance.
   security.rtkit.enable = true;
+  hardware.alsa.enablePersistence = true;
   services.pipewire = {
     enable = true; # if not already enabled
     alsa.enable = true;
@@ -29,26 +33,11 @@
           actions = {
             "update-props" = {
               # The fix is here.
-              "api.alsa.soft-mixer" = true;
+              # "api.alsa.soft-mixer" = true;
             };
           };
         }
       ];
     };
   };
-
-  /*
-  # Set Kanto ORA PCM volume to 100% declaratively
-  systemd.user.services.kanto-ora-volume = {
-    description = "Set Kanto ORA PCM volume to 100%";
-    wantedBy = ["default.target"];
-    after = ["pipewire.service"];
-    requires = ["pipewire.service"];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-      ExecStart = "${pkgs.alsa-utils}/bin/amixer -c Kanto sset PCM 100%";
-    };
-  };
-  */
 }
