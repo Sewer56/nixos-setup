@@ -2,6 +2,7 @@
   # Audio packages
   environment.systemPackages = with pkgs; [
     pwvucontrol
+    alsa-utils # For amixer command in systemd service
   ];
 
   # rtkit (optional, recommended) allows Pipewire to use the realtime scheduler
@@ -35,4 +36,19 @@
       ];
     };
   };
+
+  /*
+  # Set Kanto ORA PCM volume to 100% declaratively
+  systemd.user.services.kanto-ora-volume = {
+    description = "Set Kanto ORA PCM volume to 100%";
+    wantedBy = ["default.target"];
+    after = ["pipewire.service"];
+    requires = ["pipewire.service"];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = "${pkgs.alsa-utils}/bin/amixer -c Kanto sset PCM 100%";
+    };
+  };
+  */
 }
