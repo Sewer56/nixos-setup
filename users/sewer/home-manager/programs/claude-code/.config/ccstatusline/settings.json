@@ -1,0 +1,53 @@
+{
+  "lines": [
+    [
+      {
+        "id": "1",
+        "type": "model",
+        "color": "cyan"
+      },
+      {
+        "id": "2",
+        "type": "separator"
+      },
+      {
+        "id": "1755011745874",
+        "type": "context-length"
+      },
+      {
+        "id": "1755011788097",
+        "type": "custom-text",
+        "customText": " "
+      },
+      {
+        "id": "1755011707927",
+        "type": "context-percentage-usable"
+      },
+      {
+        "id": "4",
+        "type": "separator"
+      },
+      {
+        "id": "5",
+        "type": "git-branch",
+        "color": "magenta"
+      },
+      {
+        "id": "6",
+        "type": "separator"
+      },
+      {
+        "id": "1755012046571",
+        "type": "custom-command",
+        "commandPath": "npx -y ccusage statusline",
+        "timeout": 5000
+      }
+    ],
+    [],
+    []
+  ],
+  "flexMode": "full-minus-40",
+  "compactThreshold": 60,
+  "inheritSeparatorColors": false,
+  "globalBold": false
+}

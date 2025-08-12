@@ -27,6 +27,9 @@ in {
     # and python, but that fails my build due to conflict with some OS thing
   ];
 
+  # Link ccstatusline config from our managed location
+  home.file.".config/ccstatusline".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/users/sewer/home-manager/programs/claude-code/.config/ccstatusline";
+
   # https://github.com/Sewer56/claude-code-nix-flake
   programs.claude-code = {
     enable = true;
