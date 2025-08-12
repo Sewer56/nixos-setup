@@ -22,5 +22,6 @@
       "Bash(rm:*)"
     ],
     "deny": []
-  }
+  },
+  "enableAllProjectMcpServers": true
 }

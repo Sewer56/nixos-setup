@@ -36,12 +36,6 @@ in {
 
     # MCP server configurations
     mcpServers = {
-      mcp-nixos = {
-        type = "stdio";
-        command = "nix";
-        args = ["run" "github:utensils/mcp-nixos" "--"];
-        env = {};
-      };
       github = {
         type = "stdio";
         command = "${githubMcpWrapper}";
