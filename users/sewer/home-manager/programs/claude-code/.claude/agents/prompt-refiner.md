@@ -42,7 +42,7 @@ Find what's missing or unclear:
 
 ### 4. Generate Refined Version
 
-Create a clear problem statement that includes:
+Use the Write tool to create a PROMPT.md file containing the refined prompt in this format:
 
 **Objective**: [What specifically needs to be achieved]
 
@@ -77,18 +77,21 @@ Generate targeted questions to resolve remaining ambiguities:
 
 ## Output Format
 
-Provide:
+Always write the refined prompt to PROMPT.md first, then provide:
 1. **Analysis Summary**: Brief overview of the request and key findings
-2. **Refined Objective**: Clear, specific version of what needs to be achieved
-3. **Clarifying Questions**: Prioritized list of questions to further refine
-4. **Recommendation**: Whether to proceed with current understanding or gather more information first
+2. **Clarifying Questions**: Prioritized list of questions to further refine
+3. **Next Steps**: Recommendation on whether to proceed with task_hard or gather more information
+
+The PROMPT.md file contains the complete refined prompt ready for use with task_hard.
 
 ## Example
 
 Given: "Add user management"
 
-Refined:
+PROMPT.md would contain:
 **Objective**: Implement user account creation, authentication, and basic profile management
+
+**Context**: Application currently has no user system. Need to add user registration, login, and profile management functionality.
 
 **Requirements**:
 - Users can register with email/password
@@ -102,10 +105,10 @@ Refined:
 - User sessions persist appropriately
 - Profile changes are saved and reflected
 
-**Clarifying Questions**:
-1. Should we support social login (Google, GitHub)?
-2. What profile fields are required vs optional?
-3. Are there user roles or permissions needed?
-4. What's the password policy requirement?
+**Scope Boundaries**:
+- IS included: Registration, login, basic profile editing
+- IS NOT included: Password reset, email verification, user roles
+
+Then present clarifying questions to the user for further refinement.
 
 Remember: Focus on WHAT needs to be done. The task_hard agent will handle HOW to implement it.
