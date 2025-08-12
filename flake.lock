@@ -73,11 +73,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1754754287,
-        "narHash": "sha256-TOMvrkWOTE9DKazvqo33Ct2Gkgb6hEC89XOFMLsqm6Q=",
+        "lastModified": 1754991077,
+        "narHash": "sha256-eFjBXCGY+udiRAFAecAV6V9nWjTFFV60wzL205NzT/s=",
         "owner": "Sewer56",
         "repo": "claude-code-nix-flake",
-        "rev": "1eba9b83a394bbdd4ee84053efcfe1aaa13ef144",
+        "rev": "0b0bb771b03763295ae9da355e1d8d12c539dcdc",
         "type": "github"
       },
       "original": {
