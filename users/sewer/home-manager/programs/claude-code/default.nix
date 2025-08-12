@@ -21,6 +21,12 @@
     exec docker "$@"
   '';
 in {
+  # Ensure hooks dependencies are always available
+  home.packages = with pkgs; [
+    nodejs
+    # and python, but that fails my build due to conflict with some OS thing
+  ];
+
   # https://github.com/Sewer56/claude-code-nix-flake
   programs.claude-code = {
     enable = true;
@@ -98,7 +104,7 @@ in {
 
       statusLine = {
         type = "command";
-        command = "bun x ccusage statusline";
+        command = "npx ccstatusline@latest";
       };
     };
 
