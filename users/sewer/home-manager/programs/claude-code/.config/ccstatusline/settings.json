@@ -31,19 +31,16 @@
         "id": "5",
         "type": "git-branch",
         "color": "magenta"
-      },
+      }
+    ],
+    [
       {
-        "id": "6",
-        "type": "separator"
-      },
-      {
-        "id": "1755012046571",
+        "id": "1755012661307",
         "type": "custom-command",
         "commandPath": "npx -y ccusage statusline",
         "timeout": 5000
       }
     ],
-    [],
     []
   ],
   "flexMode": "full-minus-40",

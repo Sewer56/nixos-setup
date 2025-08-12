@@ -108,6 +108,7 @@ in {
       statusLine = {
         type = "command";
         command = "npx ccstatusline@latest";
+        padding = 0;
       };
     };
 
