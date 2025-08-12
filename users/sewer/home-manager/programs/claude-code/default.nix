@@ -89,7 +89,7 @@ in {
             hooks = [
               {
                 type = "command";
-                command = "python3 .claude/hooks/task_hard_prep_hook.py";
+                command = "python3 /home/sewer/.claude/hooks/task_hard_prep_hook.py";
               }
             ];
           }
