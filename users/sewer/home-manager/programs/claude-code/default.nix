@@ -21,20 +21,15 @@
     exec docker "$@"
   '';
 in {
-  # Link hooks directory using home-manager
-  home.file.".claude/hooks".source = ./.claude/hooks;
-
   # https://github.com/Sewer56/claude-code-nix-flake
   programs.claude-code = {
     enable = true;
     package = inputs.claude-code.packages.x86_64-linux.default;
     skipBackup = true;
 
-    # Custom commands directory
     commandsDir = ./.claude/commands;
-
-    # Custom agents directory
     agentsDir = ./.claude/agents;
+    hooksDir = ./.claude/hooks;
 
     # Settings configuration migrated from .claude/settings.json
     settingsJson = {
