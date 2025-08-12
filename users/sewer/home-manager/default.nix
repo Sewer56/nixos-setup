@@ -23,7 +23,7 @@
     ./programs/remote-file-sync.nix
     ./programs/music-streaming.nix
     ./programs/claude-code.nix
-    ./programs/ckb-next.nix
+    ./programs/corsair/ckb-next.nix
     ./themes/default.nix
     ./theme.nix
   ];
