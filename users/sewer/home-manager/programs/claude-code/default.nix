@@ -127,6 +127,20 @@ in {
         ];
         env = {};
       };
+
+      context7 = {
+        type = "stdio";
+        command = "npx";
+        args = ["-y" "@upstash/context7-mcp"];
+        env = {};
+      };
+
+      mcp-deepwiki = {
+        type = "stdio";
+        command = "npx";
+        args = ["-y" "mcp-deepwiki@latest"];
+        env = {};
+      };
     };
   };
 }
