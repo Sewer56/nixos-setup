@@ -22,7 +22,7 @@
     ./programs/direnv.nix
     ./programs/remote-file-sync.nix
     ./programs/music-streaming.nix
-    ./programs/claude-code.nix
+    ./programs/claude-code/default.nix
     ./programs/corsair/ckb-next.nix
     ./themes/default.nix
     ./theme.nix
