@@ -1,5 +1,8 @@
 {...}: {
   programs.mpv = {
     enable = true;
+    config = {
+      osd-status-msg = "\${playback-time/full} / \${duration} (\${percent-pos}%)\\nframe: \${estimated-frame-number} / \${estimated-frame-count}";
+    };
   };
 }
