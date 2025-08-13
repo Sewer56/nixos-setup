@@ -1,0 +1,76 @@
+{
+  "lines": [
+    [
+      {
+        "id": "1",
+        "type": "model",
+        "color": "cyan"
+      },
+      {
+        "id": "2",
+        "type": "separator"
+      },
+      {
+        "id": "1755011745874",
+        "type": "context-length"
+      },
+      {
+        "id": "1755011788097",
+        "type": "custom-text",
+        "customText": " "
+      },
+      {
+        "id": "1755011707927",
+        "type": "context-percentage-usable"
+      },
+      {
+        "id": "1755019166049",
+        "type": "separator"
+      },
+      {
+        "id": "4",
+        "type": "tokens-input"
+      },
+      {
+        "id": "1755019175343",
+        "type": "custom-text",
+        "customText": " "
+      },
+      {
+        "id": "1755019150211",
+        "type": "tokens-output"
+      },
+      {
+        "id": "1755019177180",
+        "type": "custom-text",
+        "customText": " "
+      },
+      {
+        "id": "1755019139752",
+        "type": "tokens-cached"
+      },
+      {
+        "id": "1755019155939",
+        "type": "separator"
+      },
+      {
+        "id": "5",
+        "type": "git-branch",
+        "color": "magenta"
+      }
+    ],
+    [
+      {
+        "id": "1755012661307",
+        "type": "custom-command",
+        "commandPath": "npx -y ccusage statusline",
+        "timeout": 5000
+      }
+    ],
+    []
+  ],
+  "flexMode": "full-minus-40",
+  "compactThreshold": 60,
+  "inheritSeparatorColors": false,
+  "globalBold": false
+}
