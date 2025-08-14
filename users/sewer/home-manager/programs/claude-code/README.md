@@ -17,6 +17,7 @@ repository as well.
 
 ### Specialized AI Agents
 
+- **prompt-refiner** - Transforms vague requests into clear, actionable objectives
 - **investigator** - Code investigation specialist for understanding codebases
 - **code-flow-mapper** - Maps execution paths and system architecture
 - **planner** - Creates detailed implementation plans
@@ -49,15 +50,20 @@ repository as well.
 
 ## Usage
 
-### Hard Task Solving (`/task_hard`)
-For complex problems requiring systematic analysis:
+### Hard Task Solving (`/task_hard <prompt_file_path>`)
+For complex problems requiring systematic analysis. Takes a path to a PROMPT.md file containing structured requirements.
 
-1. **Investigation** - Understands codebase structure and dependencies
+**Usage**: `/task_hard /path/to/PROMPT.md`
+
+**Workflow**:
+1. **Investigation** - Reads requirements and understands relevant codebase structure
 2. **Flow Mapping** - Traces execution paths and system architecture  
-3. **Planning** - Creates detailed implementation strategy
+3. **Planning** - Creates detailed implementation strategy based on objectives
 4. **Review & Execute** - User approves plan before execution
 
-Each phase generates comprehensive reports stored in `claude-instance-{id}/` directories.
+The prompt file is automatically copied to `claude-instance-{id}/PROMPT.md` and each phase generates comprehensive reports stored in the same directory.
+
+**Tip**: Use the `prompt-refiner` agent first to create well-structured PROMPT.md files with clear objectives, requirements, and success criteria.
 
 ### Code Review (`/code-review`)
 Analyzes uncommitted changes and related files for:
