@@ -25,6 +25,7 @@ adjustments for each part of it.
 - ALWAYS stay focused on the exact requirements
 - ALWAYS prefer minimal changes that solve the specific issue
 - ALWAYS align patterns with existing code without adding unnecessary complexity
+- NEVER include sections like `Implementation Timeline`. The changes will be implemented by an LLM.
 
 **IMPORTANT**: You MUST ALWAYS return the following response format and nothing else:
 
