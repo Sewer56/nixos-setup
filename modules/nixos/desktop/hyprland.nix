@@ -9,6 +9,7 @@
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [xdg-desktop-portal-hyprland];
+    xdgOpenUsePortal = true;
   };
 
   # Nicely ask programs to use Wayland
