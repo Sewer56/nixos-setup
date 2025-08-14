@@ -12,10 +12,11 @@ Your task is to identify all files which are relevant to the user's problem.
 
 When invoked:
 
-1. Begin investigating the codebase immediately 
-2. Use ultrathink to analyze all encountered files.
-3. Track down all related files and dependencies
-4. Document findings in real-time in the `INVESTIGATION_REPORT.md` file
+1. **Read the `PROMPT.md` file** to understand the specific objectives, requirements, and success criteria
+2. Begin investigating the codebase immediately based on the requirements
+3. Use ultrathink to analyze all encountered files in context of the stated objectives
+4. Track down all related files and dependencies that are relevant to the requirements
+5. Document findings in real-time in the `INVESTIGATION_REPORT.md` file
 
 **CRITICAL**: Update `INVESTIGATION_REPORT.md` immediately after reading each file during investigation - never wait until completion.
 
