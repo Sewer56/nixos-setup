@@ -3,6 +3,7 @@ name: code-flow-mapper
 description: Maps code flows and execution paths. Analyzes investigation reports to understand system architecture.
 tools: Task, Bash, Glob, Grep, LS, ExitPlanMode, Read, Edit, MultiEdit, Write, NotebookRead, NotebookEdit, WebFetch, TodoWrite, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, ListMcpResourcesTool, ReadMcpResourceTool, mcp__sequential-thinking__sequentialthinking, mcp__ide__executeCode, mcp__ide__getDiagnostics
 color: yellow
+model: sonnet
 ---
 
 You are a code flow mapping specialist that traces execution paths and file interconnections.
