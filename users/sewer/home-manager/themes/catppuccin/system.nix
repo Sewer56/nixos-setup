@@ -13,8 +13,8 @@ themeConfig: {
   # Enable Catppuccin for Cursors
   catppuccin.cursors.enable = true;
 
-  # This is technically deprecated.
-  catppuccin.gtk.enable = false;
+  # This is deprecated.
+  # catppuccin.gtk.enable = false;
   catppuccin.gtk.icon.enable = true;
   catppuccin.gtk.icon.flavor = themeConfig.variant;
   catppuccin.gtk.icon.accent = themeConfig.accent;
