@@ -8,6 +8,24 @@ entry {
     placeholder:                 "Run command";
 }
 
+/*****----- Main Box -----*****/
+mainbox {
+    enabled:                     true;
+    spacing:                     100px;
+    margin:                      0px;
+    /* Note(sewer56): */
+    /* No support for 'width', so we have to work with 'padding' */
+    /* This is scaled based on screen width. `(100% - 508mm)` limits width to 16:9. */
+    /* First parameter is how much smaller to make it from 16:9 baseline */
+    /* Divide by 2 because padding is on both sides. */
+    padding:                     100px calc(20mm + ((100% - 508mm) / 2)); /* 508mm = width of 1920px at 96dpi */
+    border:                      0px solid;
+    border-radius:               0px 0px 0px 0px;
+    border-color:                @accent;
+    background-color:            transparent;
+    children:                    [ "inputbar", "listview" ];
+}
+
 /*****----- Override Listview for 4 Columns -----*****/
 listview {
     columns:                      4;
