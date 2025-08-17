@@ -34,6 +34,9 @@ Reproduces my laptop setup and installs to `/etc/nixos` as usual.
 
 ## Daily Usage
 
+If building first time, you'll need to set `--option allow-unsafe-native-code-during-evaluation true`, if using
+evaluation time secrets like my email account.
+
 ### Applying Changes
 
 **Test changes before applying**:
