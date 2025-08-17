@@ -59,8 +59,10 @@ This document covers hardware-specific setup, configuration, and debugging for N
 6. **Deploy the configuration**:
    ```bash
    # Use existing package versions for reproducibility
-   sudo nixos-rebuild switch --flake .#<hostname>
+   sudo nixos-rebuild switch --flake .#<hostname> --option allow-unsafe-native-code-during-evaluation true
    ```
+
+Some secrets are decoded at eval time, so we use `--option allow-unsafe-native-code-during-evaluation true` to allow this.
 
 ## Hardware Configuration
 
