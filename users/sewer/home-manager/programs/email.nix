@@ -18,7 +18,7 @@ in {
   accounts.email = {
     accounts = {
       # Primary Gmail account
-      googlemail = {
+      sewer56lol = {
         primary = true;
         address = decryptSecret ../secrets/email-googlemail.age;
         userName = decryptSecret ../secrets/email-googlemail.age;
@@ -32,9 +32,9 @@ in {
       };
 
       # Work/Business Gmail account
-      work = {
-        address = decryptSecret ../secrets/email-work.age;
-        userName = decryptSecret ../secrets/email-work.age;
+      seweratwork = {
+        address = decryptSecret ../secrets/email-atwork.age;
+        userName = decryptSecret ../secrets/email-atwork.age;
         flavor = "gmail.com";
         realName = "Sewer";
 
@@ -45,10 +45,23 @@ in {
       };
 
       # Personal domain account
-      personal = {
-        address = decryptSecret ../secrets/email-personal.age;
-        userName = decryptSecret ../secrets/email-personal.age;
+      "sewer56.dev" = {
+        address = decryptSecret ../secrets/email-sewer56.dev.age;
+        userName = decryptSecret ../secrets/email-sewer56.dev.age;
         realName = "Sewer";
+
+        # Namecheap private email server settings
+        imap = {
+          host = "mail.privateemail.com";
+          port = 993;
+          tls.enable = true;
+        };
+
+        smtp = {
+          host = "mail.privateemail.com";
+          port = 465;
+          tls.enable = true;
+        };
 
         thunderbird = {
           enable = true;
@@ -56,10 +69,10 @@ in {
         };
       };
 
-      # Secondary Gmail account
-      secondary = {
-        address = decryptSecret ../secrets/email-secondary.age;
-        userName = decryptSecret ../secrets/email-secondary.age;
+      # YouTube account
+      youtube = {
+        address = decryptSecret ../secrets/email-youtube.age;
+        userName = decryptSecret ../secrets/email-youtube.age;
         flavor = "gmail.com";
         realName = "Sewer";
 

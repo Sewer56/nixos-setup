@@ -132,17 +132,17 @@
       mode = "600";
     };
     email-work = {
-      file = ./secrets/email-work.age;
+      file = ./secrets/email-atwork.age;
       path = "${config.home.homeDirectory}/.secrets/email-work";
       mode = "600";
     };
     email-personal = {
-      file = ./secrets/email-personal.age;
+      file = ./secrets/email-sewer56.dev.age;
       path = "${config.home.homeDirectory}/.secrets/email-personal";
       mode = "600";
     };
     email-secondary = {
-      file = ./secrets/email-secondary.age;
+      file = ./secrets/email-youtube.age;
       path = "${config.home.homeDirectory}/.secrets/email-secondary";
       mode = "600";
     };
