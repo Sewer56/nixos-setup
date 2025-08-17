@@ -3,25 +3,8 @@
   inputs,
   ...
 }: let
-  # Helper function to decrypt agenix secrets using builtins.exec
-  decryptSecret = secretFile: let
-    # Get just the filename from the path and prepend "secrets/"
-    filename = builtins.baseNameOf secretFile;
-    relativePath = "secrets/${filename}";
-  in
-    # Use builtins.exec with inline script (enabled by allow-unsafe-native-code-during-evaluation)
-    builtins.exec [
-      "${pkgs.bash}/bin/bash"
-      "-c"
-      ''
-        set -euo pipefail
-        f=$(mktemp)
-        trap "rm $f" EXIT
-        cd /etc/nixos/users/sewer/home-manager
-        ${inputs.agenix.packages.${pkgs.system}.default}/bin/agenix -d "${relativePath}" --identity  "/home/sewer/.ssh/id_rsa" > "$f"
-        ${pkgs.nix}/bin/nix-instantiate --eval -E "builtins.readFile $f"
-      ''
-    ];
+  decryptSecretModule = import ../decrypt-secret.nix {inherit pkgs inputs;};
+  inherit (decryptSecretModule) decryptSecret;
 in {
   programs.thunderbird = {
     enable = true;
