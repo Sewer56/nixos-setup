@@ -252,8 +252,9 @@ programs.thunderbird.enable = true;
 - **Always set proper file permissions** (usually 600 for secrets)
 - **Rekey secrets** when removing access for users
 - **Test secret access** after configuration changes
-- **Avoid `builtins.readFile`** for secrets - it reads at evaluation time and can expose secrets in the Nix store
-- **Use runtime approaches** like environment variables, program-specific secret file options, or shell substitution instead
+- **Avoid `builtins.readFile`** for runtime secrets - it reads at evaluation time and can expose secrets in the Nix store
+- **Use runtime approaches** like environment variables, program-specific secret file options, or shell substitution for sensitive data
+- **Use evaluation-time secrets sparingly** and only for weakly secret configuration data
 
 ## Useful Links
 

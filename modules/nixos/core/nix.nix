@@ -12,6 +12,11 @@
   # Needed temporarily for broken claude code package.
   nix.settings.sandbox = false;
 
+  # Allow unsafe native code during evaluation for agenix secrets
+  nix.extraOptions = ''
+    allow-unsafe-native-code-during-evaluation = true
+  '';
+
   nix.gc = {
     automatic = true;
     dates = "weekly";
