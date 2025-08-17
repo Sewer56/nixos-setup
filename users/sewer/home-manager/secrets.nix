@@ -8,6 +8,14 @@ in {
   "secrets/rclone-token.age".publicKeys = users;
   "secrets/github-token.age".publicKeys = users;
   "secrets/nix-access-tokens.age".publicKeys = users;
+
+  # Email addresses (encrypted to avoid exposing in Nix store)
+  "secrets/email-googlemail.age".publicKeys = users;
+  "secrets/email-work.age".publicKeys = users;
+  "secrets/email-personal.age".publicKeys = users;
+  "secrets/email-secondary.age".publicKeys = users;
+  "secrets/email-nexusmods.age".publicKeys = users;
+
   # "api-token.age".publicKeys = users;
   # "database-password.age".publicKeys = users;
 }

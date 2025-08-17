@@ -124,6 +124,33 @@
       file = ./secrets/nix-access-tokens.age;
       mode = "600";
     };
+
+    # Email Stuff
+    email-googlemail = {
+      file = ./secrets/email-googlemail.age;
+      path = "${config.home.homeDirectory}/.secrets/email-googlemail";
+      mode = "600";
+    };
+    email-work = {
+      file = ./secrets/email-work.age;
+      path = "${config.home.homeDirectory}/.secrets/email-work";
+      mode = "600";
+    };
+    email-personal = {
+      file = ./secrets/email-personal.age;
+      path = "${config.home.homeDirectory}/.secrets/email-personal";
+      mode = "600";
+    };
+    email-secondary = {
+      file = ./secrets/email-secondary.age;
+      path = "${config.home.homeDirectory}/.secrets/email-secondary";
+      mode = "600";
+    };
+    email-nexusmods = {
+      file = ./secrets/email-nexusmods.age;
+      path = "${config.home.homeDirectory}/.secrets/email-nexusmods";
+      mode = "600";
+    };
   };
 
   # Configure nix access tokens to avoid GitHub rate limiting
