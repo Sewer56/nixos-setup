@@ -11,6 +11,13 @@ lib.mkMerge [
       variant = "mocha";
       accent = "lavender";
     };
+
+    # Configure dconf for dark theme preference
+    dconf.settings = {
+      "org/gnome/desktop/interface" = {
+        color-scheme = "prefer-dark";
+      };
+    };
   }
 
   # Import theme-specific system integration conditionally
