@@ -16,6 +16,13 @@ in {
   "secrets/email-youtube.age".publicKeys = users;
   "secrets/email-nexusmods.age".publicKeys = users;
 
+  # URL-encoded email addresses for Thunderbird IMAP URLs (@ becomes %40)
+  "secrets/email-googlemail-encoded.age".publicKeys = users;
+  "secrets/email-atwork-encoded.age".publicKeys = users;
+  "secrets/email-sewer56.dev-encoded.age".publicKeys = users;
+  "secrets/email-youtube-encoded.age".publicKeys = users;
+  "secrets/email-nexusmods-encoded.age".publicKeys = users;
+
   # Email passwords (encrypted app passwords)
   "secrets/email-password-googlemail.age".publicKeys = users;
   "secrets/email-password-atwork.age".publicKeys = users;
