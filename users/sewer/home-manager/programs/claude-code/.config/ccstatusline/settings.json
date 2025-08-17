@@ -1,67 +1,68 @@
 {
+  "version": 2,
   "lines": [
     [
       {
-        "id": "1",
+        "id": "c9ece11c-2a8b-4b72-8e57-81fd959856a7",
         "type": "model",
         "color": "cyan"
       },
       {
-        "id": "2",
+        "id": "b183a083-3f77-4271-b933-5046556029a7",
         "type": "separator"
       },
       {
-        "id": "1755011745874",
+        "id": "6d79afc8-7e79-4740-8c2c-f5076b3404d8",
         "type": "context-length"
       },
       {
-        "id": "1755011788097",
+        "id": "11cd2aac-64f9-44ad-957b-3c6056a01bd3",
         "type": "custom-text",
         "customText": " "
       },
       {
-        "id": "1755011707927",
+        "id": "e2914089-c206-47e6-acd6-78a88213d8e9",
         "type": "context-percentage-usable"
       },
       {
-        "id": "1755019166049",
+        "id": "1028be8b-e991-436a-926e-36ae18ec1f27",
         "type": "separator"
       },
       {
-        "id": "4",
+        "id": "69e58775-b973-4b8d-a591-4d80bfc94f70",
         "type": "tokens-input"
       },
       {
-        "id": "1755019175343",
+        "id": "576305a1-ba00-450c-ace5-56a7a8b3d395",
         "type": "custom-text",
         "customText": " "
       },
       {
-        "id": "1755019150211",
+        "id": "1f131643-c829-4883-83a8-d87de2cb8311",
         "type": "tokens-output"
       },
       {
-        "id": "1755019177180",
+        "id": "cd91f3d0-1951-4556-8623-0cb8b1601495",
         "type": "custom-text",
         "customText": " "
       },
       {
-        "id": "1755019139752",
+        "id": "9beb324b-a6e3-4ef9-b0a6-252e27054881",
         "type": "tokens-cached"
       },
       {
-        "id": "1755019155939",
+        "id": "20cb72e8-337e-4cb1-b653-ae97110bca8c",
         "type": "separator"
       },
       {
-        "id": "5",
+        "id": "d1fde1d0-4fd2-4b3c-a93b-28f83f81cb5c",
         "type": "git-branch",
         "color": "magenta"
       }
     ],
     [
       {
-        "id": "1755012661307",
+        "id": "67d10272-6e31-4342-b1c5-dada2e6648e6",
         "type": "custom-command",
         "commandPath": "npx -y ccusage statusline",
         "timeout": 5000
@@ -71,6 +72,18 @@
   ],
   "flexMode": "full-minus-40",
   "compactThreshold": 60,
+  "colorLevel": 2,
   "inheritSeparatorColors": false,
-  "globalBold": false
+  "globalBold": false,
+  "powerline": {
+    "enabled": false,
+    "separators": [
+      ""
+    ],
+    "separatorInvertBackground": [
+      false
+    ],
+    "startCaps": [],
+    "endCaps": []
+  }
 }
