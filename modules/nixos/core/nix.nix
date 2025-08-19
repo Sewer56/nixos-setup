@@ -26,6 +26,11 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # Development packages
+  environment.systemPackages = with pkgs; [
+    desktop-file-utils
+  ];
+
   # Enable nix-ld for running unpatched binaries
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs;
@@ -67,6 +72,9 @@
 
       # avalonia
       fontconfig
+
+      # desktop software
+      desktop-file-utils
     ]
     # Common game related binaries
     ++ (steam-run.args.multiPkgs pkgs);
