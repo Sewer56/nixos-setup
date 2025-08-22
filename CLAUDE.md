@@ -31,6 +31,8 @@ When importing, always give the full path e.g. `rofi/default.nix` instead of `ro
 2. Create new file in `users/sewer/home-manager/programs/` when a package is configurable (check `home-manager` using MCP server)
 3. Add desktop-specific packages to `users/sewer/home-manager/desktop/`.
 
+Always prefer to use `programs.<name>` when available for installing packages.
+
 ### Adding System Packages
 
 - Edit `modules/nixos/core/packages.nix` for system-wide packages
