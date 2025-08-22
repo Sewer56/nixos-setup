@@ -122,6 +122,7 @@
     # Nix access tokens for GitHub rate limiting
     nix-access-tokens = {
       file = ./secrets/nix-access-tokens.age;
+      path = "${config.home.homeDirectory}/.secrets/nix-access-tokens";
       mode = "600";
     };
 
