@@ -6,6 +6,11 @@
   decryptSecretModule = import ../decrypt-secret.nix {inherit pkgs inputs;};
   inherit (decryptSecretModule) decryptSecret;
 in {
+  # ProtonMail Bridge service configuration
+  services.protonmail-bridge = {
+    enable = true;
+  };
+
   programs.thunderbird = {
     enable = true;
     profiles.default = {
