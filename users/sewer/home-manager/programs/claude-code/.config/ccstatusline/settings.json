@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "lines": [
     [
       {
@@ -85,5 +85,9 @@
     ],
     "startCaps": [],
     "endCaps": []
+  },
+  "updatemessage": {
+    "message": "ccstatusline updated to v2.0.2, 5hr block timer widget added",
+    "remaining": 12
   }
 }
