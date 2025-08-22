@@ -30,18 +30,16 @@ in {
   # Link ccstatusline config from our managed location
   home.file.".config/ccstatusline".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/users/sewer/home-manager/programs/claude-code/.config/ccstatusline";
 
-  # https://github.com/Sewer56/claude-code-nix-flake
   programs.claude-code = {
     enable = true;
     package = inputs.claude-code.packages.x86_64-linux.default;
-    skipBackup = true;
 
     commandsDir = ./.claude/commands;
     agentsDir = ./.claude/agents;
     hooksDir = ./.claude/hooks;
 
     # Settings configuration migrated from .claude/settings.json
-    settingsJson = {
+    settings = {
       model = "sonnet";
 
       permissions = {
