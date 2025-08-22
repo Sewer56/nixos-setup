@@ -2,7 +2,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:Sewer56/home-manager/claude-code-extras";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     catppuccin = {
