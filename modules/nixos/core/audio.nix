@@ -37,8 +37,8 @@
     };
   };
 
-  /*
   # Set Kanto ORA PCM volume to 100% declaratively
+  /*
   systemd.user.services.kanto-ora-volume = {
     description = "Set Kanto ORA PCM volume to 100%";
     wantedBy = ["default.target"];
@@ -51,4 +51,7 @@
     };
   };
   */
+
+  # And persist it across boot.
+  hardware.alsa.enablePersistence = true;
 }
