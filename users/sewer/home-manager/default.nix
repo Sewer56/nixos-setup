@@ -24,6 +24,7 @@
     ./programs/music-streaming.nix
     ./programs/claude-code/default.nix
     ./programs/corsair/ckb-next.nix
+    ./programs/password-manager.nix
     ./themes/default.nix
     ./theme.nix
   ];
