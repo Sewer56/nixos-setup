@@ -13,6 +13,9 @@
     telegram-desktop
     slack
 
+    # Media/torrents
+    qbittorrent
+
     # General Tools
     qalculate-gtk
     qdirstat
