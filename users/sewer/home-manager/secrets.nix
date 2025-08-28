@@ -8,6 +8,8 @@ in {
   "secrets/rclone-token.age".publicKeys = users;
   "secrets/github-token.age".publicKeys = users;
   "secrets/nix-access-tokens.age".publicKeys = users;
+  "secrets/proton-drive-username.age".publicKeys = users;
+  "secrets/proton-drive-password.age".publicKeys = users;
 
   # "api-token.age".publicKeys = users;
   # "database-password.age".publicKeys = users;

@@ -113,6 +113,14 @@
       file = ./secrets/rclone-token.age;
     };
 
+    # Proton Drive credentials for rclone
+    proton-drive-username = {
+      file = ./secrets/proton-drive-username.age;
+    };
+    proton-drive-password = {
+      file = ./secrets/proton-drive-password.age;
+    };
+
     # GitHub Personal Access Token for Claude Code MCP servers
     github-token = {
       file = ./secrets/github-token.age;
