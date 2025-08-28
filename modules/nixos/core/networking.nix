@@ -5,16 +5,13 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Enable wireless networking via iwd
-  networking.wireless.iwd = {
+  # Enable NetworkManager with iwd backend
+  networking.networkmanager = {
     enable = true;
-    settings = {
-      Network = {
-        EnableIPv6 = true;
-      };
-      Settings = {
-        AutoConnect = true;
-      };
-    };
+    wifi.backend = "iwd";
   };
+
+  # Enable wireless networking via iwd
+  # Because wpa_supplicant is broken with Sewer's Access Point in 6GHz mode.
+  networking.wireless.iwd.enable = true;
 }

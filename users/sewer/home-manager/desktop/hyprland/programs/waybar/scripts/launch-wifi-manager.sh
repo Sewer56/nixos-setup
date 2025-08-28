@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Purpose: Open iwgtk network manager
+# Purpose: Open NetworkManager connection editor
 # Used by waybar network module for wifi management
 
-iwgtk
+nm-connection-editor
