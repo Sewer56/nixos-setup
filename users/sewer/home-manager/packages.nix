@@ -27,9 +27,12 @@
     # General Tools
     qalculate-gtk
     qdirstat
-    iwgtk
     feh
     libjxl
+
+    # VPN
+    protonvpn-cli
+    protonvpn-gui
 
     # Desktop environment
     waybar
