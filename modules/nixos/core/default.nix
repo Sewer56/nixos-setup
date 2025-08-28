@@ -3,6 +3,7 @@
     ./audio.nix
     ./boot.nix
     ./cachix.nix
+    ./cdemu.nix
     ./docker.nix
     ./input.nix
     ./locale.nix
