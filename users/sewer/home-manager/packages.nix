@@ -20,6 +20,10 @@
     wine
     winetricks
 
+    # Gaming/Emulators
+    dolphin-emu
+    pcsx2
+
     # General Tools
     qalculate-gtk
     qdirstat
