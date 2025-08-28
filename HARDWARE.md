@@ -64,6 +64,30 @@ This document covers hardware-specific setup, configuration, and debugging for N
 
 Some secrets are decoded at eval time, so we use `--option allow-unsafe-native-code-during-evaluation true` to allow this.
 
+## Manual Steps (New Machine Setup Only)
+
+*Personal instructions only - ignore if not applicable to you.*
+
+### Proton Drive Setup
+
+Before the NixOS configuration can mount Proton Drive, run initial setup with 2FA:
+
+```bash
+rclone config
+```
+
+Edit the existing `Cloud-private` remote, enter 2FA code when prompted. This generates required tokens that the NixOS configuration will use.
+
+### Proton Mail Setup
+
+Proton Mail may crash on first boot with Wayland, run with X11 at least once:
+
+```bash
+XDG_SESSION_TYPE=x11 proton-mail
+```
+
+Future invocations will run successfully on wayland.
+
 ## Hardware Configuration
 
 ### Multi-GPU Systems (like laptop)

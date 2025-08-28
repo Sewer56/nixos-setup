@@ -26,6 +26,29 @@
           };
         };
       };
+
+      "Cloud-private" = {
+        config = {
+          type = "protondrive";
+        };
+
+        secrets = {
+          username = config.age.secrets.proton-drive-username.path;
+          password = config.age.secrets.proton-drive-password.path;
+        };
+
+        mounts = {
+          "" = {
+            enable = true;
+            mountPoint = "/home/sewer/Cloud-private";
+            options = {
+              vfs-cache-mode = "full";
+              vfs-cache-min-free-space = "10Gi";
+              vfs-refresh = true;
+            };
+          };
+        };
+      };
     };
   };
 }
