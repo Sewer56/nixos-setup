@@ -19,7 +19,7 @@
         "slack"
         "telegram-desktop"
         "tidal-hifi"
-        "thunderbird"
+        "proton-mail"
         "vivaldi"
 
         # Kill that wifi applet which I can't disable for the life of me.
@@ -68,7 +68,7 @@
 
         # Workspace 4: Miscellaneous apps (dwindle layout)
         "workspace 4 silent, class:^(tidal-hifi)$"
-        "workspace 4 silent, class:^(thunderbird)$"
+        "workspace 4 silent, class:^(Proton Mail)$"
 
         # Floating window rules
         "float, title:^(Picture-in-Picture)$"
@@ -127,7 +127,7 @@
         "workspace 9, class:^(GitKraken)$"
 
         # Workspace 10: Email (bound to '0')
-        "workspace 10, class:^(thunderbird)$"
+        "workspace 10, class:^(Proton Mail)$"
 
         # Floating window rules
         "float, title:^(Picture-in-Picture)$"

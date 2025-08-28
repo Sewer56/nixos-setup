@@ -9,27 +9,6 @@ in {
   "secrets/github-token.age".publicKeys = users;
   "secrets/nix-access-tokens.age".publicKeys = users;
 
-  # Email addresses (encrypted to avoid exposing in Nix store)
-  "secrets/email-googlemail.age".publicKeys = users;
-  "secrets/email-atwork.age".publicKeys = users;
-  "secrets/email-sewer56.dev.age".publicKeys = users;
-  "secrets/email-youtube.age".publicKeys = users;
-  "secrets/email-nexusmods.age".publicKeys = users;
-
-  # URL-encoded email addresses for Thunderbird IMAP URLs (@ becomes %40)
-  "secrets/email-googlemail-encoded.age".publicKeys = users;
-  "secrets/email-atwork-encoded.age".publicKeys = users;
-  "secrets/email-sewer56.dev-encoded.age".publicKeys = users;
-  "secrets/email-youtube-encoded.age".publicKeys = users;
-  "secrets/email-nexusmods-encoded.age".publicKeys = users;
-
-  # Email passwords (encrypted app passwords)
-  "secrets/email-password-googlemail.age".publicKeys = users;
-  "secrets/email-password-atwork.age".publicKeys = users;
-  "secrets/email-password-sewer56.dev.age".publicKeys = users;
-  "secrets/email-password-youtube.age".publicKeys = users;
-  "secrets/email-password-nexusmods.age".publicKeys = users;
-
   # "api-token.age".publicKeys = users;
   # "database-password.age".publicKeys = users;
 }
