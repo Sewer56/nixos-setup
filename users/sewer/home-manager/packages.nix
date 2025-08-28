@@ -16,6 +16,10 @@
     # Media/torrents
     qbittorrent
 
+    # Wine
+    wine
+    winetricks
+
     # General Tools
     qalculate-gtk
     qdirstat
