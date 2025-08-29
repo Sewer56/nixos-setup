@@ -43,7 +43,7 @@ in {
       "Cloud-private" = {
         config = {
           type = "protondrive";
-          protondrive-enable-caching = false;
+          enable_caching = false;
         };
 
         secrets = {
