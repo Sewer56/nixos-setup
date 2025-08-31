@@ -5,14 +5,17 @@
       type = "nfs";
       what = "192.168.1.125:/mnt";
       where = "/home/sewer/NAS";
-      options = "nfsvers=4,soft,intr,timeo=10,retrans=3";
+      options = "nfsvers=4,soft,intr,timeo=10,retrans=3,noauto";
+      mountConfig = {
+        TimeoutSec = "2";
+        ForceUnmount = "yes";
+      };
     }
   ];
 
   # User-level systemd automount configuration
   systemd.automounts = [
     {
-      wantedBy = ["multi-user.target"];
       automountConfig = {
         TimeoutIdleSec = "300"; # Unmount after 5 minutes of inactivity
       };
