@@ -50,7 +50,7 @@
       {
         hardware.corsair.enable = false;
         hardware.hasBattery = true;
-        desktop.hyprland.ultraWideMode = false;
+        desktop.hyprland.displayMode = "single";
       };
 
     nixosConfigurations.desktop =
@@ -59,7 +59,7 @@
       {
         hardware.corsair.enable = true;
         hardware.hasBattery = false;
-        desktop.hyprland.ultraWideMode = true;
+        desktop.hyprland.displayMode = "ultrawide";
       };
   };
 }

@@ -4,7 +4,11 @@
     hardware.hasBattery = lib.mkEnableOption "this device is battery powered";
 
     desktop.hyprland = {
-      ultraWideMode = lib.mkEnableOption "ultrawide (32:9) display-specific Hyprland settings";
+      displayMode = lib.mkOption {
+        type = lib.types.enum ["single" "ultrawide" "threeScreens"];
+        default = "single";
+        description = "Display mode configuration for Hyprland workspaces and window management";
+      };
     };
   };
 }
