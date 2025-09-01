@@ -1,7 +1,11 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running 'nixos-help').
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -62,6 +66,20 @@
     # Fine-grained power management. Turns off GPU when not in use.
     # Experimental and only works on modern Nvidia GPUs (Turing or newer).
     powerManagement.finegrained = true;
+  };
+
+  # Specializations for different GPU modes
+  specialisation = {
+    prime-sync.configuration = {
+      system.nixos.tags = ["prime-sync"];
+      hardware.nvidia = {
+        prime.offload.enable = lib.mkForce false;
+        prime.offload.enableOffloadCmd = lib.mkForce false;
+        prime.sync.enable = lib.mkForce true;
+        # Disable fine-grained power management for maximum performance
+        powerManagement.finegrained = lib.mkForce false;
+      };
+    };
   };
 
   # This value determines the NixOS release from which the default
