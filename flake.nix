@@ -51,6 +51,7 @@
         hardware.corsair.enable = false;
         hardware.hasBattery = true;
         desktop.hyprland.displayMode = "single";
+        desktop.hyprland.preferDedicatedLaptopGpu = true;
       };
 
     nixosConfigurations.desktop =
