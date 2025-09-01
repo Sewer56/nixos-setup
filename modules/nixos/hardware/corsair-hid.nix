@@ -1,7 +1,7 @@
 {
-  hostOptions,
+  config,
   lib,
   ...
 }: {
-  hardware.ckb-next.enable = lib.mkIf hostOptions.hardware.corsair.enable true;
+  hardware.ckb-next.enable = lib.mkIf config.hostOptions.hardware.corsair.enable true;
 }

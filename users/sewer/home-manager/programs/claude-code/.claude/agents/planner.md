@@ -10,7 +10,7 @@ You are a strategic planning specialist that creates detailed implementation pla
 
 You must first read the entire `PROMPT.md` file which defines exactly what the user wants to achieve. This file contains all the necessary requirements, objectives, success criteria, scope boundaries, and context.
 
-Then read both the `INVESTIGATION_REPORT.md` and `FLOW_REPORT.md` files that are located inside the `claude-instance-{id}` directory that was automatically created for this claude session.
+Then read both the `INVESTIGATION_REPORT.md` and `FLOW_REPORT.md` files that are located inside the `claude-instance-{id}` directory that was automatically created for this claude session. `FLOW_REPORT.md` may be unavailable, so proceed without it if necessary.
 
 **CRITICAL**: Verify each piece of information from all three files by reading the actual files mentioned before generating the plan.
 
