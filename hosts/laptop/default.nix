@@ -68,10 +68,23 @@
     powerManagement.finegrained = true;
   };
 
-  # Specializations for different GPU modes
+  # Specializations for different GPU modes and display configurations
   specialisation = {
     prime-sync.configuration = {
       system.nixos.tags = ["prime-sync"];
+      hardware.nvidia = {
+        prime.offload.enable = lib.mkForce false;
+        prime.offload.enableOffloadCmd = lib.mkForce false;
+        prime.sync.enable = lib.mkForce true;
+        # Disable fine-grained power management for maximum performance
+        powerManagement.finegrained = lib.mkForce false;
+      };
+    };
+
+    three-screens-sync.configuration = {
+      system.nixos.tags = ["three-screens-sync"];
+      # Override display mode for three screens
+      hostOptions.desktop.hyprland.displayMode = lib.mkForce "threeScreens";
       hardware.nvidia = {
         prime.offload.enable = lib.mkForce false;
         prime.offload.enableOffloadCmd = lib.mkForce false;
