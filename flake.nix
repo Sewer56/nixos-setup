@@ -37,29 +37,14 @@
       }
     ];
 
-    mkSystem = hostPath: hostOptions:
+    mkSystem = hostPath:
       nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = {inherit inputs hostOptions;};
+        specialArgs = {inherit inputs;};
         modules = [hostPath] ++ sharedModules;
       };
   in {
-    nixosConfigurations.laptop =
-      mkSystem
-      ./hosts/laptop/default.nix
-      {
-        hardware.corsair.enable = false;
-        hardware.hasBattery = true;
-        desktop.hyprland.ultraWideMode = false;
-      };
-
-    nixosConfigurations.desktop =
-      mkSystem
-      ./hosts/desktop/default.nix
-      {
-        hardware.corsair.enable = true;
-        hardware.hasBattery = false;
-        desktop.hyprland.ultraWideMode = true;
-      };
+    nixosConfigurations.laptop = mkSystem ./hosts/laptop/default.nix;
+    nixosConfigurations.desktop = mkSystem ./hosts/desktop/default.nix;
   };
 }

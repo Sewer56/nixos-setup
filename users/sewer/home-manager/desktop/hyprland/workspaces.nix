@@ -25,7 +25,7 @@
     }
 
     # ====== ULTRAWIDE MODE SETTINGS ======
-    (lib.mkIf hostOptions.desktop.hyprland.ultraWideMode {
+    (lib.mkIf (hostOptions.desktop.hyprland.displayMode == "ultrawide") {
       # Override general layout for ultrawide mode
       general.layout = lib.mkForce "workspacelayout";
 
@@ -76,8 +76,55 @@
       ];
     })
 
+    # ====== THREE SCREEN OFFICE SETUP ======
+    (lib.mkIf (hostOptions.desktop.hyprland.displayMode == "threeScreens") {
+      # Workspace rules with monitor assignments for three-screen setup
+      workspace = [
+        "1, monitor:DP-4, persistent:true, default:true" # Vivaldi - Left screen
+        "2, monitor:DP-3, persistent:true" # Code - Middle screen
+        "3, monitor:eDP-1, persistent:true" # Slack + Discord - Right screen (integrated)
+        "4, monitor:eDP-1, persistent:true" # Other apps - Right screen
+        "7, monitor:eDP-1, persistent:true" # Other apps - Right screen
+        "8, monitor:eDP-1, persistent:true" # Other apps - Right screen
+        "9, monitor:eDP-1, persistent:true" # Other apps - Right screen
+        "10, monitor:eDP-1, persistent:true" # Other apps - Right screen
+      ];
+
+      # Application workspace assignments for three-screen setup
+      windowrulev2 = [
+        # Workspace 1: Vivaldi - Left screen (DP-4)
+        "workspace 1, class:^(vivaldi-stable)$"
+        "workspace 1, class:^(chromium-browser)$"
+        "workspace 1, class:^(firefox)$"
+
+        # Workspace 2: Code - Middle screen (DP-3)
+        "workspace 2, class:^(Code)$"
+        "workspace 2, class:^(code)$"
+        "workspace 2, class:^(code-url-handler)$"
+
+        # Workspace 3: Slack AND Discord - Right screen (eDP-1)
+        "workspace 3, class:^(Slack)$"
+        "workspace 3, class:^(discord)$"
+        "workspace 3, class:^(vesktop)$"
+
+        # Other workspaces on right screen (eDP-1)
+        "workspace 4, class:^(telegram-desktop)$"
+        "workspace 4, class:^(TelegramDesktop)$"
+        "workspace 8, class:^(tidal-hifi)$"
+        "workspace 9, class:^(GitKraken)$"
+        "workspace 10, class:^(Proton Mail)$"
+
+        # Floating window rules
+        "float, title:^(Picture-in-Picture)$"
+        "float, class:^(pwvucontrol)$"
+        "float, class:^(nm-connection-editor)$"
+        "size 800 600, class:^(pwvucontrol)$"
+        "size 800 600, class:^(nm-connection-editor)$"
+      ];
+    })
+
     # ====== STANDARD MODE SETTINGS ======
-    (lib.mkIf (!hostOptions.desktop.hyprland.ultraWideMode) {
+    (lib.mkIf (hostOptions.desktop.hyprland.displayMode == "single") {
       # Workspace rules
       # Low workspaces (1-5): Common applications
       # High workspaces (8-0): Uncommonly checked applications

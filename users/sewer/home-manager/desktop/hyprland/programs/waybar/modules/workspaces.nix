@@ -12,7 +12,7 @@
       show-special = true;
       special-visible-only = false;
       format-icons =
-        if hostOptions.desktop.hyprland.ultraWideMode
+        if hostOptions.desktop.hyprland.displayMode == "ultrawide"
         then {
           # Ultrawide mode: Focus on workspaces 1-4 with layout-optimized assignments
           magic = "";
@@ -20,6 +20,19 @@
           "2" = "󰊢"; # Development tools (master layout)
           "3" = "󰒱"; # Communications (master layout)
           "4" = "󰝚"; # Miscellaneous (dwindle layout)
+        }
+        else if hostOptions.desktop.hyprland.displayMode == "threeScreens"
+        then {
+          # Three-screen mode: Office setup with specific monitor assignments
+          magic = "";
+          "1" = "󰈹"; # Vivaldi - Left screen (DP-4)
+          "2" = "󰨞"; # Code - Middle screen (DP-3)
+          "3" = "󰒱"; # Slack + Discord - Right screen (eDP-1)
+          "4" = "󰆾"; # Other apps - Right screen
+          "7" = "//"; # Visual separator
+          "8" = "󰎈"; # Music icon
+          "9" = "󰊢"; # Git icon
+          "10" = "󰇮"; # Email icon
         }
         else {
           # Standard mode: Full workspace range 1-10
