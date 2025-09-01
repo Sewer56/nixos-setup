@@ -22,6 +22,14 @@
     ../../users/sewer/default.nix
   ];
 
+  # Default host options (can be overridden by specialisations)
+  hostOptions = {
+    hardware.corsair.enable = lib.mkDefault true;
+    hardware.hasBattery = lib.mkDefault false;
+    desktop.hyprland.displayMode = lib.mkDefault "ultrawide";
+    desktop.hyprland.preferDedicatedLaptopGpu = lib.mkDefault false;
+  };
+
   # Host-specific settings
   networking.hostName = "desktop"; # Define your hostname.
 
