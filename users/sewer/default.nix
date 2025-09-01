@@ -4,7 +4,7 @@
 # - Portable home-manager configuration (./home-manager/)
 {
   inputs,
-  hostOptions,
+  config,
   ...
 }: {
   imports = [
@@ -26,7 +26,10 @@
     ];
 
     # also pass inputs and hostOptions to home-manager modules
-    extraSpecialArgs = {inherit inputs hostOptions;};
+    extraSpecialArgs = {
+      inherit inputs;
+      hostOptions = config.hostOptions;
+    };
     users = {
       "sewer" = import ./home-manager/default.nix;
     };
