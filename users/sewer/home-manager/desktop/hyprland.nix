@@ -13,7 +13,6 @@
     enable = true;
     portalPackage = null; # Use the default portal package
     plugins = with pkgs.hyprlandPlugins; [
-      hyprtrails
       hypr-dynamic-cursors
       (pkgs.callPackage ({
         lib,
