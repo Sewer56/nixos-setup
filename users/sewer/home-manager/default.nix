@@ -134,10 +134,23 @@
       path = "${config.home.homeDirectory}/.secrets/nix-access-tokens";
       mode = "600";
     };
+
+    # Nexus API key
+    nexus-api-key = {
+      file = ./secrets/nexus-api-key.age;
+      path = "${config.home.homeDirectory}/.secrets/nexus-api-key";
+      mode = "600";
+      symlink = false; # Needs to be read before agenix kicks in
+    };
   };
 
   # Configure nix access tokens to avoid GitHub rate limiting
   nix.extraOptions = ''
     !include ${config.age.secrets.nix-access-tokens.path}
   '';
+
+  # Environment variables
+  home.sessionVariables = {
+    NEXUS_API_KEY = "$(cat ${config.age.secrets.nexus-api-key.path})";
+  };
 }
