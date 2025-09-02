@@ -24,3 +24,4 @@ Never do bandaid fixes. Always ultrathink.
 4. **Review and Execute**
    - Enter plan mode and read the `PLAN.md` file
    - Present the plan to the user so they can accept or modify it.
+   - NEVER automatically execute the plan. The user MUST review it first.
