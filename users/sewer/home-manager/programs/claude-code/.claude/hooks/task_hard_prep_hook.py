@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-UserPromptSubmit hook for task_hard directory preparation.
-Automatically creates claude-instance-{id} directories when users type /task_hard.
+UserPromptSubmit hook for task_hard and task_medium directory preparation.
+Automatically creates claude-instance-{id} directories when users type /task_hard or /task_medium.
 """
 import json
 import os
@@ -62,13 +62,13 @@ def create_instance_directory(cwd: str, instance_id: int, prompt_file_path: str)
 
 
 def validate_prompt(prompt: str) -> tuple[bool, str]:
-    """Check if prompt starts with /task_hard and extract file path."""
-    # Strip whitespace and check for /task_hard at the start
+    """Check if prompt starts with /task_hard or /task_medium and extract file path."""
+    # Strip whitespace and check for /task_hard or /task_medium at the start
     cleaned_prompt = prompt.strip()
-    if not cleaned_prompt.startswith('/task_hard'):
+    if not (cleaned_prompt.startswith('/task_hard') or cleaned_prompt.startswith('/task_medium')):
         return False, ""
     
-    # Extract file path after /task_hard
+    # Extract file path after /task_hard or /task_medium
     parts = cleaned_prompt.split(None, 1)  # Split on whitespace, max 1 split
     if len(parts) < 2:
         return False, ""
@@ -89,15 +89,16 @@ def main():
     prompt = input_data.get("prompt", "")
     cwd = input_data.get("cwd", os.getcwd())
 
-    # Check if this is a task_hard prompt and extract file path
-    is_task_hard, prompt_file_path = validate_prompt(prompt)
-    if not is_task_hard:
-        # Not a task_hard prompt, exit silently to allow normal processing
+    # Check if this is a task_hard or task_medium prompt and extract file path
+    is_task_command, prompt_file_path = validate_prompt(prompt)
+    if not is_task_command:
+        # Not a task_hard or task_medium prompt, exit silently to allow normal processing
         sys.exit(0)
 
     if not prompt_file_path:
         # Missing file path parameter
-        print("Error: /task_hard requires a prompt file path parameter. Usage: /task_hard /path/to/PROMPT.md", file=sys.stderr)
+        task_type = "task_hard" if prompt.strip().startswith('/task_hard') else "task_medium"
+        print(f"Error: /{task_type} requires a prompt file path parameter. Usage: /{task_type} /path/to/PROMPT.md", file=sys.stderr)
         sys.exit(1)
 
     # Get next instance ID
