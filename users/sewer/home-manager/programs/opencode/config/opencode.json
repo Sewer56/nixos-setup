@@ -1,0 +1,50 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "theme": "catppuccin",
+  "autoupdate": false,
+  "tui": {
+    "scroll_speed": 1
+  },
+  "permission": {
+    "edit": "allow",
+    "bash": {
+      "*": "allow"
+    },
+    "webfetch": "allow"
+  },
+  "mcp": {
+    "github": {
+      "type": "local",
+      "command": [
+        "bash",
+        "-c",
+        "if [ ! -f \"$HOME/.secrets/github-token\" ]; then echo \"Error: GitHub token secret file not found\" >&2; exit 1; fi; export GITHUB_PERSONAL_ACCESS_TOKEN=\"$(cat \"$HOME/.secrets/github-token\")\"; exec docker run -i --rm -e GITHUB_PERSONAL_ACCESS_TOKEN ghcr.io/github/github-mcp-server"
+      ],
+      "enabled": true
+    },
+    "context7": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@upstash/context7-mcp"
+      ],
+      "enabled": true
+    },
+    "deepwiki": {
+      "type": "remote",
+      "url": "https://mcp.deepwiki.com/sse",
+      "enabled": true
+    },
+    "mcp-nixos": {
+      "type": "local",
+      "command": [
+        "nix",
+        "run",
+        "github:utensils/mcp-nixos",
+        "--"
+      ],
+      "enabled": true
+    }
+  }
+}

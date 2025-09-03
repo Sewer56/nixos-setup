@@ -93,5 +93,5 @@ This setup uses Nix for configuration management:
 
 The configuration integrates with MCP servers for enhanced capabilities:
 - **context7** - Library documentation  
-- **mcp-deepwiki** - Auto-generated summary for any repository in the world
+- **deepwiki** - Official DeepWiki MCP server for repository documentation and AI-powered Q&A
 - **github** - GitHub repository integration (configured via Docker)

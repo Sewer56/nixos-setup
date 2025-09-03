@@ -1,0 +1,26 @@
+{
+  pkgs,
+  config,
+  inputs,
+  ...
+}: {
+  # Install OpenCode from the dedicated flake
+  home.packages = with pkgs; [
+    # OpenCode from the flake
+    inputs.opencode-flake.packages.${pkgs.system}.default
+
+    # Dependencies for MCP servers
+    nodejs
+    docker
+    # TypeScript for plugin development
+    typescript
+  ];
+
+  # Symlink our configuration files to OpenCode's expected locations
+  home.file = {
+    ".config/opencode/opencode.json".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/users/sewer/home-manager/programs/opencode/config/opencode.json";
+    ".config/opencode/command".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/users/sewer/home-manager/programs/opencode/config/command";
+    ".config/opencode/agent".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/users/sewer/home-manager/programs/opencode/config/agent";
+    ".config/opencode/plugin".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/users/sewer/home-manager/programs/opencode/config/plugin";
+  };
+}

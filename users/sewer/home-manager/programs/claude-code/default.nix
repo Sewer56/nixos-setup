@@ -75,9 +75,9 @@ in {
           "Bash(cat:*)"
           "Bash(head:*)"
           "Bash(tail:*)"
-          "mcp__deepwiki__search_articles"
-          "mcp__deepwiki__get_article_content"
-          "mcp__deepwiki__get_article_sections"
+          "mcp__deepwiki__read_wiki_structure"
+          "mcp__deepwiki__read_wiki_contents"
+          "mcp__deepwiki__ask_question"
         ];
         deny = [];
       };
@@ -86,7 +86,7 @@ in {
 
       enabledMcpjsonServers = [
         "context7"
-        "mcp-deepwiki"
+        "deepwiki"
       ];
 
       hooks = {
@@ -130,13 +130,6 @@ in {
         type = "stdio";
         command = "npx";
         args = ["-y" "@upstash/context7-mcp"];
-        env = {};
-      };
-
-      mcp-deepwiki = {
-        type = "stdio";
-        command = "npx";
-        args = ["-y" "mcp-deepwiki@latest"];
         env = {};
       };
     };
