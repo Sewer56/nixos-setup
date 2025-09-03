@@ -132,11 +132,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1756300870,
-        "narHash": "sha256-udl/24IYv6wtFNCdnZJb6k5JeMGTXlgUP8p+ygiZWnk=",
+        "lastModified": 1756939302,
+        "narHash": "sha256-8y+gTDqfIw8o/97yhoXZRBOBwMeaXE8w2mu/Awi2YN0=",
         "owner": "Sewer56",
         "repo": "home-manager",
-        "rev": "4dd64aa0dc13ef9b29bc389581b3bd69ee752868",
+        "rev": "2593939f1713c41887cdca3f33dba6a693f05a8e",
         "type": "github"
       },
       "original": {
@@ -162,6 +162,26 @@
         "type": "github"
       }
     },
+    "opencode-flake": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1756924687,
+        "narHash": "sha256-LCFV94Uxq6Gj83LY2tIB66HrxISJDzsdZhhx9MAI0M0=",
+        "owner": "aodhanhayter",
+        "repo": "opencode-flake",
+        "rev": "4f1adbf0151f5c326a77e3be2601ac9331812f25",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aodhanhayter",
+        "repo": "opencode-flake",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -169,6 +189,7 @@
         "claude-code": "claude-code",
         "home-manager": "home-manager_2",
         "nixpkgs": "nixpkgs",
+        "opencode-flake": "opencode-flake",
         "rust-overlay": "rust-overlay"
       }
     },
