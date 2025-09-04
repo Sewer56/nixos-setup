@@ -54,6 +54,7 @@ in {
       # Code editor transparency
       "opacity 0.9 0.9, class:^(code)$"
       "opacity 0.9 0.9, class:^(code-url-handler)$"
+      "opacity 0.9 0.9, class:^(jetbrains-rider)$"
 
       # File manager transparency
       "opacity 0.9 0.9, class:^(thunar)$"
