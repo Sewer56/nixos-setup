@@ -1,5 +1,7 @@
 ---
 description: "Solve straightforward problems with structured thinking"
+agent: build
+model: anthropic/claude-sonnet-4-20250514
 ---
 
 # Easy Task Solver

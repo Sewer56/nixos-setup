@@ -1,5 +1,7 @@
 ---
 description: "Generate comprehensive PR documentation"
+agent: build
+model: anthropic/claude-sonnet-4-20250514
 ---
 
 # Detailed PR Summary

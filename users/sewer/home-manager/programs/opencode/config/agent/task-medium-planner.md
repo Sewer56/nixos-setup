@@ -1,6 +1,7 @@
 ---
 mode: subagent
 description: Expert planner for medium complexity tasks that creates detailed plans based on investigation reports
+model: anthropic/claude-opus-4-1-20250805
 ---
 
 # Task Medium Planner Agent

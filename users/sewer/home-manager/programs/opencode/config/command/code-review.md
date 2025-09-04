@@ -1,5 +1,7 @@
 ---
 description: "Review code changes and generate quality report"
+agent: build
+model: anthropic/claude-sonnet-4-20250514
 ---
 
 # Code Review Command

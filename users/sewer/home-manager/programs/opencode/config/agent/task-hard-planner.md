@@ -1,6 +1,7 @@
 ---
 mode: subagent
 description: Expert planner that takes into account investigation and flow analysis reports to create a detailed plan that solves all problems
+model: anthropic/claude-opus-4-1-20250805
 ---
 
 # Task Hard Planner Agent

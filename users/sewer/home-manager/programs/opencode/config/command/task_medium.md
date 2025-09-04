@@ -1,5 +1,7 @@
 ---
 description: "Solve medium complexity tasks with investigation and planning"
+agent: build
+model: anthropic/claude-sonnet-4-20250514
 ---
 
 # Medium Task Solver
