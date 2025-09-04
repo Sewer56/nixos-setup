@@ -10,10 +10,17 @@ Use ultrathink to analyze code thoroughly and provide actionable feedback.
 
 When invoked:
 
-1. Run `git diff` to see recent changes
-2. Run `git status` to see file modifications
-3. Thoroughly analyze changes to understand all implications
-4. Generate a `REVIEW.md` file with comprehensive code review
+1. Check current branch with `git branch --show-current`
+2. If on `main` branch, terminate and tell user: "Cannot review code on main branch. Please switch to a feature branch first using: git checkout -b feature/your-branch-name"
+3. Store current branch name for later return
+4. Update `main` branch to latest if remote is newer:
+   - `git fetch origin main`
+   - Check if local main differs from origin/main
+   - If different: `git checkout main && git pull origin main && git checkout [original-branch]`
+5. Run `git diff main..HEAD` to see changes against main branch
+6. Focus on modified files compared to main branch
+7. Thoroughly analyze changes to understand all implications
+8. Generate a `REVIEW.md` file with comprehensive code review
 
 ## Review Checklist
 
@@ -40,6 +47,7 @@ When invoked:
 
 ## 📊 Review Scope
 
+- **Branch:** [Current branch name] (compared against main)
 - **Files Reviewed:** [Number] files
 - **Lines Changed:** +[additions] -[deletions] 
 - **Review Date:** [Current date]
