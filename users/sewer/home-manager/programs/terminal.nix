@@ -140,6 +140,17 @@ in {
         color = semantic.surface0;
         duration = 0;
       };
+
+      # Keyboard bindings
+      keyboard = {
+        bindings = [
+          {
+            key = "Return";
+            mods = "Shift";
+            chars = "\n";
+          }
+        ];
+      };
     };
   };
 }
