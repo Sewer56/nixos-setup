@@ -1,3 +1,7 @@
+---
+description: "Solve medium complexity tasks with investigation and planning"
+---
+
 # Medium Task Solver
 
 Use reasoning and all available tools to solve the problem.

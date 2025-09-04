@@ -1,3 +1,7 @@
+---
+description: "Create semantic commits following changelog format"
+---
+
 # Commit Changes
 
 Create meaningful commits following `Keep a Changelog` format.

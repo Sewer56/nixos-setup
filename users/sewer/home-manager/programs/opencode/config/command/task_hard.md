@@ -1,3 +1,7 @@
+---
+description: "Solve complex tasks with investigation, code flow analysis, and planning"
+---
+
 # Hard Task Solver
 
 Use reasoning and all available tools to solve the problem.

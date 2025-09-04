@@ -1,3 +1,7 @@
+---
+description: "Review code changes and generate quality report"
+---
+
 # Code Review Command
 
 Perform a comprehensive code review of files with uncommitted changes and related files.

@@ -1,3 +1,7 @@
+---
+description: "Clarify vague requests into specific objectives"
+---
+
 # Prompt Refiner
 
 Use the `@prompt-refiner` subagent to clarify WHAT needs to be achieved before using task_hard for implementation.

@@ -1,3 +1,7 @@
+---
+description: "Solve straightforward problems with structured thinking"
+---
+
 # Easy Task Solver
 
 Solve straightforward problems with structured thinking.
