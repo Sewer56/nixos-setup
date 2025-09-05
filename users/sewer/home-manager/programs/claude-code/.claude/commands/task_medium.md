@@ -17,7 +17,12 @@ Never do bandaid fixes. Always ultrathink.
    - Use the `planner` subagent with the full path of the `claude-instance-{id}` directory
    - Wait for completion before proceeding
 
-3. **Review and Execute**
-   - Enter plan mode and read the `PLAN.md` file
-   - Present the plan to the user so they can accept or modify it.
-   - NEVER automatically execute the plan. The user MUST review it first.
+Once all the steps are done, enter plan mode and read the `PLAN.md` file.
+Present a summarised version of this plan to the user so they can provide feedback on it.
+The user MUST review it first.
+
+***NEVER** automatically execute the plan without the user's approval.
+
+## The Problem
+
+$ARGUMENTS
