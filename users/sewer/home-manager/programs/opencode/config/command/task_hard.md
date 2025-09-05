@@ -1,7 +1,6 @@
 ---
 description: "Solve complex tasks with investigation, code flow analysis, and planning"
 agent: build
-model: anthropic/claude-sonnet-4-20250514
 ---
 
 # Hard Task Solver
