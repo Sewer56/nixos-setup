@@ -1,6 +1,6 @@
 ---
 description: "Solve complex tasks with investigation, code flow analysis, and planning"
-agent: build
+agent: plan
 ---
 
 # Hard Task Solver

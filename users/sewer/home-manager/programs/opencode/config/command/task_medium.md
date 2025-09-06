@@ -1,6 +1,6 @@
 ---
 description: "Solve medium complexity tasks with investigation and planning"
-agent: build
+agent: plan
 ---
 
 # Medium Task Solver
