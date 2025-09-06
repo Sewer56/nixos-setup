@@ -18,6 +18,7 @@ Then use ultrathink to create a super detailed plan to solve the issues, taking 
 - Every single piece of verified information from the investigation and flow reports
 
 The plan should mention in detail all the files that need adjustments for each part of it.
+The plan must be written as `PLAN.md` file.
 
 **CRITICAL**: Do what has been asked; nothing more, nothing less.
 
@@ -28,6 +29,7 @@ The plan should mention in detail all the files that need adjustments for each p
 - ALWAYS prefer minimal changes that solve the specific issue
 - ALWAYS align patterns with existing code without adding unnecessary complexity
 - NEVER include sections like `Implementation Timeline`. The changes will be implemented by an LLM.
+- NEVER modify any file other than `PLAN.md`
 
 ## Planning Principles
 
