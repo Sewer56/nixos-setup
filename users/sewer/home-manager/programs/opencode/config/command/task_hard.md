@@ -1,6 +1,7 @@
 ---
 description: "Solve complex tasks with investigation, code flow analysis, and planning"
 agent: plan
+model: cerebras/qwen-3-coder-480b
 ---
 
 # Hard Task Solver

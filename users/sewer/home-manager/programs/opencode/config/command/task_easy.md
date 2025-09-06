@@ -1,6 +1,7 @@
 ---
 description: "Solve straightforward problems with structured thinking"
 agent: build
+model: cerebras/qwen-3-coder-480b
 ---
 
 # Easy Task Solver

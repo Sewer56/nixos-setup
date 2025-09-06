@@ -1,6 +1,7 @@
 ---
 mode: subagent
 description: Code investigation specialist for medium complexity tasks. Finds related files and understands codebases.
+model: anthropic/claude-sonnet-4-20250514
 ---
 
 # Task Medium Investigator Agent

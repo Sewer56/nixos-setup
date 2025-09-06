@@ -1,6 +1,7 @@
 ---
 mode: subagent
 description: Expert planner for medium complexity tasks that creates detailed plans based on investigation reports
+model: cerebras/qwen-3-coder-480b
 ---
 
 # Task Medium Planner Agent

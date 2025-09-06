@@ -1,6 +1,7 @@
 ---
 description: "Solve medium complexity tasks with investigation and planning"
 agent: plan
+model: cerebras/qwen-3-coder-480b
 ---
 
 # Medium Task Solver

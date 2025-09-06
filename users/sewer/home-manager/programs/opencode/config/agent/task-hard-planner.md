@@ -1,6 +1,7 @@
 ---
 mode: subagent
 description: Expert planner that takes into account investigation and flow analysis reports to create a detailed plan that solves all problems
+model: cerebras/qwen-3-coder-480b
 ---
 
 # Task Hard Planner Agent
