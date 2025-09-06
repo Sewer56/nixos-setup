@@ -1,6 +1,7 @@
 ---
 description: "Clarify vague requests into specific objectives"
-agent: build
+agent: plan
+model: cerebras/qwen-3-coder-480b
 ---
 
 # Prompt Refiner Agent

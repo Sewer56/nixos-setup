@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# Configuration: Set to true to use powerprofilesctl, false for simple battery icon
-USE_POWER_PROFILES=false
+# Configuration: Set to true to use tuned-adm, false for simple battery icon
+USE_POWER_PROFILES=true
 
 # This variable selects mode to run.
 MODE=$1
@@ -9,13 +9,13 @@ MODE=$1
 # Power profile switcher
 if [[ $MODE == "toggle" ]]; then
     if [[ $USE_POWER_PROFILES == "true" ]]; then
-        PROFILE=$(powerprofilesctl get)
-        if [[ $PROFILE == "power-saver" ]]; then
-            powerprofilesctl set balanced &
+        PROFILE=$(tuned-adm active | awk '{print $NF}')
+        if [[ $PROFILE == "laptop-battery-powersave" ]]; then
+            tuned-adm profile balanced &
         elif [[ $PROFILE == "balanced" ]]; then
-            powerprofilesctl set performance &
+            tuned-adm profile throughput-performance &
         else
-            powerprofilesctl set power-saver &
+            tuned-adm profile laptop-battery-powersave &
         fi
     fi
     # When USE_POWER_PROFILES is false, this is a no-op
@@ -56,13 +56,13 @@ if [[ $MODE == "refresh" ]]; then
     if [[ $USE_POWER_PROFILES == "true" ]]; then
         # Get power profile and format icon.
         # Nerd font used in this case.
-        PROFILE=$(powerprofilesctl get)
+        PROFILE=$(tuned-adm active | awk '{print $NF}')
         case "$PROFILE" in
-            performance) PROFILE=$" 󰓅"
+            throughput-performance) PROFILE=$" 󰓅"
                 ;;
             balanced) PROFILE=$" 󰾅"
                 ;;
-            power-saver) PROFILE=$" 󰾆"
+            laptop-battery-powersave) PROFILE=$" 󰾆"
                 ;;
         esac
         DISPLAY_TEXT="$PROFILE $PERCENT"
