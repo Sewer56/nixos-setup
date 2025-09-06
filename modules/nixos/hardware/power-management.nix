@@ -1,11 +1,14 @@
 {pkgs, ...}: {
   # Power management services
   services = {
-    # Power profiles daemon for power management
-    # power-profiles-daemon.enable = true;
+    # TuneD for advanced power management with power-profiles-daemon compatibility
+    tuned = {
+      enable = true;
+      ppdSupport = true; # Enable power-profiles-daemon API compatibility
+    };
 
-    # Sensible defaults for power management
-    tlp.enable = false;
+    # TLP conflicts with tuned, so it's disabled
+    # tlp.enable = true;
 
     # Prevent overheating on Intel CPUs
     thermald.enable = true;
@@ -16,7 +19,7 @@
 
   # Required packages for power management
   environment.systemPackages = with pkgs; [
-    power-profiles-daemon
+    tuned
     upower
     powertop # Power consumption analysis tool
     acpi # ACPI utilities for laptop power management
