@@ -64,6 +64,8 @@ if [[ $MODE == "refresh" ]]; then
                 ;;
             laptop-battery-powersave) PROFILE=$" 󰾆"
                 ;;
+            *) PROFILE=$" 󰾅"  # Default to balanced icon for unknown profiles
+                ;;
         esac
         DISPLAY_TEXT="$PROFILE $PERCENT"
     else
