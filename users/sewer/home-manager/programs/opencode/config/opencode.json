@@ -54,7 +54,7 @@
           "options": {
             "thinking": {
               "type": "enabled",
-              "budgetTokens": 32000
+              "budgetTokens": 16000
             }
           }
         }
