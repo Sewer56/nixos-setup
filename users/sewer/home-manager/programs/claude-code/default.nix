@@ -132,6 +132,11 @@ in {
         args = ["-y" "@upstash/context7-mcp"];
         env = {};
       };
+
+      deepwiki = {
+        type = "sse";
+        url = "https://mcp.deepwiki.com/sse";
+      };
     };
   };
 }
