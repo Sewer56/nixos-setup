@@ -12,6 +12,16 @@
     },
     "webfetch": "allow"
   },
+  "tools": {
+    "github_*": false
+  },
+  "agent": {
+    "github": {
+      "tools": {
+        "github_*": true
+      }
+    }
+  },
   "mcp": {
     "github": {
       "type": "local",
