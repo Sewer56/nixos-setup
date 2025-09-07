@@ -112,19 +112,19 @@ in {
 
     # MCP server configurations
     mcpServers = {
-      github = {
-        type = "stdio";
-        command = "${githubMcpWrapper}";
-        args = [
-          "run"
-          "-i"
-          "--rm"
-          "-e"
-          "GITHUB_PERSONAL_ACCESS_TOKEN"
-          "ghcr.io/github/github-mcp-server"
-        ];
-        env = {};
-      };
+      # github = {
+      #   type = "stdio";
+      #   command = "${githubMcpWrapper}";
+      #   args = [
+      #     "run"
+      #     "-i"
+      #     "--rm"
+      #     "-e"
+      #     "GITHUB_PERSONAL_ACCESS_TOKEN"
+      #     "ghcr.io/github/github-mcp-server"
+      #   ];
+      #   env = {};
+      # };
 
       context7 = {
         type = "stdio";
