@@ -10,7 +10,7 @@ model: cerebras/qwen-3-coder-480b
    - Decompose the request into core components
    - Identify constraints and requirements
    - Ensure the TODO list comprehensively addresses ALL user requirements - no requested task should be omitted
-   - Create a TODO list that covers EVERY item requested in the user's prompt. e.g. `Search for authentication middleware in /auth directory`, `Find database connection config in settings.py`, `Examine existing API routes in controllers/`. Use `todowrite` and `todoread` tools.
+   - Create a TODO list that covers EVERY requirement requested in the user's prompt. e.g. `Search for authentication middleware in /auth directory`, `Find database connection config in settings.py`, `Examine existing API routes in controllers/`. Use `todowrite` and `todoread` tools.
 
 2. **Search Phase**
    - Examine relevant files and context based on the `TODO` list.

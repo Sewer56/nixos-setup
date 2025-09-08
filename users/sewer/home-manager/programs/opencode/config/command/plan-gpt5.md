@@ -1,7 +1,7 @@
 ---
-description: "Medium difficulty planning command using Claude model"
+description: "Hard difficulty planning command using GPT-5 model"
 agent: plan
-model: anthropic/claude-sonnet-4-20250514
+model: github-copilot/gpt-5
 ---
 
 ## Planning Process
