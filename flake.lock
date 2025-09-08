@@ -169,15 +169,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1757281436,
+        "lastModified": 1757297220,
         "narHash": "sha256-VKdWGpXl6iO4EsoF/XIiPneAA0eOuoVwhqcu8Na0Lto=",
-        "owner": "Sewer56",
+        "owner": "aodhanhayter",
         "repo": "opencode-flake",
-        "rev": "6adb64a37f9d029e78ca330b5bfda668b609b684",
+        "rev": "f1bca1054d36d566c39206773ca9db5ce7ce6d2e",
         "type": "github"
       },
       "original": {
-        "owner": "Sewer56",
+        "owner": "aodhanhayter",
         "repo": "opencode-flake",
         "type": "github"
       }
