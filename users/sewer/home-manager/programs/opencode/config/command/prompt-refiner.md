@@ -31,11 +31,10 @@ Parse the user's request to identify:
 - The scope and boundaries of the change
 
 ### 2. Discover Context
-Quick investigation to understand:
-- Current state vs desired state
-- Related functionality that might be affected
-- Existing patterns or conventions to follow
-- Potential risks or considerations
+- Current vs desired state
+- Related functionality and dependencies
+- Existing patterns and conventions
+- **Code Analysis**: Use Read/Grep/Glob to map file locations with line ranges
 
 ### 3. Identify Gaps
 Find what's missing or unclear:
@@ -47,8 +46,9 @@ Find what's missing or unclear:
 
 ### 4. Generate Refined Version
 
-Use the Write tool to create a `PROMPT.MD` file containing the refined prompt in this format:
+Use the Write tool to create a `PROMPT.MD` file containing the refined prompt:
 
+```markdown
 **Objective**: [What specifically needs to be achieved]
 
 **Context**: [Relevant background and current situation]
@@ -66,6 +66,18 @@ Use the Write tool to create a `PROMPT.MD` file containing the refined prompt in
 - What IS included
 - What IS NOT included
 
+**Code Element Mappings**:
+- `/full/path/Controllers/UserController.cs`
+  - `UserController` class (lines 15-20)
+  - `RegisterAsync()` method (lines 25-45)
+  - `LoginAsync()` method (lines 50-70)
+  - `_userService` field (line 17)
+- `/full/path/Services/AuthService.cs`
+  - `AuthService` class (lines 10-15)
+  - `GenerateTokenAsync()` method (lines 30-55)
+  - `ValidateTokenAsync()` method (lines 60-85)
+```
+
 ### 5. Ask Clarifying Questions
 
 Generate targeted questions to resolve remaining ambiguities:
@@ -79,6 +91,12 @@ Generate targeted questions to resolve remaining ambiguities:
 - Questions about preferences
 - Questions about future considerations
 - Questions about optional features
+
+## Validation
+
+- Verify all file paths exist using Read tool
+- Confirm line ranges contain specified code elements
+- Update mappings if code locations change
 
 ## Iterative Refinement
 
@@ -106,7 +124,7 @@ Given: "Add user management"
 
 `PROMPT.MD` would contain:
 
-```
+```markdown
 **Objective**: Implement user account creation, authentication, and basic profile management
 
 **Context**: Application currently has no user system. Need to add user registration, login, and profile management functionality.
@@ -126,6 +144,21 @@ Given: "Add user management"
 **Scope Boundaries**:
 - IS included: Registration, login, basic profile editing
 - IS NOT included: Password reset, email verification, user roles
+
+**Code Element Mappings**:
+- `/full/path/Controllers/UserController.cs`
+  - `UserController` class (lines 20-25)
+  - `Register()` method (lines 30-45)
+  - `Login()` method (lines 50-65)
+  - `GetProfile()` method (lines 70-85)
+- `/full/path/Services/UserService.cs`
+  - `UserService` class (lines 10-15)
+  - `CreateUserAsync()` method (lines 25-50)
+  - `AuthenticateAsync()` method (lines 55-75)
+- `/full/path/Models/User.cs`
+  - `User` class (lines 5-10)
+  - `Email` property (line 12)
+  - `PasswordHash` property (line 13)
 ```
 
 Then present clarifying questions to the user for further refinement.
