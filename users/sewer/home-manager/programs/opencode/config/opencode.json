@@ -66,15 +66,19 @@
             }
           }
         },
-        "anthropic/claude-opus-4-1-20250805": {
+        "claude-opus-4-1-20250805": {
           "options": {
             "thinking": {
               "type": "enabled",
               "budgetTokens": 31999
             }
           }
-        },
-        "github-copilot/claude-sonnet-4": {
+        }
+      }
+    },
+    "github-copilot": {
+      "models": {
+        "claude-sonnet-4": {
           "options": {
             "thinking": {
               "type": "enabled",
