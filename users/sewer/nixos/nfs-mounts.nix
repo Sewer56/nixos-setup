@@ -16,6 +16,7 @@
   # User-level systemd automount configuration
   systemd.automounts = [
     {
+      wantedBy = ["multi-user.target"];
       automountConfig = {
         TimeoutIdleSec = "0"; # Disable automatic unmounting
       };
