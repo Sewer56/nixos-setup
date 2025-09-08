@@ -35,7 +35,7 @@ Parse the user's request to identify:
 - Current vs desired state
 - Related functionality and dependencies
 - Existing patterns and conventions
-- **Code Analysis**: Use Read/Grep/Glob to map file locations with line ranges
+- **Repository Investigation (required)**: Use Read/Grep/Glob to identify files directly relevant to the request. Include only those files in "Code Element Mappings" with absolute paths, line ranges for classes/methods/properties/fields, and a per-file line: `Relevance: High|Medium|Low — ≤10-word reason`.
 
 ### 3. Identify Gaps
 Find what's missing or unclear:
@@ -47,7 +47,12 @@ Find what's missing or unclear:
 
 ### 4. Generate Refined Version
 
-Use the Write tool to create a `PROMPT.MD` file containing the refined prompt:
+Use the Write tool to create a `PROMPT.MD` file containing the refined prompt.
+
+In the `Code Element Mappings` section of `PROMPT.MD`, follow these rules:
+- Map only investigated files that are directly relevant to the request
+- For each file: absolute path, then `Relevance: High|Medium|Low — ≤10-word reason`
+- Then list `Class/Method/Property/Field` entries with line ranges
 
 ```markdown
 **Objective**: [What specifically needs to be achieved]
@@ -69,14 +74,16 @@ Use the Write tool to create a `PROMPT.MD` file containing the refined prompt:
 
 **Code Element Mappings**:
 - `/full/path/Controllers/UserController.cs`
-  - `UserController` class (lines 15-20)
-  - `RegisterAsync()` method (lines 25-45)
-  - `LoginAsync()` method (lines 50-70)
-  - `_userService` field (line 17)
+  - Relevance: High — owns user registration/login endpoints
+  - Class: `UserController` (lines 15-20)
+  - Method: `RegisterAsync(...)` (lines 25-45)
+  - Method: `LoginAsync(...)` (lines 50-70)
+  - Field: `_userService` (line 17)
 - `/full/path/Services/AuthService.cs`
-  - `AuthService` class (lines 10-15)
-  - `GenerateTokenAsync()` method (lines 30-55)
-  - `ValidateTokenAsync()` method (lines 60-85)
+  - Relevance: Medium — generates and validates tokens
+  - Class: `AuthService` (lines 10-15)
+  - Method: `GenerateTokenAsync(...)` (lines 30-55)
+  - Method: `ValidateTokenAsync(...)` (lines 60-85)
 ```
 
 ### 5. Ask Clarifying Questions
@@ -96,7 +103,8 @@ Generate targeted questions to resolve remaining ambiguities:
 ## Validation
 
 - Verify all file paths exist using Read tool
-- Confirm line ranges contain specified code elements
+- Confirm each mapped file has `Relevance: High|Medium|Low — ≤10-word reason`
+- Confirm line ranges contain the specified classes/methods/properties/fields
 - Update mappings if code locations change
 
 ## Iterative Refinement
@@ -148,18 +156,21 @@ Given: "Add user management"
 
 **Code Element Mappings**:
 - `/full/path/Controllers/UserController.cs`
-  - `UserController` class (lines 20-25)
-  - `Register()` method (lines 30-45)
-  - `Login()` method (lines 50-65)
-  - `GetProfile()` method (lines 70-85)
+  - Relevance: High — owns user-facing auth endpoints
+  - Class: `UserController` (lines 20-25)
+  - Method: `Register(...)` (lines 30-45)
+  - Method: `Login(...)` (lines 50-65)
+  - Method: `GetProfile(...)` (lines 70-85)
 - `/full/path/Services/UserService.cs`
-  - `UserService` class (lines 10-15)
-  - `CreateUserAsync()` method (lines 25-50)
-  - `AuthenticateAsync()` method (lines 55-75)
+  - Relevance: High — implements core user operations
+  - Class: `UserService` (lines 10-15)
+  - Method: `CreateUserAsync(...)` (lines 25-50)
+  - Method: `AuthenticateAsync(...)` (lines 55-75)
 - `/full/path/Models/User.cs`
-  - `User` class (lines 5-10)
-  - `Email` property (line 12)
-  - `PasswordHash` property (line 13)
+  - Relevance: Medium — data model used by services/controllers
+  - Class: `User` (lines 5-10)
+  - Property: `Email` (line 12)
+  - Property: `PasswordHash` (line 13)
 ```
 
 Then present clarifying questions to the user for further refinement.
