@@ -1,7 +1,8 @@
 ---
-description: "Hard difficulty planning command using GPT-5 model"
+description: "Hard-tier planning using GPT-5. Exhaustive analysis; outputs plan in chat; no file writes. Use for complex, high-risk, or multi-repo changes."
 agent: plan
 model: github-copilot/gpt-5
+comment: "Run prompt-refiner.md first."
 ---
 
 ## Planning Process

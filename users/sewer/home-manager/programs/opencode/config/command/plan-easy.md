@@ -1,7 +1,8 @@
 ---
-description: "Low difficulty fast planning using Cerebras Qwen model"
+description: "Easy-tier planning using Qwen. Outputs plan in chat; no file writes. Use when the task is straightforward and speed matters."
 agent: plan
 model: cerebras/qwen-3-coder-480b
+comment: "Run prompt-refiner.md first."
 ---
 
 ## Planning Process
