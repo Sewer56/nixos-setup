@@ -13,12 +13,20 @@
     "webfetch": "allow"
   },
   "tools": {
-    "github_*": false
+    "github_*": false,
+    "todowrite": true,
+    "todoread": true
   },
   "agent": {
     "github": {
       "tools": {
         "github_*": true
+      }
+    },
+    "plan": {
+      "tools": {
+        "todowrite": true,
+        "todoread": true
       }
     }
   },

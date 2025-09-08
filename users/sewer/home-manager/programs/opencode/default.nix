@@ -14,6 +14,10 @@
     docker
     # TypeScript for plugin development
     typescript
+    # Bun for local development
+    bun
+    # Go for local development
+    go
   ];
 
   # Symlink our configuration files to OpenCode's expected locations
