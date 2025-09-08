@@ -1,7 +1,7 @@
 ---
 description: "Medium difficulty planning command using Claude model"
 agent: plan
-model: anthropic/claude-3-5-sonnet-20241022
+model: anthropic/claude-sonnet-4-20250514
 ---
 
 ## Planning Process
@@ -9,7 +9,7 @@ model: anthropic/claude-3-5-sonnet-20241022
 1. **Understanding Phase**
    - Decompose the request into core components
    - Identify constraints and requirements
-   - Update the TODO list based on prompt objectives. e.g. `Analyze authentication flow`, `Research database schema design`, `Plan API endpoint structure`
+   - Update the TODO list based on prompt objectives. e.g. `Analyze authentication flow`, `Research database schema design`, `Plan API endpoint structure`. Use `todowrite` and `todoread` tools.
 
 2. **Search Phase**
    - Examine relevant files and context based on the `TODO` list.
@@ -74,15 +74,46 @@ Generate final plans using this exact structure:
 - Placeholders are indicated using square brackets, e.g. `[Plan Title]`.
 - The `Current State Analysis` section contains what's already implemented and what's missing to achieve the needed objectives.
 - The `Implementation Steps` section outlines the changes needed to each file.
-    - An example title is `Add logging to File1`
-    - Example subsections include
-      - add `int LogEvent(string event)` method.
-      - add property `LogLevel` to ClassA.
+    - Each step should have a title consisting of `[ClassName/FileName]: [Description of changes]`
+    - Each step should contain a list of specific code changes with complete method signatures and property declarations
 
 Always provide comprehensive, actionable plans with this exact formatting and level of detail matching the structure shown.
+
+### Implementation Steps Requirements
+
+When creating implementation steps, follow these formatting requirements:
+
+- **Step Titles**: Use format `[ClassName/FileName]: [Description of changes]`
+  - ❌ Bad: `Add logging functionality`
+  - ✅ Good: `LoginManager: Add logging functionality`
+
+- **Properties and Fields**: Show complete syntax with access modifiers, types, and default values
+  - ❌ Bad: `add IsEnabled property`
+  - ✅ Good: `add public bool IsEnabled { get; set; } = false property`
+
+- **Methods**: Include full access modifiers, return types, parameter lists with defaults, async patterns, and generic constraints
+  - ❌ Bad: `add RefreshUserInfoAsync method`
+  - ✅ Good: `add private async Task<UserInfo> RefreshUserInfoAsync(TimeSpan timeout = default, CancellationToken cancellationToken = default) method`
+
+- **Implementation Order**: Order code changes within each step to prevent compile errors
+  - Add fields/properties first, then methods, then interfaces
+  - This ensures dependencies exist before code that uses them
+
+**Example Implementation Step:**
+```
+1. LoginManager: Add logging functionality
+   - add `public LogLevel CurrentLogLevel { get; set; } = LogLevel.Info` property
+   - add `private async Task<bool> LogEventAsync(string eventName, LogLevel level = LogLevel.Info, CancellationToken cancellationToken = default)` method
+```
+
+This specificity ensures implementation plans are immediately actionable without requiring guesswork about method signatures.
 
 ## REMINDER
 
 You are a PLANNING agent. Create plans for others to execute. Never modify files yourself.
 
 **IMPORTANT**: Once the user proceeds with the plan (or switches to build mode), immediately create a TODO list using the `todowrite` tool based on the Implementation Steps from your final plan. Each TODO item should correspond to a specific implementation step to track progress during execution.
+
+User requirements are below:
+
+$ARGUMENTS
