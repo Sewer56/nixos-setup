@@ -17,7 +17,7 @@
   systemd.automounts = [
     {
       automountConfig = {
-        TimeoutIdleSec = "300"; # Unmount after 5 minutes of inactivity
+        TimeoutIdleSec = "0"; # Disable automatic unmounting
       };
       where = "/home/sewer/NAS";
     }

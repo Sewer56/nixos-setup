@@ -40,34 +40,34 @@ in {
         };
       };
 
-      "Cloud-private" = {
-        config = {
-          type = "protondrive";
-          enable_caching = false;
-        };
+      # "Cloud-private" = {
+      #   config = {
+      #     type = "protondrive";
+      #     enable_caching = false;
+      #   };
 
-        secrets = {
-          username = config.age.secrets.proton-drive-username.path;
-          password = config.age.secrets.proton-drive-password.path;
-          "2fa" = extractSecret "Cloud-private" "2fa";
-          client_uid = extractSecret "Cloud-private" "client_uid";
-          client_access_token = extractSecret "Cloud-private" "client_access_token";
-          client_refresh_token = extractSecret "Cloud-private" "client_refresh_token";
-          client_salted_key_pass = extractSecret "Cloud-private" "client_salted_key_pass";
-        };
+      #   secrets = {
+      #     username = config.age.secrets.proton-drive-username.path;
+      #     password = config.age.secrets.proton-drive-password.path;
+      #     "2fa" = extractSecret "Cloud-private" "2fa";
+      #     client_uid = extractSecret "Cloud-private" "client_uid";
+      #     client_access_token = extractSecret "Cloud-private" "client_access_token";
+      #     client_refresh_token = extractSecret "Cloud-private" "client_refresh_token";
+      #     client_salted_key_pass = extractSecret "Cloud-private" "client_salted_key_pass";
+      #   };
 
-        mounts = {
-          "" = {
-            enable = true;
-            mountPoint = "/home/sewer/Cloud-private";
-            options = {
-              vfs-cache-mode = "full";
-              vfs-cache-min-free-space = "10Gi";
-              vfs-refresh = true;
-            };
-          };
-        };
-      };
+      #   mounts = {
+      #     "" = {
+      #       enable = true;
+      #       mountPoint = "/home/sewer/Cloud-private";
+      #       options = {
+      #         vfs-cache-mode = "full";
+      #         vfs-cache-min-free-space = "10Gi";
+      #         vfs-refresh = true;
+      #       };
+      #     };
+      #   };
+      # };
     };
   };
 }
