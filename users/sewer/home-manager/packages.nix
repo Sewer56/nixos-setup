@@ -17,7 +17,7 @@
     qbittorrent
 
     # Wine
-    wine
+    wine64
     winetricks
 
     # Gaming/Emulators
