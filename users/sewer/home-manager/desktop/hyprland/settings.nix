@@ -10,6 +10,7 @@
       # General settings
       general = {
         layout = "dwindle";
+        allow_tearing = true; # Reduce latency in games at cost of tearing.
       };
 
       misc = {
@@ -47,10 +48,20 @@
         "nomaxsize,class:^(.*)$"
         # Disable self-resizing of windows
         "suppressevent fullscreen maximize,class:^(.*)$"
+        # Enable tearing for sonic.exe
+        "immediate,class:^(sonic\.exe)$"
       ];
 
       debug = {
         disable_logs = false;
+      };
+
+      render = {
+        direct_scanout = 1; # Enable direct scanout for better performance
+      };
+
+      misc = {
+        vrr = 2; # Fullscreen only (else game flickers)
       };
     }
 
