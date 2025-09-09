@@ -45,6 +45,8 @@
         # WINE fix
         "nomaxsize,class:^(winecfg\.exe)$"
         "nomaxsize,class:^(.*)$"
+        # Disable self-resizing of windows
+        "suppressevent fullscreen maximize,class:^(.*)$"
       ];
 
       debug = {
