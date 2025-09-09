@@ -6,7 +6,6 @@
     "scroll_speed": 1
   },
   "permission": {
-    "edit": "allow",
     "bash": {
       "*": "allow"
     },
