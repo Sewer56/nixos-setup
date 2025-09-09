@@ -57,7 +57,7 @@
       };
 
       render = {
-        direct_scanout = 1; # Enable direct scanout for better performance
+        direct_scanout = 1; # Enable direct scanout for lower latency in fullscreen.
       };
 
       misc = {
