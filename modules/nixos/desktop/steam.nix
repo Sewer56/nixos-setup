@@ -5,6 +5,8 @@
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
+    # Enable protontricks for managing Proton prefixes
+    protontricks.enable = true;
     # Fractional scaling support
     gamescopeSession.enable = true;
     extraPackages = with pkgs; [
