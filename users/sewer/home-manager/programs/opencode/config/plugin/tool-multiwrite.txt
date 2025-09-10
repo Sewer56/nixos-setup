@@ -1,0 +1,13 @@
+Writes multiple files to the local filesystem.
+
+Usage:
+- This tool overwrites existing files if present and creates new files if they don't exist.
+- If writing to an existing file, you MUST use the Read tool first to read the file's contents. This tool does not verify that you did; you are responsible for following this rule.
+- ALWAYS prefer editing existing files in the codebase. NEVER write new files unless explicitly required.
+- NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User.
+- Only use emojis if the user explicitly requests it. Avoid writing emojis to files unless asked.
+
+Notes:
+- All paths must be absolute. Parent directories are created if missing (recursively).
+- Writes are transactional: all succeed or none are applied. On failure, original files are restored and any newly created files are removed. Newly created directories may remain.
+- If the new content is identical to the current file contents, the write may be skipped and reported as "unchanged".
