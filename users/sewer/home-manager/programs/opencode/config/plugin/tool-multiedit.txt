@@ -15,14 +15,6 @@ Before using this tool:
 1. Use the Read tool to understand the file contents and context
 2. Verify the directory paths are correct
 
-To make multiple file edits, provide the following:
-1. files: An array of file operations, where each file operation contains:
-   - filePath: The absolute path to the file to modify (must be absolute, not relative)
-   - edits: An array of edit operations to perform on this file, where each edit contains:
-     - oldString: The text to replace (must match the file contents exactly, including all whitespace and indentation)
-     - newString: The edited text to replace the oldString
-     - replaceAll: Replace all occurrences of oldString. This parameter is optional and defaults to false.
-
 IMPORTANT:
 - All edits are applied in sequence, in the order they are provided
 - Each edit within a file operates on the result of the previous edit
