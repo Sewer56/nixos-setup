@@ -1,10 +1,10 @@
-Writes multiple files atomically (transactional) to the local filesystem.
+Write multiple files at once.
 
 Mandatory policy:
-- You MUST USE this tool when creating or overwriting 2 or more files.
-- Prefer over `Write` for any multi-file write.
-- Do not chain multiple `Write` calls; consolidate into a single `multiwrite`.
-- Prefer `Edit/Multiedit` for partial modifications; use `multiwrite` to create files or replace entire contents.
+- You MUST USE the `write-multiple-files` tool when creating or overwriting 2 or more files.
+- Prefer over the `write` tool for any multi-file write.
+- Do not chain multiple `write` tool calls; consolidate into a single `write-multiple-files` call.
+- Prefer the `edit`/`apply-multiple-edits` tools for partial modifications; use `write-multiple-files` to create files or replace entire contents.
 
 Behavior:
 - Transactional: either all files are written or none; on failure, originals are restored (new dirs may remain).

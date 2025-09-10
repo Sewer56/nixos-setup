@@ -3,7 +3,7 @@ import path from 'path'
 import DESCRIPTION from "./tool-multiedit.txt"
 
 export const MultiEditPlugin: Plugin = async ({ Tool, z }) => {
-    const MultiEditTool = Tool.define("multiedit", {
+    const MultiEditTool = Tool.define("apply-multiple-edits", {
         description: DESCRIPTION,
 
         parameters: z.object({

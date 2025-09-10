@@ -4,7 +4,7 @@ import { randomUUID } from "node:crypto"
 import DESCRIPTION from "./tool-multiwrite.txt"
 
 export const MultiWritePlugin: Plugin = async ({ Tool, z }) => {
-  const MultiWriteTool = Tool.define("multiwrite", {
+  const MultiWriteTool = Tool.define("write-multiple-files", {
     description: DESCRIPTION,
     parameters: z.object({
       files: z

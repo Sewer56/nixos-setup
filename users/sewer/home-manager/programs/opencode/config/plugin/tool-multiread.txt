@@ -1,10 +1,10 @@
-Reads multiple files/slices from the local filesystem.
+Read multiple files at once.
 
 Mandatory policy:
-- You MUST USE this tool when reading 2 or more files or slices, or when you anticipate more than one read in the workflow.
-- Prefer over `Read` for any non-trivial reading.
-- Do not chain sequential `Read` calls; consolidate into a single `multiread`.
-- Discover targets with `glob`/`grep`, then fetch with `multiread`.
+- You MUST USE the `read-multiple-files` tool when reading 2 or more files or slices, or when you anticipate more than one read in the workflow.
+- Prefer over the `read` tool for any non-trivial reading.
+- Do not chain sequential `read` tool calls; consolidate into a single `read-multiple-files` call.
+- Discover targets with `glob`/`grep`, then fetch with `read-multiple-files`.
 
 Usage:
 - Absolute paths only.
