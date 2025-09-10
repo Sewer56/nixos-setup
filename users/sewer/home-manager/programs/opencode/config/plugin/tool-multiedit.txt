@@ -1,38 +1,24 @@
-This is a tool for making multiple edits in one operation. These edits can be on a single file or across multiple files.
-Prefer this tool over the Edit tool when multiple changes need to be made at once.
+Make multiple edits in one atomic operation across one or many files.
 
-Supported use cases:
-- Multiple edits to a single file
-- Single edit to multiple files
-- Multiple edits to multiple files
+Mandatory policy:
+- You MUST USE this tool when performing 2 or more edits within a single file OR when editing 2 or more files.
+- Prefer over `Edit` unless there is exactly one change in exactly one file.
+- Do not chain multiple `Edit` calls; consolidate into a single `multiedit`.
 
-Quick decision guide:
-- Many files or many edits? Use this tool.
-- Only one file with a single change? Use the Edit tool.
+Before you run:
+1. You MUST read (Read/Multiread) the current contents and capture the exact `oldString` (include stable surrounding context).
+2. Verify paths exist and order edits so earlier replacements do not break later matches.
 
-Before using this tool:
+Behavior:
+- Sequential within each file; each edit sees prior results.
+- All-or-nothing across all files; any failure aborts everything.
+- Cannot create files.
 
-1. Use the Read tool to understand the file contents and context
-2. Verify the directory paths are correct
+Requirements:
+- `oldString` must match exactly (including whitespace); `newString` must differ.
+- Anchor matches with surrounding context to make them unique.
+- Use `replaceAll` only when changing every occurrence is unquestionably safe.
 
-IMPORTANT:
-- All edits are applied in sequence, in the order they are provided
-- Each edit within a file operates on the result of the previous edit
-- All edits across all files must be valid for the operation to succeed - if any edit fails, none will be applied
-- This tool is ideal when you need to make coordinated changes across multiple files (e.g., refactoring function names, updating imports)
-
-CRITICAL REQUIREMENTS:
-1. All edits follow the same requirements as the single Edit tool
-2. Plan your edits carefully to avoid conflicts between sequential operations
-
-WARNING:
-- The tool will fail if edits.oldString doesn't match the file contents exactly (including whitespace)
-- The tool will fail if edits.oldString and edits.newString are the same
-- Since edits are applied in sequence, ensure that earlier edits don't affect the text that later edits are trying to find
-- This tool cannot create new files. An existing file must be present.
-
-When making edits:
-- Ensure all edits result in idiomatic, correct code
-- Do not leave the code in a broken state
-- Always use absolute file paths
-- Use replaceAll for replacing and renaming strings across the file. This parameter is useful if you want to rename a variable for instance.
+Guidance:
+- Keep changes minimal and idiomatic.
+- Use absolute file paths.

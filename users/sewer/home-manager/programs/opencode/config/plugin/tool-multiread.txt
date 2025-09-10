@@ -1,14 +1,20 @@
 Reads multiple files/slices from the local filesystem.
 
-Usage:
-- All file paths must be absolute.
-- Duplicate file paths are allowed to read multiple slices from the same file in one call.
-- Each file entry supports optional `offset` (0-based) and `limit` (default 2000) parameters.
-- Lines longer than 2000 characters are truncated with "...".
-- Results are formatted in cat -n style, with line numbers starting at 1.
-- This tool cannot read binary files, including images.
-- Reads are all-or-nothing: if any single entry fails (not found, binary/image, invalid path), the entire operation fails without partial output.
+Mandatory policy:
+- You MUST USE this tool when reading 2 or more files or slices, or when you anticipate more than one read in the workflow.
+- Prefer over `Read` for any non-trivial reading.
+- Do not chain sequential `Read` calls; consolidate into a single `multiread`.
+- Discover targets with `glob`/`grep`, then fetch with `multiread`.
 
-Notes:
-- Do not include non-existent files; any missing path fails the entire call.
-- Use `offset` and `limit` to paginate large files.
+Usage:
+- Absolute paths only.
+- Duplicate paths allowed to read multiple slices from one file.
+- Each entry supports `offset` (0-based) and `limit` (default 2000).
+- Lines longer than 2000 chars are truncated with "...".
+- Output is cat -n style with 1-based line numbers.
+- Text files only (no binaries).
+- All-or-nothing: any failure aborts the entire call.
+
+Preflight:
+- You MUST verify that targets exist and are text.
+- Keep slices tight; avoid reading entire large files.
