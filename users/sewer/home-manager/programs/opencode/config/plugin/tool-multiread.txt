@@ -1,0 +1,14 @@
+Reads multiple files/slices from the local filesystem.
+
+Usage:
+- All file paths must be absolute.
+- Duplicate file paths are allowed to read multiple slices from the same file in one call.
+- Each file entry supports optional `offset` (0-based) and `limit` (default 2000) parameters.
+- Lines longer than 2000 characters are truncated with "...".
+- Results are formatted in cat -n style, with line numbers starting at 1.
+- This tool cannot read binary files, including images.
+- Reads are all-or-nothing: if any single entry fails (not found, binary/image, invalid path), the entire operation fails without partial output.
+
+Notes:
+- Do not include non-existent files; any missing path fails the entire call.
+- Use `offset` and `limit` to paginate large files.
