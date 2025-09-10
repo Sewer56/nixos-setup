@@ -40,10 +40,6 @@ export const MultiEditPlugin: Plugin = async ({ Tool, z }) => {
                     throw new Error(`File path must be absolute: ${fileOperation.filePath}`)
                 }
 
-                if (processedFiles.has(fileOperation.filePath)) {
-                    throw new Error(`Duplicate file path in operations: ${fileOperation.filePath}`)
-                }
-
                 // This file is valid, we can process it.
                 processedFiles.add(fileOperation.filePath)
 

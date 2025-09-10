@@ -15,9 +15,9 @@
     "github_*": false,
     "todowrite": true,
     "todoread": true,
-    "read": false,
-    "write": false,
-    "edit": false
+    "read-multiple": false,
+    "write-multiple": false,
+    "edit-multiple": false
   },
   "agent": {
     "github": {
