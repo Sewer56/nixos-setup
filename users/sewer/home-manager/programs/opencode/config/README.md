@@ -36,31 +36,45 @@ The `tsconfig.json` file is already configured with:
 #### File Structure
 ```
 config/
-├── opencode.json          # OpenCode configuration
-├── package.json           # Dependencies and scripts
-├── tsconfig.json          # TypeScript configuration
-├── README.md              # This file
+├── opencode.json              # OpenCode configuration
+├── package.json               # Dependencies and scripts
+├── tsconfig.json              # TypeScript configuration
+├── README.md                  # This file
+├── types/
+│   └── text-imports.d.ts      # TypeScript definitions for .txt imports
 └── plugin/
-    └── tool-multiedit.ts  # Custom multiedit plugin
+    ├── tool-multiedit.ts      # Custom multiedit plugin
+    └── tool-multiedit.txt     # Plugin description text
 ```
 
 #### Writing Plugins
 
-Import types from the official package:
+Import types from the official package and descriptions from text files:
 
 ```typescript
 import type { Plugin } from "@opencode-ai/plugin"
+import DESCRIPTION from "./my-tool.txt"
 
 export const MyPlugin: Plugin = async ({ Tool, z, client, $, project, directory, worktree }) => {
-  // Full TypeScript completion available here
+  const MyTool = Tool.define("my-tool", {
+    description: DESCRIPTION,  // Import from .txt file
+    parameters: z.object({
+      // Your parameters
+    }),
+    async execute(params, ctx) {
+      // Your implementation
+    }
+  })
   
   return {
     async ["tool.register"](_input, { register, registerHTTP }) {
-      // Register your tools
+      register(MyTool)
     }
   }
 }
 ```
+
+**Text File Imports:** Tool descriptions can be imported from `.txt` files (like the original opencode tools). TypeScript support is provided via `types/text-imports.d.ts`.
 
 #### Available Context
 - `Tool` - Tool definition builder with `Tool.define()`
@@ -94,27 +108,46 @@ Plugins are automatically loaded from the `plugin/` directory - no additional co
 
 ### Multi-Edit Tool (`plugin/tool-multiedit.ts`)
 
-Enhanced multiedit tool that can apply multiple edits to a single file in one atomic operation.
+Enhanced multiedit tool that can apply multiple edits across multiple files in one atomic operation.
 
 **Features:**
-- Apply multiple edits to one file sequentially
-- Atomic operations (all edits succeed or all fail)
+- Apply coordinated edits across multiple files
+- Sequential edits within each file
+- Atomic operations (all edits across all files succeed or all fail)
 - Built on top of the Edit tool for consistency
 - Input validation and error handling
+- Ideal for refactoring across codebases
 
 **Usage:**
 ```json
 {
-  "filePath": "/absolute/path/to/file.ts",
-  "edits": [
+  "files": [
     {
-      "oldString": "oldFunction",
-      "newString": "newFunction",
-      "replaceAll": true
+      "filePath": "/absolute/path/to/file1.ts",
+      "edits": [
+        {
+          "oldString": "oldFunction",
+          "newString": "newFunction",
+          "replaceAll": true
+        },
+        {
+          "oldString": "export { oldFunction }",
+          "newString": "export { newFunction }"
+        }
+      ]
     },
     {
-      "oldString": "import { oldFunction }",
-      "newString": "import { newFunction }"
+      "filePath": "/absolute/path/to/file2.ts",
+      "edits": [
+        {
+          "oldString": "import { oldFunction }",
+          "newString": "import { newFunction }"
+        },
+        {
+          "oldString": "oldFunction(",
+          "newString": "newFunction("
+        }
+      ]
     }
   ]
 }

@@ -9,13 +9,15 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "types": ["node"],
+    "typeRoots": ["./types", "./node_modules/@types"],
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "isolatedModules": true
   },
   "include": [
     "**/*.ts",
-    "**/*.js"
+    "**/*.js",
+    "types/**/*.d.ts"
   ],
   "exclude": [
     "node_modules"
