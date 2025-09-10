@@ -4,6 +4,7 @@ Mandatory policy:
 - You MUST USE the `apply-multiple-edits` tool when performing 2 or more edits within a single file OR when editing 2 or more files.
 - Prefer over the `edit` tool unless there is exactly one change in exactly one file.
 - Do not chain multiple `edit` tool calls; consolidate into a single `apply-multiple-edits` call.
+- Task/TODO hint: If a plan/TODO lists files relevant later, you MUST use this tool to prefetch into context and batch the edits.
 
 Before you run:
 1. You MUST read (using the `read` or `read-multiple-files` tool) the current contents and capture the exact `oldString` (include stable surrounding context).

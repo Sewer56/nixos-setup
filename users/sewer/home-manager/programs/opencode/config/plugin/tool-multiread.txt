@@ -5,6 +5,7 @@ Mandatory policy:
 - Prefer over the `read` tool for any non-trivial reading.
 - Do not chain sequential `read` tool calls; consolidate into a single `read-multiple-files` call.
 - Discover targets with `glob`/`grep`, then fetch with `read-multiple-files`.
+- Task/TODO hint: If a plan/TODO lists files relevant later, you MUST use this tool to prefetch into context.
 
 Usage:
 - Absolute paths only.

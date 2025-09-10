@@ -5,6 +5,7 @@ Mandatory policy:
 - Prefer over the `write` tool for any multi-file write.
 - Do not chain multiple `write` tool calls; consolidate into a single `write-multiple-files` call.
 - Prefer the `edit`/`apply-multiple-edits` tools for partial modifications; use `write-multiple-files` to create files or replace entire contents.
+- Task/TODO hint: If a plan/TODO lists files relevant later, you MUST use this tool to prefetch targets and batch the writes.
 
 Behavior:
 - Transactional: either all files are written or none; on failure, originals are restored (new dirs may remain).
