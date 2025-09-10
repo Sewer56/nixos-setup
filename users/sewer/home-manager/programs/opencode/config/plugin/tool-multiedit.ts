@@ -54,11 +54,22 @@ export const MultiEditPlugin: Plugin = async ({ Tool, z }) => {
                 }
             }
 
-            // Simple file editing implementation
+            // Atomic file editing implementation
             const fs = await import('fs/promises')
 
             try {
-                // Process each file operation
+                // Phase 1: Preparation - read all files and apply edits in memory
+                const preparedFiles: Array<{
+                    filePath: string
+                    finalContent: string
+                    fileResults: Array<{
+                        oldString: string
+                        newString: string
+                        replaceAll: boolean
+                        success: boolean
+                    }>
+                }> = []
+
                 for (const fileOperation of params.files) {
                     const fileResults: Array<{
                         oldString: string
@@ -74,7 +85,7 @@ export const MultiEditPlugin: Plugin = async ({ Tool, z }) => {
                         const oldContent = currentContent
 
                         if (edit.replaceAll) {
-                            const escaped = edit.oldString.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') // wtf is this??
+                            const escaped = edit.oldString.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
                             currentContent = currentContent.replace(new RegExp(escaped, 'g'), edit.newString)
                         } else {
                             const index = currentContent.indexOf(edit.oldString)
@@ -98,13 +109,21 @@ export const MultiEditPlugin: Plugin = async ({ Tool, z }) => {
                         })
                     }
 
-                    // Write the final content after all edits for this file
-                    await fs.writeFile(fileOperation.filePath, currentContent, 'utf-8')
+                    preparedFiles.push({
+                        filePath: fileOperation.filePath,
+                        finalContent: currentContent,
+                        fileResults
+                    })
+                }
+
+                // Phase 2: Atomic write - only write files if all preparations succeeded
+                for (const prepared of preparedFiles) {
+                    await fs.writeFile(prepared.filePath, prepared.finalContent, 'utf-8')
 
                     results.push({
-                        filePath: fileOperation.filePath,
-                        editsApplied: fileOperation.edits.length,
-                        results: fileResults
+                        filePath: prepared.filePath,
+                        editsApplied: prepared.fileResults.length,
+                        results: prepared.fileResults
                     })
                 }
 
@@ -112,7 +131,7 @@ export const MultiEditPlugin: Plugin = async ({ Tool, z }) => {
                 const filesModified = results.length
 
                 return {
-                    title: `Multi-file Edit: ${totalEdits} edits across ${filesModified} files`,
+                    title: `MultiEdit Success: ${totalEdits} edits across ${filesModified} files`,
                     output: results.map((r: any) =>
                         `${path.relative(process.cwd(), r.filePath)}: ${r.editsApplied} edits applied successfully`
                     ).join('\n'),
