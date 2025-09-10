@@ -1,0 +1,16 @@
+{
+  "name": "opencode-config",
+  "version": "1.0.0",
+  "description": "For developing opencode plugins.",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@opencode-ai/plugin": "^0.6.9",
+    "@types/node": "^24.3.1",
+    "typescript": "^5.0.0"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "install-types": "bun install"
+  }
+}
