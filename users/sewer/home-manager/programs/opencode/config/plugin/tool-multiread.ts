@@ -6,7 +6,7 @@ const DEFAULT_READ_LIMIT = 2000
 const MAX_LINE_LENGTH = 2000
 
 export const MultiReadPlugin: Plugin = async ({ Tool, z }) => {
-  const MultiReadTool = Tool.define("read-multiple-files", {
+  const MultiReadTool = Tool.define("read-multiple", {
     description: DESCRIPTION,
     parameters: z.object({
       files: z

@@ -14,7 +14,10 @@
   "tools": {
     "github_*": false,
     "todowrite": true,
-    "todoread": true
+    "todoread": true,
+    "read": false,
+    "write": false,
+    "edit": false
   },
   "agent": {
     "github": {

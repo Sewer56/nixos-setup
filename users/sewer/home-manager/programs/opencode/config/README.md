@@ -43,8 +43,8 @@ config/
 ├── types/
 │   └── text-imports.d.ts      # TypeScript definitions for .txt imports
 └── plugin/
-    ├── tool-multiedit.ts      # Custom apply-multiple-edits plugin
-    └── tool-multiedit.txt     # apply-multiple-edits tool description
+    ├── tool-multiedit.ts      # Custom edit-multiple plugin
+    └── tool-multiedit.txt     # edit-multiple tool description
 ```
 
 #### Writing Plugins
@@ -108,7 +108,7 @@ Plugins are automatically loaded from the `plugin/` directory - no additional co
 
 ### Apply Multiple Edits Tool (`plugin/tool-multiedit.ts`)
 
-Enhanced apply-multiple-edits tool that can apply multiple edits across multiple files in one atomic operation.
+Enhanced edit-multiple tool that can apply multiple edits across multiple files in one atomic operation.
 
 **Features:**
 - Apply coordinated edits across multiple files

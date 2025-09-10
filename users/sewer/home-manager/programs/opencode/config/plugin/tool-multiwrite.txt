@@ -1,10 +1,10 @@
 Write multiple files at once.
 
 Mandatory policy:
-- You MUST USE the `write-multiple-files` tool when creating or overwriting 2 or more files.
+- You MUST USE the `write-multiple` tool when creating or overwriting 2 or more files.
 - Prefer over the `write` tool for any multi-file write.
-- Do not chain multiple `write` tool calls; consolidate into a single `write-multiple-files` call.
-- Prefer the `edit`/`apply-multiple-edits` tools for partial modifications; use `write-multiple-files` to create files or replace entire contents.
+- Do not chain multiple `write` tool calls; consolidate into a single `write-multiple` call.
+- Prefer the `edit`/`edit-multiple` tools for partial modifications; use `write-multiple` to create files or replace entire contents.
 - Task/TODO hint: If a plan/TODO lists files relevant later, you MUST use this tool to prefetch targets and batch the writes.
 
 Behavior:

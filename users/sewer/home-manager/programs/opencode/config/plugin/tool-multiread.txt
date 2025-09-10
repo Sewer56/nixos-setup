@@ -1,10 +1,10 @@
 Read multiple files at once.
 
 Mandatory policy:
-- You MUST USE the `read-multiple-files` tool when reading 2 or more files or slices, or when you anticipate more than one read in the workflow.
+- You MUST USE the `read-multiple` tool when reading 2 or more files or slices, or when you anticipate more than one read in the workflow.
 - Prefer over the `read` tool for any non-trivial reading.
-- Do not chain sequential `read` tool calls; consolidate into a single `read-multiple-files` call.
-- Discover targets with `glob`/`grep`, then fetch with `read-multiple-files`.
+- Do not chain sequential `read` tool calls; consolidate into a single `read-multiple` call.
+- Discover targets with `glob`/`grep`, then fetch with `read-multiple`.
 - Task/TODO hint: If a plan/TODO lists files relevant later, you MUST use this tool to prefetch into context.
 
 Usage:
