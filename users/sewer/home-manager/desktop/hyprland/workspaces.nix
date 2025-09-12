@@ -65,6 +65,7 @@
 
         # Workspace 4: Miscellaneous apps (dwindle layout)
         "workspace 4 silent, class:^(tidal-hifi)$"
+        "workspace 4 silent, class:^(spotify)$"
         "workspace 4 silent, class:^(Proton Mail)$"
 
         # Floating window rules
@@ -111,6 +112,7 @@
         "workspace 4, class:^(telegram-desktop)$"
         "workspace 4, class:^(TelegramDesktop)$"
         "workspace 8, class:^(tidal-hifi)$"
+        "workspace 8, class:^(spotify)$"
         "workspace 9, class:^(GitKraken)$"
         "workspace 10, class:^(Proton Mail)$"
 
@@ -166,6 +168,7 @@
         # Uncommonly checked applications (high workspaces)
         # Workspace 8: Music
         "workspace 8, class:^(tidal-hifi)$"
+        "workspace 8, class:^(spotify)$"
 
         # Workspace 9: Git
         "workspace 9, class:^(GitKraken)$"
