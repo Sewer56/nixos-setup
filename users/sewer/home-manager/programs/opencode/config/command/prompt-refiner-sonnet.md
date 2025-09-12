@@ -53,6 +53,7 @@ In the `Code Element Mappings` section of `PROMPT.MD`, follow these rules:
 - Map only investigated files that are directly relevant to the request
 - For each file: absolute path, then `Relevance: High|Medium|Low — ≤10-word reason`
 - Then list `Class/Method/Property/Field` entries with line ranges
+- `Lines to Read` specifies the range from lowest relevant line to highest relevant line
 
 ```markdown
 **Objective**: [What specifically needs to be achieved]
@@ -75,12 +76,14 @@ In the `Code Element Mappings` section of `PROMPT.MD`, follow these rules:
 **Code Element Mappings**:
 - `/full/path/Controllers/UserController.cs`
   - Relevance: High — owns user registration/login endpoints
+  - Lines to Read: 15-70
   - Class: `UserController` (lines 15-20)
   - Method: `RegisterAsync(...)` (lines 25-45)
   - Method: `LoginAsync(...)` (lines 50-70)
   - Field: `_userService` (line 17)
 - `/full/path/Services/AuthService.cs`
   - Relevance: Medium — generates and validates tokens
+  - Lines to Read: 10-85
   - Class: `AuthService` (lines 10-15)
   - Method: `GenerateTokenAsync(...)` (lines 30-55)
   - Method: `ValidateTokenAsync(...)` (lines 60-85)
@@ -157,17 +160,20 @@ Given: "Add user management"
 **Code Element Mappings**:
 - `/full/path/Controllers/UserController.cs`
   - Relevance: High — owns user-facing auth endpoints
+  - Lines to Read: 20-85
   - Class: `UserController` (lines 20-25)
   - Method: `Register(...)` (lines 30-45)
   - Method: `Login(...)` (lines 50-65)
   - Method: `GetProfile(...)` (lines 70-85)
 - `/full/path/Services/UserService.cs`
   - Relevance: High — implements core user operations
+  - Lines to Read: 10-75
   - Class: `UserService` (lines 10-15)
   - Method: `CreateUserAsync(...)` (lines 25-50)
   - Method: `AuthenticateAsync(...)` (lines 55-75)
 - `/full/path/Models/User.cs`
   - Relevance: Medium — data model used by services/controllers
+  - Lines to Read: 5-13
   - Class: `User` (lines 5-10)
   - Property: `Email` (line 12)
   - Property: `PasswordHash` (line 13)
