@@ -169,11 +169,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1757642283,
-        "narHash": "sha256-sl+JwtGak6iWTawWcy3mel0C0VBdsLVDKLOee7JzERI=",
+        "lastModified": 1757702112,
+        "narHash": "sha256-UW3pLML3Tar5Z8iY8MxPnWp/K1poG+gAAg9qBLNlfss=",
         "owner": "aodhanhayter",
         "repo": "opencode-flake",
-        "rev": "ec332e4ad16e00ac76f31ea64f4491c7be904f97",
+        "rev": "27af5f3ba322cb4d5782bf558587fe248a9ed343",
         "type": "github"
       },
       "original": {
@@ -200,11 +200,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1757558036,
-        "narHash": "sha256-DyZaeaHy8iibckZ63XOqYJtEHc3kmVy8JrBIBV/GQHI=",
+        "lastModified": 1757644300,
+        "narHash": "sha256-bVIDYz31bCdZId441sqgkImnA7aYr2UQzQlyl+O2DWc=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "b8adf899786b7b77b8c3636a9b753e3622f00db0",
+        "rev": "591c5ae84f066bdfc9797b217df392d58eafd088",
         "type": "github"
       },
       "original": {
