@@ -12,20 +12,12 @@
     "webfetch": "allow"
   },
   "tools": {
-    "github_*": false,
-    "todowrite": true,
-    "todoread": true
+    "github_*": false
   },
   "agent": {
     "github": {
       "tools": {
         "github_*": true
-      }
-    },
-    "plan": {
-      "tools": {
-        "todowrite": true,
-        "todoread": true
       }
     }
   },
@@ -54,6 +46,11 @@
       "enabled": true
     }
   },
+  // Disable paste summary. Paste whole thing.
+  "experimental": {
+    "disable_paste_summary": true,
+  },
+  // Enable thinking for Anthropic models.
   "provider": {
     "anthropic": {
       "models": {
