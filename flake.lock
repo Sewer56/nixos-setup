@@ -284,16 +284,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1757810550,
+        "lastModified": 1757910558,
         "narHash": "sha256-qD2UBG+JfmIE50OmjumOQZ73LKUacxO7uq2hxkna0rA=",
-        "owner": "Sewer56",
+        "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "8b79f983eb7549c506e435d07b12ba6565833d0d",
+        "rev": "5e06d0f1844bd150e7813368b06f32b03c816a0d",
         "type": "github"
       },
       "original": {
-        "owner": "Sewer56",
-        "ref": "claude-code-extras",
+        "owner": "nix-community",
         "repo": "home-manager",
         "type": "github"
       }
