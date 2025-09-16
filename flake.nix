@@ -22,7 +22,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     opencode-flake = {
-      url = "github:aodhanhayter/opencode-flake";
+      url = "github:Sewer56/opencode-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprWorkspaceLayouts = {
