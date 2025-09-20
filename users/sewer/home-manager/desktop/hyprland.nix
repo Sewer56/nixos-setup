@@ -1,4 +1,8 @@
-{pkgs, inputs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   imports = [
     ./hyprland/default.nix
   ];
@@ -11,7 +15,9 @@
   # Hyprland Window Manager (User Configuration)
   wayland.windowManager.hyprland = {
     enable = true;
-    portalPackage = null; # Use the default portal package
+    # set the flake package
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     plugins = [
       inputs.hypr-dynamic-cursors.packages.${pkgs.system}.default
       inputs.hyprWorkspaceLayouts.packages.${pkgs.system}.default

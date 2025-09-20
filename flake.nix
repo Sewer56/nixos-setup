@@ -25,13 +25,14 @@
       url = "github:Sewer56/opencode-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hyprland.url = "github:hyprwm/Hyprland";
     hyprWorkspaceLayouts = {
       url = "github:Sewer56/hyprWorkspaceLayouts/fix-workspaces";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.hyprland.follows = "hyprland";
     };
     hypr-dynamic-cursors = {
       url = "github:VirtCode/hypr-dynamic-cursors";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.hyprland.follows = "hyprland";
     };
   };
 
