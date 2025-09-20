@@ -12,10 +12,13 @@
     xwayland.enable = true;
   };
 
+  # Must be synced with home-manager module, due to home-manager bug that overrides.
   xdg.portal = {
     enable = true;
-    extraPortals = with pkgs; [xdg-desktop-portal-gtk];
-    xdgOpenUsePortal = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+    ];
+    config.common.default = "gtk";
   };
 
   # Nicely ask programs to use Wayland

@@ -29,6 +29,15 @@
     xwayland.enable = true;
   };
 
+  # Must be synced with nixos module, due to home-manager bug that overrides.
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+    ];
+    config.common.default = "gtk";
+  };
+
   # Polkit agent for privilege escalation in text editors like vscode
   services.hyprpolkitagent.enable = true;
 
