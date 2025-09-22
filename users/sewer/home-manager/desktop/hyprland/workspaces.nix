@@ -16,7 +16,7 @@
         "code"
         "vesktop"
         "gitkraken"
-        "slack"
+        "slack --ozone-platform=wayland"
         "telegram-desktop"
         "tidal-hifi"
         "proton-mail"
