@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  lib,
   ...
 }: {
   imports = [
@@ -15,9 +16,7 @@
   # Hyprland Window Manager (User Configuration)
   wayland.windowManager.hyprland = {
     enable = true;
-    # set the flake package
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+    portalPackage = null; # Use the default portal package
     plugins = [
       inputs.hypr-dynamic-cursors.packages.${pkgs.system}.default
       inputs.hyprWorkspaceLayouts.packages.${pkgs.system}.default
@@ -31,7 +30,7 @@
 
   # Must be synced with nixos module, due to home-manager bug that overrides.
   xdg.portal = {
-    enable = true;
+    enable = lib.mkForce true;
     extraPortals = with pkgs; [
       xdg-desktop-portal-gtk
     ];
