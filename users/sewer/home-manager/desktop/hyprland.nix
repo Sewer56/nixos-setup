@@ -18,7 +18,7 @@
     enable = true;
     portalPackage = null; # Use the default portal package
     plugins = [
-      inputs.hypr-dynamic-cursors.packages.${pkgs.system}.default
+      pkgs.hyprlandPlugins.hypr-dynamic-cursors
       inputs.hyprWorkspaceLayouts.packages.${pkgs.system}.default
     ];
     systemd = {
