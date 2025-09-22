@@ -1,20 +1,18 @@
 {
   pkgs,
-  inputs,
+  lib,
   ...
 }: {
   # Hyprland Desktop
   programs.hyprland = {
     enable = true;
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     withUWSM = true; # Session management
     xwayland.enable = true;
   };
 
   # Must be synced with home-manager module, due to home-manager bug that overrides.
   xdg.portal = {
-    enable = true;
+    enable = lib.mkForce true;
     extraPortals = with pkgs; [
       xdg-desktop-portal-gtk
     ];
