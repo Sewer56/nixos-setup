@@ -1,7 +1,7 @@
 ---
 description: "Generate concise PR summary"
 agent: build
-model: github-copilot/claude-sonnet-4
+model: anthropic/claude-sonnet-4-20250514
 ---
 
 # Simple PR Summary

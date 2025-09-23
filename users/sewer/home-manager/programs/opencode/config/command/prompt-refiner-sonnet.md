@@ -1,7 +1,7 @@
 ---
 description: "Clarify vague requests into specific objectives"
 agent: build
-model: github-copilot/claude-sonnet-4
+model: anthropic/claude-sonnet-4-20250514
 ---
 
 # Prompt Refiner Agent

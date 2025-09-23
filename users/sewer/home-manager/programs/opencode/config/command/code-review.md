@@ -1,7 +1,7 @@
 ---
 description: "Review code changes, generate quality report, and display CLI summary"
 agent: build
-model: github-copilot/claude-sonnet-4
+model: anthropic/claude-sonnet-4-20250514
 ---
 
 # Code Review
