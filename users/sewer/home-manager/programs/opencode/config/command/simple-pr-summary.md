@@ -14,10 +14,12 @@ Ultrathink to ensure you understand the changes to the best of your ability befo
 
 When invoked:
 
-1. Run `git diff` to see recent changes
-2. Run `git status` to see file modifications
-3. Quickly analyze changes to understand their core purpose
-4. Generate a `PR-SUMMARY.md` file with a concise summary
+0. Ensure local `main` branch is up to date with remote.
+1. Revert to original branch.
+2. Run `git diff` to see recent changes
+3. Run `git status` to see file modifications
+4. Quickly analyze changes to understand their core purpose
+5. Generate a `PR-SUMMARY.md` file with a concise summary
 
 ## Output Format
 
@@ -51,6 +53,7 @@ Save to `PR-SUMMARY.md`:
 - Skip sections if they add no value
 - Use simple, clear language
 - No emojis or formatting flourishes
+- Do not include bug fixes for new functionality in this PR; as those were never in a released version.
 
 After analyzing the changes, write the summary to `PR-SUMMARY.md` and confirm the file is ready to paste into GitHub.
 
