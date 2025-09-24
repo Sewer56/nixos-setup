@@ -22,7 +22,5 @@
   home.sessionPath = [
     # Add cargo installed binaries to PATH
     "$HOME/.cargo/bin"
-    # Add rustup toolchain binaries to PATH
-    "$HOME/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin"
   ];
 }
