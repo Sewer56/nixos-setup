@@ -15,12 +15,20 @@
     "webfetch": "allow"
   },
   "tools": {
-    "github_*": false
+    "github_*": false,
+    "context7_*": false,
+    "deepwiki_*": false
   },
   "agent": {
     "github": {
       "tools": {
         "github_*": true
+      }
+    },
+    "research": {
+      "tools": {
+        "context7_*": true,
+        "deepwiki_*": true
       }
     }
   },
