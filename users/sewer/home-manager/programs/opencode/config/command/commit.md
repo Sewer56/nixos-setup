@@ -1,7 +1,7 @@
 ---
 description: "Create semantic commits following changelog format"
 agent: build
-model: github-copilot/claude-sonnet-4
+model: anthropic/claude-sonnet-4-20250514
 ---
 
 # Commit Changes
