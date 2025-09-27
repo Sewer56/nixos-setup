@@ -22,14 +22,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     opencode-flake = {
-      url = "github:Sewer56/opencode-flake";
+      url = "github:AodhanHayter/opencode-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprWorkspaceLayouts = {
       url = "github:Sewer56/hyprWorkspaceLayouts/fix-workspaces";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
   };
 
   outputs = {nixpkgs, ...} @ inputs: let
