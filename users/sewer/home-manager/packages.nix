@@ -12,6 +12,7 @@
     # Development tools
     telegram-desktop
     slack
+    imhex
 
     # Media/torrents
     qbittorrent
