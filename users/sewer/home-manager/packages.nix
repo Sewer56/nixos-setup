@@ -4,6 +4,7 @@
     # System utilities
     file-roller
     brightnessctl
+    kdiskmark
 
     # Browser (user-specific)
     vivaldi
