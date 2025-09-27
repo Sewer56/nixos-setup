@@ -1,7 +1,7 @@
 ---
 mode: subagent
-description: Specialized agent for GitHub interactions, repository management, and CI/CD workflows
-model: github-copilot/claude-sonnet-4
+description: Use this for any sort of interactions with GitHub.
+model: anthropic/claude-sonnet-4-20250514
 temperature: 0.0
 tools:
   github_*: true
