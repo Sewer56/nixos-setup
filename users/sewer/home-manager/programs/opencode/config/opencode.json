@@ -22,11 +22,7 @@
   "agent": {
     "github": {
       "tools": {
-        "github_*": true
-      }
-    },
-    "research": {
-      "tools": {
+        "github_*": true,
         "context7_*": true,
         "deepwiki_*": true
       }
