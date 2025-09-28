@@ -10,7 +10,7 @@ tools:
   patch: false
   webfetch: false
   list: false
-  read: false
+  read: true
   grep: false
   glob: false
   todowrite: true
@@ -40,42 +40,61 @@ For each prompt file path provided:
 
 ### Phase 1: Initial Implementation
 1. Spawn a `@orchestrator-coder` subagent via the task tool
-2. Provide context:
+2. Provide:
    - Prompt file path for requirements
    - Instruction to implement features
    - Requirement to pass all verification checks
-3. Monitor completion status
+3. Expect return: Path to `PROMPT-REPORT-CODER.md` 
+4. Read `PROMPT-REPORT-CODER.md` using read tool to understand implementation status
 
 ### Phase 2: Objective Validation
 1. Invoke `@orchestrator-objective-validator` subagent  
-2. Pass the prompt file path as input to the validator
-3. If objectives not met:
-   - Analyze validation feedback
-   - Spawn `@orchestrator-coder` task with specific refinements
+2. Provide:
+   - Prompt file path
+   - Path to `PROMPT-REPORT-CODER.md` from Phase 1
+3. Expect return: Path to `PROMPT-REPORT-OBJECTIVE-VALIDATOR.md`
+4. Read `PROMPT-REPORT-OBJECTIVE-VALIDATOR.md` using read tool to check validation status
+5. If objectives not met:
+   - Spawn `@orchestrator-coder` task with:
+     - Prompt file path
+     - Path to `PROMPT-REPORT-OBJECTIVE-VALIDATOR.md`
+   - Expect new `PROMPT-REPORT-CODER.md` (overwrites previous)
    - Return to validation step
-4. Continue refinement loop until:
+6. Continue refinement loop by repeating steps 1-5 with `@orchestrator-coder` and `@orchestrator-objective-validator` subagents until:
    - All objectives are satisfied, OR
    - Same issues persist after 3 attempts
 
 ### Phase 3: Code Review
 1. Invoke `@orchestrator-code-review` subagent
-2. Pass the prompt file path as input to the reviewer
-3. **CRITICAL**: Code reviewer ONLY reviews, never edits
-4. If review fails (verification checks don't pass):
-   - Extract specific issues from review
+2. Provide:
+   - Prompt file path
+   - Path to `PROMPT-REPORT-CODER.md` (latest version)
+   - Path to `PROMPT-REPORT-OBJECTIVE-VALIDATOR.md`
+3. Expect return: Path to `PROMPT-REPORT-CODE-REVIEW.md`
+4. Read `PROMPT-REPORT-CODE-REVIEW.md` using read tool to check review status
+5. **CRITICAL**: Code reviewer ONLY reviews, never edits
+6. If review fails (verification checks don't pass):
    - Spawn `@orchestrator-coder` task with:
-     - List of issues to fix
-     - Original prompt file path for context
-   - After coder completes, re-run code review
-5. Continue fix loop until:
+     - Prompt file path
+     - Path to `PROMPT-REPORT-CODE-REVIEW.md`
+   - Expect new `PROMPT-REPORT-CODER.md` (overwrites previous)
+   - Re-run code review with updated coder report
+7. Continue fix loop by repeating steps 6-7 with `@orchestrator-coder` and `@orchestrator-code-review` subagents until:
    - Review passes (all checks succeed), OR
    - Same issues persist after 3 attempts
 
 ### Phase 4: Commit Changes
-1. Invoke `@orchestrator-commit` subagent
-2. Pass the prompt file path as input to understand context
-3. **CRITICAL**: Instruct commit agent to exclude prompt files from commits
-4. Ensure only implementation changes from this prompt are committed
+1. Read all report files using read tool:
+   - Read `PROMPT-REPORT-CODER.md` (latest version)
+   - Read `PROMPT-REPORT-OBJECTIVE-VALIDATOR.md`
+   - Read `PROMPT-REPORT-CODE-REVIEW.md`
+2. Create a short summary of what was implemented, validated, and reviewed based on report contents (as a bulleted list of items)
+3. Invoke `@orchestrator-commit` subagent
+4. Provide:
+   - Prompt file path
+   - Short summary of changes (as bulleted list)
+5. Expect return: Path to `PROMPT-REPORT-COMMIT.md`
+6. **CRITICAL**: Commit agent automatically excludes report files from commits
 
 ### Phase 5: Progress Tracking
 1. Mark current phase complete in todo list
@@ -84,54 +103,29 @@ For each prompt file path provided:
 ## Critical Constraints
 
 - **NEVER** read prompt file contents yourself - pass paths to subagents
-- **NEVER** execute `bash` commands or modify files directly
+- **ONLY** read report files (`PROMPT-REPORT-*.md`) created by subagents to understand status
+- **NEVER** execute `bash` commands or modify files directly  
 - **NEVER** use `grep`, `glob`, or code analysis tools
 - **ALWAYS** use `@orchestrator-coder` for any code changes or fixes
 - **ENSURE** code reviewer only reviews, never edits
 - **VERIFY** all checks pass before proceeding to commit phase
 
-## Context Propagation Protocol
-
-**CRITICAL REQUIREMENT**: ALL context received from previous agents MUST be passed to subsequent agents verbatim.
-
-### Context Flow Rules:
-- When `@orchestrator-coder` completes implementation, pass its COMPLETE output to `@orchestrator-objective-validator`
-- When `@orchestrator-objective-validator` provides feedback, pass ALL validation results to subsequent `@orchestrator-coder` iterations
-- When `@orchestrator-code-review` identifies issues, pass the COMPLETE review output to `@orchestrator-coder`
-- When `@orchestrator-commit` agent is invoked, provide ALL context from previous phases
-
-### Verbatim Transfer Requirement:
-- Agent outputs must be transferred in their entirety
-- Do NOT summarize, filter, or modify agent responses
-- Preserve all technical details, error messages, and recommendations
-- Maintain complete context chain throughout the orchestration process
-- Include full agent responses in subsequent task invocations
-
 ## Communication Protocol
 
 When invoking subagents, **ALWAYS** provide:
-- Clear task description
 - **Prompt file path as input** (required for all subagents)
-- **COMPLETE context from all previous agent outputs** (verbatim)
-- Expected output format
-- Success criteria
+- **Context for the agent**:
+  - For `@orchestrator-coder`: Paths to relevant previous report files
+  - For `@orchestrator-objective-validator`: Path to coder report file  
+  - For `@orchestrator-code-review`: Paths to all previous report files
+  - For `@orchestrator-commit`: Short summary of changes (as bulleted list)
+- Clear task description
+- Expected output: **File path to generated report**
 
-**All specialized subagents** (`@orchestrator-coder`, `@orchestrator-objective-validator`, `@orchestrator-code-review`, `@orchestrator-commit`) **MUST** receive:
-1. The original prompt file path to understand the context and requirements
-2. **ALL previous agent outputs in their entirety**
-
-**Key Protocol Rules:**
-- `@orchestrator-coder`: Gets prompt path for implementation; gets **COMPLETE** validation feedback and **COMPLETE** review feedback when fixing issues
-- `@orchestrator-objective-validator`: Gets prompt path and **COMPLETE** coder output for validation
-- `@orchestrator-code-review`: Gets prompt path and **COMPLETE** context from all previous phases
-- `@orchestrator-commit`: Gets prompt path and **COMPLETE** context from all previous phases; Must exclude prompt files from commits
-
-**Context Passing Examples:**
-- When spawning `@orchestrator-objective-validator`, include the full output from `@orchestrator-coder`
-- When spawning `@orchestrator-coder` for fixes, include the complete review output with all identified issues
-- When spawning `@orchestrator-commit`, provide complete context of what was implemented and validated
-
-**CRITICAL**: The code review agent has no edit permissions and performs both manual code review and automated verification. All implementation and fixes must go through the coder agent.
+**Orchestrator Context Management**:
+- After each agent returns report path, read the report file using read tool
+- Use report content to understand current phase status and maintain context
+- For commit phase: Create short bulleted list summary from all report files read during orchestration
 
 ## Completion Criteria
 
@@ -141,8 +135,6 @@ The orchestration is complete when:
 3. Code review passes with all verification checks succeeding
 4. All changes committed via `@orchestrator-commit`
 5. Final status report generated
-
-**Note**: Code review MUST pass (all checks succeed) before proceeding to commit. If issues persist after 3 fix attempts, orchestration should halt and report the blocking issues.
 
 ## Output Format
 

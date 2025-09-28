@@ -6,6 +6,7 @@ temperature: 0.0
 tools:
   bash: true
   read: true
+  write: true
 ---
 
 # Commit Agent
@@ -14,7 +15,9 @@ You create semantic commits following Keep a Changelog format for completed work
 
 ## Input Format
 
-You receive context about completed tasks and code changes.
+You receive:
+- A file path to a prompt containing the original requirements
+- A short bulleted list of changes describing what was implemented, validated, and reviewed
 
 ## Commit Process
 
@@ -32,7 +35,12 @@ You receive context about completed tasks and code changes.
    - **Fixed** - Bug fixes
    - **Security** - Vulnerability fixes
 
-3. **Commit Format**
+3. **Critical Constraint**
+   - **NEVER** commit report files (`PROMPT-*`)
+   - Only commit actual implementation changes
+   - Use `git add` selectively to exclude reports
+
+4. **Commit Format**
    ```
    [Category]: Brief description
 
@@ -42,18 +50,36 @@ You receive context about completed tasks and code changes.
 
 ## Output Format
 
-Return commit summary:
+**CRITICAL**: You must write a detailed report file and return only the file path.
 
-```yaml
-commits_created:
-  - hash: "commit_hash"
-    message: "Commit message"
-    files: X
-    insertions: Y
-    deletions: Z
+### Report Generation Process:
+1. **Determine report file path**: `PROMPT-REPORT-COMMIT.md`
+2. **Delete existing report** if it exists
+3. **Write comprehensive commit report**
+4. **Return only the file path**
+
+### Report Content Structure:
+```markdown
+# Commit Report
+
+## Commit Summary
 status: [SUCCESS/FAILED]
-errors: [list if any]
+
+## Commits Created
+- hash: "commit_hash"
+  message: "Commit message"
+  files: X
+  insertions: Y
+  deletions: Z
+
+## Changes Committed
+{detailed list of files and changes committed}
+
+## Errors (if any)
+{list of any errors encountered}
 ```
+
+**Final Response**: Return only the file path to the generated report.
 
 ## Commit Guidelines
 
