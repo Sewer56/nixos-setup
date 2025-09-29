@@ -1,7 +1,7 @@
 ---
 description: "Process multiple vague prompts and create refined execution plan"
 agent: build
-model: anthropic/claude-sonnet-4-20250514
+model: anthropic/claude-sonnet-4-5-20250929
 ---
 
 # Multi-Prompt Orchestrator Planner

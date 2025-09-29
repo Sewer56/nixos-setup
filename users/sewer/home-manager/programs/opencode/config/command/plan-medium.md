@@ -1,7 +1,7 @@
 ---
 description: "Medium-tier planning using Claude. Deeper analysis; outputs plan in chat; no file writes. Suitable in most cases."
 agent: plan
-model: anthropic/claude-sonnet-4-20250514
+model: anthropic/claude-sonnet-4-5-20250929
 comment: "Run prompt-refiner.md first."
 ---
 

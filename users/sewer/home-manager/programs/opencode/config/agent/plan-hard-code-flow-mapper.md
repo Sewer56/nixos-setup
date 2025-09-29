@@ -2,7 +2,7 @@
 mode: subagent
 description: Maps code flows and execution paths. Analyzes investigation reports to understand system architecture.
 temperature: 0.0
-model: anthropic/claude-sonnet-4-20250514
+model: anthropic/claude-sonnet-4-5-20250929
 ---
 
 # Task Hard Code Flow Mapper Agent

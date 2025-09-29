@@ -1,7 +1,7 @@
 ---
 mode: primary
 description: Orchestrates multi-phase tasks by delegating to specialized subagents
-model: anthropic/claude-sonnet-4-20250514
+model: anthropic/claude-sonnet-4-5-20250929
 temperature: 0.0
 tools:
   bash: false
