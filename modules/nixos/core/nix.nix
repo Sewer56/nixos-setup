@@ -75,6 +75,7 @@
 
       # desktop software
       desktop-file-utils
+      freetype
     ]
     # Common game related binaries
     ++ (steam-run.args.multiPkgs pkgs);
