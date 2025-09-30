@@ -1,9 +1,11 @@
 ---
-description: "Medium-tier planning using Claude. Deeper analysis; outputs plan in chat; no file writes. Suitable in most cases."
+description: "Medium-tier planning using GLM-4.6. Deeper analysis; outputs plan in chat; no file writes. Suitable in most cases."
 agent: plan
-model: anthropic/claude-sonnet-4-5-20250929
+model: zai-coding-plan/glm-4.6
 comment: "Run prompt-refiner.md first."
 ---
+
+ultrathink
 
 ## Planning Process
 
