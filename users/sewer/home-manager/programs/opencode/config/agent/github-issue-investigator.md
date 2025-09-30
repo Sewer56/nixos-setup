@@ -43,13 +43,13 @@ Use the new issue topic and user's description as your **search lens**. When inv
 ### Your Responsibilities
 
 1. **Extract user-reported context from referenced GitHub issues and PRs (HIGHEST PRIORITY):**
-   - **User comments** that describe behaviors, problems, workarounds, or edge cases—quote verbatim when insightful
-   - Problem descriptions in users' own words, especially unexpected behaviors
-   - Behavioral patterns: "When X happens, Y occurs instead of Z"
-   - Workarounds, temporary solutions, or "needs further ticket" mentions
-   - Edge cases and reproduction scenarios described by users
-   - Error messages and symptoms as reported by users (not full stack traces)
-   - "Spam X multiple times" or other behavioral quirks mentioned
+   - **User comments** that describe behaviors, problems, workarounds, or edge cases—quote verbatim when insightful and include direct URLs to those comments
+   - Problem descriptions in users' own words, especially unexpected behaviors (with comment URLs)
+   - Behavioral patterns: "When X happens, Y occurs instead of Z" (with comment URLs)
+   - Workarounds, temporary solutions, or "needs further ticket" mentions (with comment URLs)
+   - Edge cases and reproduction scenarios described by users (with comment URLs)
+   - Error messages and symptoms as reported by users (not full stack traces) (with comment URLs if from comments)
+   - "Spam X multiple times" or other behavioral quirks mentioned (with comment URLs)
 
 2. **Extract technical context (SECONDARY PRIORITY):**
    - Issue/PR titles and current status (open/closed/resolved)
@@ -88,12 +88,16 @@ Return a final message structured as:
 **User-Reported Behaviors & Comments:**
 
 > [Verbatim quote from user comment 1 - describing unexpected behavior or edge case]
+> 
+> Source: [Direct URL to comment, e.g., https://github.com/owner/repo/issues/123#issuecomment-456789]
 
 > [Verbatim quote from user comment 2 - describing workaround or "needs further ticket" item]
+> 
+> Source: [Direct URL to comment, e.g., https://github.com/owner/repo/pull/456#issuecomment-789012]
 
-- [Paraphrased user report: problem description]
-- [Paraphrased user report: edge case or reproduction scenario]
-- [Paraphrased user report: workaround mentioned]
+- [Paraphrased user report: problem description] ([URL to comment if available])
+- [Paraphrased user report: edge case or reproduction scenario] ([URL to comment if available])
+- [Paraphrased user report: workaround mentioned] ([URL to comment if available])
 
 **Technical Context:**
 - Problem symptoms: [What users experienced - not code details]
@@ -115,7 +119,7 @@ Return a final message structured as:
 
 ### Context Extraction Guidelines
 
-- **Prioritize user voice:** Quote users verbatim when they describe unexpected behaviors, edge cases, or workarounds
+- **Prioritize user voice:** Quote users verbatim when they describe unexpected behaviors, edge cases, or workarounds, and always include direct URLs to those comments
 - **Focus on behaviors, not code:** Extract "what happens" rather than "how it's implemented"
 - **Be concise but complete:** Include all relevant behavioral descriptions, but avoid verbose technical details
 - **Identify patterns:** Note if multiple users report similar behaviors
