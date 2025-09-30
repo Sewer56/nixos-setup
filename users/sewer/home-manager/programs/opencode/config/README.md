@@ -14,7 +14,7 @@ Personal OpenCode configuration with custom TypeScript plugins.
 Run this command in the config directory to install TypeScript support and plugin types:
 
 ```bash
-cd /etc/nixos/users/sewer/home-manager/programs/opencode/config
+cd /home/sewer/nixos/users/sewer/home-manager/programs/opencode/config
 bun install
 ```
 

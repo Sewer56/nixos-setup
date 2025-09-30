@@ -28,7 +28,7 @@ in {
   ];
 
   # Link ccstatusline config from our managed location
-  home.file.".config/ccstatusline".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/users/sewer/home-manager/programs/claude-code/.config/ccstatusline";
+  home.file.".config/ccstatusline".source = config.lib.file.mkOutOfStoreSymlink "/home/sewer/nixos/users/sewer/home-manager/programs/claude-code/.config/ccstatusline";
 
   programs.claude-code = {
     enable = true;

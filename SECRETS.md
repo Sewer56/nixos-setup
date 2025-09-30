@@ -55,7 +55,7 @@ nix shell github:ryantm/agenix
 Navigate to the home-manager directory and test decryption:
 
 ```bash
-cd /etc/nixos/users/sewer/home-manager
+cd /home/sewer/nixos/users/sewer/home-manager
 # Test by trying to edit a secret (creates it in secrets/ folder)
 agenix -e secrets/test.age
 ```
@@ -97,7 +97,7 @@ agenix -e secrets/test.age
 
 4. Rekey all secrets:
    ```bash
-   cd /etc/nixos/users/sewer/home-manager
+   cd /home/sewer/nixos/users/sewer/home-manager
    agenix -rIs
    ```
 
@@ -106,7 +106,7 @@ agenix -e secrets/test.age
 1. Remove from `users/sewer/home-manager/secrets.nix`
 2. Rekey all secrets: 
    ```bash
-   cd /etc/nixos/users/sewer/home-manager
+   cd /home/sewer/nixos/users/sewer/home-manager
    agenix -r
    ```
 
@@ -123,7 +123,7 @@ agenix -e secrets/test.age
 ### 2. Create the Secret
 
 ```bash
-cd /etc/nixos/users/sewer/home-manager
+cd /home/sewer/nixos/users/sewer/home-manager
 agenix -e secrets/my-secret.age
 ```
 This opens your `$EDITOR` to input the secret content.
@@ -152,7 +152,7 @@ programs.someApp = {
 
 **Note: All agenix commands must be run from the home-manager directory:**
 ```bash
-cd /etc/nixos/users/sewer/home-manager
+cd /home/sewer/nixos/users/sewer/home-manager
 ```
 
 ### List all secrets

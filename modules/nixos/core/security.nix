@@ -11,7 +11,7 @@
       users = ["sewer"];
       commands = [
         {
-          command = "/run/current-system/sw/bin/nixos-rebuild test";
+          command = "/run/current-system/sw/bin/nixos-rebuild test --flake /home/sewer/nixos";
           options = ["NOPASSWD"];
         }
       ];
