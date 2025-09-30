@@ -38,6 +38,7 @@ You will receive context and requirements from the orchestrator, including:
    - **Code quality**: Readability, maintainability, proper abstractions
    - **Best practices**: Proper error handling, resource cleanup, naming conventions
    - **Business logic**: Requirements alignment, edge cases, data validation
+   - **Overengineering**: Unnecessary abstractions, future-proofing not requested, unused code paths, helper utilities serving no immediate purpose, `dead_code`/`unused` suppression attributes
 
 3. **Run Comprehensive Verification**
    - Run tests
@@ -59,6 +60,7 @@ You will receive context and requirements from the orchestrator, including:
 - Logic errors that affect correctness
 - Data integrity issues
 - Resource leaks or performance bottlenecks
+- **Overengineering**: Code exceeding requirements (unused abstractions, future-proofing, unnecessary utilities, `dead_code`/`unused` attributes)
 
 **MAY WARN for Code Quality:**
 - Style and naming conventions
@@ -102,6 +104,14 @@ review_status: [PASS/FAIL]
 - file: "path/to/file:line"
   type: [STYLE/BEST_PRACTICE/MAINTAINABILITY]
   description: "Code quality concern"
+
+## Overengineering Issues
+{Only list overengineered code - if none, omit section}
+- file: "path/to/file:line"
+  type: OVERENGINEERED
+  description: "Unnecessary code description (e.g., unused abstraction, future-proofing not requested)"
+  suggested_fix: "Remove this code"
+  priority: [HIGH/MEDIUM]
 
 ## Failed Checks
 {Only list failed verification checks - omit passing ones}

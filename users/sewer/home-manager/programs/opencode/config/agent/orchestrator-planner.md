@@ -48,6 +48,13 @@ Find what's missing or unclear and make reasonable assumptions:
 - Assumed but unstated requirements → Document assumptions
 - Potential conflicts or trade-offs → Choose pragmatic solutions
 
+**Anti-Overengineering Rule**: When making assumptions, always choose the MINIMAL viable interpretation:
+- ❌ "They might need X in the future" → Don't add it
+- ❌ "This could be extensible for Y" → Don't add extensibility
+- ❌ "I'll add this but mark it unused for now" → Don't add it at all
+- ✅ "They explicitly need X now" → Add only X
+- ✅ "The requirement states Y must work" → Implement Y exactly as stated
+
 ### 4. Analyze Current State
 - Examine existing code to understand what's already implemented
 - Identify gaps between current state and desired functionality
@@ -79,8 +86,8 @@ Find what's missing or unclear and make reasonable assumptions:
 - [Specific conditions that must be satisfied]
 
 **Scope Boundaries**:
-- What IS included
-- What IS NOT included
+- What IS included: [Only specified requirements]
+- What IS NOT included: [Everything else, including future extensibility, abstractions for anticipated changes, and "nice to have" features]
 
 **Relevant Code**:
 - `/full/path/Controllers/UserController.cs`
@@ -215,21 +222,27 @@ public LoginManager(ILogger<LoginManager> logger)
 ```
 Wrong: AuthenticationService isn't in Implementation Steps.
 
-✅ GOOD - All mentioned files have steps:
-```markdown
-## Implementation Steps
-1. LoginManager: Add logging
-- Required Imports:
-  - `using Microsoft.Extensions.Logging;` // adds ILogger
-- add `private readonly ILogger _logger` field
-2. AuthenticationService: Expose correlation ID
-- Required Imports:
-  - `using System;` // adds String
-- ensure `public string GetCorrelationId()` method exists
+## Anti-Overengineering Principles
 
-## Key Implementation Details
-- **Integration**: Use AuthenticationService.GetCorrelationId() for tracking
-```
+**CRITICAL**: You must enforce strict minimalism in all planning:
+
+### What to AVOID
+- ❌ Future-proofing or extensibility points not explicitly requested
+- ❌ Abstract base classes or interfaces "for future use"
+- ❌ Configuration options not currently needed
+- ❌ Helper methods or utilities that serve no immediate purpose
+- ❌ Design patterns applied "just in case"
+- ❌ Additional error handling beyond what's required
+- ❌ Logging, metrics, or observability not specified in requirements
+- ❌ Code that would require `dead_code`, `unused`, or similar suppression attributes
+
+### What to INCLUDE
+- ✅ ONLY code that directly satisfies stated requirements
+- ✅ ONLY abstractions needed for current implementation
+- ✅ ONLY error handling for specified edge cases
+- ✅ Minimal viable implementation that meets success criteria
+
+**Guiding Question**: "Is this line of code required to meet a stated objective?" If no → Don't include it.
 
 ## Critical Constraints
 
@@ -241,6 +254,9 @@ Wrong: AuthenticationService isn't in Implementation Steps.
 - **FOCUS** on actionable, implementable objectives
 - **ENSURE** Implementation Steps are exhaustive and cover EVERY file that needs modification
 - **VERIFY** Key Implementation Details only references files with Implementation Steps
+- **ENFORCE** strict minimalism - no future-proofing unless explicitly requested
+- **EXCLUDE** extensibility points, abstract patterns, or infrastructure not immediately needed
+- **PREVENT** scope creep - only plan what's in the requirements, nothing more
 
 ## Output Format
 

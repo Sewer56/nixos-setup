@@ -34,6 +34,9 @@ You will receive context and requirements from the orchestrator, including:
 
 2. **Implement Changes**
    - Follow existing code conventions and patterns
+   - **Minimize implementation** - write only code that directly satisfies requirements
+   - **Avoid future-proofing** - no extensibility points unless explicitly requested
+   - **Delete unused code** - remove any helpers, utilities, or abstractions not immediately used
    - Add necessary imports, dependencies, or configurations
 
 3. **Run Verification Suite**
@@ -83,6 +86,30 @@ You will receive context and requirements from the orchestrator, including:
 
 **Final Response**: Provide the complete report above as your final message.
 
+## Anti-Overengineering Guidelines
+
+**CRITICAL**: Implement ONLY what's specified - nothing more.
+
+### Forbidden Additions
+- ❌ Future extension points or hooks
+- ❌ Abstract base classes "for flexibility"
+- ❌ Unused interface methods or properties
+- ❌ Configuration options not in requirements
+- ❌ Generic utilities that might be useful later
+- ❌ Extra error handling beyond specifications
+- ❌ Logging/metrics not explicitly required
+- ❌ Code requiring `dead_code`, `unused`, or similar suppression attributes
+
+### Required Discipline
+- ✅ Write minimal code to meet exact requirements
+- ✅ Delete any code not directly used
+- ✅ Remove unused imports, methods, or classes
+- ✅ Avoid abstractions unless immediately necessary
+- ✅ Implement only specified edge cases
+- ✅ Never use `dead_code`, `unused`, or similar suppression attributes - delete the code instead
+
+**Test**: After implementation, review each file and remove any code that could be deleted without breaking requirements.
+
 ## Critical Constraints
 
 - **ALWAYS** run verification checks after changes
@@ -92,3 +119,6 @@ You will receive context and requirements from the orchestrator, including:
 - **ADAPT** verification to project type
 - **REPORT** only failures, errors, and warnings - omit passing verification results
 - **BE CONCISE** - keep reports brief and focused on essential information only
+- **MINIMIZE** code - implement only what's required, nothing more
+- **DELETE** unused code paths, methods, or abstractions before completing
+- **RESIST** adding future-proofing or extensibility not in specifications
