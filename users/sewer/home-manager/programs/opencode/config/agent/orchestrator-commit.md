@@ -2,7 +2,7 @@
 mode: subagent
 description: Creates semantic commits following changelog conventions
 model: anthropic/claude-sonnet-4-5-20250929
-temperature: 0.0
+temperature: 0.1
 tools:
   bash: true
   read: true
