@@ -107,8 +107,11 @@ You will receive context and requirements from the orchestrator, including:
 - ✅ Avoid abstractions unless immediately necessary
 - ✅ Implement only specified edge cases
 - ✅ Never use `dead_code`, `unused`, or similar suppression attributes - delete the code instead
+- ✅ Write minimal tests covering core functionality
 
 **Test**: After implementation, review each file and remove any code that could be deleted without breaking requirements.
+
+**Testing Exception**: Minimal tests for core functionality are encouraged and not considered overengineering.
 
 ## Critical Constraints
 

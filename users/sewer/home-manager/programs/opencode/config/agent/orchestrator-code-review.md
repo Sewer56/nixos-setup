@@ -62,6 +62,8 @@ You will receive context and requirements from the orchestrator, including:
 - Resource leaks or performance bottlenecks
 - **Overengineering**: Code exceeding requirements (unused abstractions, future-proofing, unnecessary utilities, `dead_code`/`unused` attributes)
 
+**TESTING EXCEPTION**: Minimal tests covering core functionality are NOT overengineering.
+
 **MAY WARN for Code Quality:**
 - Style and naming conventions
 - Code duplication

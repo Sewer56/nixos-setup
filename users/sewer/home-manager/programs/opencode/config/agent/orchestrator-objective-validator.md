@@ -90,6 +90,7 @@ reasoning: "Brief explanation focusing on issues only"
 - **No unused code** - all implemented code must be required by objectives
 - **No future-proofing** - no extensibility points unless explicitly requested
 - **No suppression attributes** - presence of `dead_code`, `unused`, or similar attributes indicates overengineering
+- **Minimal testing expected** - tests covering core functionality are NOT overengineering
 
 ## Communication Protocol
 

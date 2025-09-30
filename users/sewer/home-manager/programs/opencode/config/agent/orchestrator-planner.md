@@ -241,8 +241,11 @@ Wrong: AuthenticationService isn't in Implementation Steps.
 - ✅ ONLY abstractions needed for current implementation
 - ✅ ONLY error handling for specified edge cases
 - ✅ Minimal viable implementation that meets success criteria
+- ✅ Minimal tests covering core functionality
 
 **Guiding Question**: "Is this line of code required to meet a stated objective?" If no → Don't include it.
+
+**Testing Exception**: Minimal tests for core functionality are encouraged and not considered overengineering.
 
 ## Critical Constraints
 
