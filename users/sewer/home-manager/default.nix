@@ -98,7 +98,11 @@
     enable = true;
     userName = "Sewer56";
     userEmail = "sewer56lol@googlemail.com";
+    lfs.enable = true;
+    package = pkgs.gitFull;
   };
+  programs.gh.enable = true;
+  programs.gh.enableGitCredentialHelper = true;
 
   # Agenix configuration for secrets management
   age.secrets = {
