@@ -74,6 +74,10 @@
             "thinking": {
               "type": "enabled",
               "budgetTokens": 31999
+            },
+            "cacheControl": {
+              "type": "ephemeral",
+              "ttl": "1h"
             }
           }
         },
