@@ -86,6 +86,7 @@ Find what's missing or unclear and make reasonable assumptions:
 - `/full/path/Controllers/UserController.cs`
   - Relevance: High — owns user registration/login endpoints
   - Lines to Read: 15-70
+  - Required Imports: `using Microsoft.AspNetCore.Mvc;`, `using System.Threading.Tasks;`, `using YourProject.Services;`
   - Class: `UserController` (lines 15-20)
   - Method: `RegisterAsync(...)` (lines 25-45)
   - Method: `LoginAsync(...)` (lines 50-70)
@@ -104,11 +105,13 @@ Find what's missing or unclear and make reasonable assumptions:
 ## Implementation Steps
 
 1. [FileName/ClassName]: [Description of changes]
+    - Required Imports: [comma-separated list of needed imports]
     - [Specific change with complete method signatures]
     - [Another specific change with full syntax]
     - [Third change with proper access modifiers]
 
 2. [AnotherFile]: [Description of changes]
+    - Required Imports: [comma-separated list of needed imports]
     - [Specific implementation detail]
     - [Another concrete change]
 
@@ -158,6 +161,7 @@ When creating implementation steps, follow these formatting requirements:
 ### Example Implementation Step
 ```
 1. LoginManager: Add logging functionality
+   - Required Imports: `using Microsoft.Extensions.Logging;`, `using System.Threading;`
    - add `public LogLevel CurrentLogLevel { get; set; } = LogLevel.Info` property
    - add `private async Task<bool> LogEventAsync(string eventName, LogLevel level = LogLevel.Info, CancellationToken cancellationToken = default)` method
 ```
@@ -183,8 +187,10 @@ Wrong: AuthenticationService isn't in Implementation Steps.
 ```markdown
 ## Implementation Steps
 1. LoginManager: Add logging
+   - Required Imports: `using Microsoft.Extensions.Logging;`
    - add `private readonly ILogger _logger` field
 2. AuthenticationService: Expose correlation ID
+   - Required Imports: `using System;`
    - ensure `public string GetCorrelationId()` method exists
 
 ## Key Implementation Details
@@ -214,10 +220,12 @@ Your **FINAL MESSAGE** must contain the complete refined prompt using the format
 - Confirm line ranges contain the specified classes/methods/properties/fields
 - Ensure Current State Analysis accurately reflects discovered code
 - Verify Implementation Steps are comprehensive and cover ALL required changes
-- Check that Key Implementation Details only references files with Implementation Steps
+- Check that each Implementation Step includes Required Imports section
+- Verify Key Implementation Details only references files with Implementation Steps
 
 ### Implementation Steps Validation
 - Every file requiring changes MUST have a corresponding Implementation Step
+- Each Implementation Step MUST include "Required Imports:" with all necessary using statements
 - Method signatures must be complete with access modifiers and parameter defaults
 - Changes must be ordered to prevent compilation errors
 - Step titles must follow `[ClassName/FileName]: [Description]` format
