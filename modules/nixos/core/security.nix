@@ -20,8 +20,8 @@
 
   # Open ports in the firewall.
   # Spotify ports: 4070 (Spotify Connect), 443 (HTTPS API), 5353 (discovery protocol)
-  networking.firewall.allowedTCPPorts = [ 4070 443 ];
-  networking.firewall.allowedUDPPorts = [ 5353 ];
+  networking.firewall.allowedTCPPorts = [4070 443];
+  networking.firewall.allowedUDPPorts = [5353];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 }
