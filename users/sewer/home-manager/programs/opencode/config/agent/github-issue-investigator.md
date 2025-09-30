@@ -42,6 +42,11 @@ Use the new issue topic and user's description as your **search lens**. When inv
 - Contains "needs further ticket" items that match the user's description
 - Connects to the same underlying issue
 
+**Critical filtering requirements:**
+- Only include comments that directly relate to the new issue topic
+- Exclude items marked as resolved or confirmed fixed by subsequent comments
+- When in doubt about relevance, exclude rather than include
+
 ### Your Responsibilities
 
 1. **Extract user-reported context from referenced GitHub issues and PRs (HIGHEST PRIORITY):**
@@ -71,6 +76,9 @@ Use the new issue topic and user's description as your **search lens**. When inv
    - Stack traces or logs (unless they reveal error patterns)
    - Speculation or assumptions beyond what's explicitly stated in GitHub content
    - Deep codebase analysis (not your responsibility)
+   - Unrelated comments that don't connect to the new issue topic
+   - Items marked as "resolved" or confirmed fixed in later comments
+   - Discussion threads where the problem was already addressed
 
 ### Output Format
 
@@ -118,6 +126,16 @@ Return a final message structured as:
 - Potential duplicates: [if any existing issue covers this topic]
 - Priority indicators: [if multiple users report similar behavior]
 ```
+
+### Comment Filtering Rules
+
+1. **Relevance Check**: Only include comments that directly relate to the new issue topic and user's description
+2. **Resolution Status**: Exclude comments/items if:
+   - Comment is marked as "resolved" in GitHub
+   - A subsequent comment confirms the issue was fixed
+   - The discussion thread shows the problem was addressed
+   - A linked PR/commit resolved the specific item
+3. **When in doubt**: Exclude rather than include unrelated or potentially resolved items
 
 ### Context Extraction Guidelines
 
