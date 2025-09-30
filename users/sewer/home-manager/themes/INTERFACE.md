@@ -183,4 +183,4 @@ This enables external tools to access theme accent colors programmatically.
 4. (Optional) Create `themes/themename/system.nix` for system integration
 5. Add theme to `themes/default.nix` availableThemes
 6. Add conditional system integration import if system.nix exists
-7. Test with `nixos-rebuild dry-build`
+7. Test with `nixos-rebuild dry-build --flake /home/sewer/nixos`

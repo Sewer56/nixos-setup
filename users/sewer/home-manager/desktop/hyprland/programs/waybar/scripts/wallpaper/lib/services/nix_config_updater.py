@@ -16,7 +16,7 @@ def update_theme_accent(new_accent: str) -> bool:
     Returns:
         True if successful, False otherwise
     """
-    theme_path = Path('/etc/nixos/users/sewer/home-manager/theme.nix')
+    theme_path = Path('/home/sewer/nixos/users/sewer/home-manager/theme.nix')
     
     if not theme_path.exists():
         return False
@@ -59,7 +59,7 @@ def get_current_accent() -> Optional[str]:
     Returns:
         Current accent color name or None if not found
     """
-    theme_path = Path('/etc/nixos/users/sewer/home-manager/theme.nix')
+    theme_path = Path('/home/sewer/nixos/users/sewer/home-manager/theme.nix')
     
     if not theme_path.exists():
         return None

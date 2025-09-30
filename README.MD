@@ -6,13 +6,13 @@
 My personal NixOS configuration using flakes with modular architecture
 and separated system/user concerns.
 
-Reproduces my laptop setup and installs to `/etc/nixos` as usual.
+Reproduces my laptop setup and installs to `/home/sewer/nixos` as usual.
 
 ## Directory Structure & Architecture
 
 ### System-Level Configuration
 ```
-/etc/nixos/
+/home/sewer/nixos/
 ├── flake.nix                   # Main flake definition with system configurations
 ├── flake.lock                  # Locked dependency versions
 ├── hosts/                      # Machine-specific configurations
@@ -75,7 +75,7 @@ sudo nixos-rebuild switch --flake . --upgrade
 
 ### Rollback
 ```bash
-sudo nixos-rebuild rollback
+sudo nixos-rebuild rollback --flake .
 ```
 
 ### Garbage Collection

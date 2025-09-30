@@ -14,7 +14,7 @@
         set -euo pipefail
         f=$(mktemp)
         trap "rm $f" EXIT
-        cd /etc/nixos/users/sewer/home-manager
+        cd /home/sewer/nixos/users/sewer/home-manager
         ${inputs.agenix.packages.${pkgs.system}.default}/bin/agenix -d "${relativePath}" --identity "/home/sewer/.ssh/id_rsa" | tr -d '\n' > "$f"
         ${pkgs.nix}/bin/nix-instantiate --eval -E "builtins.readFile $f"
       ''

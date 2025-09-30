@@ -4,17 +4,17 @@ This document covers hardware-specific setup, configuration, and debugging for N
 
 ## Adding a New Machine (Host)
 
-1. **Clone this repository into /etc/nixos/**:
+1. **Clone this repository into /home/sewer/nixos/**:
 
    ```bash
    sudo mv /etc/nixos /etc/nixos.backup  # Backup existing config
-   sudo git clone https://github.com/Sewer56/nixos-setup.git /etc/nixos
-   cd /etc/nixos
+   sudo git clone https://github.com/Sewer56/nixos-setup.git /home/sewer/nixos
+   cd /home/sewer/nixos
    ```
 
 2. **Create host directory**:
    ```bash
-   sudo mkdir -p /etc/nixos/hosts/<hostname>
+    sudo mkdir -p /home/sewer/nixos/hosts/<hostname>
    ```
 
 3. **Generate hardware configuration**:

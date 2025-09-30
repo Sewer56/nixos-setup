@@ -80,8 +80,8 @@ in {
     '';
   };
 
-  home.file."Pictures/wallpapers/monitor_state.json".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/users/sewer/home-manager/desktop/hyprland/programs/waybar/scripts/wallpaper/state/monitor_state.json";
-  home.file."Pictures/wallpapers/wallpaper_collection.json".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/users/sewer/home-manager/desktop/hyprland/programs/waybar/scripts/wallpaper/state/wallpaper_collection.json";
+  home.file."Pictures/wallpapers/monitor_state.json".source = config.lib.file.mkOutOfStoreSymlink "/home/sewer/nixos/users/sewer/home-manager/desktop/hyprland/programs/waybar/scripts/wallpaper/state/monitor_state.json";
+  home.file."Pictures/wallpapers/wallpaper_collection.json".source = config.lib.file.mkOutOfStoreSymlink "/home/sewer/nixos/users/sewer/home-manager/desktop/hyprland/programs/waybar/scripts/wallpaper/state/wallpaper_collection.json";
 
   xdg.configFile = {
     "waybar/modules/battery/bat-pp.sh" = {

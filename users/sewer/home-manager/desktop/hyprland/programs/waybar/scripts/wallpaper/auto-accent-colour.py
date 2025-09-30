@@ -84,7 +84,7 @@ def rebuild_nixos_config() -> bool:
     try:
         # Run nixos-rebuild
         result = subprocess.run([
-            'sudo', 'nixos-rebuild', 'test'
+            'sudo', 'nixos-rebuild', 'test', '--flake', '/home/sewer/nixos'
         ], capture_output=True, text=True, timeout=240)
         
         if result.returncode == 0:
