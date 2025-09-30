@@ -12,14 +12,96 @@ ultrathink
 ## Implementation Details
 
 ### Step 1: Fetch GitHub Context
-**Input:** User prompt with GitHub URLs (issues, PRs)
-**Action:** Use `@github-issue-investigator` agent to fetch information from referenced URLs
-**Output:** Agent must return a final message with extracted context relevant to the new issue
+**Input:** 
+- User prompt with GitHub URLs (issues, PRs)
+- New issue topic/title extracted from user prompt (e.g., "Pause All does not always pause all downloads")
+- New issue description/context from user prompt (e.g., "When you hit pause all, it doesn't prevent additional downloads from being queued, so you need to spam the button multiple times on fast connections")
+
+**Action:** Use `@github-issue-investigator` agent with explicit context:
+- **Pass the new issue topic and description clearly**: Include both the title and the user's description of the problem/feature
+- **Specify extraction priorities**: "Extract user comments, behavioral descriptions, problem reports, workarounds, edge cases, and 'needs further ticket' mentions"
+- **Request verbatim quotes**: "Include verbatim quotes from user comments when they describe unexpected behaviors or edge cases"
+- **Avoid code dumps**: "Prioritize narrative and user-reported information over implementation details"
+
+**Prompt Template for Agent:**
+```
+Investigate these GitHub URLs to extract context for creating a new issue:
+
+**New Issue Topic:** [TOPIC]
+
+**User's Description:** [DESCRIPTION extracted from user prompt - what they know about the situation]
+
+**Referenced URLs:**
+[LIST OF URLS]
+
+Focus on extracting from the referenced URLs:
+1. User comments describing behaviors, problems, edge cases, workarounds that relate to "[TOPIC]" and "[DESCRIPTION]"
+2. Verbatim quotes that explain unexpected behaviors matching or related to the described issue
+3. "Needs further ticket" or deferred items related to this topic
+4. Problem descriptions in users' own words that connect to what we're creating
+5. Related discussions that inform this new issue
+
+Deprioritize:
+- Full code implementations
+- Stack traces (unless they show error patterns)
+- Deep technical details unrelated to user-facing behavior
+```
+
+**Output:** Agent must return structured context including:
+- Relevant user comments (verbatim quotes when insightful)
+- Behavioral descriptions and edge cases
+- Workarounds or temporary solutions mentioned
+- Related discussions that inform the new issue
+- Suggested labels based on patterns
 
 ### Step 2: Analyze Codebase
-**Input:** User requirements and issue topic
-**Action:** Use `@general` agent to gather high-level codebase information (architectural patterns, file relationships, general functionality)
-**Output:** Agent must return a final message with contextual information for the issue
+**Input:**
+- New issue topic/title (same as Step 1)
+- User's description of the problem/feature (same as Step 1)
+- GitHub context extracted from Step 1 (if any relevant files/components were mentioned)
+
+**Action:** Use `@general` agent to gather targeted codebase information:
+- **Pass the new issue topic and description**: Provide full context about what issue is being created
+- **Specify search targets**: If GitHub context mentioned specific files/components, investigate those areas
+- **Request high-level patterns**: Architectural patterns, file relationships, component interactions relevant to the issue
+- **Avoid deep implementation**: Focus on understanding structure, not implementation details
+
+**Prompt Template for Agent:**
+```
+Analyze the codebase to provide context for creating a new issue:
+
+**New Issue Topic:** [TOPIC]
+
+**User's Description:** [DESCRIPTION of the problem/feature]
+
+**Context from GitHub Investigation:**
+[Summary of relevant files/components mentioned in Step 1, if any]
+
+Your task:
+1. Identify components/files related to "[TOPIC]" and the described behavior
+2. Understand architectural patterns in the relevant area (e.g., how downloads are managed, how pause functionality works)
+3. Map file relationships and component interactions relevant to this issue
+4. Note any existing patterns or conventions that relate to the issue topic
+5. Identify similar functionality or related features in the codebase
+
+Focus on:
+- High-level architecture and component structure
+- How the described behavior fits into the codebase
+- Related functionality or similar patterns
+- Component interactions relevant to the issue
+
+Avoid:
+- Deep implementation details
+- Full code listings
+- Unrelated parts of the codebase
+```
+
+**Output:** Agent must return a final message with:
+- Relevant components/files identified in the codebase
+- Architectural patterns related to the issue topic
+- How the described behavior fits into the existing structure
+- Related functionality or similar patterns found
+- Any existing conventions or patterns that should inform the new issue
 
 ### Step 3: Discover Templates
 **Input:** Current repository structure
