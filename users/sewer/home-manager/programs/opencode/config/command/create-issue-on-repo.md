@@ -11,28 +11,25 @@ ultrathink
 
 ## Implementation Details
 
-### Step 1 Execution
-- Parse user prompt for GitHub URLs (issues, PRs) from the current repository
-- Use `@github` agent to fetch relevant information from those URLs
-- Extract key context that would be relevant to the new issue
+### Step 1: Fetch GitHub Context
+**Input:** User prompt with GitHub URLs (issues, PRs)
+**Action:** Use `@github-issue-investigator` agent to fetch information from referenced URLs
+**Output:** Agent must return a final message with extracted context relevant to the new issue
 
-### Step 2 Execution
-- Use `@general` agent to gather information from the codebase
-- Look through the codebase to gather high-level contextual information that would help create a comprehensive issue
-- Focus on architectural patterns, file relationships, and general functionality rather than detailed code analysis
+### Step 2: Analyze Codebase
+**Input:** User requirements and issue topic
+**Action:** Use `@general` agent to gather high-level codebase information (architectural patterns, file relationships, general functionality)
+**Output:** Agent must return a final message with contextual information for the issue
 
-### Step 3 Execution
-- Use `@general` agent to discover issue templates from .github/ISSUE_TEMPLATE/ directory
-- Look for common template files like `bug_report.md`, `feature_request.md`, etc.
-- Identify relevant labels from either the project or existing repository labels
-- If no templates found, create a basic issue structure
+### Step 3: Discover Templates
+**Input:** Current repository structure
+**Action:** Use `@general` agent to search `.github/ISSUE_TEMPLATE/` for templates (`bug_report.md`, `feature_request.md`, etc.) and identify relevant labels
+**Output:** Agent must return a final message with template content or confirm none found
 
-### Step 4 Execution
-- Generate issue content based on discovered template, codebase context, and user requirements
-- Identify relevant details without being overly verbose on code specifics unless it's a very technical issue in nature
-- Create descriptive filename: `ISSUE-[brief-description].md`
-- Include template structure, relevant context, and appropriate labels
-- Ask user refining questions following established patterns
+### Step 4: Generate Issue
+**Input:** Template, GitHub context, codebase analysis, user requirements
+**Action:** Generate issue content, avoiding verbose code details unless it's a technical issue
+**Output:** Create `ISSUE-[brief-description].md` with template structure, context, and labels; ask user for refinements
 
 ## Output Format
 
@@ -83,7 +80,7 @@ After generating the issue file, ask refining questions using the same pattern a
 
 ## Guidelines
 
-- Always use `@github` agent for fetching context from referenced GitHub URLs (issues, PRs) in the current repository
+- Always use `@github-issue-investigator` agent for fetching context from referenced GitHub URLs (issues, PRs) in the current repository
 - Use `@general` agent for template discovery and codebase analysis
 - Follow existing issue template structure when available
 - Create meaningful filenames that reflect the issue content
