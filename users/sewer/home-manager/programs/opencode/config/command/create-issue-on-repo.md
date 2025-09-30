@@ -25,6 +25,8 @@ ultrathink
 
 **Prompt Template for Agent:**
 ```
+think hard
+
 Investigate these GitHub URLs to extract context for creating a new issue:
 
 **New Issue Topic:** [TOPIC]
@@ -68,6 +70,8 @@ Deprioritize:
 
 **Prompt Template for Agent:**
 ```
+think hard
+
 Analyze the codebase to provide context for creating a new issue:
 
 **New Issue Topic:** [TOPIC]
