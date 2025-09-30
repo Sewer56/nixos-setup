@@ -105,13 +105,20 @@ Find what's missing or unclear and make reasonable assumptions:
 ## Implementation Steps
 
 1. [FileName/ClassName]: [Description of changes]
-    - Required Imports: [comma-separated list of needed imports]
+    - Required Imports:
+      - `[import statement]` // adds [TypeName, ClassName, InterfaceName]
+      - `[another import]` // adds [OtherType]
     - [Specific change with complete method signatures]
     - [Another specific change with full syntax]
     - [Third change with proper access modifiers]
+    - Code Example (optional - for complex patterns only):
+      ```[language]
+      [3-10 line snippet showing pattern/structure]
+      ```
 
 2. [AnotherFile]: [Description of changes]
-    - Required Imports: [comma-separated list of needed imports]
+    - Required Imports:
+      - `[import statement]` // adds [TypeName]
     - [Specific implementation detail]
     - [Another concrete change]
 
@@ -143,6 +150,13 @@ When creating implementation steps, follow these formatting requirements:
 - ❌ Bad: `Add logging functionality`
 - ✅ Good: `LoginManager: Add logging functionality`
 
+### Required Imports
+- List ALL new imports needed for the implementation (types, classes, interfaces, etc. not already imported)
+- Include the full import statement for each
+- Specify which new types/classes will be used and where they come from
+- ❌ Bad: `using Microsoft.Extensions.Logging;`
+- ✅ Good: `using Microsoft.Extensions.Logging; // adds ILogger<T>, LogLevel`
+
 ### Properties and Fields
 - Show complete syntax with access modifiers, types, and default values
 - ❌ Bad: `add IsEnabled property`
@@ -158,12 +172,30 @@ When creating implementation steps, follow these formatting requirements:
 - Add fields/properties first, then methods, then interfaces
 - This ensures dependencies exist before code that uses them
 
+### Code Snippets (Optional)
+- For complex patterns, non-obvious implementations, or critical integration points, include a brief code snippet showing the expected pattern
+- Keep snippets minimal (3-10 lines) - just enough to show the structure
+- Use code snippets to demonstrate: constructor injection patterns, specific API usage, error handling approaches, or architectural patterns
+- ❌ Bad: Full method implementations with business logic
+- ✅ Good: Pattern/structure showing how pieces fit together
+
 ### Example Implementation Step
 ```
 1. LoginManager: Add logging functionality
-   - Required Imports: `using Microsoft.Extensions.Logging;`, `using System.Threading;`
+   - Required Imports: 
+     - `using Microsoft.Extensions.Logging;` // adds ILogger<T>, LogLevel
+     - `using System.Threading;` // adds CancellationToken
    - add `public LogLevel CurrentLogLevel { get; set; } = LogLevel.Info` property
    - add `private async Task<bool> LogEventAsync(string eventName, LogLevel level = LogLevel.Info, CancellationToken cancellationToken = default)` method
+   - Code Example (optional):
+     ```csharp
+     private readonly ILogger _logger;
+     
+     public LoginManager(ILogger<LoginManager> logger)
+     {
+         _logger = logger;
+     }
+     ```
 ```
 
 ### Key Implementation Details Rules
@@ -220,15 +252,17 @@ Your **FINAL MESSAGE** must contain the complete refined prompt using the format
 - Confirm line ranges contain the specified classes/methods/properties/fields
 - Ensure Current State Analysis accurately reflects discovered code
 - Verify Implementation Steps are comprehensive and cover ALL required changes
-- Check that each Implementation Step includes Required Imports section
+- Check that each Implementation Step includes Required Imports section with comments listing new types
 - Verify Key Implementation Details only references files with Implementation Steps
 
 ### Implementation Steps Validation
 - Every file requiring changes MUST have a corresponding Implementation Step
-- Each Implementation Step MUST include "Required Imports:" with all necessary using statements
+- Each Implementation Step MUST include "Required Imports:" with all necessary import statements
+- Each import MUST have a comment listing the new types/classes/interfaces it provides (e.g., `// adds ILogger<T>, LogLevel`)
 - Method signatures must be complete with access modifiers and parameter defaults
 - Changes must be ordered to prevent compilation errors
 - Step titles must follow `[ClassName/FileName]: [Description]` format
+- (Optional) Include code snippets for complex patterns - keep them minimal (3-10 lines)
 
 ### Key Implementation Details Validation
 - Can ONLY mention files/classes that have Implementation Steps
