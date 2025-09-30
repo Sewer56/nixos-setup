@@ -1,7 +1,7 @@
 ---
 mode: subagent
 description: Implements code changes and ensures all verification checks pass
-model: anthropic/claude-sonnet-4-5-20250929
+model: zai-coding-plan/glm-4.6
 tools:
   bash: true
   edit: true
