@@ -2,7 +2,7 @@
 mode: subagent
 description: Specialized GitHub agent for fetching issue/PR context and investigating the current repository for issue creation workflows
 model: anthropic/claude-sonnet-4-5-20250929
-temperature: 0.1
+temperature: 0.0
 tools:
   github_get_issue: true
   github_get_issue_comments: true

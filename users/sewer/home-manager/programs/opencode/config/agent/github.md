@@ -2,7 +2,7 @@
 mode: subagent
 description: Use this for GitHub repository operations, third-party library research, and repository documentation analysis.
 model: anthropic/claude-sonnet-4-5-20250929
-temperature: 0.1
+temperature: 0.0
 tools:
   github_*: true
   context7_*: true
