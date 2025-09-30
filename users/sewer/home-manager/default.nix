@@ -157,5 +157,6 @@
   # Environment variables
   home.sessionVariables = {
     NEXUS_API_KEY = "$(cat ${config.age.secrets.nexus-api-key.path})";
+    RELOADEDIIMODS = "/home/sewer/Desktop/Reloaded-II/Mods";
   };
 }
