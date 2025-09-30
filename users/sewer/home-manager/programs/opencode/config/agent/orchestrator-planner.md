@@ -105,22 +105,22 @@ Find what's missing or unclear and make reasonable assumptions:
 ## Implementation Steps
 
 1. [FileName/ClassName]: [Description of changes]
-    - Required Imports:
-      - `[import statement]` // adds [TypeName, ClassName, InterfaceName]
-      - `[another import]` // adds [OtherType]
-    - [Specific change with complete method signatures]
-    - [Another specific change with full syntax]
-    - [Third change with proper access modifiers]
-    - Code Example (optional - for complex patterns only):
-      ```[language]
-      [3-10 line snippet showing pattern/structure]
-      ```
+- Required Imports:
+  - `[import statement]` // adds [TypeName, ClassName, InterfaceName]
+  - `[another import]` // adds [OtherType]
+- [Specific change with complete method signatures]
+- [Another specific change with full syntax]
+- [Third change with proper access modifiers]
+- Code Example (optional - for complex patterns only):
+```[language]
+[3-10 line snippet showing pattern/structure]
+```
 
 2. [AnotherFile]: [Description of changes]
-    - Required Imports:
-      - `[import statement]` // adds [TypeName]
-    - [Specific implementation detail]
-    - [Another concrete change]
+- Required Imports:
+  - `[import statement]` // adds [TypeName]
+- [Specific implementation detail]
+- [Another concrete change]
 
 ## Key Implementation Details
 
@@ -182,20 +182,20 @@ When creating implementation steps, follow these formatting requirements:
 ### Example Implementation Step
 ```
 1. LoginManager: Add logging functionality
-   - Required Imports: 
-     - `using Microsoft.Extensions.Logging;` // adds ILogger<T>, LogLevel
-     - `using System.Threading;` // adds CancellationToken
-   - add `public LogLevel CurrentLogLevel { get; set; } = LogLevel.Info` property
-   - add `private async Task<bool> LogEventAsync(string eventName, LogLevel level = LogLevel.Info, CancellationToken cancellationToken = default)` method
-   - Code Example (optional):
-     ```csharp
-     private readonly ILogger _logger;
-     
-     public LoginManager(ILogger<LoginManager> logger)
-     {
-         _logger = logger;
-     }
-     ```
+- Required Imports: 
+  - `using Microsoft.Extensions.Logging;` // adds ILogger<T>, LogLevel
+  - `using System.Threading;` // adds CancellationToken
+- add `public LogLevel CurrentLogLevel { get; set; } = LogLevel.Info` property
+- add `private async Task<bool> LogEventAsync(string eventName, LogLevel level = LogLevel.Info, CancellationToken cancellationToken = default)` method
+- Code Example (optional):
+```csharp
+private readonly ILogger _logger;
+
+public LoginManager(ILogger<LoginManager> logger)
+{
+    _logger = logger;
+}
+```
 ```
 
 ### Key Implementation Details Rules
@@ -208,7 +208,7 @@ When creating implementation steps, follow these formatting requirements:
 ```markdown
 ## Implementation Steps
 1. LoginManager: Add logging
-   - add `private readonly ILogger _logger` field
+- add `private readonly ILogger _logger` field
 
 ## Key Implementation Details
 - **Integration**: Use AuthenticationService.GetCorrelationId() for tracking
@@ -219,11 +219,13 @@ Wrong: AuthenticationService isn't in Implementation Steps.
 ```markdown
 ## Implementation Steps
 1. LoginManager: Add logging
-   - Required Imports: `using Microsoft.Extensions.Logging;`
-   - add `private readonly ILogger _logger` field
+- Required Imports:
+  - `using Microsoft.Extensions.Logging;` // adds ILogger
+- add `private readonly ILogger _logger` field
 2. AuthenticationService: Expose correlation ID
-   - Required Imports: `using System;`
-   - ensure `public string GetCorrelationId()` method exists
+- Required Imports:
+  - `using System;` // adds String
+- ensure `public string GetCorrelationId()` method exists
 
 ## Key Implementation Details
 - **Integration**: Use AuthenticationService.GetCorrelationId() for tracking
