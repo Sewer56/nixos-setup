@@ -62,6 +62,7 @@ Find what's missing or unclear and make reasonable assumptions:
 
 ### 5. Create Implementation Plan
 - Break down the work into specific file-level changes
+- Favor smaller, modular files split by responsibility over monolithic implementations
 - Provide concrete implementation steps with method signatures
 - Include architectural guidance and patterns to follow
 
@@ -279,6 +280,7 @@ Wrong: AuthenticationService isn't in Implementation Steps.
 - ❌ Additional error handling beyond what's required
 - ❌ Logging, metrics, or observability not specified in requirements
 - ❌ Code that would require `dead_code`, `unused`, or similar suppression attributes
+- ❌ Large monolithic files when functionality can be split into smaller, focused modules
 
 ### What to INCLUDE
 - ✅ ONLY code that directly satisfies stated requirements
@@ -286,8 +288,11 @@ Wrong: AuthenticationService isn't in Implementation Steps.
 - ✅ ONLY error handling for specified edge cases
 - ✅ Minimal viable implementation that meets success criteria
 - ✅ Minimal tests covering core functionality included in Implementation Steps
+- ✅ Smaller, modular files split by responsibility and domain when introducing new code
 
 **Guiding Question**: "Is this line of code required to meet a stated objective?" If no → Don't include it.
+
+**Modularity Principle**: When introducing new code, prefer splitting functionality into smaller, focused modules/files rather than creating large monolithic files. Each module should have a single, clear responsibility.
 
 **Testing Requirement**: Core functionality MUST include corresponding test implementation steps. Tests are not optional overengineering - they are required for validation of success criteria.
 
@@ -304,6 +309,7 @@ Wrong: AuthenticationService isn't in Implementation Steps.
 - **ENFORCE** strict minimalism - no future-proofing unless explicitly requested
 - **EXCLUDE** extensibility points, abstract patterns, or infrastructure not immediately needed
 - **PREVENT** scope creep - only plan what's in the requirements, nothing more
+- **PREFER** modular, smaller files split by responsibility over monolithic implementations when introducing new code
 
 ## Output Format
 
