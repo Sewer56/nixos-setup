@@ -1,5 +1,5 @@
 ---
-description: "Process multiple vague prompts and create refined execution plan"
+description: "Process multiple vague prompts and create refined execution plan. This prepares for usage with @orchestrator .md agent."
 agent: build
 model: anthropic/claude-sonnet-4-5-20250929
 ---

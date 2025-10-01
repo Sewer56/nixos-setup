@@ -1,5 +1,5 @@
 ---
-description: "Hard-tier planning using Claude Sonnet 4.5. Exhaustive analysis; outputs plan in chat; no file writes. Use for complex, high-risk, or multi-repo changes."
+description: "Hard-tier planning using Claude Sonnet 4.5. Exhaustive analysis; outputs plan in chat; no file writes. Use for complex, high-risk, or multi-repo changes. Use on output of `/prompt-refiner` commands. Then use `/implement-plan-*` to execute."
 agent: plan
 model: anthropic/claude-sonnet-4-5-20250929
 comment: "Run prompt-refiner.md first."

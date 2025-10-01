@@ -1,5 +1,5 @@
 ---
-description: "Easy-tier planning using Qwen. Outputs plan in chat; no file writes. Use when the task is straightforward and speed matters."
+description: "Easy-tier planning using Qwen. Outputs plan in chat; no file writes. Use when the task is straightforward and speed matters. Use on output of `/prompt-refiner` commands. Then use `/implement-plan-*` to execute."
 agent: plan
 model: cerebras/qwen-3-coder-480b
 comment: "Run prompt-refiner.md first."
