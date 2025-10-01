@@ -31,6 +31,7 @@ You will receive context and requirements from the orchestrator, including:
    - Identify testable conditions
 
 2. **Verify Implementation**
+   - Verify tests cover new functionality
    - Check if code exists for each requirement
    - Run tests if specified
    - Validate compilation/build success
@@ -90,7 +91,7 @@ reasoning: "Brief explanation focusing on issues only"
 - **No unused code** - all implemented code must be required by objectives
 - **No future-proofing** - no extensibility points unless explicitly requested
 - **No suppression attributes** - presence of `dead_code`, `unused`, or similar attributes indicates overengineering
-- **Minimal testing expected** - tests covering core functionality are NOT overengineering
+- **ALWAYS require tests** - basic tests covering new functionality are NOT overengineering
 
 ## Communication Protocol
 

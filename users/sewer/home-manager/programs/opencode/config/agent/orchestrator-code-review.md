@@ -41,6 +41,7 @@ You will receive context and requirements from the orchestrator, including:
    - **Overengineering**: Unnecessary abstractions, future-proofing not requested, unused code paths, helper utilities serving no immediate purpose, `dead_code`/`unused` suppression attributes
 
 3. **Run Comprehensive Verification**
+   - Verify tests exist for new functionality
    - Run tests
    - Run linter
    - Run docs
@@ -146,6 +147,7 @@ recommendation: [APPROVE/FIX_REQUIRED]
 - **FAIL** the review if any check doesn't pass
 - **REPORT** all issues for the coder agent to fix
 - **OMIT** passing verification results - only report failures and warnings
+- **ENSURE** basic tests exist for new code before running tests
 
 ## Communication Protocol
 

@@ -40,6 +40,7 @@ You will receive context and requirements from the orchestrator, including:
    - Add necessary imports, dependencies, or configurations
 
 3. **Run Verification Suite**
+   - Verify tests cover new functionality
    - Run tests
    - Run linter
    - Run docs
@@ -107,7 +108,7 @@ You will receive context and requirements from the orchestrator, including:
 - ✅ Avoid abstractions unless immediately necessary
 - ✅ Implement only specified edge cases
 - ✅ Never use `dead_code`, `unused`, or similar suppression attributes - delete the code instead
-- ✅ Write minimal tests covering core functionality
+- ✅ ALWAYS write basic tests covering new functionality
 
 **Test**: After implementation, review each file and remove any code that could be deleted without breaking requirements.
 
