@@ -123,7 +123,19 @@ Find what's missing or unclear and make reasonable assumptions:
 [3-10 line snippet showing pattern/structure]
 ```
 
-2. [AnotherFile]: [Description of changes]
+2. [FileName/ClassName]: [Test implementation description]
+- Required Test Imports (if separate test file):
+  - `[testing framework import]` // adds [TestType, AssertType]
+  - `[mock framework import]` // adds [MockType, SetupType]
+- add test class/function `[TestName]` with appropriate decoration (if applicable)
+- add test method/function `[TestMethodName]` with appropriate decoration
+- Test Method: `[language-specific signature]_[Scenario]_[ExpectedResult]` 
+- Code Example (optional - for test patterns):
+```[language]
+[3-10 line snippet showing test pattern/structure]
+```
+
+3. [AnotherFile]: [Description of changes]
 - Required Imports:
   - `[import statement]` // adds [TypeName]
 - [Specific implementation detail]
@@ -179,10 +191,20 @@ When creating implementation steps, follow these formatting requirements:
 - Add fields/properties first, then methods, then interfaces
 - This ensures dependencies exist before code that uses them
 
+### Test Implementation Requirements
+- Test implementations MUST be included in Implementation Steps when testing core functionality
+- Test file naming varies by language (separate files or same-file tests)
+- Test method/function naming: `[MethodName]_[Scenario]_[ExpectedResult]` following AAA pattern
+- Test imports must include testing framework and any mocking libraries (if separate test file)
+- Test steps should include both the test structure and key test methods/functions
+- Focus on testing core functionality - avoid over-testing trivial getters/setters
+- Adapt to language-specific testing conventions
+
 ### Code Snippets (Optional)
 - For complex patterns, non-obvious implementations, or critical integration points, include a brief code snippet showing the expected pattern
 - Keep snippets minimal (3-10 lines) - just enough to show the structure
 - Use code snippets to demonstrate: constructor injection patterns, specific API usage, error handling approaches, or architectural patterns
+- For tests, show Arrange-Act-Assert pattern or Given-When-Then structure
 - ❌ Bad: Full method implementations with business logic
 - ✅ Good: Pattern/structure showing how pieces fit together
 
@@ -201,6 +223,28 @@ private readonly ILogger _logger;
 public LoginManager(ILogger<LoginManager> logger)
 {
     _logger = logger;
+}
+```
+
+2. LoginManagerTests.cs: Add unit tests for logging functionality
+- Required Test Imports:
+  - `using Xunit;` // adds Fact, Assert
+  - `using Moq;` // adds Mock<T>, MockBehavior
+- add test class `LoginManagerTests` with no decoration
+- add test method `LogEventAsync_WithValidEvent_ReturnsTrue` with `[Fact]` decoration
+- Test Method: `public async Task LogEventAsync_WithValidEvent_ReturnsTrue()`
+- Code Example (optional):
+```csharp
+[Fact]
+public async Task LogEventAsync_WithValidEvent_ReturnsTrue()
+{
+    // Arrange
+    var mockLogger = new Mock<ILogger<LoginManager>>();
+    var loginManager = new LoginManager(mockLogger.Object);
+    
+    // Act & Assert
+    var result = await loginManager.LogEventAsync("TestEvent");
+    Assert.True(result);
 }
 ```
 ```
@@ -241,11 +285,11 @@ Wrong: AuthenticationService isn't in Implementation Steps.
 - ✅ ONLY abstractions needed for current implementation
 - ✅ ONLY error handling for specified edge cases
 - ✅ Minimal viable implementation that meets success criteria
-- ✅ Minimal tests covering core functionality
+- ✅ Minimal tests covering core functionality included in Implementation Steps
 
 **Guiding Question**: "Is this line of code required to meet a stated objective?" If no → Don't include it.
 
-**Testing Exception**: Minimal tests for core functionality are encouraged and not considered overengineering.
+**Testing Requirement**: Core functionality MUST include corresponding test implementation steps. Tests are not optional overengineering - they are required for validation of success criteria.
 
 ## Critical Constraints
 
@@ -274,16 +318,21 @@ Your **FINAL MESSAGE** must contain the complete refined prompt using the format
 - Ensure Current State Analysis accurately reflects discovered code
 - Verify Implementation Steps are comprehensive and cover ALL required changes
 - Check that each Implementation Step includes Required Imports section with comments listing new types
+- Verify test Implementation Steps include Required Test Imports section with testing framework imports (if separate test file)
 - Verify Key Implementation Details only references files with Implementation Steps
+- Ensure core functionality has corresponding test implementation steps with proper test method/function naming
 
 ### Implementation Steps Validation
 - Every file requiring changes MUST have a corresponding Implementation Step
 - Each Implementation Step MUST include "Required Imports:" with all necessary import statements
+- Test Implementation Steps MUST include "Required Test Imports:" with testing framework imports (if separate test file)
 - Each import MUST have a comment listing the new types/classes/interfaces it provides (e.g., `// adds ILogger<T>, LogLevel`)
 - Method signatures must be complete with access modifiers and parameter defaults
+- Test method/function signatures must follow `[MethodName]_[Scenario]_[ExpectedResult]` pattern
 - Changes must be ordered to prevent compilation errors
 - Step titles must follow `[ClassName/FileName]: [Description]` format
 - (Optional) Include code snippets for complex patterns - keep them minimal (3-10 lines)
+- Core functionality MUST include corresponding test implementation steps (either in same file or separate test file)
 
 ### Key Implementation Details Validation
 - Can ONLY mention files/classes that have Implementation Steps
