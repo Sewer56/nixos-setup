@@ -147,6 +147,14 @@
       mode = "600";
       symlink = false; # Needs to be read before agenix kicks in
     };
+
+    # Reloaded-II wiki
+    reloaded-wiki-search-github-api-key = {
+      file = ./secrets/reloaded-wiki-search-github-api-key.age;
+      path = "${config.home.homeDirectory}/.secrets/reloaded-wiki-search-github-api-key";
+      mode = "600";
+      symlink = false; # Needs to be read before agenix kicks in
+    };
   };
 
   # Configure nix access tokens to avoid GitHub rate limiting
@@ -157,6 +165,7 @@
   # Environment variables
   home.sessionVariables = {
     NEXUS_API_KEY = "$(cat ${config.age.secrets.nexus-api-key.path})";
+    RELOADED_WIKI_GITHUB_TOKEN_FILE = "${config.age.secrets.reloaded-wiki-search-github-api-key.path}";
     RELOADEDIIMODS = "/home/sewer/Desktop/Reloaded-II/Mods";
   };
 }
