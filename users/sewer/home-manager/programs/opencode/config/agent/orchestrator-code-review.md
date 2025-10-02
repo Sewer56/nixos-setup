@@ -62,6 +62,8 @@ You will receive context and requirements from the orchestrator, including:
 - Data integrity issues
 - Resource leaks or performance bottlenecks
 - **Overengineering**: Code exceeding requirements (unused abstractions, future-proofing, unnecessary utilities, `dead_code`/`unused` attributes)
+- **Method stubs**: Methods that only call other methods without doing any actual work themselves - these should be removed
+- **Ignored tests**: Any test that is marked as ignored/skipped should fail review
 
 **TESTING EXCEPTION**: Minimal tests covering core functionality are NOT overengineering.
 
