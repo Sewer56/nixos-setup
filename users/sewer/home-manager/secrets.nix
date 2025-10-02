@@ -11,6 +11,7 @@ in {
   "secrets/proton-drive-username.age".publicKeys = users;
   "secrets/proton-drive-password.age".publicKeys = users;
   "secrets/nexus-api-key.age".publicKeys = users;
+  "secrets/reloaded-wiki-search-github-api-key.age".publicKeys = users;
 
   # "api-token.age".publicKeys = users;
   # "database-password.age".publicKeys = users;
