@@ -61,13 +61,15 @@ Before beginning orchestration, analyze all prompts to understand the complete s
      - What previous steps accomplished that this step should build upon
      - Constraints or patterns established earlier that must be maintained
      - Specific integration points or considerations for this step
-3. Parse refined prompt content from agent response
-4. Use refined objectives for subsequent implementation phases
+3. Receive plan file path from agent response
+4. **MUST NOT** read the plan file content
+5. Store file path for subsequent implementation phases
 
 ### Phase 1: Initial Implementation
 1. Spawn a `@orchestrator-coder` subagent via the task tool
 2. Provide:
    - Prompt file path for requirements
+   - **MUST instruct coder to read plan file**: "MUST read [plan-file-path] for implementation requirements"
    - Instruction to implement features
    - Requirement to pass all verification checks
 3. Parse report content from agent response
@@ -131,6 +133,8 @@ Before beginning orchestration, analyze all prompts to understand the complete s
 - **ENSURE** code reviewer only reviews, never edits
 - **VERIFY** all checks pass before proceeding to commit phase
 - **NEVER** stop until all prompts are fully processed and committed
+- **MUST NOT** read plan files returned by planner - only pass file paths to coder
+- **ALWAYS** instruct coder to read plan files using exact format: "MUST read [file-path]"
 
 ## Completion Criteria
 

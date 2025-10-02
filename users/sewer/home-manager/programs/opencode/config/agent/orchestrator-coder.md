@@ -26,11 +26,13 @@ You will receive context and requirements from the orchestrator, including:
 - Primary prompt file path with specific implementation requirements
 - Path to `PROMPT-TASK-OBJECTIVES.md` file with overall mission context and constraints
 - Relevant context interpreted and provided by the orchestrator (e.g., feedback from validation or review phases)
+- **MUST read plan file when instructed**: Read file when orchestrator says "MUST read [file-path]"
 
 ## Implementation Process
 
 1. **Understand Requirements**
    - Read the provided files to understand what needs to be implemented
+   - **MUST read plan file if instructed**: When orchestrator says "MUST read [file-path]", read that file first
 
 2. **Implement Changes**
    - Follow existing code conventions and patterns
