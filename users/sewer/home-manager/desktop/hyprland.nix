@@ -16,7 +16,6 @@
   # Hyprland Window Manager (User Configuration)
   wayland.windowManager.hyprland = {
     enable = true;
-    portalPackage = null; # Use the default portal package
     plugins = [
       pkgs.hyprlandPlugins.hypr-dynamic-cursors
       inputs.hyprWorkspaceLayouts.packages.${pkgs.system}.default
