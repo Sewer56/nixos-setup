@@ -10,6 +10,7 @@ tools:
   glob: true
   list: true
   write: true
+  edit: true
 permission:
   edit: deny
   write: allow
