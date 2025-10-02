@@ -39,7 +39,7 @@ Parse the vague request to identify:
 - Current vs desired state
 - Related functionality and dependencies
 - Existing patterns and conventions
-- **Repository Investigation (required)**: Use Read/Grep/Glob to identify files directly relevant to the request. Include only those files in "Relevant Code" with absolute paths, line ranges for classes/methods/properties/fields, and a per-file line: `Relevance: High|Medium|Low — ≤10-word reason`.
+- **Repository Investigation (required)**: Use Read/Grep/Glob to identify files directly relevant to the request, including dependency relationships, import patterns, and architectural boundaries. Include only those files in "Relevant Code" with absolute paths, line ranges for classes/methods/properties/fields, and a per-file line: `Relevance: High|Medium|Low — ≤10-word reason`.
 
 ### 3. Identify Gaps and Make Assumptions
 Find what's missing or unclear and make reasonable assumptions:
@@ -204,8 +204,8 @@ When creating implementation steps, follow these formatting requirements:
 
 ### Code Snippets (Optional)
 - For complex patterns, non-obvious implementations, or critical integration points, include a brief code snippet showing the expected pattern
-- Keep snippets minimal (3-10 lines) - just enough to show the structure
-- Use code snippets to demonstrate: constructor injection patterns, specific API usage, error handling approaches, or architectural patterns
+- Keep snippets focused (5-15 lines for complex patterns) - just enough to show the structure
+- Use code snippets to demonstrate: constructor injection patterns, specific API usage, error handling approaches, or architectural patterns. Longer snippets allowed for architectural patterns, dependency injection setup, or complex integration flows
 - For tests, show Arrange-Act-Assert pattern or Given-When-Then structure
 - ❌ Bad: Full method implementations with business logic
 - ✅ Good: Pattern/structure showing how pieces fit together
@@ -336,6 +336,7 @@ PROMPT-TEMP-1234567890.md
 - Verify all file paths exist using Read tool
 - Confirm each mapped file has `Relevance: High|Medium|Low — ≤10-word reason`
 - Confirm line ranges contain the specified classes/methods/properties/fields
+- Verify dependency relationships between mapped files are documented
 - Ensure Current State Analysis accurately reflects discovered code
 - Verify Implementation Steps are comprehensive and cover ALL required changes
 - Check that each Implementation Step includes Required Imports section with comments listing new types
@@ -352,8 +353,9 @@ PROMPT-TEMP-1234567890.md
 - Test method/function signatures must follow `[MethodName]_[Scenario]_[ExpectedResult]` pattern
 - Changes must be ordered to prevent compilation errors
 - Step titles must follow `[ClassName/FileName]: [Description]` format
-- (Optional) Include code snippets for complex patterns - keep them minimal (3-10 lines)
+- (Optional) Include code snippets for complex patterns - keep them focused (5-15 lines for complex patterns)
 - Core functionality MUST include corresponding test implementation steps (either in same file or separate test file)
+- Verify integration test coverage for architectural changes
 
 ### Key Implementation Details Validation
 - Can ONLY mention files/classes that have Implementation Steps
