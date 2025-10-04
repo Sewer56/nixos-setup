@@ -179,3 +179,5 @@ The user's requirements list is submitted below:
 ## Request
 
 $ARGUMENTS
+
+Reminder. Do not execute the prompts; only generate the prompt files as specified.
