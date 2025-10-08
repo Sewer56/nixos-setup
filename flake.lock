@@ -564,11 +564,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1759529513,
-        "narHash": "sha256-kh0hcX9nC5sVHbSGBwWBaX7nzW9mlWCW3HkPx9fPeEg=",
+        "lastModified": 1759954946,
+        "narHash": "sha256-CJyPNG5/Tnk+XgqT+BU0pI2NHVemOitQvX2IDPHlJiU=",
         "owner": "Sewer56",
         "repo": "opencode-flake",
-        "rev": "3655e9c8c6663106f63df0e854ec3603ca45f3b2",
+        "rev": "4c392ee26ac74487acb2fbd6a157c93af221c172",
         "type": "github"
       },
       "original": {
