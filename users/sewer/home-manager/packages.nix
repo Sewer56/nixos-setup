@@ -5,6 +5,7 @@
     file-roller
     brightnessctl
     kdiskmark
+    _010editor
 
     # Browser (user-specific)
     vivaldi
