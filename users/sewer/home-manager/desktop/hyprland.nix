@@ -17,7 +17,7 @@
   wayland.windowManager.hyprland = {
     enable = true;
     plugins = [
-      pkgs.hyprlandPlugins.hypr-dynamic-cursors
+      inputs.hypr-dynamic-cursors.packages.${pkgs.system}.default
       inputs.hyprWorkspaceLayouts.packages.${pkgs.system}.default
     ];
     systemd = {
