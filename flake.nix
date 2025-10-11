@@ -26,7 +26,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprWorkspaceLayouts = {
-      url = "github:Sewer56/hyprWorkspaceLayouts/fix-workspaces";
+      url = "github:Sewer56/hyprWorkspaceLayouts/nixos-0.51.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
