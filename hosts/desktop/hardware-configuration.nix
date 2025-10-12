@@ -14,6 +14,7 @@
 
   boot.initrd.availableKernelModules = ["nvme" "ahci" "xhci_pci" "thunderbolt" "usbcore" "uas" "usbhid"];
   boot.initrd.kernelModules = [];
+  boot.initrd.systemd.enable = true;
   boot.kernelModules = ["kvm-amd"];
   boot.extraModulePackages = [];
 
