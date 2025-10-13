@@ -10,7 +10,7 @@ lib.mkMerge [
     theme = {
       name = "catppuccin";
       variant = "mocha";
-      accent = "lavender";
+      accent = "yellow";
     };
 
     # Configure dconf for dark theme preference

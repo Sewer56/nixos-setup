@@ -24,6 +24,12 @@
       "resolution": "2560x1440",
       "description": "Dell Inc. DELL U2520D 8SGL923",
       "port": "DP-4"
+    },
+    "Samsung Electric Company Odyssey G95NC HNTXC00136|DP-7": {
+      "wallpaper_path": "/home/sewer/Pictures/wallpapers/saved/o5xe5m.jxl",
+      "resolution": "7680x2160",
+      "description": "Samsung Electric Company Odyssey G95NC HNTXC00136",
+      "port": "DP-7"
     }
   }
 }
