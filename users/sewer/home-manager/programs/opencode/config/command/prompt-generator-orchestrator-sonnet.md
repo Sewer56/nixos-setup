@@ -26,7 +26,24 @@ For each requirement:
 - Note dependencies on other requirements
 - Determine if requirement should be split into multiple prompts
 
-### 2. Generate Individual Prompt Files
+### 2. Analyze Test Requirements
+
+For each requirement, determine testing needs:
+
+#### When to Use `basic`:
+- **Default setting**: Use `basic` unless explicitly specified otherwise
+- **Basic test indicators**: "basic tests", "simple tests", "with tests", "include tests", or similar phrases
+- **Global setting**: If user specifies "basic tests" globally, apply to all requirements
+
+#### When to Use `no`:
+- **No test indicators**: "no tests", "never test", "skip all tests", "without tests", "no testing", or similar phrases
+- **Global setting**: If user specifies "no tests" globally, apply to all requirements
+
+#### Priority:
+- Per-requirement settings override global settings
+- If neither basic nor no is explicitly mentioned, default to `basic`
+
+### 3. Generate Individual Prompt Files
 
 For each requirement, create a prompt file using Write tool:
 
@@ -46,6 +63,12 @@ For each requirement, create a prompt file using Write tool:
 ## Success Criteria
 - [How we'll know the objective is met]
 - [Specific testable conditions]
+
+## Testing Requirements
+**Status**: [basic/no]
+
+- If **basic**: Implement basic tests covering core functionality
+- If **no**: Do not implement any tests under any circumstances
 
 ## Dependencies
 - [List any other prompts this depends on, if applicable]
@@ -72,7 +95,6 @@ For each requirement, create a prompt file using Write tool:
 - ✅ Remove unused imports, methods, or classes
 - ✅ Avoid abstractions unless immediately necessary
 - ✅ Implement only specified edge cases
-- ✅ **ALWAYS include basic tests** covering new functionality
 
 **Guiding Question**: "Is this code required to meet a stated objective?" If no → Don't include it.
 
@@ -83,7 +105,7 @@ For each requirement, create a prompt file using Write tool:
 - **What IS NOT included**: [Everything else - future features, extensibility points, "nice to have" features]
 ```
 
-### 3. Create Mission Context File
+### 4. Create Mission Context File
 
 Generate `PROMPT-TASK-OBJECTIVES.md` with overall mission context:
 
@@ -98,7 +120,7 @@ Generate `PROMPT-TASK-OBJECTIVES.md` with overall mission context:
 ## Critical Constraints
 - **Minimal Implementation**: No code beyond stated requirements
 - **No Future-Proofing**: No extensibility unless explicitly requested
-- **Tests Required**: Basic tests for all new functionality
+- **Testing Policy**: [When global policy is basic: "Basic tests for core functionality"] [When global policy is no: omit this line entirely]
 - [Other project-specific constraints - 2-4 items max]
 
 ## Scope Boundaries
@@ -106,7 +128,7 @@ Generate `PROMPT-TASK-OBJECTIVES.md` with overall mission context:
 - **What IS NOT included**: Future features, abstractions for anticipated changes, unused utilities
 ```
 
-### 4. Create Orchestrator Index
+### 5. Create Orchestrator Index
 
 Generate `PROMPT-ORCHESTRATOR.md` listing all generated prompts:
 
@@ -117,15 +139,20 @@ Generate `PROMPT-ORCHESTRATOR.md` listing all generated prompts:
 
 ## Execution Strategy: SEQUENTIAL
 
+## Testing Policy
+[Global testing policy - basic or no based on user input]
+
 ## Generated Prompt Files (in order):
 
 1. `PROMPT-01-{title}.md`
    - Objective: [Brief description]
    - Dependencies: [None or list]
+   - Testing: [basic|no]
 
 2. `PROMPT-02-{title}.md`
    - Objective: [Brief description]
    - Dependencies: [Depends on PROMPT-01]
+   - Testing: [basic|no]
 
 [Continue for all prompts...]
 
@@ -171,6 +198,7 @@ Execute with: `@orchestrator [list of prompt file paths]`
 - **SPLIT** complex requirements into multiple prompts when appropriate
 - **MAINTAIN** dependency tracking between prompts
 - **ENFORCE** minimal implementation philosophy throughout
+- **DETECT** and **DOCUMENT** test requirements for each prompt (basic/no only)
 
 ## User Request Processing
 

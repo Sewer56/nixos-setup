@@ -23,6 +23,7 @@ You will receive context and requirements from the orchestrator, including:
 - Primary prompt file path with specific requirements
 - Path to `PROMPT-TASK-OBJECTIVES.md` file with overall mission context and constraints
 - Relevant context interpreted and provided by the orchestrator from the implementation phase
+- **Test requirement**: "Tests: [basic/no]" - indicates whether test validation should be performed
 
 ## Validation Process
 
@@ -31,9 +32,9 @@ You will receive context and requirements from the orchestrator, including:
    - Identify testable conditions
 
 2. **Verify Implementation**
-   - Verify tests cover new functionality
+   - **When Tests: basic**: Verify basic tests cover new functionality and run tests
+   - **When Tests: no**: Never verify tests and flag any implemented tests as overengineering
    - Check if code exists for each requirement
-   - Run tests if specified
    - Validate compilation/build success
    - Confirm functionality matches specifications
    - **Check for overengineering** - identify code not required by objectives
@@ -62,7 +63,8 @@ validation_status: [PASS/FAIL/PARTIAL]
   type: [MISSING/INCORRECT/OVERENGINEERED]
 
 ## Failed Tests
-{Only list failed tests - if all pass, state "All tests pass"}
+{When Tests: basic: Only list failed tests - if all pass, state "All tests pass"}
+{When Tests: no: State "Tests were forbidden - any found tests are overengineering"}
 failed: Y
 details: "Which tests failed and why"
 
@@ -84,14 +86,16 @@ reasoning: "Brief explanation focusing on issues only"
 ## Validation Criteria
 
 - Code must compile/build successfully
-- All specified tests must pass
+- **When Tests: basic**: All basic tests must pass
+- **When Tests: no**: Tests are forbidden and considered overengineering if found
 - Required functionality must be implemented
 - No critical errors in output
 - **Implementation must be minimal** - no code beyond requirements
 - **No unused code** - all implemented code must be required by objectives
 - **No future-proofing** - no extensibility points unless explicitly requested
 - **No suppression attributes** - presence of `dead_code`, `unused`, or similar attributes indicates overengineering
-- **ALWAYS require tests** - basic tests covering new functionality are NOT overengineering
+- **When Tests: basic**: Basic tests covering new functionality are NOT overengineering
+- **When Tests: no**: Any tests found are considered overengineering
 
 ## Communication Protocol
 

@@ -27,6 +27,7 @@ You will receive context and requirements from the orchestrator, including:
 - Path to `PROMPT-TASK-OBJECTIVES.md` file with overall mission context and constraints
 - Relevant context interpreted and provided by the orchestrator (e.g., feedback from validation or review phases)
 - **MUST read plan file when instructed**: Read file when orchestrator says "MUST read [file-path]"
+- **Test requirement**: "Tests: [basic/no]" - indicates whether tests should be implemented and verified
 
 ## Implementation Process
 
@@ -42,8 +43,8 @@ You will receive context and requirements from the orchestrator, including:
    - Add necessary imports, dependencies, or configurations
 
 3. **Run Verification Suite**
-   - Verify tests cover new functionality
-   - Run tests
+   - **When Tests: basic**: Verify basic tests cover new functionality and run tests
+   - **When Tests: no**: Never implement or verify tests
    - Run linter
    - Run docs
    - Run formatter
@@ -110,16 +111,20 @@ You will receive context and requirements from the orchestrator, including:
 - ✅ Avoid abstractions unless immediately necessary
 - ✅ Implement only specified edge cases
 - ✅ Never use `dead_code`, `unused`, or similar suppression attributes - delete the code instead
-- ✅ ALWAYS write basic tests covering new functionality
+- ✅ **When Tests: basic**: ALWAYS write basic tests covering new functionality
+- ✅ **When Tests: no**: NEVER write tests under any circumstances
 
 **Test**: After implementation, review each file and remove any code that could be deleted without breaking requirements.
 
-**Testing Exception**: Minimal tests for core functionality are encouraged and not considered overengineering.
+**Testing Exception**: 
+- **When Tests: basic**: Basic tests for core functionality are required and not considered overengineering.
+- **When Tests: no**: Tests are forbidden and considered overengineering if implemented.
 
 ## Critical Constraints
 
 - **ALWAYS** run verification checks after changes
-- **NEVER** return unless ALL verification checks pass (Status: SUCCESS)
+- **When Tests: basic**: NEVER return unless ALL verification checks pass (including tests)
+- **When Tests: no**: NEVER return unless ALL non-test verification checks pass (Status: SUCCESS)
 - **NEVER** commit changes (orchestrator handles commits)
 - **FIX** all issues before returning - try multiple approaches if needed
 - **ADAPT** verification to project type

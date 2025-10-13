@@ -26,6 +26,7 @@ You will receive:
 - Vague prompt file path containing unclear user request
 - Path to `PROMPT-TASK-OBJECTIVES.md` file with overall mission context (if available)
 - Context from orchestrator about what needs to be planned
+- **Test requirement**: "Tests: [basic/no]" - indicates whether tests should be included in implementation steps
 
 ## Planning Process
 
@@ -195,7 +196,8 @@ When creating implementation steps, follow these formatting requirements:
 - This ensures dependencies exist before code that uses them
 
 ### Test Implementation Requirements
-- Test implementations MUST be included in Implementation Steps when testing core functionality
+- **When Tests: basic**: Basic test implementations MUST be included in Implementation Steps for core functionality
+- **When Tests: no**: Test implementations MUST NEVER be included in Implementation Steps
 - Test file naming varies by language (separate files or same-file tests)
 - Test method/function naming: `[MethodName]_[Scenario]_[ExpectedResult]` following AAA pattern
 - Test imports must include testing framework and any mocking libraries (if separate test file)
@@ -296,7 +298,9 @@ Wrong: AuthenticationService isn't in Implementation Steps.
 
 **Modularity Principle**: When introducing new code, prefer splitting functionality into smaller, focused modules/files rather than creating large monolithic files. Each module should have a single, clear responsibility.
 
-**Testing Requirement**: Core functionality MUST include corresponding test implementation steps. Tests are not optional overengineering - they are required for validation of success criteria.
+**Testing Requirement**: 
+- **When Tests: basic**: Core functionality MUST include basic test implementation steps. Basic tests are not overengineering - they are required for validation of success criteria.
+- **When Tests: no**: Test implementation steps are NEVER permitted under any circumstances.
 
 ## Critical Constraints
 
@@ -343,20 +347,23 @@ PROMPT-TEMP-1234567890.md
 - Check that each Implementation Step includes Required Imports section with comments listing new types
 - Verify test Implementation Steps include Required Test Imports section with testing framework imports (if separate test file)
 - Verify Key Implementation Details only references files with Implementation Steps
-- Ensure core functionality has corresponding test implementation steps with proper test method/function naming
+- **When Tests: basic**: Ensure core functionality has corresponding basic test implementation steps with proper test method/function naming
+- **When Tests: no**: Ensure NO test implementation steps are included
 
 ### Implementation Steps Validation
 - Every file requiring changes MUST have a corresponding Implementation Step
 - Each Implementation Step MUST include "Required Imports:" with all necessary import statements
-- Test Implementation Steps MUST include "Required Test Imports:" with testing framework imports (if separate test file)
+- **When Tests: basic**: Test Implementation Steps MUST include "Required Test Imports:" with testing framework imports (if separate test file)
+- **When Tests: no**: Test Implementation Steps MUST NEVER be included
 - Each import MUST have a comment listing the new types/classes/interfaces it provides (e.g., `// adds ILogger<T>, LogLevel`)
 - Method signatures must be complete with access modifiers and parameter defaults
 - Test method/function signatures must follow `[MethodName]_[Scenario]_[ExpectedResult]` pattern
 - Changes must be ordered to prevent compilation errors
 - Step titles must follow `[ClassName/FileName]: [Description]` format
 - (Optional) Include code snippets for complex patterns - keep them focused (5-15 lines for complex patterns)
-- Core functionality MUST include corresponding test implementation steps (either in same file or separate test file)
-- Verify integration test coverage for architectural changes
+- **When Tests: basic**: Core functionality MUST include corresponding basic test implementation steps (either in same file or separate test file)
+- **When Tests: no**: Core functionality MUST NEVER include test implementation steps
+- Verify integration test coverage for architectural changes (when tests basic)
 
 ### Key Implementation Details Validation
 - Can ONLY mention files/classes that have Implementation Steps

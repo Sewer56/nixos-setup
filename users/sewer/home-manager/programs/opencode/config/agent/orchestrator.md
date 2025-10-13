@@ -43,7 +43,8 @@ Before beginning orchestration, analyze all prompts to understand the complete s
 3. **Synthesize the complete workflow** - Identify the overarching goal that these sequential steps are building toward
 4. **Map step relationships** - Note how each step contributes to the overall objective and what context carries forward
 5. **Extract cumulative requirements** - Identify constraints, technical requirements, or success criteria that span across steps
-6. **Prepare enriched context** - Create a concise synthesis emphasizing the sequential nature and cumulative progress
+6. **Extract test requirements** - Parse "## Testing Requirements" section from each prompt to determine if tests are basic or no for that step
+7. **Prepare enriched context** - Create a concise synthesis emphasizing the sequential nature, cumulative progress, and test requirements
 
 **After this analysis, NEVER read prompt files again** - only pass paths to subagents.
 
@@ -61,6 +62,7 @@ Before beginning orchestration, analyze all prompts to understand the complete s
      - What previous steps accomplished that this step should build upon
      - Constraints or patterns established earlier that must be maintained
      - Specific integration points or considerations for this step
+     - **Test requirement for this step**: "Tests: [basic/no]"
 3. Receive plan file path from agent response
 4. **MUST NOT** read the plan file content
 5. Store file path for subsequent implementation phases
@@ -71,7 +73,8 @@ Before beginning orchestration, analyze all prompts to understand the complete s
    - Prompt file path for requirements
    - **MUST instruct coder to read plan file**: "MUST read [plan-file-path] for implementation requirements"
    - Instruction to implement features
-   - Requirement to pass all verification checks
+     - **Test requirement for this step**: "Tests: [basic/no]"
+   - Requirement to pass all verification checks (excluding tests if no)
 3. Parse report content from agent response
 4. Extract relevant information for use in subsequent phases
 
@@ -80,12 +83,14 @@ Before beginning orchestration, analyze all prompts to understand the complete s
 2. Provide:
    - Prompt file path
    - Relevant context from implementation phase
+    - **Test requirement for this step**: "Tests: [basic/no]"
 3. Parse validation report from agent response
 4. If objectives not met:
    - Extract relevant information from validation report
    - Spawn `@orchestrator-coder` task with:
      - Prompt file path
      - Relevant context from validation feedback
+     - **Test requirement**: "Tests: [basic/no]"
    - Return to validation step
 5. Continue refinement loop by repeating steps 1-4 with `@orchestrator-coder` and `@orchestrator-objective-validator` subagents until:
    - All objectives are satisfied, OR
@@ -96,6 +101,7 @@ Before beginning orchestration, analyze all prompts to understand the complete s
 2. Provide:
    - Prompt file path
    - Relevant context from previous phases
+    - **Test requirement for this step**: "Tests: [basic/no]"
 3. Parse review report from agent response
 4. **CRITICAL**: Code reviewer ONLY reviews, never edits
 5. If review fails (verification checks don't pass):
@@ -103,6 +109,7 @@ Before beginning orchestration, analyze all prompts to understand the complete s
    - Spawn `@orchestrator-coder` task with:
      - Prompt file path
      - Relevant context from review feedback
+     - **Test requirement**: "Tests: [basic/no]"
    - Re-run code review with updated implementation
 6. Continue fix loop by repeating steps 1-5 with `@orchestrator-coder` and `@orchestrator-code-review` subagents until:
    - Review passes (all checks succeed), OR
@@ -135,6 +142,7 @@ Before beginning orchestration, analyze all prompts to understand the complete s
 - **NEVER** stop until all prompts are fully processed and committed
 - **MUST NOT** read plan files returned by planner - only pass file paths to coder
 - **ALWAYS** instruct coder to read plan files using exact format: "MUST read [file-path]"
+- **ALWAYS** communicate test requirements to all subagents using format: "Tests: [basic/no]"
 
 ## Completion Criteria
 
