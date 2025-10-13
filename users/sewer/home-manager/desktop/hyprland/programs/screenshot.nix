@@ -163,7 +163,7 @@
   wayland.windowManager.hyprland.settings = {
     bind = [
       # Advanced screenshot bindings matching legacy Arch setup
-      ", Print, exec, ~/.local/bin/take_screenshot.sh" # Region selection
+      "SHIFT, Print, exec, ~/.local/bin/take_screenshot.sh" # Region selection
       "ALT, Print, exec, ~/.local/bin/take_current_window_screenshot.sh" # Current window
       "CTRL, Print, exec, ~/.local/bin/take_full_screenshot.sh" # Full screen
     ];
