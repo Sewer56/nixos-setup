@@ -1,7 +1,7 @@
 ---
 description: "Generate concise PR summary"
 agent: build
-model: anthropic/claude-sonnet-4-5-20250929
+model: zai-coding-plan/glm-4.6
 ---
 
 # Simple PR Summary
