@@ -30,6 +30,9 @@ in {
 
     # .NET development
     dotnet-combined
+
+    # system profiling
+    linuxPackages.perf
   ];
 
   environment.sessionVariables = {
