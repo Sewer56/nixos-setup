@@ -13,6 +13,7 @@
     ./nix.nix
     ./packages.nix
     ./security.nix
+    ./virt-manager.nix
   ];
 
   hardware.enableAllFirmware = true;
