@@ -61,7 +61,7 @@
       };
 
       misc = {
-        vrr = 2; # Fullscreen only (else game flickers)
+        vrr = 3; # Fullscreen only (game/video only)
       };
     }
 
