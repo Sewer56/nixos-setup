@@ -96,13 +96,17 @@
   # Git configuration
   programs.git = {
     enable = true;
-    userName = "Sewer56";
-    userEmail = "sewer56lol@googlemail.com";
+    settings = {
+      user = {
+        name = "Sewer56";
+        email = "sewer56lol@googlemail.com";
+      };
+    };
     lfs.enable = true;
     package = pkgs.gitFull;
   };
   programs.gh.enable = true;
-  programs.gh.enableGitCredentialHelper = true;
+  programs.gh.gitCredentialHelper.enable = true;
 
   # Agenix configuration for secrets management
   age.secrets = {

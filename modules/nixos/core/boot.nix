@@ -9,5 +9,5 @@
   #};
 
   # Allow EXE files to be automatically executed through Wine
-  boot.binfmt.emulatedSystems = [ "x86_64-windows" "i686-windows" ];
+  boot.binfmt.emulatedSystems = ["x86_64-windows" "i686-windows"];
 }

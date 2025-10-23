@@ -32,7 +32,7 @@ in {
     dotnet-combined
 
     # system profiling
-    linuxPackages.perf
+    perf
   ];
 
   environment.sessionVariables = {
