@@ -54,7 +54,7 @@ in {
       # Code editor transparency
       "opacity 0.9 0.9, class:^(code)$"
       "opacity 0.9 0.9, class:^(code-url-handler)$"
-      "opacity 0.9 0.9, class:^(jetbrains-rider)$"
+      # "opacity 0.9 0.9, class:^(jetbrains-rider)$" # Does not blur, so disabled for now.
 
       # File manager transparency
       "opacity 0.9 0.9, class:^(thunar)$"
