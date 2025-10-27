@@ -1,7 +1,7 @@
 ---
 description: "Medium-tier planning using GLM-4.6. Deeper analysis; outputs plan in chat; no file writes. Suitable in most cases. Use on output of `/prompt-refiner` commands. Then use `/implement-plan-*` to execute."
 agent: plan
-model: zai-coding-plan/glm-4.6
+model: synthetic/hf:zai-org/GLM-4.6
 comment: "Run prompt-refiner.md first."
 ---
 

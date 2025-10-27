@@ -1,7 +1,7 @@
 ---
 description: "Clarify vague requests into specific objectives"
 agent: build
-model: zai-coding-plan/glm-4.6
+model: synthetic/hf:zai-org/GLM-4.6
 ---
 
 # Prompt Refiner Agent
