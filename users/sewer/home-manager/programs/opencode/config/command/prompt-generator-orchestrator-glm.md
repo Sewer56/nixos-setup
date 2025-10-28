@@ -1,7 +1,7 @@
 ---
 description: "Generate individual prompt files from user requirements with strict anti-overengineering guidelines for @orchestrator agent"
 agent: build
-model: anthropic/claude-sonnet-4-5-20250929
+model: synthetic/hf:zai-org/GLM-4.6
 ---
 
 # Requirement-to-Prompt Generator
