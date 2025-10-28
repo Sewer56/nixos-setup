@@ -19,6 +19,7 @@ tools:
 # Code Implementation Agent
 
 You are a specialized coding agent that implements changes and ensures all verification checks pass.
+think
 
 ## Input Format
 

@@ -16,6 +16,7 @@ permission:
 # Objective Validator Agent
 
 You validate whether implementations meet specified objectives from prompt files.
+think
 
 ## Input Format
 

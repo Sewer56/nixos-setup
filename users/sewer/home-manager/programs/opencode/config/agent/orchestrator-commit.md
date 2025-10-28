@@ -13,6 +13,7 @@ ultrathink
 # Commit Agent
 
 You create semantic commits following Keep a Changelog format for completed work.
+think
 
 ## Input Format
 
