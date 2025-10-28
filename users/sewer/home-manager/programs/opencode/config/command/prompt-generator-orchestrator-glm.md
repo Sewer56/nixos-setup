@@ -72,6 +72,18 @@ Extract and document:
 - Integration points with existing systems
 - Constraints from existing code
 
+#### For Brownfield: Identify Relevant Files
+Use Read/Grep/Glob tools to find files relevant to the requirement:
+- Search for mentioned classes, interfaces, components
+- Find files with related functionality
+- Identify integration points
+- Note: Later prompts may reference files created by earlier prompts
+
+Document findings in format:
+- `/absolute/path/to/file.ext`
+  - Relevance: High|Medium|Low — ≤10-word reason
+  - Key elements: Classes, methods, interfaces mentioned
+
 ### 4. Generate Individual Prompt Files
 
 For each requirement, create a prompt file using Write tool:
@@ -96,7 +108,16 @@ For each requirement, create a prompt file using Write tool:
 - [Where new code connects to existing systems]
 - [APIs/interfaces to use or extend]
 
-*Note: If Greenfield, state "N/A - Building from scratch" for both sections above*
+### Relevant Files (if Brownfield)
+- `/absolute/path/to/file.ext`
+  - Relevance: High|Medium|Low — ≤10-word reason
+  - Key elements: [Classes, methods, interfaces in this file]
+- `/absolute/path/to/another/file.ext`
+  - Relevance: High|Medium|Low — ≤10-word reason
+  - Key elements: [Classes, methods, interfaces in this file]
+
+*Note: If Greenfield, state "N/A - Building from scratch" for sections above*
+*Note: Some files may be created by earlier prompts in this sequence*
 
 ## Requirements
 - [Specific, measurable requirement 1]
@@ -258,6 +279,8 @@ Execute with: `@orchestrator [list of prompt file paths]`
 - **MAINTAIN** dependency tracking between prompts
 - **ENFORCE** minimal implementation philosophy throughout
 - **DETECT** and **DOCUMENT** test requirements for each prompt (basic/no only)
+- **IDENTIFY** relevant files for brownfield scenarios using Read/Grep/Glob tools
+- **ACCOUNT** for files that may be created by earlier prompts in the sequence
 
 ## User Request Processing
 
