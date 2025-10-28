@@ -48,7 +48,7 @@ You will receive context and requirements from the orchestrator, including:
    - **When Tests: no**: Never implement or verify tests
    - Run linter
    - Run docs
-   - Run formatter (if allowed)
+   - Run formatter (unless forbidden by system prompt)
    
    Use the system prompt instructions, if provided.
 

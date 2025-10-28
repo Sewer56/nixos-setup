@@ -47,7 +47,7 @@ You will receive context and requirements from the orchestrator, including:
    - **When Tests: no**: Never verify tests and flag any found tests as overengineering
    - Run linter
    - Run docs
-   - Run formatter (if allowed)
+   - Run formatter (unless forbidden by system prompt)
    - Capture ALL outputs and exit codes
    
    Use the system prompt instructions, if provided.
