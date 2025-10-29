@@ -1,7 +1,7 @@
 ---
 mode: subagent
 description: Unified objective validation and code review with verification checks
-model: synthetic/hf:MiniMaxAI/MiniMax-M2
+model: zai-coding-plan/glm-4.6
 tools:
   bash: true
   read: true

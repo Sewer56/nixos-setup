@@ -1,7 +1,7 @@
 ---
 mode: subagent
 description: Transforms vague requests into specific, actionable objectives without user interaction
-model: synthetic/hf:zai-org/GLM-4.6
+model: github-copilot/claude-sonnet-4.5
 tools:
   bash: false
   read: true

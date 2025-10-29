@@ -1,7 +1,7 @@
 ---
 mode: subagent
 description: Implements code changes and ensures all verification checks pass
-model: synthetic/hf:zai-org/GLM-4.6
+model: synthetic/hf:MiniMaxAI/MiniMax-M2
 tools:
   bash: true
   edit: true
