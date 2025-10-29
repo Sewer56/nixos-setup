@@ -23,14 +23,14 @@ think
 ## Inputs
 - `prompt_path`: absolute path to the current prompt file
 - `objectives_path`: absolute path to PROMPT-TASK-OBJECTIVES.md (optional)
-- `search_results_path`: absolute path to PROMPT-SEARCH-RESULTS-*.txt (annotated results file)
+- `search_results_path`: absolute path to PROMPT-SEARCH-RESULTS-*.md (annotated results file)
 - `tests`: "basic" or "no"
 
 ## Process
 - Parse inputs to extract the core objective and constraints.
 - Treat `search_results_path` as the candidate universe; read only files necessary to plan. Parse the annotated results:
-  - Use entries under "## Files" as files to read fully
-  - Use "## Patterns" only as exemplar snippets (no full reads)
+  - Use entries under `## Files` as files to read fully
+  - Use `## Patterns` only as exemplar snippets (no full reads)
 - Produce a minimal markdown plan using the format below, write it to a temp file, and return only its absolute path.
 
 ## Plan Format (Markdown)
@@ -43,7 +43,7 @@ tests: basic|no
 ## Inputs
 - prompt_path: /abs/path/to/PROMPT.md
 - objectives_path: /abs/path/to/PROMPT-TASK-OBJECTIVES.md | none
-- search_results_path: /abs/path/to/PROMPT-SEARCH-RESULTS-*.txt
+- search_results_path: /abs/path/to/PROMPT-SEARCH-RESULTS-*.md
 
 ## Objective
 <one sentence describing the concrete goal>

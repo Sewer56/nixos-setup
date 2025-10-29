@@ -1,7 +1,7 @@
 ---
 mode: subagent
 description: Identifies a minimal, high-signal file list for planning/implementation
-model: synthetic/hf:zai-org/GLM-4.6
+model: synthetic/hf:MiniMaxAI/MiniMax-M2
 tools:
   bash: false
   read: true
@@ -33,20 +33,21 @@ Find files that:
 - Provide 1–3 concrete usage examples of needed patterns (not many variants)
 
 ## Search Strategy
-- Parse prompt for concrete identifiers: filenames, classes, functions, modules, domains
+- Parse prompt for concrete identifiers: filenames, classes, functions, modules
 - Use `glob` and `grep` to locate candidates:
   - Match filenames/extensions explicitly mentioned or strongly implied
   - Search for identifiers, related calls, imports, and references
 - Deduplicate and filter noise:
-  - Exclude: `.git/`, `node_modules/`, `dist/`, `build/`, `target/`, lockfiles, large binaries, media
+  - Exclude: `.git/`, and files in `.gitignore`
   - Do NOT include many files showing the same pattern. Pick 1–3 best.
   - Prefer precision. Avoid large sets of low-relevance files.
 
 ## Output Format (single annotated file)
-- MUST write a single results file: `PROMPT-SEARCH-RESULTS-{timestamp}.txt`
+- MUST write a single results file: `PROMPT-SEARCH-RESULTS-{timestamp}.md`
 - File contains two sections `## Files` and `## Patterns`.
   - The `## Files` section lists files that the planner must read in its entirety.
-  - The `## Patterns` section lists concise code snippets illustrating key patterns for the planner. Use this to avoid having the planner read unnecessary files.
+  - The `## Patterns` section (snippets) lists concise code snippets illustrating key patterns for the planner. Use this to avoid having the planner read unnecessary files.
+  - Do NOT include snippets sourced from files listed under `## Files`. If a pattern exists only there, omit the snippet; the whole file will be read.
 
 ### Format Example
 ```
@@ -71,7 +72,7 @@ Find files that:
 
 ### Example Final Message
 ```
-/abs/path/PROMPT-SEARCH-RESULTS-1234567890.txt
+/abs/path/PROMPT-SEARCH-RESULTS-1234567890.md
 ```
 
 ## Critical Constraints
