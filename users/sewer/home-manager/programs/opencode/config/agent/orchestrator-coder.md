@@ -27,11 +27,13 @@ think
 - orchestrator context: distilled notes from prior phases
 - Tests: basic|no
 - MUST read [plan-file-path] (planner output `PROMPT-PLAN-*.md`)
+- May receive `## Relevant Snippets` inside the plan file.
 
 ## Workflow
 1) Read requirements
 - Read `prompt_path` and `objectives_path`.
 - MUST read [plan-file-path] exactly when instructed by the orchestrator.
+- Extract and prefer any `## Relevant Snippets` for guidance.
 - Incorporate any relevant orchestrator context.
 
 2) Implement changes

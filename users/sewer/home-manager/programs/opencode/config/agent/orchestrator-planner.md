@@ -28,9 +28,10 @@ think
 
 ## Process
 - Parse inputs to extract the core objective and constraints.
-- Treat `search_results_path` as the candidate universe; read only files necessary to plan. Parse the annotated results:
+- Treat `search_results_path` a list of files to look at; read only files necessary to plan. Parse the annotated results:
   - Use entries under `## Files` as files to read fully
   - Use `## Patterns` only as exemplar snippets (no full reads)
+- Curate `## Relevant Snippets` (how‑to X/Y for the Steps) from `## Patterns` and planner‑read files; include only snippets that directly aid implementation.
 - Produce a minimal markdown plan using the format below, write it to a temp file, and return only its absolute path.
 
 ## Plan Format (Markdown)
@@ -62,6 +63,17 @@ tests: basic|no
 - target: /abs/path/to/file2 | change: create|modify|delete
   - action: <imperative, minimal instruction>
 
+## Relevant Snippets
+- Purpose: show concrete “how to do X/Y” patterns for the Steps
+- Each item:
+- title: <actionable pattern name>
+- why: <1-line tie-back to a Step>
+- source: /abs/path/to/file:lineStart-lineEnd
+- snippet:
+```<language>
+<3–15 lines>
+```
+
 ## Test Steps
 (include only when tests: basic)
 - target: /abs/path/to/testfile | change: create|modify|delete
@@ -81,7 +93,8 @@ tests: basic|no
 ## Constraints
 - Minimalism: Only include what directly serves the objective. No future-proofing.
 - Use `search_results_path` as your file universe; expand beyond it only if critical.
-- Avoid line ranges, code listings, or verbose annotations.
+- Avoid line ranges or code listings, except within `## Relevant Snippets`.
+- Keep snippets minimal and focused (≈3–15 lines each). Do not source snippets from files listed under `## Relevant Files`.
 - Do not enforce import/type comment conventions; the coder will handle concrete imports.
 - When `tests` = "no": Omit `## Test Steps` entirely.
 
@@ -102,3 +115,4 @@ tests: basic|no
 - Ensure at least one `Steps` entry exists with absolute `target` paths.
 - Respect the `tests` flag: include `## Test Steps` only when `tests` = "basic".
 - Keep `Assumptions` succinct and strictly necessary.
+- If present, `## Relevant Snippets` items each have title, why, absolute source path with a 3–15 line range, and a fenced code block; none are sourced from files listed under `## Relevant Files`.
