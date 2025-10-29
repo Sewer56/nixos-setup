@@ -1,6 +1,6 @@
 ---
 mode: subagent
-description: Unified objective validation and code review with verification checks
+description: Unified objective validation and code review with verification checks (GLM reviewer)
 model: synthetic/hf:zai-org/GLM-4.6
 tools:
   bash: true
@@ -13,7 +13,7 @@ permission:
   patch: deny
 ---
 
-# Quality Gate Agent
+# Quality Gate Agent (GLM Reviewer)
 
 Single-pass review that validates objectives and code, runs verification checks, and reports results. Never edits files.
 
@@ -73,7 +73,7 @@ think
 Provide this exact structure in the final message:
 
 ```
-# QUALITY GATE REPORT
+# QUALITY GATE REPORT (GLM)
 
 ## Summary
 gate_status: [PASS|PARTIAL|FAIL]
