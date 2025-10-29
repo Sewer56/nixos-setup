@@ -29,8 +29,8 @@ think
 ## Purpose
 Find files that:
 - Show where the change will likely be implemented
-- Help the planner/coder understand current behavior fast (precision over recall)
-- Provide 1–3 concrete usage examples of needed patterns (not many variants)
+- Help the planner/coder understand current behavior
+- Have similar code in the codebase to embed as snippets. e.g. how to do X/Y.
 
 ## Search Strategy
 - Parse prompt for concrete identifiers: filenames, classes, functions, modules
@@ -47,8 +47,7 @@ Find files that:
 - File contains two sections `## Files` and `## Patterns`.
   - The `## Files` section lists files that the planner must read in its entirety.
   - The `## Patterns` section (snippets) lists concise code snippets illustrating key patterns for the planner.
-    - The patterns show how similar code is implemented in existing codebase, e.g. how to perform X/Y.
-    - Use this to avoid having the planner read unnecessary files.
+    - The patterns show how similar code is implemented in existing codebase, e.g. how to do X/Y.
 
 ### Format Example
 ```
@@ -78,5 +77,3 @@ Find files that:
 
 ## Critical Constraints
 - Do NOT modify repository files
-- Use only `read`, `grep`, `glob`, `list`, and `write`
-- Keep lists minimal; avoid redundant pattern variants
