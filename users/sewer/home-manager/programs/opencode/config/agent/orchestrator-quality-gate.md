@@ -27,31 +27,43 @@ think
 
 ## Process
 
-1) Read objectives
+1. Read objectives
 - Read `prompt_path` (and `objectives_path` if provided).
 - Extract objectives, constraints, and success criteria; note test policy.
 
-2) Discover changes
+2. Discover changes
 - Handle unstaged and untracked work; do not assume commits exist.
 - Collect changed paths via `git status --porcelain` and focus review on those.
 - Use diffs of staged and unstaged changes for analysis.
 
-3) Review code changes
-- Assess logic correctness and edge cases.
-- Check security (validation, authn/z, injection), performance, reliability/error handling.
-- Evaluate maintainability/readability and adherence to project practices.
-- Flag overengineering (unused paths, unnecessary abstractions or helpers, leftover debug code/logging).
+3. Review code changes
+- FAIL REVIEW IF: a small, single caller helper is defined separately instead of inlining.
+- FAIL REVIEW IF: there is dead code.
+- FAIL REVIEW IF: public visibility is used when private/protected suffices.
+- WARNING IF: there is unnecessary abstraction, i.e. interface with only 1 implementation.
+- FAIL REVIEW IF: there is leftover debug/logging code that's not intended for production.
 
-4) Validate objectives
-- Map implementation to each objective; mark unmet, incorrect, or overengineered items.
+4. Review objectives
+- Read all objectives from prompt files.
+- Ensure each objective is met by the implementation.
+- FAIL REVIEW IF: An objective is not met.
 
-5) Run verification checks
+5. Review tests
 - Tests: basic → ensure basic tests exist for new functionality and run tests.
 - Tests: no → do not run tests; flag any found tests as overengineering.
+- Check whole test files, not just diffs.
+- FAIL REVIEW IF newly added code may duplicate existing tests.
+- FAIL REVIEW IF same behavior is asserted in multiple tests.
+  - If one test already verifies an assertion, others can skip it.
+- FAIL REVIEW IF a test can be parameterized to avoid duplication.
+- FAIL REVIEW IF a test is deterministic; avoid real I/O/time/network; seed/freeze.
+
+6. Run verification checks
+
 - Run formatter, linter, and type/build checks per project conventions.
 - Capture outputs and exit codes.
 
-6) Decide status
+7) Decide status
 - PASS: All objectives satisfied, no critical issues, and all checks pass.
 - PARTIAL: Most objectives satisfied with non-trivial but fixable issues.
 - FAIL: Objectives not met, critical issues present, or any check fails.
@@ -116,7 +128,4 @@ notes: "Brief rationale highlighting unmet objectives or blockers"
 
 ## Constraints
 - Review-only: never modify files.
-- Always run verification checks (except tests when `tests: no`).
-- When `tests: basic`: FAIL if any check fails (including tests).
-- When `tests: no`: FAIL if any non-test check fails OR any tests are found.
 - Scope review to changed files and their diffs; cite file:line in findings.
