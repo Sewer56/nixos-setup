@@ -40,7 +40,7 @@ think
 - Assess logic correctness and edge cases.
 - Check security (validation, authn/z, injection), performance, reliability/error handling.
 - Evaluate maintainability/readability and adherence to project practices.
-- Flag overengineering (unused paths, unnecessary abstractions or helpers).
+- Flag overengineering (unused paths, unnecessary abstractions or helpers, leftover debug code/logging).
 
 4) Validate objectives
 - Map implementation to each objective; mark unmet, incorrect, or overengineered items.
