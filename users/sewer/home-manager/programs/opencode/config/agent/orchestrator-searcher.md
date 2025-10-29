@@ -47,7 +47,6 @@ Find files that:
 - File contains two sections `## Files` and `## Patterns`.
   - The `## Files` section lists files that the planner must read in its entirety.
   - The `## Patterns` section (snippets) lists concise code snippets illustrating key patterns for the planner. Use this to avoid having the planner read unnecessary files.
-  - Do NOT include snippets sourced from files listed under `## Files`. If a pattern exists only there, omit the snippet; the whole file will be read.
 
 ### Format Example
 ```
@@ -79,3 +78,4 @@ Find files that:
 - Do NOT modify repository files
 - Use only `read`, `grep`, `glob`, `list`, and `write`
 - Keep lists minimal; avoid redundant pattern variants 
+- Don't include snippets in `## Patterns` sourced from files listed under `## Files`. There is no purpose, as the whole file will be read by the user anyway, avoiding the need to embed a snippet.
