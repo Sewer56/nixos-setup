@@ -60,19 +60,21 @@ Phase 2: Implementation
 - Parse coder’s final message for context.
 
 Phase 3: Quality Gate (loop ≤ 3)
-- Spawn BOTH reviewers in parallel:
+- Spawn ALL THREE reviewers in parallel:
   - @orchestrator-quality-gate-glm with prompt_path, relevant implementation context, Tests: basic|no.
   - @orchestrator-quality-gate-sonnet with prompt_path, relevant implementation context, Tests: basic|no.
-- Parse results from BOTH reviewers:
-  - If BOTH PASS: continue to Phase 4.
+  - @orchestrator-quality-gate-gpt5 with prompt_path, relevant implementation context, Tests: basic|no.
+- Parse results from ALL THREE reviewers:
+  - If ALL THREE PASS: continue to Phase 4.
   - If ANY FAIL/PARTIAL:
     - Distill issues from GLM reviewer.
     - Distill issues from Sonnet reviewer.
+    - Distill issues from GPT-5 reviewer.
     - Combine into unified feedback context.
     - Re‑invoke coder with combined issues.
-    - Re‑run BOTH gates (not just failed ones).
-- Repeat loop up to 3 times until both approve or limit reached.
-- If loop exhausted without both approvals: report failure and halt step.
+    - Re‑run ALL THREE gates (not just failed ones).
+- Repeat loop up to 3 times until all three approve or limit reached.
+- If loop exhausted without all three approvals: report failure and halt step.
 
 Phase 4: Commit
 - Summarize key changes/outcomes.
@@ -89,8 +91,8 @@ Phase 5: Progress Tracking
 - Always pass "Tests: basic|no" to all subagents.
 - Always instruct coder with exact: "MUST read [file‑path]".
 - Orchestrator never executes commands or edits files; quality gate only reviews.
-- Quality gate requires BOTH reviewers (GLM + Sonnet) to PASS before proceeding.
-- Always re‑run BOTH gates after coder fixes, even if only one failed.
+- Quality gate requires ALL THREE reviewers (GLM + Sonnet + GPT-5) to PASS before proceeding.
+- Always re‑run ALL THREE gates after coder fixes, even if only one failed.
 - Do not stop until all prompts are processed and committed (or gate loop exhausted per step).
 
 ## Completion
@@ -104,6 +106,6 @@ Format updates as:
 📋 [Phase] | [Current Agent] | [Action] | Progress: [X/Y]
 
 For Phase 3 (Quality Gate), format as:
-📋 [Phase 3 - Quality Gate] | GLM: [PASS/FAIL/PARTIAL] | Sonnet: [PASS/FAIL/PARTIAL] | Iteration: [X/3]
+📋 [Phase 3 - Quality Gate] | GLM: [PASS/FAIL/PARTIAL] | Sonnet: [PASS/FAIL/PARTIAL] | GPT-5: [PASS/FAIL/PARTIAL] | Iteration: [X/3]
 
 Keep updates concise and focused on orchestration status.
