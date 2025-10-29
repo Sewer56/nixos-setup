@@ -23,7 +23,6 @@
     };
     opencode-flake = {
       url = "github:bogorad/opencode-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland = {
       url = "github:hyprwm/Hyprland/v0.51.1";
