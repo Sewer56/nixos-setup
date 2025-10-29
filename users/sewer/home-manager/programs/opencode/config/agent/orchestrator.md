@@ -2,7 +2,6 @@
 mode: primary
 description: Orchestrates multi-phase tasks by delegating to specialized subagents
 model: zai-coding-plan/glm-4.6
-temperature: 0.0
 tools:
   bash: false
   edit: false

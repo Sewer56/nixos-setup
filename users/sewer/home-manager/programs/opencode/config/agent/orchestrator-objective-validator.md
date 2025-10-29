@@ -2,7 +2,6 @@
 mode: subagent
 description: Validates if implementation meets all specified objectives in prompt files
 model: zai-coding-plan/glm-4.6
-temperature: 0.0
 tools:
   bash: true
   read: true

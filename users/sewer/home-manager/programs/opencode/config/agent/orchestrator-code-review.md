@@ -2,7 +2,6 @@
 mode: subagent
 description: Reviews code for critical issues and ensures all checks pass
 model: zai-coding-plan/glm-4.6
-temperature: 0.0
 tools:
   bash: true
   read: true

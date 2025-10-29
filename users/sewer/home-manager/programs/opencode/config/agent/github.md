@@ -2,7 +2,6 @@
 mode: subagent
 description: Use this for GitHub repository operations, third-party library research, and repository documentation analysis.
 model: zai-coding-plan/glm-4.6
-temperature: 0.0
 tools:
   github_*: true
   context7_*: true

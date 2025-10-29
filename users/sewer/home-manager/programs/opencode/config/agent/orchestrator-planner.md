@@ -2,7 +2,6 @@
 mode: subagent
 description: Transforms vague requests into specific actionable objectives without user interaction
 model: synthetic/hf:zai-org/GLM-4.6
-temperature: 0.0
 tools:
   bash: true
   read: true

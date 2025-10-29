@@ -2,7 +2,6 @@
 mode: subagent
 description: Specialized GitHub agent for fetching issue/PR context and investigating the current repository for issue creation workflows
 model: zai-coding-plan/glm-4.6
-temperature: 0.0
 tools:
   github_get_issue: true
   github_get_issue_comments: true
