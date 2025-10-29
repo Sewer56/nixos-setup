@@ -33,20 +33,22 @@ think
 1) Read requirements
 - Read `prompt_path` and `objectives_path`.
 - MUST read [plan-file-path] exactly when instructed by the orchestrator.
-- Extract and prefer any `## Relevant Snippets` for guidance.
-- Incorporate any relevant orchestrator context.
+- Prefer any `## Relevant Snippets` for guidance.
+- Incorporate orchestrator context.
 
 2) Implement changes
-- Follow existing code style and patterns.
-- Keep changes minimal; implement only what’s required.
-- Avoid future-proofing and new abstractions unless immediately necessary.
-- Remove unused code and imports; add only necessary deps/config.
+- Prefer smallest viable diff; reuse existing patterns.
+- Inline tiny single-use helpers; avoid new files.
+- Limit visibility; avoid public unless required.
+- Avoid unnecessary abstractions; no single-impl interfaces.
+- Remove dead code and unused imports; delete unused paths.
+- Add only necessary deps/config.
+- No debug/temporary logging.
 
 3) Verify
-- Run formatter and linter. (unless disallowed by system prompt)
-- Build with minimal verbosity.
-- When Tests: basic → add minimal tests for new functionality and run them.
-- When Tests: no → do not add or run tests.
+- Run formatter (unless forbidden by system prompt), linter, and build; iterate until clean.
+- Tests: basic → add minimal, non-duplicative tests; parametrize to reduce repetition; avoid real I/O/time/network—seed/freeze.
+- Tests: no → do not add or run tests.
 
 4) Fix and iterate
 - If any check fails, analyze, fix, and rerun verification.
@@ -75,6 +77,5 @@ Issues Remaining
 ## Constraints
 - Do not commit; the orchestrator handles commits.
 - Keep reports concise; include only failures/warnings when present.
-- Minimize code; delete unused paths/imports; avoid new abstractions/logging unless required.
 - Respect Tests: basic|no policy.
-- Return only after all verification checks have passed for the given Tests mode.
+- Return only after all required checks have passed for the given Tests mode.
