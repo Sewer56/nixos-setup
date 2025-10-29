@@ -37,6 +37,7 @@ You will receive:
 - Deduplicate and filter noise:
   - Exclude: `.git/`, `node_modules/`, `dist/`, `build/`, `target/`, lockfiles, large binaries, media
   - Enforce a hard cap of 150 files (keep most relevant)
+  - Do not include many files if they are examples of the same thing. Just a few examples are enough.
 
 ## Output Format
 
