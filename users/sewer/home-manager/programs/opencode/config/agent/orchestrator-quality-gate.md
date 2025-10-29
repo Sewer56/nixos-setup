@@ -1,7 +1,7 @@
 ---
 mode: subagent
 description: Unified objective validation and code review with verification checks
-model: zai-coding-plan/glm-4.6
+model: synthetic/hf:zai-org/GLM-4.6
 tools:
   bash: true
   read: true

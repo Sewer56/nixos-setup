@@ -1,7 +1,7 @@
 ---
 description: "Generate a prompt pack from user requirements for @orchestrator"
 agent: build
-model: synthetic/hf:zai-org/GLM-4.6
+model: anthropic/claude-sonnet-4-5
 ---
 
 # Prompt Pack Generator
