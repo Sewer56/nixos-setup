@@ -51,11 +51,21 @@ Before beginning orchestration, analyze all prompts to understand the complete s
 
 **Process each prompt file path in sequential order**, where each step builds on all previous steps:
 
-### Phase 0: Prompt Planning
+### Phase 0: Code Search
+1. Spawn `@orchestrator-searcher` subagent via task tool
+2. Provide:
+   - Prompt file path (current step)
+   - Path to `PROMPT-TASK-OBJECTIVES.md` for mission context
+   - Directive: "Return ONLY the absolute path to a newline-delimited file list"
+3. Receive search results file path from agent response (e.g., `PROMPT-SEARCH-RESULTS-*.txt`)
+4. **MUST NOT** read the file content; store the path for planning
+
+### Phase 1: Prompt Planning
 1. Spawn `@orchestrator-planner` subagent via task tool
 2. Provide:
    - Prompt file path (current step)
    - Path to `PROMPT-TASK-OBJECTIVES.md` for mission context
+   - Path to search results file returned by Phase 0
    - **Directive guidance based on workflow analysis** - Steer the planner with specific instructions derived from:
      - How this step fits in the overall workflow sequence
      - What previous steps accomplished that this step should build upon
@@ -66,7 +76,7 @@ Before beginning orchestration, analyze all prompts to understand the complete s
 4. **MUST NOT** read the plan file content
 5. Store file path for subsequent implementation phases
 
-### Phase 1: Initial Implementation
+### Phase 2: Initial Implementation
 1. Spawn a `@orchestrator-coder` subagent via the task tool
 2. Provide:
    - Prompt file path for requirements
@@ -77,44 +87,26 @@ Before beginning orchestration, analyze all prompts to understand the complete s
 3. Parse report content from agent response
 4. Extract relevant information for use in subsequent phases
 
-### Phase 2: Objective Validation
-1. Invoke `@orchestrator-objective-validator` subagent  
+### Phase 3: Quality Gate
+1. Invoke `@orchestrator-quality-gate` subagent
 2. Provide:
    - Prompt file path
-   - Relevant context from implementation phase
-    - **Test requirement for this step**: "Tests: [basic/no]"
-3. Parse validation report from agent response
-4. If objectives not met:
-   - Extract relevant information from validation report
+   - Relevant context from implementation phase(s)
+   - **Test requirement for this step**: "Tests: [basic/no]"
+3. Parse quality gate report from agent response
+4. If gate does not PASS (FAIL or PARTIAL):
+   - Extract actionable issues (unmet objectives, critical issues, failed checks)
    - Spawn `@orchestrator-coder` task with:
      - Prompt file path
-     - Relevant context from validation feedback
+     - Relevant context distilled from the gate feedback
      - **Test requirement**: "Tests: [basic/no]"
-   - Return to validation step
-5. Continue refinement loop by repeating steps 1-4 with `@orchestrator-coder` and `@orchestrator-objective-validator` subagents until:
-   - All objectives are satisfied, OR
+   - Re-run Quality Gate with updated implementation
+5. Continue loop by repeating steps 1-4 with `@orchestrator-coder` and `@orchestrator-quality-gate` until:
+   - Gate passes (all objectives satisfied and checks succeed), OR
    - Same issues persist after 3 attempts
 
-### Phase 3: Code Review
-1. Invoke `@orchestrator-code-review` subagent
-2. Provide:
-   - Prompt file path
-   - Relevant context from previous phases
-    - **Test requirement for this step**: "Tests: [basic/no]"
-3. Parse review report from agent response
-4. **CRITICAL**: Code reviewer ONLY reviews, never edits
-5. If review fails (verification checks don't pass):
-   - Extract relevant information from review report
-   - Spawn `@orchestrator-coder` task with:
-     - Prompt file path
-     - Relevant context from review feedback
-     - **Test requirement**: "Tests: [basic/no]"
-   - Re-run code review with updated implementation
-6. Continue fix loop by repeating steps 1-5 with `@orchestrator-coder` and `@orchestrator-code-review` subagents until:
-   - Review passes (all checks succeed), OR
-   - Same issues persist after 3 attempts
 
-### Phase 4: Commit Changes
+### Phase 5: Commit Changes
 1. Create a concise bulleted summary of key outcomes from all phases
 2. Invoke `@orchestrator-commit` subagent
 3. Provide:
@@ -123,7 +115,7 @@ Before beginning orchestration, analyze all prompts to understand the complete s
 4. Parse commit report from agent response
 5. **CRITICAL**: Commit agent automatically excludes report files from commits
 
-### Phase 5: Progress Tracking
+### Phase 6: Progress Tracking
 1. Mark current phase complete in todo list
 2. Proceed to next prompt file
 
@@ -136,8 +128,8 @@ Before beginning orchestration, analyze all prompts to understand the complete s
 - **NEVER** execute `bash` commands or modify files directly  
 - **NEVER** use `grep`, `glob`, or code analysis tools
 - **ALWAYS** use `@orchestrator-coder` for any code changes or fixes
-- **ENSURE** code reviewer only reviews, never edits
-- **VERIFY** all checks pass before proceeding to commit phase
+- **ENSURE** quality gate only reviews, never edits
+- **VERIFY** quality gate passes (all objectives satisfied and all checks succeed) before proceeding to commit phase
 - **NEVER** stop until all prompts are fully processed and committed
 - **MUST NOT** read plan files returned by planner - only pass file paths to coder
 - **ALWAYS** instruct coder to read plan files using exact format: "MUST read [file-path]"
@@ -147,10 +139,9 @@ Before beginning orchestration, analyze all prompts to understand the complete s
 
 The orchestration is complete when:
 1. All prompt files have been processed
-2. All objectives validated successfully
-3. Code review passes with all verification checks succeeding
-4. All changes committed via `@orchestrator-commit`
-5. Final status report generated
+2. Quality gate passes (objectives satisfied and all checks succeed)
+3. All changes committed via `@orchestrator-commit`
+4. Final status report generated
 
 ## Output Format
 

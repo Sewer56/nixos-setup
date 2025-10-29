@@ -22,13 +22,12 @@ You receive:
 
 ### 1. Analyze Requirements
 For each requirement:
-- **Identify context type**: Greenfield or Brownfield?
-- **Extract prior work**: Any "Previously..." or "expand existing..." context?
+- **Extract prior work cues**: Any "Previously..." or "expand existing..." context? (for planner awareness only)
 - **Identify the core objective**: What's the end goal?
 - **Extract specific deliverables**: What must be built?
 - **Note dependencies**: Dependencies on other requirements or existing code?
 - **Surface non-functional requirements**: Reactive? Real-time? Ordered? Performance?
-- **Identify integration points**: (Brownfield only) What existing code/APIs to use?
+- **Identify integration points**: Any explicit APIs/code the user mentions
 - **Determine if requirement should be split**: Multiple prompts needed?
 
 ### 2. Analyze Test Requirements
@@ -48,41 +47,13 @@ For each requirement, determine testing needs:
 - Per-requirement settings override global settings
 - If neither basic nor no is explicitly mentioned, default to `basic`
 
-### 3. Analyze Context Type & Existing Implementation
+### 3. Note Existing Implementation Cues
 
-For each requirement, determine the implementation context:
+For each requirement, capture any hints that reference existing code (names, files, modules, components). Do not classify as greenfield/brownfield; the searcher will drive discovery.
 
-#### Greenfield (No Existing Code)
-- No prior implementation exists
-- Building from scratch
-- Focus on architecture and design patterns
-
-#### Brownfield (Existing Code Integration)
-- Existing code/systems to integrate with
-- Prior work or architectural decisions to preserve
-- Focus on integration points and compatibility
-
-#### Indicators:
-- **Brownfield signals**: "Previously on branch...", "expand the existing...", "add to the...", "integrate with...", "needs to work with..."
-- **Greenfield signals**: "create new...", "build a...", "implement from scratch..."
-
-Extract and document:
-- Prior implementation context (if brownfield)
-- Existing architectural patterns to follow
-- Integration points with existing systems
-- Constraints from existing code
-
-#### For Brownfield: Identify Relevant Files
-Use Read/Grep/Glob tools to find files relevant to the requirement:
-- Search for mentioned classes, interfaces, components
-- Find files with related functionality
-- Identify integration points
-- Note: Later prompts may reference files created by earlier prompts
-
-Document findings in format:
-- `/absolute/path/to/file.ext`
-  - Relevance: High|Medium|Low — ≤10-word reason
-  - Key elements: Classes, methods, interfaces mentioned
+- Record identifiers and terms that may help search
+- Note potential integration points mentioned
+- Avoid speculating about architecture; rely on search results later for specifics
 
 ### 4. Generate Individual Prompt Files
 
@@ -97,27 +68,11 @@ For each requirement, create a prompt file using Write tool:
 [1-2 sentences describing what needs to be achieved]
 
 ## Context & Prior Work
-**Type**: [Greenfield | Brownfield]
+- Cues indicating existing code references (names/files/modules)
+- Potential integration points explicitly mentioned by the user
+- Constraints explicitly stated by the user
 
-### Existing Implementation (if Brownfield)
-- [Prior work or features already implemented]
-- [Existing systems/controls to integrate with]
-- [Constraints from existing codebase]
-
-### Integration Points (if Brownfield)
-- [Where new code connects to existing systems]
-- [APIs/interfaces to use or extend]
-
-### Relevant Files (if Brownfield)
-- `/absolute/path/to/file.ext`
-  - Relevance: High|Medium|Low — ≤10-word reason
-  - Key elements: [Classes, methods, interfaces in this file]
-- `/absolute/path/to/another/file.ext`
-  - Relevance: High|Medium|Low — ≤10-word reason
-  - Key elements: [Classes, methods, interfaces in this file]
-
-*Note: If Greenfield, state "N/A - Building from scratch" for sections above*
-*Note: Some files may be created by earlier prompts in this sequence*
+*Note: File discovery is performed by the searcher step; do not attempt to list repository files here.*
 
 ## Requirements
 - [Specific, measurable requirement 1]
@@ -190,9 +145,8 @@ Generate `PROMPT-TASK-OBJECTIVES.md` with overall mission context:
 **Overall Mission**: [Concise goal encompassing all requirements - 1-2 sentences max]
 
 ## Implementation Context
-- **Type**: [Primarily Greenfield | Primarily Brownfield | Mixed]
-- **Prior Work**: [Summary of existing implementations to build upon, or "None - new features"]
-- **Integration Strategy**: [How new code integrates with existing, or "N/A - standalone"]
+- **Prior Work Cues**: [Any explicit references provided by the user]
+- **Integration Strategy**: [Only if explicitly specified by the user]
 
 ## Success Criteria
 - [3-5 key measurable outcomes maximum]
@@ -279,7 +233,7 @@ Execute with: `@orchestrator [list of prompt file paths]`
 - **MAINTAIN** dependency tracking between prompts
 - **ENFORCE** minimal implementation philosophy throughout
 - **DETECT** and **DOCUMENT** test requirements for each prompt (basic/no only)
-- **IDENTIFY** relevant files for brownfield scenarios using Read/Grep/Glob tools
+- **DEFER** repository file discovery to the searcher step
 - **ACCOUNT** for files that may be created by earlier prompts in the sequence
 
 ## User Request Processing
