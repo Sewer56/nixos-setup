@@ -23,12 +23,14 @@ think
 ## Inputs
 - `prompt_path`: absolute path to the current prompt file
 - `objectives_path`: absolute path to PROMPT-TASK-OBJECTIVES.md (optional)
-- `search_results_path`: absolute path to newline-delimited candidate file paths
+- `search_results_path`: absolute path to PROMPT-SEARCH-RESULTS-*.txt (annotated results file)
 - `tests`: "basic" or "no"
 
 ## Process
 - Parse inputs to extract the core objective and constraints.
-- Treat `search_results_path` as the candidate universe; read only files necessary to plan.
+- Treat `search_results_path` as the candidate universe; read only files necessary to plan. Parse the annotated results:
+  - Use entries under "## Files" as files to read fully
+  - Use "## Patterns" only as exemplar snippets (no full reads)
 - Produce a minimal markdown plan using the format below, write it to a temp file, and return only its absolute path.
 
 ## Plan Format (Markdown)
@@ -97,7 +99,6 @@ tests: basic|no
 - Final message must contain only the absolute path to the file (no content, no extra text).
 
 ## Validation
-- Verify listed file paths exist (from `search_results_path` and any minimal additions).
 - Ensure at least one `Steps` entry exists with absolute `target` paths.
 - Respect the `tests` flag: include `## Test Steps` only when `tests` = "basic".
 - Keep `Assumptions` succinct and strictly necessary.

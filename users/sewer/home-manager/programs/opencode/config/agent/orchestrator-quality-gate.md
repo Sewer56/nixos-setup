@@ -21,7 +21,7 @@ think
 ## Input Format
 
 You will receive context and requirements from the orchestrator, including:
-- Primary prompt file path with specific requirements
+- Primary prompt file path with specific requirements (these MUST be met!)
 - Path to `PROMPT-TASK-OBJECTIVES.md` file with overall mission context and constraints
 - Relevant context interpreted and provided by the orchestrator from implementation phase(s)
 - Test requirement: "Tests: [basic/no]"
@@ -35,11 +35,6 @@ You will receive context and requirements from the orchestrator, including:
 2. Identify Changed Files
    - Do NOT assume commits exist; handle unstaged and untracked
    - List files: use `git status --porcelain` to collect M/A/?? paths
-   - Review patches per file:
-     - Staged: `git diff --cached -- <path>`
-     - Unstaged: `git diff -- <path>`
-     - Untracked: `git diff --no-index /dev/null -- <path>`
-   - If no HEAD exists, skip HEAD-based diffs; rely on status + no-index
    - Focus review strictly on these patches
 
 3. Review Code Changes

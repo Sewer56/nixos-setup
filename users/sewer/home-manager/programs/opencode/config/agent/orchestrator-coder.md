@@ -26,7 +26,7 @@ You will receive context and requirements from the orchestrator, including:
 - Primary prompt file path with specific implementation requirements
 - Path to `PROMPT-TASK-OBJECTIVES.md` file with overall mission context and constraints
 - Relevant context interpreted and provided by the orchestrator (e.g., feedback from validation or review phases)
-- **MUST read plan file when instructed**: Read file when orchestrator says "MUST read [file-path]"
+- **MUST read plan file when instructed**: Read file when orchestrator says "MUST read [file-path]" (this is the planner output `PROMPT-PLAN-*.md`)
 - **Test requirement**: "Tests: [basic/no]" - indicates whether tests should be implemented and verified
 
 ## Implementation Process
@@ -127,7 +127,6 @@ You will receive context and requirements from the orchestrator, including:
 - **When Tests: no**: NEVER return unless ALL non-test verification checks pass (Status: SUCCESS)
 - **NEVER** commit changes (orchestrator handles commits)
 - **FIX** all issues before returning - try multiple approaches if needed
-- **ADAPT** verification to project type
 - **REPORT** only failures, errors, and warnings - omit passing verification results
 - **BE CONCISE** - keep reports brief and focused on essential information only
 - **MINIMIZE** code - implement only what's required, nothing more
