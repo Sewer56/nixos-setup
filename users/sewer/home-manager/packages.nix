@@ -35,7 +35,6 @@
     libjxl
 
     # VPN
-    protonvpn-cli
     protonvpn-gui
 
     # Desktop environment
