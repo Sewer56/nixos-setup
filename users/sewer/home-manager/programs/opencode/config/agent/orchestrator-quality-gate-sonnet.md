@@ -1,7 +1,7 @@
 ---
 mode: subagent
 description: Unified objective validation and code review with verification checks (Sonnet reviewer)
-model: claude-sonnet-4-20250514
+model: anthropic/claude-sonnet-4-5
 tools:
   bash: true
   read: true
