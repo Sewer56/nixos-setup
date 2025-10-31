@@ -99,7 +99,7 @@
     settings = {
       user = {
         name = "Sewer56";
-        email = "sewer56lol@googlemail.com";
+        email = "sewer@sewer56.dev";
       };
     };
     lfs.enable = true;
