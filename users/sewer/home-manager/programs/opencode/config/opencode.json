@@ -93,6 +93,18 @@
             }
           }
         },
+        "anthropic/claude-haiku-4-5": {
+          "options": {
+            "thinking": {
+              "type": "enabled",
+              "budgetTokens": 31999
+            },
+            "cacheControl": {
+              "type": "ephemeral",
+              "ttl": "1h"
+            }
+          }
+        },
         "claude-opus-4-1-20250805": {
           "options": {
             "thinking": {
