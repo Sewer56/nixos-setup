@@ -51,5 +51,8 @@
 
     # Profiling tools
     hotspot
+
+    # File transfer
+    filezilla
   ];
 }
