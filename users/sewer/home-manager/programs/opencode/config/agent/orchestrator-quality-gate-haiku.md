@@ -1,7 +1,7 @@
 ---
 mode: subagent
-description: Unified objective validation and code review with verification checks (GLM reviewer)
-model: zai-coding-plan/glm-4.6
+description: Unified objective validation and code review with verification checks (Haiku reviewer)
+model: anthropic/claude-haiku-4-5
 tools:
   bash: true
   read: true
@@ -13,7 +13,7 @@ permission:
   patch: deny
 ---
 
-# Quality Gate Agent (GLM Reviewer)
+# Quality Gate Agent (Haiku Reviewer)
 
 Single-pass review that validates objectives and code, runs verification checks, and reports results. Never edits files.
 
@@ -73,7 +73,7 @@ think
 Provide this exact structure in the final message:
 
 ```
-# QUALITY GATE REPORT (GLM)
+# QUALITY GATE REPORT (HAIKU)
 
 ## Summary
 gate_status: [PASS|PARTIAL|FAIL]
