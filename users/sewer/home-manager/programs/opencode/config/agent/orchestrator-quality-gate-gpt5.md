@@ -1,7 +1,7 @@
 ---
 mode: subagent
-description: Unified objective validation and code review with verification checks (M2 reviewer)
-model: synthetic/hf:MiniMaxAI/MiniMax-M2
+description: Unified objective validation and code review with verification checks (GPT-5 reviewer)
+model: github-copilot/gpt-5
 tools:
   bash: true
   read: true
@@ -13,7 +13,7 @@ permission:
   patch: deny
 ---
 
-# Quality Gate Agent (M2 Reviewer)
+# Quality Gate Agent (GPT-5 Reviewer)
 
 Single-pass review that validates objectives and code, runs verification checks, and reports results. Never edits files.
 
@@ -73,7 +73,7 @@ think
 Provide this exact structure in the final message:
 
 ```
-# QUALITY GATE REPORT (M2)
+# QUALITY GATE REPORT (GPT-5)
 
 ## Summary
 gate_status: [PASS|PARTIAL|FAIL]
