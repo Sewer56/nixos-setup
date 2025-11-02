@@ -1,7 +1,7 @@
 ---
 mode: primary
 description: Orchestrates multi-phase tasks by delegating to specialized subagents
-model: zai-coding-plan/glm-4.6
+model: anthropic/claude-sonnet-4-5
 tools:
   bash: false
   edit: false
