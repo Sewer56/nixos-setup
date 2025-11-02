@@ -23,7 +23,7 @@ Briefly inspect the repository to recognize:
 Use this to make prompts specific; do not perform deep analysis.
 
 ## Process
-1) Slice work: Split requirements into minimal, single‑objective prompts. Group interdependent operations to keep codebase functional. Order them and note dependencies.
+1) Slice work: Split requirements by logical outcome, not file count. Group interdependent operations and batch similar changes across files. Order them and note dependencies.
 2) Tests: If the user explicitly says “no tests”, set Tests: no; otherwise Tests: basic.
 3) Emit files: PROMPT‑TASK‑OBJECTIVES.md, PROMPT‑ORCHESTRATOR.md, and PROMPT‑NN‑{short-title}.md for each step.
 
