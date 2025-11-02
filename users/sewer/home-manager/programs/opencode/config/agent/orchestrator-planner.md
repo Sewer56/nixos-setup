@@ -51,7 +51,7 @@ think
 - tests=no → omit `## Test Steps` entirely.
 
 5) Output
-- Write the plan in the specified format to a temp file.
+- Write the plan in the specified format to the current working directory.
 - Return only the absolute path.
 
 ## Plan Format (Markdown)

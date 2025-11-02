@@ -57,7 +57,7 @@ think
   - Integration patterns (avoid reading full collaborator files)
 
 5) **Write and return**
-- Write `PROMPT-SEARCH-RESULTS-{timestamp}.md` to temp dir
+- Write `PROMPT-SEARCH-RESULTS-{timestamp}.md` to the current working directory
 - Final message: only the absolute path
 
 ## Results Format
