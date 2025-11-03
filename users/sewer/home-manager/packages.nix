@@ -20,7 +20,7 @@
     qbittorrent
 
     # Wine
-    wineWow64Packages.waylandFull
+    wineWow64Packages.stagingFull
     winetricks
 
     # Gaming/Emulators
