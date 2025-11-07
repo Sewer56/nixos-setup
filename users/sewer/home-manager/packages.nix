@@ -24,8 +24,8 @@
     winetricks
 
     # Gaming/Emulators
-    # dolphin-emu
-    # pcsx2
+    dolphin-emu
+    pcsx2
     xenia-canary
 
     # General Tools
