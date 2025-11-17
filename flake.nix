@@ -21,11 +21,11 @@
       url = "github:sadjow/claude-code-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    opencode-flake = {
-      url = "github:bogorad/opencode-flake";
-    };
+    #opencode-flake = {
+    #  url = "github:bogorad/opencode-flake";
+    #};
     hyprland = {
-      url = "github:hyprwm/Hyprland/v0.51.1";
+      url = "github:hyprwm/Hyprland/v0.52.1";
     };
     hyprWorkspaceLayouts = {
       url = "github:zakk4223/hyprWorkspaceLayouts";
