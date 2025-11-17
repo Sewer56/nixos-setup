@@ -7,7 +7,7 @@
   # Install OpenCode from the dedicated flake
   home.packages = with pkgs; [
     # OpenCode from the flake
-    inputs.opencode-flake.packages.${pkgs.system}.default
+    # inputs.opencode-flake.packages.${pkgs.system}.default
 
     # Dependencies for MCP servers
     nodejs

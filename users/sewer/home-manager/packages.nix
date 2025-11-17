@@ -14,7 +14,7 @@
     # Development tools
     telegram-desktop
     slack
-    imhex
+    # imhex
 
     # Media/torrents
     qbittorrent
@@ -35,7 +35,7 @@
     libjxl
 
     # VPN
-    protonvpn-gui
+    # protonvpn-gui
 
     # Desktop environment
     waybar
