@@ -1,6 +1,14 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "theme": "catppuccin",
+  "plugin": [
+    "opencode-gemini-auth"
+  ],
+  /* update plugins
+(cd ~ && sed -i.bak '/"opencode-gemini-auth"/d' .cache/opencode/package.json && \
+rm -rf .cache/opencode/node_modules/opencode-gemini-auth && \
+echo "Plugin update script finished successfully.")
+  */
   "autoupdate": false,
   "instructions": [
     "CLAUDE.md",
