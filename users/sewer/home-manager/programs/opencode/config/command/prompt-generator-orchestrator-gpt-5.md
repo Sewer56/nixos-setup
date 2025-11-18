@@ -90,9 +90,6 @@ Global Testing: basic|no
 1. PROMPT‑01‑{title}.md — Objective: <short> — Dependencies: None — Tests: basic|no
 2. PROMPT‑02‑{title}.md — Objective: <short> — Dependencies: … — Tests: basic|no
 …
-
-## Usage
-@orchestrator [all prompt file paths in order]
 ```
 
 ## Output Summary
