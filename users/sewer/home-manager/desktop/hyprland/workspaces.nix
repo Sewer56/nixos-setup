@@ -21,6 +21,7 @@
         "spotify"
         "proton-mail"
         "vivaldi"
+        "obsidian"
       ];
     }
 
@@ -67,6 +68,7 @@
 
         "workspace 4 silent, class:^(spotify)$"
         "workspace 4 silent, class:^(Proton Mail)$"
+        "workspace 4 silent, class:^(obsidian)$"
 
         # Floating window rules
         "float, title:^(Picture-in-Picture)$"
@@ -114,6 +116,7 @@
         "workspace 8, class:^(spotify)$"
         "workspace 9, class:^(GitKraken)$"
         "workspace 10, class:^(Proton Mail)$"
+        "workspace 7, class:^(obsidian)$"
 
         # Floating window rules
         "float, title:^(Picture-in-Picture)$"
@@ -167,6 +170,9 @@
         # Uncommonly checked applications (high workspaces)
         # Workspace 8: Music
         "workspace 8, class:^(spotify)$"
+
+        # Workspace 7: Notes
+        "workspace 7, class:^(obsidian)$"
 
         # Workspace 9: Git
         "workspace 9, class:^(GitKraken)$"
