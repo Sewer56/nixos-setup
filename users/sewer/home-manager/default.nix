@@ -26,7 +26,6 @@
     ./programs/opencode/default.nix
     ./programs/corsair/ckb-next.nix
     ./programs/password-manager.nix
-    ./programs/obsidian.nix
     ./themes/default.nix
     ./theme.nix
   ];
@@ -60,6 +59,9 @@
     # Development tools
     vscode
     gitkraken
+
+    # Note taking
+    obsidian
 
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
