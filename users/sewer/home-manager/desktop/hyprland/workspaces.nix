@@ -42,7 +42,7 @@
         # Ultrawide-specific workspaces with monitor assignment and layouts
         "0, layoutopt:wslayout-layout:master, default:true"
         "1, layoutopt:wslayout-layout:master"
-        "2, layoutopt:wslayout-layout:master"
+        "2, layoutopt:wslayout-layout:dwindle"
         "3, layoutopt:wslayout-layout:master"
         "4, layoutopt:wslayout-layout:dwindle"
       ];
@@ -58,6 +58,7 @@
 
         # Workspace 2: Secondary development tools (master layout)
         "workspace 2 silent, class:^(GitKraken)$"
+        "workspace 2 silent, class:^(obsidian)$"
 
         # Workspace 3: Communications (master layout)
         "workspace 3 silent, class:^(Slack)$"
@@ -68,7 +69,6 @@
 
         "workspace 4 silent, class:^(spotify)$"
         "workspace 4 silent, class:^(Proton Mail)$"
-        "workspace 4 silent, class:^(obsidian)$"
 
         # Floating window rules
         "float, title:^(Picture-in-Picture)$"
@@ -113,10 +113,10 @@
         # Other workspaces on right screen (eDP-1)
         "workspace 4, class:^(telegram-desktop)$"
         "workspace 4, class:^(TelegramDesktop)$"
+        "workspace 7, class:^(obsidian)$"
         "workspace 8, class:^(spotify)$"
         "workspace 9, class:^(GitKraken)$"
         "workspace 10, class:^(Proton Mail)$"
-        "workspace 7, class:^(obsidian)$"
 
         # Floating window rules
         "float, title:^(Picture-in-Picture)$"
@@ -168,11 +168,11 @@
         "workspace 5, class:^(TelegramDesktop)$"
 
         # Uncommonly checked applications (high workspaces)
-        # Workspace 8: Music
-        "workspace 8, class:^(spotify)$"
-
         # Workspace 7: Notes
         "workspace 7, class:^(obsidian)$"
+
+        # Workspace 8: Music
+        "workspace 8, class:^(spotify)$"
 
         # Workspace 9: Git
         "workspace 9, class:^(GitKraken)$"
