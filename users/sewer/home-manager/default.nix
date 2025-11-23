@@ -26,6 +26,7 @@
     ./programs/opencode/default.nix
     ./programs/corsair/ckb-next.nix
     ./programs/password-manager.nix
+    ./programs/obsidian.nix
     ./themes/default.nix
     ./theme.nix
   ];
