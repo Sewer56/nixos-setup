@@ -30,6 +30,7 @@
     hardware.hasBattery = lib.mkDefault true;
     desktop.hyprland.displayMode = lib.mkDefault "single";
     desktop.hyprland.preferDedicatedLaptopGpu = lib.mkDefault true;
+    theme.accent = lib.mkDefault "lavender";
   };
 
   # Host-specific settings

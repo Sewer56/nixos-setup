@@ -2,13 +2,35 @@
 
 import re
 import shutil
+import socket
 from pathlib import Path
 from typing import Optional
 
 
+def get_hostname() -> str:
+    """
+    Get the current hostname.
+    
+    Returns:
+        Current hostname
+    """
+    return socket.gethostname()
+
+
+def get_host_config_path() -> Path:
+    """
+    Get the path to the current host's configuration file.
+    
+    Returns:
+        Path to the host's default.nix
+    """
+    hostname = get_hostname()
+    return Path(f'/home/sewer/nixos/hosts/{hostname}/default.nix')
+
+
 def update_theme_accent(new_accent: str) -> bool:
     """
-    Update the accent color in the theme.nix configuration file.
+    Update the accent color in the host-specific configuration file.
     
     Args:
         new_accent: Name of the new accent color
@@ -16,17 +38,17 @@ def update_theme_accent(new_accent: str) -> bool:
     Returns:
         True if successful, False otherwise
     """
-    theme_path = Path('/home/sewer/nixos/users/sewer/home-manager/theme.nix')
+    config_path = get_host_config_path()
     
-    if not theme_path.exists():
+    if not config_path.exists():
         return False
     
     try:
         # Read the current content
-        content = theme_path.read_text()
+        content = config_path.read_text()
         
-        # Pattern to match accent = "...";
-        pattern = r'(accent\s*=\s*")[^"]+(";\s*)'
+        # Pattern to match theme.accent = lib.mkDefault "...";
+        pattern = r'(theme\.accent\s*=\s*lib\.mkDefault\s*")[^"]+(";\s*)'
         
         # Check if pattern exists
         if not re.search(pattern, content):
@@ -36,17 +58,17 @@ def update_theme_accent(new_accent: str) -> bool:
         new_content = re.sub(pattern, rf'\1{new_accent}\2', content)
         
         # Write to temporary file first (atomic write)
-        temp_path = theme_path.with_suffix('.tmp')
+        temp_path = config_path.with_suffix('.tmp')
         temp_path.write_text(new_content)
         
         # Move temp file to actual file
-        shutil.move(str(temp_path), str(theme_path))
+        shutil.move(str(temp_path), str(config_path))
         
         return True
         
     except Exception:
         # Clean up temp file if it exists
-        temp_path = theme_path.with_suffix('.tmp')
+        temp_path = config_path.with_suffix('.tmp')
         if temp_path.exists():
             temp_path.unlink()
         return False
@@ -54,21 +76,21 @@ def update_theme_accent(new_accent: str) -> bool:
 
 def get_current_accent() -> Optional[str]:
     """
-    Get the current accent color from theme.nix.
+    Get the current accent color from the host-specific configuration.
     
     Returns:
         Current accent color name or None if not found
     """
-    theme_path = Path('/home/sewer/nixos/users/sewer/home-manager/theme.nix')
+    config_path = get_host_config_path()
     
-    if not theme_path.exists():
+    if not config_path.exists():
         return None
     
     try:
-        content = theme_path.read_text()
+        content = config_path.read_text()
         
-        # Pattern to match accent = "...";
-        pattern = r'accent\s*=\s*"([^"]+)";'
+        # Pattern to match theme.accent = lib.mkDefault "...";
+        pattern = r'theme\.accent\s*=\s*lib\.mkDefault\s*"([^"]+)";'
         match = re.search(pattern, content)
         
         if match:

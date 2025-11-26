@@ -11,5 +11,11 @@
       };
       preferDedicatedLaptopGpu = lib.mkEnableOption "Use dedicated GPU (card1) for Hyprland rendering on laptop";
     };
+
+    theme.accent = lib.mkOption {
+      type = lib.types.str;
+      default = "lavender";
+      description = "Theme accent color name for this host (must be valid for the selected theme)";
+    };
   };
 }
