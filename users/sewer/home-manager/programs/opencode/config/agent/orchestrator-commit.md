@@ -1,7 +1,7 @@
 ---
 mode: subagent
 description: Creates semantic commits following changelog conventions
-model: zai-coding-plan/glm-4.6
+model: anthropic/claude-sonnet-4-5
 tools:
   bash: true
   read: true

@@ -1,7 +1,7 @@
 ---
 mode: subagent
-description: Implements code changes and ensures all verification checks pass (Fast variant using Haiku)
-model: anthropic/claude-haiku-4-5
+description: Implements code changes and ensures all verification checks pass (Opus variant)
+model: anthropic/claude-opus-4-5
 tools:
   bash: true
   edit: true

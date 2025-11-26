@@ -1,7 +1,7 @@
 ---
-# NOTE: This is not a fast mode. Uses single reviewer for faster iteration than @orchestrator-high.
+# NOTE: This is not a fast mode. For faster iteration, use @orchestrator (medium).
 mode: primary
-description: Orchestrates multi-phase tasks with single-reviewer quality gate (medium variant)
+description: Orchestrates multi-phase tasks with dual-reviewer quality gate (high quality variant)
 model: anthropic/claude-opus-4-5
 tools:
   bash: false
@@ -59,22 +59,25 @@ Phase 1: Planning
 - Receive `PROMPT-PLAN-*.md` path; store only, don't read.
 
 Phase 2: Implementation
-- Spawn `@orchestrator-coder` with `prompt_path`, `objectives_path`.
+- Spawn `@orchestrator-coder-high` with `prompt_path`, `objectives_path`.
 - MUST instruct: "MUST read [plan-file-path]".
 - Include Tests: basic|no.
 - Parse coder's final message for context.
 
 Phase 3: Quality Gate (loop <= 3)
-- Spawn single reviewer:
+- Spawn TWO reviewers in parallel:
   - `@orchestrator-quality-gate-sonnet` with `prompt_path`, relevant implementation context, Tests: basic|no.
-- Parse results from reviewer:
-  - If PASS: continue to Phase 4.
-  - If FAIL/PARTIAL:
+  - `@orchestrator-quality-gate-gpt5` with `prompt_path`, relevant implementation context, Tests: basic|no.
+- Parse results from BOTH reviewers:
+  - If BOTH PASS: continue to Phase 4.
+  - If ANY FAIL/PARTIAL:
     - Distill issues from Sonnet reviewer.
-    - Re-invoke coder with issues.
-    - Re-run quality gate.
-- Repeat loop up to 3 times until approval or limit reached.
-- If loop exhausted without approval: report failure and halt step.
+    - Distill issues from GPT-5 reviewer.
+    - Combine into unified feedback context.
+    - Re-invoke coder with combined issues.
+    - Re-run BOTH gates (not just failed ones).
+- Repeat loop up to 3 times until both approve or limit reached.
+- If loop exhausted without both approvals: report failure and halt step.
 
 Phase 4: Commit
 - Summarize key changes/outcomes.
@@ -91,8 +94,8 @@ Phase 5: Progress Tracking
 - Always pass "Tests: basic|no" to all subagents.
 - Always instruct coder with exact: "MUST read [file-path]".
 - Orchestrator never executes commands or edits files; quality gate only reviews.
-- Quality gate requires Sonnet reviewer to PASS before proceeding.
-- Always re-run quality gate after coder fixes.
+- Quality gate requires BOTH reviewers (Sonnet + GPT-5) to PASS before proceeding.
+- Always re-run BOTH gates after coder fixes, even if only one failed.
 - Do not stop until all prompts are processed and committed (or gate loop exhausted per step).
 
 ## Completion
@@ -106,6 +109,6 @@ Format updates as:
 📋 [Phase] | [Current Agent] | [Action] | Progress: [X/Y]
 
 For Phase 3 (Quality Gate), format as:
-📋 [Phase 3 - Quality Gate] | Sonnet: [PASS/FAIL/PARTIAL] | Iteration: [X/3]
+📋 [Phase 3 - Quality Gate] | Sonnet: [PASS/FAIL/PARTIAL] | GPT-5: [PASS/FAIL/PARTIAL] | Iteration: [X/3]
 
 Keep updates concise and focused on orchestration status.

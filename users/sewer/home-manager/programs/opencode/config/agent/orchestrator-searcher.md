@@ -1,7 +1,7 @@
 ---
 mode: subagent
 description: Identifies a minimal, high-signal file list for planning/implementation
-model: anthropic/claude-haiku-4-5
+model: anthropic/claude-sonnet-4-5
 tools:
   bash: false
   read: true

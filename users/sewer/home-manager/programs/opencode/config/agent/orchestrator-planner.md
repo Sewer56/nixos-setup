@@ -1,7 +1,7 @@
 ---
 mode: subagent
 description: Transforms vague requests into specific, actionable objectives without user interaction
-model: anthropic/claude-sonnet-4-5
+model: anthropic/claude-opus-4-5
 tools:
   bash: false
   read: true
