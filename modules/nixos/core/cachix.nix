@@ -1,4 +1,7 @@
 {...}: {
+  # Enable Catppuccin binary cache
+  catppuccin.cache.enable = true;
+
   nix.settings = {
     substituters = ["https://claude-code.cachix.org" "https://hyprland.cachix.org"];
     trusted-substituters = ["https://hyprland.cachix.org"];
