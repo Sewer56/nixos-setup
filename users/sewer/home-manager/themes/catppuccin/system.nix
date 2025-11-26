@@ -31,6 +31,9 @@ with pkgs; let
     else "";
   gtkThemeName = "Catppuccin-${capitalizedAccent}-Dark${variantSuffix}";
 in {
+  # Enable Catppuccin binary cache
+  catppuccin.cache.enable = true;
+
   # Enable Catppuccin theme globally
   catppuccin.enable = true;
   catppuccin.flavor = themeConfig.variant;
