@@ -5,10 +5,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    catppuccin = {
-      url = "github:catppuccin/nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -21,9 +17,6 @@
       url = "github:sadjow/claude-code-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    #opencode-flake = {
-    #  url = "github:bogorad/opencode-flake";
-    #};
     hyprland = {
       url = "github:hyprwm/Hyprland/v0.52.1";
     };
@@ -35,6 +28,10 @@
       url = "github:VirtCode/hypr-dynamic-cursors";
       inputs.hyprland.follows = "hyprland";
     };
+
+    # Catppuccin is a theme, we have no binary dependencies, so don't follow nixpkgs for the
+    # purposes of better caching.
+    catppuccin.url = "github:catppuccin/nix";
   };
 
   outputs = {nixpkgs, ...} @ inputs: let
