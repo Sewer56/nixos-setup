@@ -39,7 +39,7 @@ Use ultrathink. Apply deep reasoning and thoroughness.
 - IS included: [what's in scope]
 - IS NOT included: [what's out of scope]
 
-**Code Element Mappings**:
+**Relevant Code Locations**:
 - `/full/path/to/File.cs`
   - Relevance: High|Medium|Low — ≤10-word reason
   - Lines to Read: [start]-[end]
@@ -90,7 +90,7 @@ Given: "Add user management"
 - IS included: Registration, login, basic profile
 - IS NOT included: Password reset, email verification, roles
 
-**Code Element Mappings**:
+**Relevant Code Locations**:
 - `/path/Controllers/UserController.cs`
   - Relevance: High — owns auth endpoints
   - Lines to Read: 20-85
