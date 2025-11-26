@@ -28,7 +28,7 @@
     hardware.hasBattery = lib.mkDefault false;
     desktop.hyprland.displayMode = lib.mkDefault "ultrawide";
     desktop.hyprland.preferDedicatedLaptopGpu = lib.mkDefault false;
-    theme.accent = lib.mkDefault "maroon";
+    theme.accent = lib.mkDefault "teal";
   };
 
   # Host-specific settings
