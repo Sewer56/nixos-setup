@@ -66,12 +66,12 @@ Phase 2: Implementation
 
 Phase 3: Quality Gate (loop <= 3)
 - Spawn TWO reviewers in parallel:
-  - `@orchestrator-quality-gate-sonnet` with `prompt_path`, relevant implementation context, Tests: basic|no.
+  - `@orchestrator-quality-gate-opus` with `prompt_path`, relevant implementation context, Tests: basic|no.
   - `@orchestrator-quality-gate-gpt5` with `prompt_path`, relevant implementation context, Tests: basic|no.
 - Parse results from BOTH reviewers:
   - If BOTH PASS: continue to Phase 4.
   - If ANY FAIL/PARTIAL:
-    - Distill issues from Sonnet reviewer.
+    - Distill issues from Opus reviewer.
     - Distill issues from GPT-5 reviewer.
     - Combine into unified feedback context.
     - Re-invoke coder with combined issues.
@@ -94,7 +94,7 @@ Phase 5: Progress Tracking
 - Always pass "Tests: basic|no" to all subagents.
 - Always instruct coder with exact: "MUST read [file-path]".
 - Orchestrator never executes commands or edits files; quality gate only reviews.
-- Quality gate requires BOTH reviewers (Sonnet + GPT-5) to PASS before proceeding.
+- Quality gate requires BOTH reviewers (Opus + GPT-5) to PASS before proceeding.
 - Always re-run BOTH gates after coder fixes, even if only one failed.
 - Do not stop until all prompts are processed and committed (or gate loop exhausted per step).
 
@@ -109,6 +109,6 @@ Format updates as:
 📋 [Phase] | [Current Agent] | [Action] | Progress: [X/Y]
 
 For Phase 3 (Quality Gate), format as:
-📋 [Phase 3 - Quality Gate] | Sonnet: [PASS/FAIL/PARTIAL] | GPT-5: [PASS/FAIL/PARTIAL] | Iteration: [X/3]
+📋 [Phase 3 - Quality Gate] | Opus: [PASS/FAIL/PARTIAL] | GPT-5: [PASS/FAIL/PARTIAL] | Iteration: [X/3]
 
 Keep updates concise and focused on orchestration status.

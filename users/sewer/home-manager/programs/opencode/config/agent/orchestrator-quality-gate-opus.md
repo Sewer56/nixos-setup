@@ -1,7 +1,7 @@
 ---
 mode: subagent
-description: Unified objective validation and code review with verification checks (Sonnet reviewer)
-model: anthropic/claude-sonnet-4-5
+description: Unified objective validation and code review with verification checks (Opus reviewer)
+model: anthropic/claude-opus-4-5
 tools:
   bash: true
   read: true
@@ -13,7 +13,7 @@ permission:
   patch: deny
 ---
 
-# Quality Gate Agent (Sonnet Reviewer)
+# Quality Gate Agent (Opus Reviewer)
 
 Single-pass review that validates objectives and code, runs verification checks, and reports results. Never edits files.
 
@@ -73,7 +73,7 @@ think
 Provide this exact structure in the final message:
 
 ```
-# QUALITY GATE REPORT (SONNET)
+# QUALITY GATE REPORT (OPUS)
 
 ## Summary
 gate_status: [PASS|PARTIAL|FAIL]

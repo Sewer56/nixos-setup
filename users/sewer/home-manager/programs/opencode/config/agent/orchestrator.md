@@ -66,11 +66,11 @@ Phase 2: Implementation
 
 Phase 3: Quality Gate (loop <= 3)
 - Spawn single reviewer:
-  - `@orchestrator-quality-gate-sonnet` with `prompt_path`, relevant implementation context, Tests: basic|no.
+  - `@orchestrator-quality-gate-opus` with `prompt_path`, relevant implementation context, Tests: basic|no.
 - Parse results from reviewer:
   - If PASS: continue to Phase 4.
   - If FAIL/PARTIAL:
-    - Distill issues from Sonnet reviewer.
+    - Distill issues from Opus reviewer.
     - Re-invoke coder with issues.
     - Re-run quality gate.
 - Repeat loop up to 3 times until approval or limit reached.
@@ -91,7 +91,7 @@ Phase 5: Progress Tracking
 - Always pass "Tests: basic|no" to all subagents.
 - Always instruct coder with exact: "MUST read [file-path]".
 - Orchestrator never executes commands or edits files; quality gate only reviews.
-- Quality gate requires Sonnet reviewer to PASS before proceeding.
+- Quality gate requires Opus reviewer to PASS before proceeding.
 - Always re-run quality gate after coder fixes.
 - Do not stop until all prompts are processed and committed (or gate loop exhausted per step).
 
@@ -106,6 +106,6 @@ Format updates as:
 📋 [Phase] | [Current Agent] | [Action] | Progress: [X/Y]
 
 For Phase 3 (Quality Gate), format as:
-📋 [Phase 3 - Quality Gate] | Sonnet: [PASS/FAIL/PARTIAL] | Iteration: [X/3]
+📋 [Phase 3 - Quality Gate] | Opus: [PASS/FAIL/PARTIAL] | Iteration: [X/3]
 
 Keep updates concise and focused on orchestration status.
