@@ -160,9 +160,9 @@ def main():
             else:
                 notify_info(f"Best match: {best_accent} ({confidence:.0%})")
             
-            # Update theme.nix
+            # Update host config
             if not update_theme_accent(best_accent):
-                notify_error("Failed to update theme.nix")
+                notify_error("Failed to update host config")
                 sys.exit(1)
             
             # Rebuild NixOS configuration

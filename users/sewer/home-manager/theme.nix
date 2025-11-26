@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  hostOptions,
   ...
 }:
 lib.mkMerge [
@@ -10,7 +11,7 @@ lib.mkMerge [
     theme = {
       name = "catppuccin";
       variant = "mocha";
-      accent = "yellow";
+      accent = hostOptions.theme.accent;
     };
 
     # Configure dconf for dark theme preference
