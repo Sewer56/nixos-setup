@@ -20,7 +20,8 @@ echo "Plugin update script finished successfully.")
     "bash": {
       "*": "allow"
     },
-    "webfetch": "allow"
+    "webfetch": "allow",
+    "doom_loop": "deny"
   },
   "tools": {
     "github_*": false,

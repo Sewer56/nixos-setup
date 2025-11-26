@@ -1,7 +1,7 @@
 ---
 mode: subagent
 description: Use this for GitHub repository operations, third-party library research, and repository documentation analysis.
-model: zai-coding-plan/glm-4.6
+model: anthropic/claude-sonnet-4-5
 tools:
   github_*: true
   context7_*: true

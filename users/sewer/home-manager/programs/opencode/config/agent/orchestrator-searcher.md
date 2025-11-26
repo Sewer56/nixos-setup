@@ -1,7 +1,7 @@
 ---
 mode: subagent
 description: Identifies a minimal, high-signal file list for planning/implementation
-model: synthetic/hf:zai-org/GLM-4.6
+model: anthropic/claude-haiku-4-5
 tools:
   bash: false
   read: true

@@ -1,7 +1,6 @@
 ---
 description: "Review code changes, generate quality report, and display CLI summary"
 agent: build
-model: zai-coding-plan/glm-4.6
 ---
 
 # Code Review
@@ -9,17 +8,37 @@ model: zai-coding-plan/glm-4.6
 Perform a comprehensive code review of files with uncommitted changes and related files. Generate both a detailed `REVIEW.md` report with the format specified below and a concise CLI summary with file/line counts and issue summaries.
 
 When invoked:
-1. Check current branch with `git branch --show-current`
-2. If on `main` branch, terminate and tell user: "Cannot review code on main branch. Please switch to a feature branch first using: git checkout -b feature/your-branch-name"
-3. Store current branch name for later return
-4. Update `main` branch to latest if remote is newer:
-   - `git fetch origin main`
-   - Check if local main differs from origin/main
-   - If different: `git checkout main && git pull origin main && git checkout [original-branch]`
-5. Run `git diff main..HEAD` to see changes against main branch
-6. Focus on modified files compared to main branch
-7. Thoroughly analyze changes to understand all implications
-8. Generate a comprehensive code review and save it to `REVIEW.md`
+
+1. **Verify current branch** (do NOT switch branches at any point):
+   ```bash
+   git branch --show-current
+   ```
+   - If output is `main`, STOP and tell user: "Cannot review code on main branch. Please switch to a feature branch first using: git checkout -b feature/your-branch-name"
+   - Store the branch name for reference in the review.
+
+2. **Fetch latest main from remote** (this does NOT switch branches):
+   ```bash
+   git fetch origin main
+   ```
+
+3. **Get the diff as GitHub would see it** (three-dot syntax uses merge-base):
+   ```bash
+   git diff origin/main...HEAD
+   ```
+
+4. **Get file change statistics**:
+   ```bash
+   git diff --stat origin/main...HEAD
+   ```
+
+5. **Check for uncommitted changes**:
+   ```bash
+   git status
+   ```
+
+6. Focus on modified files compared to origin/main.
+7. Thoroughly analyze the diff output to understand all implications.
+8. Generate a comprehensive code review and save it to `REVIEW.md`.
 
 ## Review Checklist
 
@@ -46,7 +65,7 @@ When invoked:
 
 ## 📊 Review Scope
 
-- **Branch:** [Current branch name] (compared against main)
+- **Branch:** [Current branch name] (compared against origin/main)
 - **Files Reviewed:** [Number] files
 - **Lines Changed:** +[additions] -[deletions] 
 - **Review Date:** [Current date]

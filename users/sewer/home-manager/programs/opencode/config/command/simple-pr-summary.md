@@ -1,7 +1,7 @@
 ---
 description: "Generate concise PR summary"
 agent: build
-model: zai-coding-plan/glm-4.6
+model: anthropic/claude-opus-4-5
 ---
 
 # Simple PR Summary
@@ -14,12 +14,30 @@ Ultrathink to ensure you understand the changes to the best of your ability befo
 
 When invoked:
 
-0. Ensure local `main` branch is up to date with remote.
-1. Revert to original branch.
-2. Run `git diff` to see recent changes
-3. Run `git status` to see file modifications
-4. Quickly analyze changes to understand their core purpose
-5. Generate a `PR-SUMMARY.md` file with a concise summary
+1. **Verify current branch** (do NOT switch branches at any point):
+   ```bash
+   git branch --show-current
+   ```
+   - If output is `main`, STOP and tell user: "Cannot generate PR summary on main branch. Switch to a feature branch first."
+
+2. **Fetch latest main from remote** (this does NOT switch branches):
+   ```bash
+   git fetch origin main
+   ```
+
+3. **Get the diff as GitHub would see it** (three-dot syntax uses merge-base):
+   ```bash
+   git diff origin/main...HEAD
+   ```
+
+4. **Get file change statistics**:
+   ```bash
+   git diff --stat origin/main...HEAD
+   ```
+
+5. Quickly analyze the diff output to understand their core purpose.
+
+6. Generate a `PR-SUMMARY.md` file with a concise summary.
 
 ## Output Format
 

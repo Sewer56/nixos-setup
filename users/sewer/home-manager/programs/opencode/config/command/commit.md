@@ -1,7 +1,6 @@
 ---
 description: "Create semantic commits following changelog format"
 agent: build
-model: zai-coding-plan/glm-4.6
 ---
 
 # Commit Changes
@@ -26,6 +25,7 @@ Create meaningful commits following `Keep a Changelog` format.
 - Focus on what changed and why
 - Group related changes logically
 - Commit and push when ready
+- Be concise but informative
 
 ## Format:
 ```

@@ -1,7 +1,6 @@
 ---
-description: "Generate a prompt pack from user requirements for @orchestrator"
+description: "Generate 1 or more prompts to run with @orchestrator"
 agent: build
-model: anthropic/claude-sonnet-4-5
 ---
 
 # Prompt Pack Generator
