@@ -29,6 +29,21 @@ echo "Plugin update script finished successfully.")
     "deepwiki_*": false
   },
   "agent": {
+    "plan": {
+      "subagents": {
+        "orchestrator-*": false
+      }
+    },
+    "build": {
+      "subagents": {
+        "orchestrator-*": false
+      }
+    },
+    "general": {
+      "subagents": {
+        "orchestrator-*": false
+      }
+    },
     "github": {
       "tools": {
         "github_*": true,

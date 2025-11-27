@@ -20,6 +20,10 @@ permission:
   bash: deny
   edit: deny
   webfetch: deny
+subagents:
+  general: false
+  orchestrator-coder-high: false
+  orchestrator-quality-gate-gpt5: false
 ---
 
 # Task Orchestrator Agent
