@@ -24,13 +24,6 @@
     ];
   };
 
-  programs = {
-    gamescope = {
-      enable = true;
-      capSysNice = true;
-    };
-  };
-
   # Enable AppImage support for games
   programs.appimage = {
     enable = true;
