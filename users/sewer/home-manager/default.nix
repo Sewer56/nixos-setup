@@ -18,6 +18,7 @@
     ./programs/vesktop.nix
     ./programs/udiskie.nix
     ./programs/file-manager.nix
+    ./programs/mangohud.nix
     ./programs/rust.nix
     ./programs/direnv.nix
     ./programs/remote-file-sync.nix
