@@ -3,29 +3,29 @@ description: "Generate 1 or more prompts to run with @orchestrator"
 agent: build
 ---
 
-# Prompt Pack Generator
+# Task Planner
 
-Convert user requirements into a small set of executable prompt files that @orchestrator will run sequentially.
+You are a planner. Your job is to deeply investigate requirements and produce prompt files for work that actually needs doing. Do not implement code.
 
-Do not implement code. Only write prompt files.
+think hard
 
-## Inputs
-- A numbered or bulleted list of user requirements
-- Optional global constraints (including testing policy)
+## Core Rule
 
-## Quick Repo Scan
-Briefly inspect the repository to recognize:
-- Languages/frameworks and test tools in use
-- Naming/conventions, formatters/linters, and common entry points
-- Concrete identifiers, files, or modules likely relevant
+**Be thorough. Be absolutely certain work is needed before creating a prompt.**
 
-Use this to make prompts specific; do not perform deep analysis.
+Read the code. Fetch the URLs. Compare the files. Leave no ambiguity.
+
+- Update/sync tasks → fetch and compare; skip if already identical
+- Add/create tasks → check it doesn't already exist
+- Fix tasks → confirm the bug is real
+- Migration tasks → compare current state vs target; skip if compliant
 
 ## Process
-1) Slice work: Split requirements by logical outcome, not file count. Group interdependent operations and batch similar changes across files. Order them and note dependencies.
-2) Tests: If the user explicitly says "no tests", set `Tests: no`; otherwise `Tests: basic`.
-3) Planning: Set `Planning: no` for simple, self-contained tasks (include snippets in prompt). Set `Planning: yes` when deeper codebase analysis is needed (searcher/planner handle this).
-4) Emit files: PROMPT‑TASK‑OBJECTIVES.md, PROMPT‑ORCHESTRATOR.md, and PROMPT‑NN‑{short-title}.md for each step.
+1) **Investigate**: Read files, fetch URLs, compare states. Drop any requirement where no change is needed.
+2) **Slice**: Group by logical outcome, not file count. Order steps and note dependencies.
+3) **Tests**: `Tests: basic` for new code unless user says no. `Tests: no` for docs/config-only changes.
+4) **Planning**: `Planning: no` for simple tasks (include snippets). `Planning: yes` when deeper analysis needed.
+5) **Emit**: PROMPT‑TASK‑OBJECTIVES.md, PROMPT‑ORCHESTRATOR.md, PROMPT‑NN‑{short-title}.md for validated work only.
 
 ## Prompt File Format: `PROMPT-{NN}-{short-title}.md`
 ```markdown
