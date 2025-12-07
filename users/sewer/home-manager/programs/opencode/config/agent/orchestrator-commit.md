@@ -1,7 +1,7 @@
 ---
 mode: subagent
 description: Creates semantic commits matching repository style
-model: anthropic/claude-sonnet-4-5
+model: anthropic/claude-haiku-4-5
 tools:
   bash: true
   read: true
