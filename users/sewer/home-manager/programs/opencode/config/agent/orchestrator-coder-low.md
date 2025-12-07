@@ -60,7 +60,7 @@ Return a single report in your final message:
 ```
 # CODE IMPLEMENTATION REPORT
 
-Status: SUCCESS | FAIL
+Status: SUCCESS | FAIL | ESCALATE
 
 Changes Made
 - file: "path/to/file" — what changed; why it was needed
@@ -72,10 +72,24 @@ Issues Encountered
 
 Issues Remaining
 - If any unresolved issues remain, list them; otherwise "None"
+
+Escalation Context (only when Status: ESCALATE)
+- Trigger: <reason>
+- Attempted: <what was tried>
+- Blocker: <issue preventing completion>
 ```
 
 ## Constraints
 - Do not commit; the orchestrator handles commits.
 - Keep reports concise; include only failures/warnings when present.
 - Respect Tests: basic|no policy.
-- Return only after all required checks have passed for the given Tests mode.
+- Return only after all required checks pass (or escalation).
+
+## Escalation
+Escalate (`Status: ESCALATE`) when something unexpected blocks completion:
+- Tests fail for reasons unrelated to your changes
+- Build errors from unexpected dependencies or side effects
+- Code behaves differently than prompt described
+- Required files missing or structured unexpectedly
+
+Do not escalate for straightforward errors you can fix. Escalate early if stuck.

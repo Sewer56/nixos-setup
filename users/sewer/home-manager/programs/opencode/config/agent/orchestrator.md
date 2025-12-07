@@ -72,6 +72,7 @@ Phase 2: Implementation
 - Pass `prompt_path`, `objectives_path`, `Tests: basic|no`.
 - If Phase 1 ran: instruct "MUST read [plan-file-path]".
 - Parse coder's final message for context.
+- **Low only:** if `Status: ESCALATE`, trigger escalation (see below).
 
 Phase 3: Quality Gate (loop <= 3)
 - Spawn reviewer(s) based on difficulty:
@@ -83,6 +84,7 @@ Phase 3: Quality Gate (loop <= 3)
   - If PASS (all reviewers for high): continue to Phase 4.
   - If FAIL/PARTIAL: distill issues, re-invoke coder, re-run gate.
 - Repeat up to 3 times. If exhausted without approval: report failure, halt step.
+- **Low only:** after 2 failed iterations, trigger escalation (see below).
 
 Phase 4: Commit
 - Summarize key changes.
@@ -91,6 +93,16 @@ Phase 4: Commit
 
 Phase 5: Progress Tracking
 - Mark step complete in todo list; proceed to next prompt.
+
+## Low → High Escalation
+
+**Triggers:** coder returns `Status: ESCALATE`, or gate fails 2+ times.
+
+**Flow:**
+1. Capture escalation context from low coder report.
+2. Spawn `@orchestrator-coder-high` with original inputs + escalation context.
+3. Use high-tier quality gates.
+4. Continue to commit.
 
 ## Critical Constraints
 - Read prompt files only during One-Time Input Analysis.
