@@ -23,8 +23,9 @@ Use this to make prompts specific; do not perform deep analysis.
 
 ## Process
 1) Slice work: Split requirements by logical outcome, not file count. Group interdependent operations and batch similar changes across files. Order them and note dependencies.
-2) Tests: If the user explicitly says “no tests”, set Tests: no; otherwise Tests: basic.
-3) Emit files: PROMPT‑TASK‑OBJECTIVES.md, PROMPT‑ORCHESTRATOR.md, and PROMPT‑NN‑{short-title}.md for each step.
+2) Tests: If the user explicitly says "no tests", set `Tests: no`; otherwise `Tests: basic`.
+3) Planning: Set `Planning: no` for simple, self-contained tasks. Set `Planning: yes` when deeper codebase analysis is needed.
+4) Emit files: PROMPT‑TASK‑OBJECTIVES.md, PROMPT‑ORCHESTRATOR.md, and PROMPT‑NN‑{short-title}.md for each step.
 
 ## Prompt File Format: `PROMPT-{NN}-{short-title}.md`
 ```markdown
@@ -49,6 +50,9 @@ Use this to make prompts specific; do not perform deep analysis.
 
 # Testing Requirements
 Tests: basic|no
+
+# Planning Requirements
+Planning: yes|no
 
 # Dependencies
 None | depends on PROMPT-NN-...
@@ -91,8 +95,8 @@ Execution: SEQUENTIAL
 Global Testing: basic|no
 
 ## Steps
-1. PROMPT‑01‑{title}.md — Objective: <short> — Dependencies: None — Tests: basic|no
-2. PROMPT‑02‑{title}.md — Objective: <short> — Dependencies: … — Tests: basic|no
+1. PROMPT‑01‑{title}.md — Objective: <short> — Dependencies: None — Tests: basic|no — Planning: yes|no
+2. PROMPT‑02‑{title}.md — Objective: <short> — Dependencies: … — Tests: basic|no — Planning: yes|no
 …
 ```
 

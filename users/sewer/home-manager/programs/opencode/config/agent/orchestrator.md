@@ -45,7 +45,8 @@ think
 Read all prompt files once (in order) to:
 - Understand the overall objective and step progression.
 - Map relationships and cumulative requirements.
-- Extract "Testing Requirements" per step -> Tests: basic|no.
+- Extract "Testing Requirements" per step -> `Tests: basic|no`.
+- Extract "Planning Requirements" per step -> `Planning: yes|no`.
 - Check if prompt contains `# Relevant Code Locations` section.
 After this analysis, do not read prompt files again.
 
@@ -56,15 +57,17 @@ Phase 0: Code Search (Conditional)
 - Otherwise: Spawn `@orchestrator-searcher` via task with `prompt_path`, `objectives_path`.
 - Receive `PROMPT-SEARCH-RESULTS-*.md` path; store only, don't read.
 
-Phase 1: Planning
-- Spawn `@orchestrator-planner` with `prompt_path`, `objectives_path`, `search_results_path` (if Phase 0 ran).
+Phase 1: Planning (Conditional)
+- **SKIP THIS PHASE** if `Planning: no`.
+- Otherwise: Spawn `@orchestrator-planner` with `prompt_path`, `objectives_path`, `search_results_path` (if Phase 0 ran).
 - Provide guidance: how this step builds on prior steps and constraints to maintain.
 - Include Tests: basic|no.
 - Receive `PROMPT-PLAN-*.md` path; store only, don't read.
 
 Phase 2: Implementation
 - Spawn `@orchestrator-coder` with `prompt_path`, `objectives_path`.
-- MUST instruct: "MUST read [plan-file-path]".
+- If Phase 1 ran: MUST instruct: "MUST read [plan-file-path]".
+- If Phase 1 was skipped (`Planning: no`): omit plan file instruction.
 - Include Tests: basic|no.
 - Parse coder's final message for context.
 
@@ -93,7 +96,8 @@ Phase 5: Progress Tracking
 - Never read search/plan files; only pass their paths to subagents.
 - Parse subagent final messages (not files) and pass distilled guidance, not raw reports.
 - Always pass "Tests: basic|no" to all subagents.
-- Always instruct coder with exact: "MUST read [file-path]".
+- When Phase 1 ran: instruct coder with exact: "MUST read [plan-file-path]".
+- When Phase 1 was skipped (`Planning: no`): omit plan file instruction.
 - Orchestrator never executes commands or edits files; quality gate only reviews.
 - Quality gate requires Opus reviewer to PASS before proceeding.
 - Always re-run quality gate after coder fixes.
