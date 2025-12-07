@@ -28,33 +28,38 @@ Use this to make prompts specific; do not perform deep analysis.
 
 ## Prompt File Format: `PROMPT-{NN}-{short-title}.md`
 ```markdown
-# Requirement: <concise title>
+# Objective
+[What specifically needs to be achieved]
 
-## Objective
-1–2 sentences describing the outcome.
+# Context
+[Relevant background and current situation]
 
-## Repo Cues
-- Relevant languages/frameworks detected
-- Concrete identifiers/files/modules to target
-- Repo constraints (formatter, linter, scripts) that affect this task
+# Requirements
+- [Specific, measurable requirements]
+- [Expected behaviors and outcomes]
+- [Constraints or limitations]
 
-## Requirements
-- Specific, measurable items and constraints
+# Success Criteria
+- [How we'll know the objective is met]
+- [Specific conditions that must be satisfied]
 
-## Acceptance
-- Observable behaviors that prove success
-- Verification signals (build/lint/test as applicable)
+# Scope Boundaries
+- IS included: [what's in scope]
+- IS NOT included: [what's out of scope]
 
-## Testing Requirements
+# Testing Requirements
 Tests: basic|no
 
-## Dependencies
-None | depends on PROMPT‑NN‑...
+# Dependencies
+None | depends on PROMPT-NN-...
 
-## Guardrails
-- Implement only what is asked
-- No abstractions or unused code
-- Keep changes minimal and local
+# Relevant Code Locations (optional)
+Include if specific existing files are known. Omit if created by a previous step.
+
+## relative/path/to/file.ext
+Relevance: High|Medium|Low
+Lines: [start]-[end] (omit if file is new)
+Reason: ≤10 words
 ```
 
 ## Task Objectives File: `PROMPT-TASK-OBJECTIVES.md`
@@ -67,7 +72,7 @@ Overall Mission: 1–2 sentence goal.
 - 3–5 measurable outcomes
 
 ## Constraints
-- Minimal implementation; no future‑proofing
+- Minimal implementation
 - Testing policy: Tests default to basic unless user says no
 - Any user‑specified constraints (list briefly)
 

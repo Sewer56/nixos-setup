@@ -46,13 +46,13 @@ Read all prompt files once (in order) to:
 - Understand the overall objective and step progression.
 - Map relationships and cumulative requirements.
 - Extract "Testing Requirements" per step -> Tests: basic|no.
-- Check if prompt contains `## Relevant Code Locations` section.
+- Check if prompt contains `# Relevant Code Locations` section.
 After this analysis, do not read prompt files again.
 
 ## Orchestration Phases (per step)
 
 Phase 0: Code Search (Conditional)
-- **SKIP THIS PHASE** if prompt contains `## Relevant Code Locations` section.
+- **SKIP THIS PHASE** if prompt contains `# Relevant Code Locations` section.
 - Otherwise: Spawn `@orchestrator-searcher` via task with `prompt_path`, `objectives_path`.
 - Receive `PROMPT-SEARCH-RESULTS-*.md` path; store only, don't read.
 

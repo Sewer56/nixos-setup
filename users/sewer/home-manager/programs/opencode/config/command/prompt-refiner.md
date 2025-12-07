@@ -22,29 +22,31 @@ Use ultrathink. Apply deep reasoning and thoroughness.
 ## PROMPT.MD Template
 
 ```markdown
-**Objective**: [What specifically needs to be achieved]
+# Objective
+[What specifically needs to be achieved]
 
-**Context**: [Relevant background and current situation]
+# Context
+[Relevant background and current situation]
 
-**Requirements**:
+# Requirements
 - [Specific, measurable requirements]
 - [Expected behaviors and outcomes]
 - [Constraints or limitations]
 
-**Success Criteria**:
+# Success Criteria
 - [How we'll know the objective is met]
 - [Specific conditions that must be satisfied]
 
-**Scope Boundaries**:
+# Scope Boundaries
 - IS included: [what's in scope]
 - IS NOT included: [what's out of scope]
 
-**Relevant Code Locations**:
-- `/full/path/to/File.cs`
-  - Relevance: High|Medium|Low — ≤10-word reason
-  - Lines to Read: [start]-[end]
-  - Class: `ClassName` (lines X-Y)
-  - Method: `MethodName(...)` (lines X-Y)
+# Relevant Code Locations
+
+## path/to/file.ext
+Relevance: High|Medium|Low
+Lines: [start]-[end]
+Reason: ≤10 words
 ```
 
 ## Clarifying Questions
@@ -71,31 +73,33 @@ Given: "Add user management"
 
 `PROMPT.MD`:
 ```markdown
-**Objective**: Implement user registration, authentication, and profile management
+# Objective
+Implement user registration, authentication, and profile management
 
-**Context**: Application has no user system
+# Context
+Application has no user system
 
-**Requirements**:
+# Requirements
 - Users can register with email/password
 - Users can log in and maintain sessions
 - Users can view/edit profile
 - System enforces unique emails
 
-**Success Criteria**:
+# Success Criteria
 - New users can create accounts
 - Existing users can authenticate
 - Profile changes persist
 
-**Scope Boundaries**:
+# Scope Boundaries
 - IS included: Registration, login, basic profile
 - IS NOT included: Password reset, email verification, roles
 
-**Relevant Code Locations**:
-- `/path/Controllers/UserController.cs`
-  - Relevance: High — owns auth endpoints
-  - Lines to Read: 20-85
-  - Method: `Register(...)` (lines 30-45)
-  - Method: `Login(...)` (lines 50-65)
+# Relevant Code Locations
+
+## Controllers/UserController.cs
+Relevance: High
+Lines: 20-85
+Reason: owns auth endpoints
 ```
 
 ## Request to Refine
