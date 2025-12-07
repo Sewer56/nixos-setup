@@ -35,7 +35,6 @@
     qdirstat
     feh
     libjxl
-    stretchly
 
     # VPN
     protonvpn-gui

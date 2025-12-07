@@ -27,6 +27,7 @@
     ./programs/opencode/default.nix
     ./programs/corsair/ckb-next.nix
     ./programs/password-manager.nix
+    ./programs/stretchly/default.nix
     ./themes/default.nix
     ./theme.nix
   ];
