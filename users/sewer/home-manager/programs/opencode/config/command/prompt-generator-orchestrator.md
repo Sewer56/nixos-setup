@@ -24,7 +24,7 @@ Use this to make prompts specific; do not perform deep analysis.
 ## Process
 1) Slice work: Split requirements by logical outcome, not file count. Group interdependent operations and batch similar changes across files. Order them and note dependencies.
 2) Tests: If the user explicitly says "no tests", set `Tests: no`; otherwise `Tests: basic`.
-3) Planning: Set `Planning: no` for simple, self-contained tasks. Set `Planning: yes` when deeper codebase analysis is needed.
+3) Planning: Set `Planning: no` for simple, self-contained tasks (include snippets in prompt). Set `Planning: yes` when deeper codebase analysis is needed (searcher/planner handle this).
 4) Emit files: PROMPT‑TASK‑OBJECTIVES.md, PROMPT‑ORCHESTRATOR.md, and PROMPT‑NN‑{short-title}.md for each step.
 
 ## Prompt File Format: `PROMPT-{NN}-{short-title}.md`
@@ -48,10 +48,8 @@ Use this to make prompts specific; do not perform deep analysis.
 - IS included: [what's in scope]
 - IS NOT included: [what's out of scope]
 
-# Testing Requirements
+# Execution
 Tests: basic|no
-
-# Planning Requirements
 Planning: yes|no
 
 # Dependencies
@@ -64,6 +62,19 @@ Include if specific existing files are known. Omit if created by a previous step
 Relevance: High|Medium|Low
 Lines: [start]-[end] (omit if file is new)
 Reason: ≤10 words
+
+# Relevant Snippets (when Planning: no)
+<Include snippets for patterns/conventions needed for direct implementation>
+<Include body ONLY if file is NOT in Relevant Code Locations>
+
+## <title>
+why: <how this helps>
+source: relative/path:lineStart-lineEnd
+snippet:
+
+```<lang>
+<3-15 lines>  ← omit if file in Relevant Code Locations
+```
 ```
 
 ## Task Objectives File: `PROMPT-TASK-OBJECTIVES.md`

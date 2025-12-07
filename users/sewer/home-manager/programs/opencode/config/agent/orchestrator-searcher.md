@@ -43,14 +43,16 @@ think
 
 3) **Identify files vs snippets**
 - Based on your mental plan, determine what the planner needs
-- **Files**: Only if planner must read them entirely to produce a plan
+- **Relevant Code Locations**: Only if planner must read them entirely
   - Modification targets (prefer this)
   - New files (only if truly necessary)
   - Integration points requiring full context
 - **Snippets**: When only a pattern/convention is needed, not full file
-- Order files: high (modification targets) → medium (collaborators) → low (context)
+- Order files: High (modification targets) → Medium (collaborators) → Low (context)
 
 4) **Curate snippets to minimize file reads**
+- Prioritize snippets from files already in Relevant Code Locations (omit body)
+- Include snippet body ONLY for files NOT in Relevant Code Locations
 - Extract snippets for:
   - Conventions to follow (avoid reading style guide files)
   - Similar implementations to replicate (avoid reading full examples)
@@ -63,26 +65,29 @@ think
 ## Results Format
 
 ```markdown
-## Objective
+# Objective
 <one sentence concrete goal>
 
-## Assumptions
+# Assumptions
 - <critical assumptions only>
 
-## Relevant Files
-- `path`: /abs/path/to/file
-  `relevance`: high|medium|low
-  `role`: <what this file does, <50 words>
-  `reason`: <why it matters, <50 words>
+# Relevant Code Locations
 
-## Relevant Snippets
-- `title`: <pattern name>
-  `why`: <how this helps>
-  `source`: /abs/path:lineStart-lineEnd
-  `snippet`:
-  ```<lang>
-  <3-15 lines>
-  ```
+## relative/path/to/file.ext
+Relevance: High|Medium|Low
+Lines: [start]-[end]
+Reason: ≤10 words
+
+# Relevant Snippets
+
+## <title>
+why: <how this helps>
+source: relative/path:lineStart-lineEnd
+snippet:
+
+```<lang>
+<3-15 lines>  ← omit if file already in Relevant Code Locations
+```
 ```
 
 ## Constraints
