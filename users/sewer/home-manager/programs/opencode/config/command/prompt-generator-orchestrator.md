@@ -25,7 +25,11 @@ Read the code. Fetch the URLs. Compare the files. Leave no ambiguity.
 2) **Slice**: Group by logical outcome, not file count. Order steps and note dependencies.
 3) **Tests**: `Tests: basic` for new code unless user says no. `Tests: no` for docs/config-only changes.
 4) **Planning**: `Planning: no` for simple tasks (include snippets). `Planning: yes` when deeper analysis needed.
-5) **Emit**: PROMPT‑TASK‑OBJECTIVES.md, PROMPT‑ORCHESTRATOR.md, PROMPT‑NN‑{short-title}.md for validated work only.
+5) **Difficulty**: Classify each task:
+   - `low`: Docs, config, single-file edits with exact changes described in prompt.
+   - `medium`: Multi-file changes, moderate features, refactoring.
+   - `high`: Complex architecture, cross-cutting concerns, algorithmic challenges.
+6) **Emit**: PROMPT‑TASK‑OBJECTIVES.md, PROMPT‑ORCHESTRATOR.md, PROMPT‑NN‑{short-title}.md for validated work only.
 
 ## Prompt File Format: `PROMPT-{NN}-{short-title}.md`
 ```markdown
@@ -51,6 +55,7 @@ Read the code. Fetch the URLs. Compare the files. Leave no ambiguity.
 # Execution
 Tests: basic|no
 Planning: yes|no
+Difficulty: low|medium|high
 
 # Dependencies
 None | depends on PROMPT-NN-...
@@ -106,8 +111,8 @@ Execution: SEQUENTIAL
 Global Testing: basic|no
 
 ## Steps
-1. PROMPT‑01‑{title}.md — Objective: <short> — Dependencies: None — Tests: basic|no — Planning: yes|no
-2. PROMPT‑02‑{title}.md — Objective: <short> — Dependencies: … — Tests: basic|no — Planning: yes|no
+1. PROMPT‑01‑{title}.md — Objective: <short> — Dependencies: None — Tests: basic|no — Planning: yes|no — Difficulty: low|medium|high
+2. PROMPT‑02‑{title}.md — Objective: <short> — Dependencies: … — Tests: basic|no — Planning: yes|no — Difficulty: low|medium|high
 …
 ```
 
