@@ -11,6 +11,7 @@
 
     # Dependencies for MCP servers
     nodejs
+    yarn
     docker
     # TypeScript for plugin development
     typescript

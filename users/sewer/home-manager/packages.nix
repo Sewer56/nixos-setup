@@ -6,6 +6,8 @@
     brightnessctl
     kdiskmark
     _010editor
+    zip
+    unzip
 
     # Browser (user-specific)
     vivaldi
