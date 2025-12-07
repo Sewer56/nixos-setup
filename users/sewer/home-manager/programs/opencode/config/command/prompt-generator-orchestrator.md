@@ -27,8 +27,8 @@ Read the code. Fetch the URLs. Compare the files. Leave no ambiguity.
 4) **Planning**: `Planning: no` for simple tasks (include snippets). `Planning: yes` when deeper analysis needed.
 5) **Difficulty**: Classify each task:
    - `low`: Docs, config, single-file edits with exact changes described in prompt.
-   - `medium`: Multi-file changes, moderate features, refactoring.
-   - `high`: Complex architecture, cross-cutting concerns, algorithmic challenges.
+   - `medium`: Multi-file changes, simple features, refactoring.
+   - `high`: Complex features, architecture, cross-cutting concerns, algorithmic challenges.
 6) **Emit**: PROMPT‑TASK‑OBJECTIVES.md, PROMPT‑ORCHESTRATOR.md, PROMPT‑NN‑{short-title}.md for validated work only.
 
 ## Prompt File Format: `PROMPT-{NN}-{short-title}.md`
