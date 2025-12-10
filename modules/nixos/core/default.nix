@@ -12,6 +12,7 @@
     ./nfs-mounts.nix
     ./nix.nix
     ./packages.nix
+    ./printing.nix
     ./security.nix
     ./virt-manager.nix
   ];
