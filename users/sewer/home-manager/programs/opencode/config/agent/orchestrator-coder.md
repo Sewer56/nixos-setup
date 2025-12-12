@@ -1,5 +1,6 @@
 ---
 mode: subagent
+visible: false
 description: Implements code changes and ensures all verification checks pass
 model: anthropic/claude-sonnet-4-5
 tools:
@@ -13,6 +14,7 @@ tools:
   list: true
   todowrite: true
   todoread: true
+  task: false
 ---
 
 # Code Implementation Agent

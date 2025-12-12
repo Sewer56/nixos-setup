@@ -18,8 +18,9 @@ permission:
   bash: deny
   edit: deny
   webfetch: deny
-subagents:
-  general: false
+  task:
+    orchestrator-*: allow
+    "*": deny
 ---
 
 # Task Orchestrator Agent
@@ -48,11 +49,11 @@ After analysis, do not read prompt files again.
 
 ## Agent Routing by Difficulty
 
-| Difficulty | Coder | Quality Gate |
-|------------|-------|--------------|
-| low | `@orchestrator-coder-low` | `@orchestrator-quality-gate-sonnet` |
-| medium | `@orchestrator-coder` | `@orchestrator-quality-gate-opus` |
-| high | `@orchestrator-coder-high` | `@orchestrator-quality-gate-opus` + `@orchestrator-quality-gate-gpt5` |
+| Difficulty | Coder                      | Quality Gate                                                          |
+| ---------- | -------------------------- | --------------------------------------------------------------------- |
+| low        | `@orchestrator-coder-low`  | `@orchestrator-quality-gate-sonnet`                                   |
+| medium     | `@orchestrator-coder`      | `@orchestrator-quality-gate-opus`                                     |
+| high       | `@orchestrator-coder-high` | `@orchestrator-quality-gate-opus` + `@orchestrator-quality-gate-gpt5` |
 
 ## Orchestration Phases (per step)
 

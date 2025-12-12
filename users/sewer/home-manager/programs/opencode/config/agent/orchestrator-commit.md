@@ -1,10 +1,12 @@
 ---
 mode: subagent
+visible: false
 description: Creates semantic commits matching repository style
 model: anthropic/claude-haiku-4-5
 tools:
   bash: true
   read: true
+  task: false
 ---
 
 ultrathink

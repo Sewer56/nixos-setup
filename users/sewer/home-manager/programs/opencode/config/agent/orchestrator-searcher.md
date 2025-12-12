@@ -1,5 +1,6 @@
 ---
 mode: subagent
+visible: false
 description: Identifies a minimal, high-signal file list for planning/implementation
 model: anthropic/claude-haiku-4-5
 tools:
@@ -10,6 +11,7 @@ tools:
   list: true
   write: true
   edit: false
+  task: false
 permission:
   write: allow
   edit: deny

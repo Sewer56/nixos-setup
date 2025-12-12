@@ -30,18 +30,24 @@ echo "Plugin update script finished successfully.")
   },
   "agent": {
     "plan": {
-      "subagents": {
-        "orchestrator-*": false
+      "permission": {
+        "task": {
+          "orchestrator-*": "deny"
+        }
       }
     },
     "build": {
-      "subagents": {
-        "orchestrator-*": false
+      "permission": {
+        "task": {
+          "orchestrator-*": "deny"
+        }
       }
     },
     "general": {
-      "subagents": {
-        "orchestrator-*": false
+      "permission": {
+        "task": {
+          "orchestrator-*": "deny"
+        }
       }
     },
     "github": {
