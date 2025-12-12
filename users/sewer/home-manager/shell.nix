@@ -109,6 +109,18 @@ in {
       export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=8,fg=11,bold'     # surface1 bg, yellow fg
       export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=8,fg=9,bold'  # surface1 bg, red fg
     '';
+
+    # Custom shell functions
+    initExtra = ''
+      # Alias for running opencode dev server
+      opencode() {
+        if [ $# -eq 0 ]; then
+          (cd ~/Project/opencode && bun dev .)
+        else
+          (cd ~/Project/opencode && bun dev "$@")
+        fi
+      }
+    '';
   };
 
   # Home Manager can also manage your environment variables through
