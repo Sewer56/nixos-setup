@@ -18,7 +18,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland = {
-      url = "github:hyprwm/Hyprland/v0.52.1";
+      url = "github:hyprwm/Hyprland/v0.52.2";
     };
     hyprWorkspaceLayouts = {
       url = "github:zakk4223/hyprWorkspaceLayouts";
