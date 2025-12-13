@@ -7,7 +7,7 @@
     rustup
 
     # Additional development dependencies
-    gcc # C compiler for linking (provides `cc`)
+    clang_multi # C compiler for linking (provides `cc`)
     libclang # Required for bindgen and some crates
     pkg-config # Required for linking system libraries
   ];
