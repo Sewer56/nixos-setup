@@ -108,17 +108,22 @@ in {
       # Fix history substring search colors
       export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=8,fg=11,bold'     # surface1 bg, yellow fg
       export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=8,fg=9,bold'  # surface1 bg, red fg
-    '';
 
-    # Custom shell functions
-    initExtra = ''
       # Alias for running opencode dev server
       opencode() {
         if [ $# -eq 0 ]; then
-          (cd ~/Project/opencode && bun dev .)
+          (/home/sewer/Project/opencode/packages/opencode/dist/opencode-linux-x64/bin/opencode .)
         else
-          (cd ~/Project/opencode && bun dev "$@")
+          (/home/sewer/Project/opencode/packages/opencode/dist/opencode-linux-x64/bin/opencode "$@")
         fi
+      }
+
+      opencode-build() {
+        pushd /home/sewer/Project/opencode/packages/opencode > /dev/null
+        bun install
+        bun run build --single
+        popd > /dev/null
+        chmod -R +x /home/sewer/Project/opencode/packages/opencode/dist/opencode-linux-x64/bin
       }
     '';
   };
