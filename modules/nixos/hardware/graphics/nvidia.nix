@@ -46,7 +46,7 @@ in {
     # Enable this if you have graphical corruption issues or application crashes after waking
     # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead
     # of just the bare essentials.
-    powerManagement.enable = false;
+    powerManagement.enable = true;
 
     # Driver version is configurable per-host via hostOptions.hardware.nvidia.driverVersion
     package = driverPackages.${selectedDriver};
