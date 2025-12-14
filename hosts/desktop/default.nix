@@ -26,6 +26,7 @@
   hostOptions = {
     hardware.corsair.enable = lib.mkDefault true;
     hardware.hasBattery = lib.mkDefault false;
+    nas.enable = lib.mkDefault true;
     desktop.hyprland.displayMode = lib.mkDefault "ultrawide";
     desktop.hyprland.preferDedicatedLaptopGpu = lib.mkDefault false;
     theme.accent = lib.mkDefault "teal";

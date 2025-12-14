@@ -1,6 +1,6 @@
-{...}: {
+{config, lib, ...}: {
   # User-level systemd mount configuration for NFS
-  systemd.mounts = [
+  systemd.mounts = lib.mkIf config.hostOptions.nas.enable [
     {
       type = "nfs";
       what = "192.168.1.125:/mnt";
@@ -14,7 +14,7 @@
   ];
 
   # User-level systemd automount configuration
-  systemd.automounts = [
+  systemd.automounts = lib.mkIf config.hostOptions.nas.enable [
     {
       wantedBy = ["multi-user.target"];
       automountConfig = {
@@ -25,7 +25,7 @@
   ];
 
   # Create the mount point directory
-  systemd.tmpfiles.rules = [
+  systemd.tmpfiles.rules = lib.mkIf config.hostOptions.nas.enable [
     "d /home/sewer/NAS 0755 sewer users -"
   ];
 }

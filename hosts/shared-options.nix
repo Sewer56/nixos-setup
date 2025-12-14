@@ -2,6 +2,7 @@
   options.hostOptions = {
     hardware.corsair.enable = lib.mkEnableOption "Corsair ckb-next support";
     hardware.hasBattery = lib.mkEnableOption "this device is battery powered";
+    nas.enable = lib.mkEnableOption "NAS NFS mounts";
 
     desktop.hyprland = {
       displayMode = lib.mkOption {
