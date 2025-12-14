@@ -28,6 +28,7 @@
   hostOptions = {
     hardware.corsair.enable = lib.mkDefault false;
     hardware.hasBattery = lib.mkDefault true;
+    hardware.nvidia.driverVersion = lib.mkDefault "production";
     desktop.hyprland.displayMode = lib.mkDefault "single";
     desktop.hyprland.preferDedicatedLaptopGpu = lib.mkDefault true;
     theme.accent = lib.mkDefault "lavender";

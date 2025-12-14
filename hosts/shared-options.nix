@@ -2,6 +2,11 @@
   options.hostOptions = {
     hardware.corsair.enable = lib.mkEnableOption "Corsair ckb-next support";
     hardware.hasBattery = lib.mkEnableOption "this device is battery powered";
+    hardware.nvidia.driverVersion = lib.mkOption {
+      type = lib.types.enum ["stable" "beta" "production" "vulkan_beta" "legacy_470" "legacy_390"];
+      default = "stable";
+      description = "NVIDIA driver version to use (stable, beta, production, vulkan_beta, legacy_470, legacy_390)";
+    };
     nas.enable = lib.mkEnableOption "NAS NFS mounts";
 
     desktop.hyprland = {
