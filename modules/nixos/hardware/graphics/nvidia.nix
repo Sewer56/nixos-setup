@@ -5,7 +5,18 @@
   config,
   pkgs,
   ...
-}: {
+}: let
+  # Map driver version option to actual package
+  driverPackages = {
+    stable = config.boot.kernelPackages.nvidiaPackages.stable;
+    beta = config.boot.kernelPackages.nvidiaPackages.beta;
+    production = config.boot.kernelPackages.nvidiaPackages.production;
+    vulkan_beta = config.boot.kernelPackages.nvidiaPackages.vulkan_beta;
+    legacy_470 = config.boot.kernelPackages.nvidiaPackages.legacy_470;
+    legacy_390 = config.boot.kernelPackages.nvidiaPackages.legacy_390;
+  };
+  selectedDriver = config.hostOptions.hardware.nvidia.driverVersion;
+in {
   imports = [
     ./common.nix
   ];
@@ -37,7 +48,7 @@
     # of just the bare essentials.
     powerManagement.enable = false;
 
-    # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
+    # Driver version is configurable per-host via hostOptions.hardware.nvidia.driverVersion
+    package = driverPackages.${selectedDriver};
   };
 }
