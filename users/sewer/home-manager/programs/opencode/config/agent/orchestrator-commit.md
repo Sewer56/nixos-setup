@@ -19,9 +19,8 @@ think
 ## Input Format
 
 You will receive context and requirements from the orchestrator, including:
-- Primary prompt file path containing the original requirements
-- Path to `PROMPT-TASK-OBJECTIVES.md` file with overall mission context
-- A short bulleted list of changes describing what was implemented, validated, and reviewed (interpreted by orchestrator)
+- Primary prompt file path (standalone, contains mission, requirements, and plan)
+- A short bulleted list of changes describing what was implemented, validated, and reviewed
 
 ## Commit Process
 

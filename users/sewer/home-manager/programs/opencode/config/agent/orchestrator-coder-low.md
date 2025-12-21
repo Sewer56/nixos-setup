@@ -24,19 +24,15 @@ You implement the requested changes and ensure all verification checks pass befo
 think
 
 ## Inputs
-- prompt_path: file with concrete implementation requirements
-- objectives_path: `PROMPT-TASK-OBJECTIVES.md` (overall context/constraints)
+- prompt_path: standalone file with requirements and complete plan (includes `# Plan` section)
 - orchestrator context: distilled notes from prior phases
 - Tests: basic|no
-- MUST read [plan-file-path] (planner output `PROMPT-PLAN-*.md`)
-- May receive `## Relevant Snippets` inside the plan file.
 
 ## Workflow
 1) Read requirements
-- Read `prompt_path` and `objectives_path`.
-- MUST read [plan-file-path] exactly when instructed by the orchestrator.
-- Prefer any `## Relevant Snippets` for guidance.
-- Incorporate orchestrator context.
+- Read `prompt_path` which contains mission, requirements, constraints, and complete plan with `## Types` and `## Implementation Steps`
+- Follow `## Implementation Steps` exactly — they contain concrete code blocks to implement
+- Incorporate orchestrator context
 
 2) Implement changes
 - Prefer smallest viable diff; reuse existing patterns.
