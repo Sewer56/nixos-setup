@@ -32,30 +32,32 @@ echo "Plugin update script finished successfully.")
     "plan": {
       "permission": {
         "task": {
-          "orchestrator-*": "deny"
+          "orchestrator-*": "deny",
+          "github": "deny",
+          "mcp-search": "deny"
         }
       }
     },
     "build": {
       "permission": {
         "task": {
-          "orchestrator-*": "deny"
+          "orchestrator-*": "deny",
+          "github": "deny",
+          "mcp-search": "deny"
         }
       }
     },
     "general": {
       "permission": {
         "task": {
-          "orchestrator-*": "deny"
+          "orchestrator-*": "deny",
+          "github": "deny",
+          "mcp-search": "deny"
         }
       }
     },
-    "github": {
-      "tools": {
-        "github_*": true,
-        "context7_*": true,
-        "deepwiki_*": true
-      }
+    "explore": {
+      "disable": true
     }
   },
   "mcp": {
