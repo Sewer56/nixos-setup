@@ -49,6 +49,7 @@
 
     # Development Environment
     devenv
+    spec-kit
     (jetbrains.rider.override {forceWayland = true;})
 
     # Profiling tools
