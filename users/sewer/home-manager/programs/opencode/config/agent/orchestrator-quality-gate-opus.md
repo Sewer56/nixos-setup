@@ -1,6 +1,6 @@
 ---
 mode: subagent
-visible: false
+hidden: true
 description: Unified objective validation and code review with verification checks (Opus reviewer)
 model: anthropic/claude-opus-4-5
 tools:

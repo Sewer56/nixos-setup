@@ -1,6 +1,6 @@
 ---
 mode: subagent
-visible: false
+hidden: true
 description: Implements code changes and ensures all verification checks pass
 model: anthropic/claude-haiku-4-5
 tools:

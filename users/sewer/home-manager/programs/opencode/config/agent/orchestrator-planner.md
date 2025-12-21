@@ -1,6 +1,6 @@
 ---
 mode: subagent
-visible: false
+hidden: true
 description: Transforms vague requests into specific, actionable objectives without user interaction
 model: anthropic/claude-opus-4-5
 tools:

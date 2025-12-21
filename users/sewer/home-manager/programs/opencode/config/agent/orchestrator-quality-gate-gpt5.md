@@ -1,6 +1,6 @@
 ---
 mode: subagent
-visible: false
+hidden: true
 description: Unified objective validation and code review with verification checks (GPT-5 reviewer)
 model: github-copilot/gpt-5.2
 tools:
