@@ -54,6 +54,7 @@
 
     # Profiling tools
     hotspot
+    heaptrack
 
     # File transfer
     filezilla
