@@ -1,6 +1,6 @@
 ---
 description: "Generate complete prompt packs with embedded plans"
-agent: build
+agent: orchestrator-builder
 ---
 
 ## User Input
