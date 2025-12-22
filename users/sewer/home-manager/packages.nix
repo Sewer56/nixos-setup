@@ -55,6 +55,7 @@
     # Profiling tools
     hotspot
     heaptrack
+    rustc-demangle
 
     # File transfer
     filezilla
