@@ -39,7 +39,6 @@ Iterate on structure based on user feedback.
 
 ### Phase 3: Generate Prompt Files
 Create in current working directory:
-- `PROMPT-ORCHESTRATOR.md` — execution index
 - `PROMPT-NN-{title}.md` — one per task (standalone, self-contained)
 
 ### Phase 4: Clarification Loop
@@ -80,14 +79,21 @@ Say "plan" to continue.
 ```
 **Continue to Phase 5 only when user says "plan".**
 
-### Phase 5: Parallel Planning
-Spawn `@orchestrator-planner` for each prompt file in parallel.
-Pass:
-- `prompt_path`: absolute path to PROMPT-NN-*.md
-- `tests`: from prompt's Execution section
+### Phase 5: Dependency-Aware Planning
+1. Parse `# Dependencies` from each prompt file
+2. Build execution layers:
+   - Layer 0: prompts with no dependencies
+   - Layer N: prompts whose dependencies are all in layers < N
+3. For each layer (in order):
+   - Spawn `@orchestrator-planner` for all prompts in layer **in parallel**
+   - Pass: `prompt_path` (absolute path)
+   - **Wait for layer to complete** before proceeding to next layer
+4. Report results per layer.
 
-Planner appends complete plan sections to each prompt file.
-Wait for all to complete, then report results.
+### Phase 6: Generate Orchestrator
+After all planning completes:
+1. Read `# Difficulty` from each prompt file (set by planner)
+2. Create `PROMPT-ORCHESTRATOR.md` with difficulties and tests from each prompt
 
 ## Prompt File Format: `PROMPT-NN-{title}.md`
 
@@ -116,9 +122,8 @@ Wait for all to complete, then report results.
 - IN: [what's in scope]
 - OUT: [what's out of scope]
 
-# Execution
-Tests: basic|no
-Difficulty: low|medium|high
+# Tests
+basic|no
 
 # Dependencies
 None | depends on PROMPT-NN-...

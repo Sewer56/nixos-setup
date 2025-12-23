@@ -24,13 +24,12 @@ think hard
 
 ## Inputs
 - `prompt_path`: absolute path to PROMPT-NN-*.md file (standalone, self-contained)
-- `tests`: "basic" or "no"
 
 ## Process
 
 ### 1) Read and Understand
-- Read prompt_path (contains mission, objective, requirements, constraints, clarifications)
-- Extract what needs to be built
+- Read prompt_path (contains mission, objective, requirements, constraints, tests, clarifications)
+- Extract what needs to be built and whether tests are required (from `# Tests` section)
 - Identify libraries/frameworks that need documentation lookup
 
 ### 2) Library Research (if needed)
@@ -46,7 +45,7 @@ think hard
 Build these sections:
 - **Types**: each type as a subsection with short explanation and code block
 - **Implementation Steps**: ordered by file, with concrete code blocks showing what to add/modify
-- **Test Steps**: only if tests=basic
+- **Test Steps**: only if `# Tests` is "basic"
 
 ### 5) Apply Discipline
 - Smallest viable change; reuse existing patterns
@@ -54,8 +53,14 @@ Build these sections:
 - No unnecessary abstractions; no single-impl interfaces
 - Restrict visibility; avoid public unless required
 
-### 6) Append to Prompt
-Use Edit tool to append plan sections to prompt_path after existing content.
+### 6) Assess Difficulty
+Based on how much thinking the coder needs beyond the plan:
+- **low**: Copy-paste job; plan is complete and exact; no judgment calls
+- **medium**: Some adaptation needed; coder may need to adjust to local context
+- **high**: Uncertain state until done; debugging likely required; coder must figure things out
+
+### 7) Append to Prompt
+Use Edit tool to append execution metadata and plan sections to prompt_path after existing content.
 Return absolute path in final message.
 
 ## Appended Sections Format
@@ -63,6 +68,9 @@ Return absolute path in final message.
 ```markdown
 
 ---
+
+# Difficulty
+low|medium|high
 
 # Plan
 
