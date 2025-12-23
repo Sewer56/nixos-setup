@@ -8,6 +8,7 @@
     _010editor
     zip
     unzip
+    qpwgraph
 
     # Browser (user-specific)
     vivaldi
@@ -17,6 +18,7 @@
     telegram-desktop
     slack
     imhex
+    ghidra
 
     # Media/torrents
     qbittorrent
