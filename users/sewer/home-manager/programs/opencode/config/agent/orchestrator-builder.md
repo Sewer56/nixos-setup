@@ -1,6 +1,6 @@
 ---
 mode: primary
-description: Generates prompt packs and coordinates planning phase with orchestrator-planner
+description: Generates prompt packs for orchestrated execution
 tools:
   bash: false
   edit: true
@@ -17,7 +17,4 @@ tools:
 permission:
   bash: deny
   webfetch: deny
-  task:
-    orchestrator-planner: allow
-    "*": deny
 ---

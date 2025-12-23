@@ -28,8 +28,9 @@ think hard
 ## Process
 
 ### 1) Read and Understand
-- Read prompt_path (contains mission, objective, requirements, constraints, tests, clarifications)
+- Read prompt_path (contains mission, objective, requirements, constraints, tests, clarifications, implementation hints)
 - Extract what needs to be built and whether tests are required (from `# Tests` section)
+- Review `# Implementation Hints` for discovered patterns and guidance from builder
 - Identify libraries/frameworks that need documentation lookup
 
 ### 2) Library Research (if needed)
@@ -194,4 +195,4 @@ async fn create_user_rejects_duplicate_email() {
 ```
 
 ## Output
-Final message must contain only the absolute path to the updated prompt file.
+Final message must contain only the absolute path to the updated prompt file and the difficulty.

@@ -35,15 +35,23 @@ think
 - Interpret subagent reports and translate into next actions
 
 ## Inputs
-- Ordered list of prompt file paths (each is standalone with complete plan)
+- User provides path to `PROMPT-ORCHESTRATOR.md` as message (contains prompt list with dependencies)
 
-## One-Time Input Analysis
-Read all prompt files once (in order) to extract per step:
-- `Tests: basic|no`
-- `Difficulty: low|medium|high`
-- Verify each has `# Plan` section with `## Implementation Steps`
+## Phase 0: Initialize (once at start)
 
-After analysis, do not read prompt files again.
+### 0.1: Parse Orchestrator Index
+Read `PROMPT-ORCHESTRATOR.md` to extract:
+- List of prompt paths
+- Dependencies and tests for each prompt
+
+### 0.2: Build Execution Layers
+- Layer 0: prompts with no dependencies
+- Layer N: prompts whose dependencies are all in layers < N
+
+### 0.3: Plan Layer 0
+Spawn `@orchestrator-planner` for each Layer 0 prompt **in parallel**.
+Pass: `prompt_path` (absolute path)
+Wait for all Layer 0 planning to complete before proceeding.
 
 ## Agent Routing by Difficulty
 
@@ -53,33 +61,45 @@ After analysis, do not read prompt files again.
 | medium     | `@orchestrator-coder`      | `@orchestrator-quality-gate-opus`                                     |
 | high       | `@orchestrator-coder-high` | `@orchestrator-quality-gate-opus` + `@orchestrator-quality-gate-gpt5` |
 
-## Orchestration Phases (per step)
+## Per-Step Execution
 
-### Phase 1: Implementation
+### Phase 1: Ensure Planned
+- Layer 0 prompts: already planned in Phase 0
+- Other prompts: already planned after their last dependency committed (see Phase 5)
+- Read `# Difficulty` from prompt file (set by planner)
+
+### Phase 2: Implementation
 - Spawn coder based on difficulty (see routing table)
 - Pass `prompt_path`, `Tests: basic|no`
 - Prompt file is standalone with complete plan; coder reads it directly
 - **Low only:** if `Status: ESCALATE`, trigger escalation (see below)
 
-### Phase 2: Quality Gate (loop <= 3)
+### Phase 3: Quality Gate (loop ≤ 3)
 - Spawn reviewer(s) based on difficulty:
   - **low**: `@orchestrator-quality-gate-sonnet` only
   - **medium**: `@orchestrator-quality-gate-opus` only
   - **high**: Both `@orchestrator-quality-gate-opus` and `@orchestrator-quality-gate-gpt5` in parallel
 - Pass `prompt_path`, implementation context, `Tests: basic|no`
 - Parse results:
-  - If PASS (all reviewers for high): continue to Phase 3
+  - If PASS (all reviewers for high): continue to Phase 4
   - If FAIL/PARTIAL: distill issues, re-invoke coder, re-run gate
 - Repeat up to 3 times. If exhausted without approval: report failure, halt step
 - **Low only:** after 2 failed iterations, trigger escalation (see below)
 
-### Phase 3: Commit
+### Phase 4: Commit
 - Summarize key changes
 - Spawn `@orchestrator-commit` with `prompt_path`, summary
 - Commit agent excludes `PROMPT-*` files
 
-### Phase 4: Progress Tracking
-- Mark step complete in todo list; proceed to next prompt
+### Phase 5: Cascade Planning
+After commit completes:
+1. Identify prompts whose dependencies are now ALL committed
+2. Spawn `@orchestrator-planner` for each **in parallel**
+3. Do not wait — planning runs in background while next step proceeds
+
+### Phase 6: Progress Tracking
+- Mark step complete in todo list
+- Proceed to next prompt (ensure its planning is complete before Phase 2)
 
 ## Low -> High Escalation
 
@@ -92,11 +112,12 @@ After analysis, do not read prompt files again.
 4. Continue to commit
 
 ## Critical Constraints
-- Read prompt files only during One-Time Input Analysis
+- Read prompt files during Phase 0 and Phase 1 (to get difficulty after planning)
 - Pass distilled guidance, not raw reports
 - Always pass `Tests: basic|no` to all subagents
 - For high difficulty: both reviewers must PASS before proceeding
 - Always re-run quality gate after coder fixes
+- Ensure planning is complete before starting Phase 2 for any prompt
 - Do not stop until all prompts processed and committed (or gate loop exhausted)
 
 ## Status Output

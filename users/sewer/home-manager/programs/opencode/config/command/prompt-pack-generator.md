@@ -1,5 +1,5 @@
 ---
-description: "Generate complete prompt packs with embedded plans"
+description: "Generate prompt packs for orchestrated execution"
 agent: orchestrator-builder
 ---
 
@@ -13,7 +13,7 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 # Prompt Pack Generator
 
-Generate complete, ready-to-execute prompt files with embedded implementation plans.
+Generate prompt files for orchestrated execution. Planning happens just-in-time during orchestration.
 
 think hard
 
@@ -73,27 +73,22 @@ Stop when: all critical gaps filled, user says "done", or limit reached.
 
 After clarification completes, present summary:
 ```
-Clarification complete. Ready to run planners.
+Clarification complete.
 
-Say "plan" to continue.
+Please review the generated PROMPT-*.md files to see if anything else comes to mind.
+
+Say "go" to generate the orchestrator index.
 ```
-**Continue to Phase 5 only when user says "plan".**
 
-### Phase 5: Dependency-Aware Planning
-1. Parse `# Dependencies` from each prompt file
-2. Build execution layers:
-   - Layer 0: prompts with no dependencies
-   - Layer N: prompts whose dependencies are all in layers < N
-3. For each layer (in order):
-   - Spawn `@orchestrator-planner` for all prompts in layer **in parallel**
-   - Pass: `prompt_path` (absolute path)
-   - **Wait for layer to complete** before proceeding to next layer
-4. Report results per layer.
+### Phase 5: Generate Orchestrator Index
+Create `PROMPT-ORCHESTRATOR.md` in current working directory with:
+- Overall objective
+- Prompt list with dependencies and tests (difficulty set during orchestration)
 
-### Phase 6: Generate Orchestrator
-After all planning completes:
-1. Read `# Difficulty` from each prompt file (set by planner)
-2. Create `PROMPT-ORCHESTRATOR.md` with difficulties and tests from each prompt
+### Phase 6: Hand Off to User
+```
+Ready for orchestration with @orchestrator primary mode/agent.
+```
 
 ## Prompt File Format: `PROMPT-NN-{title}.md`
 
@@ -132,10 +127,10 @@ None | depends on PROMPT-NN-...
 Q: <question>
 A: <answer>
 
-# Plan
+# Implementation Hints
+- [Discovered patterns, library usage, existing code to reuse]
+- [Actionable guidance for planner/coder]
 ```
-
-Plan is a placeholder.
 
 ## Orchestrator Index: `PROMPT-ORCHESTRATOR.md`
 
@@ -144,12 +139,9 @@ Plan is a placeholder.
 
 Overall Objective: <short line>
 
-Execution: SEQUENTIAL
-Global Testing: basic|no
-
-## Steps
-- PROMPT-01-{title}.md — Objective: <short> — Dependencies: None — Tests: basic|no — Difficulty: low|medium|high
-- PROMPT-02-{title}.md — Objective: <short> — Dependencies: ... — Tests: basic|no — Difficulty: low|medium|high
+## Prompts
+- PROMPT-01-{title}.md — Objective: <short> — Dependencies: None — Tests: basic|no
+- PROMPT-02-{title}.md — Objective: <short> — Dependencies: PROMPT-01 — Tests: basic|no
 ```
 
 ## Investigation Rules
