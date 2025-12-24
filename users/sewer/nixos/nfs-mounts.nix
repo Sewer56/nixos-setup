@@ -1,4 +1,8 @@
-{config, lib, ...}: {
+{
+  config,
+  lib,
+  ...
+}: {
   # User-level systemd mount configuration for NFS
   systemd.mounts = lib.mkIf config.hostOptions.nas.enable [
     {

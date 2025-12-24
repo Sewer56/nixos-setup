@@ -13,7 +13,6 @@
     ./programs/monitor.nix
     ./programs/fetch.nix
     ./programs/email.nix
-    ./programs/obs-studio.nix
     ./programs/video-player.nix
     ./programs/vesktop.nix
     ./programs/udiskie.nix
