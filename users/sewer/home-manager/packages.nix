@@ -9,6 +9,7 @@
     zip
     unzip
     qpwgraph
+    ffmpeg
 
     # Browser (user-specific)
     vivaldi
