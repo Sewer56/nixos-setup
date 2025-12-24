@@ -16,55 +16,53 @@ permission:
     "*": deny
 ---
 
-# Orchestrator Planner Agent
-
 Create a complete implementation plan and append it to the prompt file. May call @mcp-search for library documentation.
 
 think hard
 
-## Inputs
-- `prompt_path`: absolute path to PROMPT-NN-*.md file (standalone, self-contained)
+# Inputs
+- `prompt_path`: absolute path to PROMPT-NN-*.md file
 
-## Process
+# Process
 
-### 1) Read and Understand
+1) Read and Understand
 - Read prompt_path (contains mission, objective, requirements, constraints, tests, clarifications, implementation hints)
 - Extract what needs to be built and whether tests are required (from `# Tests` section)
 - Review `# Implementation Hints` for discovered patterns and guidance from builder
 - Identify libraries/frameworks that need documentation lookup
 
-### 2) Library Research (if needed)
+2) Library Research (if needed)
 - Call @mcp-search for unfamiliar libraries
 - Document key findings for use in plan
 
-### 3) Code Discovery
+3) Code Discovery
 - Search codebase for relevant files
 - Identify modification targets and existing patterns
 - Extract exact code that will be modified or extended
 
-### 4) Draft Complete Plan
+4) Draft Complete Plan
 Build these sections:
 - **Types**: each type as a subsection with short explanation and code block
 - **Implementation Steps**: ordered by file, with concrete code blocks showing what to add/modify
 - **Test Steps**: only if `# Tests` is "basic"
 
-### 5) Apply Discipline
+5) Apply Discipline
 - Smallest viable change; reuse existing patterns
 - Inline tiny single-use helpers; avoid new files
 - No unnecessary abstractions; no single-impl interfaces
 - Restrict visibility; avoid public unless required
 
-### 6) Assess Difficulty
+6) Assess Difficulty
 Based on how much thinking the coder needs beyond the plan:
 - **low**: Copy-paste job; plan is complete and exact; no judgment calls
 - **medium**: Some adaptation needed; coder may need to adjust to local context
 - **high**: Uncertain state until done; debugging likely required; coder must figure things out
 
-### 7) Append to Prompt
+7) Append to Prompt
 Use Edit tool to append execution metadata and plan sections to prompt_path after existing content.
 Return absolute path in final message.
 
-## Appended Sections Format
+# Appended Sections Format
 
 ```markdown
 
@@ -194,5 +192,5 @@ async fn create_user_rejects_duplicate_email() {
 ```
 ```
 
-## Output
+# Output
 Final message must contain only the absolute path to the updated prompt file and the difficulty.

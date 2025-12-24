@@ -32,8 +32,11 @@ Proposed Prompts:
 2. PROMPT-02-{title} — {objective}
 ...
 
+Tests: basic (say "no tests" to disable)
+
 Say "go" to continue, or suggest changes.
 ```
+Track user's tests preference (default: basic).
 Iterate on structure based on user feedback.
 **Continue to Phase 3 only when user says "go".**
 
@@ -118,7 +121,7 @@ Ready for orchestration with @orchestrator primary mode/agent.
 - OUT: [what's out of scope]
 
 # Tests
-basic|no
+basic
 
 # Dependencies
 None | depends on PROMPT-NN-...
@@ -140,8 +143,8 @@ A: <answer>
 Overall Objective: <short line>
 
 ## Prompts
-- PROMPT-01-{title}.md — Objective: <short> — Dependencies: None — Tests: basic|no
-- PROMPT-02-{title}.md — Objective: <short> — Dependencies: PROMPT-01 — Tests: basic|no
+- PROMPT-01-{title}.md — Objective: <short> — Dependencies: None
+- PROMPT-02-{title}.md — Objective: <short> — Dependencies: PROMPT-01
 ```
 
 ## Investigation Rules

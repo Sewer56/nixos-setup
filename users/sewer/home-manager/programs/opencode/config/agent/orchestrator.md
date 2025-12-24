@@ -65,39 +65,29 @@ Wait for all Layer 0 planning to complete before proceeding.
 
 ### Phase 1: Ensure Planned
 - Layer 0 prompts: already planned in Phase 0
-- Other prompts: already planned after their last dependency committed (see Phase 5)
+- Other prompts: already planned after their last dependency committed (see Phase 4)
 - Read `# Difficulty` from prompt file (set by planner)
 
 ### Phase 2: Implementation
 - Spawn coder based on difficulty (see routing table)
-- Pass `prompt_path`, `Tests: basic|no`
-- Prompt file is standalone with complete plan; coder reads it directly
+- Pass `prompt_path`
 - **Low only:** if `Status: ESCALATE`, trigger escalation (see below)
 
 ### Phase 3: Quality Gate (loop ≤ 3)
-- Spawn reviewer(s) based on difficulty:
-  - **low**: `@orchestrator-quality-gate-sonnet` only
-  - **medium**: `@orchestrator-quality-gate-opus` only
-  - **high**: Both `@orchestrator-quality-gate-opus` and `@orchestrator-quality-gate-gpt5` in parallel
-- Pass `prompt_path`, implementation context, `Tests: basic|no`
+- Spawn reviewer(s) per routing table
+- Pass `prompt_path`, implementation context
 - Parse results:
   - If PASS (all reviewers for high): continue to Phase 4
   - If FAIL/PARTIAL: distill issues, re-invoke coder, re-run gate
 - Repeat up to 3 times. If exhausted without approval: report failure, halt step
 - **Low only:** after 2 failed iterations, trigger escalation (see below)
 
-### Phase 4: Commit
-- Summarize key changes
-- Spawn `@orchestrator-commit` with `prompt_path`, summary
-- Commit agent excludes `PROMPT-*` files
+### Phase 4: Commit + Cascade Planning (parallel)
+Spawn **in parallel**:
+1. `@orchestrator-commit` with `prompt_path`, summary of key changes (excludes `PROMPT-*` files)
+2. `@orchestrator-planner` for each prompt whose dependencies are now ALL committed
 
-### Phase 5: Cascade Planning
-After commit completes:
-1. Identify prompts whose dependencies are now ALL committed
-2. Spawn `@orchestrator-planner` for each **in parallel**
-3. Do not wait — planning runs in background while next step proceeds
-
-### Phase 6: Progress Tracking
+### Phase 5: Progress Tracking
 - Mark step complete in todo list
 - Proceed to next prompt (ensure its planning is complete before Phase 2)
 
@@ -114,9 +104,6 @@ After commit completes:
 ## Critical Constraints
 - Read prompt files during Phase 0 and Phase 1 (to get difficulty after planning)
 - Pass distilled guidance, not raw reports
-- Always pass `Tests: basic|no` to all subagents
-- For high difficulty: both reviewers must PASS before proceeding
-- Always re-run quality gate after coder fixes
 - Ensure planning is complete before starting Phase 2 for any prompt
 - Do not stop until all prompts processed and committed (or gate loop exhausted)
 
