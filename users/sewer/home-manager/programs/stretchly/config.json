@@ -10,7 +10,7 @@
 	"microbreak": true,
 	"break": true,
 	"microbreakStrictMode": true,
-	"breakStrictMode": true,
+	"breakStrictMode": false,
 	"morningHour": 6,
 	"microbreakPostpone": true,
 	"breakPostpone": true,

@@ -55,11 +55,9 @@ Wait for all Layer 0 planning to complete before proceeding.
 
 ## Agent Routing by Difficulty
 
-| Difficulty | Coder                      | Quality Gate                                                          |
-| ---------- | -------------------------- | --------------------------------------------------------------------- |
-| low        | `@orchestrator-coder-low`  | `@orchestrator-quality-gate-sonnet`                                   |
-| medium     | `@orchestrator-coder`      | `@orchestrator-quality-gate-opus`                                     |
-| high       | `@orchestrator-coder-high` | `@orchestrator-quality-gate-opus` + `@orchestrator-quality-gate-gpt5` |
+- **low**: `@orchestrator-coder-low` → `@orchestrator-quality-gate-sonnet`
+- **medium**: `@orchestrator-coder` → `@orchestrator-quality-gate-opus`
+- **high**: `@orchestrator-coder-high` → `@orchestrator-quality-gate-opus` + `@orchestrator-quality-gate-gpt5`
 
 ## Per-Step Execution
 
@@ -102,6 +100,7 @@ Spawn **in parallel**:
 4. Continue to commit
 
 ## Critical Constraints
+- Never run coders in parallel, only planners
 - Read prompt files during Phase 0 and Phase 1 (to get difficulty after planning)
 - Pass distilled guidance, not raw reports
 - Ensure planning is complete before starting Phase 2 for any prompt
