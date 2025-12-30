@@ -49,34 +49,33 @@
       ];
 
       # Application workspace assignments optimized for ultrawide layout
-      windowrulev2 = [
+      windowrule = [
         # Workspace 1: Code/Browsers (master layout optimized for ultrawide)
-        "workspace 1 silent, class:^(chromium-browser)$"
-        "workspace 1 silent, class:^(vivaldi-stable)$"
-        "workspace 1 silent, class:^(code)$"
-        "workspace 1 silent, class:^(Code)$"
-        "workspace 1 silent, class:^(vesktop)$"
+        "workspace 1 silent, match:class ^(chromium-browser)$"
+        "workspace 1 silent, match:class ^(vivaldi-stable)$"
+        "workspace 1 silent, match:class ^(code)$"
+        "workspace 1 silent, match:class ^(Code)$"
+        "workspace 1 silent, match:class ^(vesktop)$"
 
         # Workspace 2: Secondary development tools (master layout)
-        "workspace 2 silent, class:^(GitKraken)$"
-        "workspace 2 silent, class:^(obsidian)$"
+        "workspace 2 silent, match:class ^(GitKraken)$"
+        "workspace 2 silent, match:class ^(obsidian)$"
 
         # Workspace 3: Communications (master layout)
-        "workspace 3 silent, class:^(Slack)$"
-        "workspace 3 silent, class:^(telegram-desktop)$"
-        "workspace 3 silent, class:^(TelegramDesktop)$"
+        "workspace 3 silent, match:class ^(Slack)$"
+        "workspace 3 silent, match:class ^(telegram-desktop)$"
+        "workspace 3 silent, match:class ^(TelegramDesktop)$"
 
         # Workspace 4: Miscellaneous apps (dwindle layout)
-
-        "workspace 4 silent, class:^(spotify)$"
-        "workspace 4 silent, class:^(Proton Mail)$"
+        "workspace 4 silent, match:class ^(spotify)$"
+        "workspace 4 silent, match:class ^(Proton Mail)$"
 
         # Floating window rules
-        "float, title:^(Picture-in-Picture)$"
-        "float, class:^(pwvucontrol)$"
-        "float, class:^(nm-connection-editor)$"
-        "size 800 600, class:^(pwvucontrol)$"
-        "size 800 600, class:^(nm-connection-editor)$"
+        "float 1, match:title ^(Picture-in-Picture)$"
+        "float 1, match:class ^(pwvucontrol)$"
+        "float 1, match:class ^(nm-connection-editor)$"
+        "size 800 600, match:class ^(pwvucontrol)$"
+        "size 800 600, match:class ^(nm-connection-editor)$"
       ];
     })
 
@@ -95,36 +94,36 @@
       ];
 
       # Application workspace assignments for three-screen setup
-      windowrulev2 = [
+      windowrule = [
         # Workspace 1: Vivaldi - Left screen (DP-4)
-        "workspace 1, class:^(vivaldi-stable)$"
-        "workspace 1, class:^(chromium-browser)$"
-        "workspace 1, class:^(firefox)$"
+        "workspace 1, match:class ^(vivaldi-stable)$"
+        "workspace 1, match:class ^(chromium-browser)$"
+        "workspace 1, match:class ^(firefox)$"
 
         # Workspace 2: Code - Middle screen (DP-3)
-        "workspace 2, class:^(Code)$"
-        "workspace 2, class:^(code)$"
-        "workspace 2, class:^(code-url-handler)$"
+        "workspace 2, match:class ^(Code)$"
+        "workspace 2, match:class ^(code)$"
+        "workspace 2, match:class ^(code-url-handler)$"
 
         # Workspace 3: Slack AND Discord - Right screen (eDP-1)
-        "workspace 3, class:^(Slack)$"
-        "workspace 3, class:^(discord)$"
-        "workspace 3, class:^(vesktop)$"
+        "workspace 3, match:class ^(Slack)$"
+        "workspace 3, match:class ^(discord)$"
+        "workspace 3, match:class ^(vesktop)$"
 
         # Other workspaces on right screen (eDP-1)
-        "workspace 4, class:^(telegram-desktop)$"
-        "workspace 4, class:^(TelegramDesktop)$"
-        "workspace 7, class:^(obsidian)$"
-        "workspace 8, class:^(spotify)$"
-        "workspace 9, class:^(GitKraken)$"
-        "workspace 10, class:^(Proton Mail)$"
+        "workspace 4, match:class ^(telegram-desktop)$"
+        "workspace 4, match:class ^(TelegramDesktop)$"
+        "workspace 7, match:class ^(obsidian)$"
+        "workspace 8, match:class ^(spotify)$"
+        "workspace 9, match:class ^(GitKraken)$"
+        "workspace 10, match:class ^(Proton Mail)$"
 
         # Floating window rules
-        "float, title:^(Picture-in-Picture)$"
-        "float, class:^(pwvucontrol)$"
-        "float, class:^(nm-connection-editor)$"
-        "size 800 600, class:^(pwvucontrol)$"
-        "size 800 600, class:^(nm-connection-editor)$"
+        "float 1, match:title ^(Picture-in-Picture)$"
+        "float 1, match:class ^(pwvucontrol)$"
+        "float 1, match:class ^(nm-connection-editor)$"
+        "size 800 600, match:class ^(pwvucontrol)$"
+        "size 800 600, match:class ^(nm-connection-editor)$"
       ];
     })
 
@@ -145,50 +144,50 @@
       ];
 
       # Application workspace assignments (standard mode)
-      windowrulev2 = [
+      windowrule = [
         # Common applications (low workspaces)
         # Workspace 1: Browsers
-        "workspace 1, class:^(chromium-browser)$"
-        "workspace 1, class:^(firefox)$"
-        "workspace 1, class:^(vivaldi-stable)$"
+        "workspace 1, match:class ^(chromium-browser)$"
+        "workspace 1, match:class ^(firefox)$"
+        "workspace 1, match:class ^(vivaldi-stable)$"
 
         # Workspace 2: Code editors
-        "workspace 2, class:^(Code)$"
-        "workspace 2, class:^(code)$"
-        "workspace 2, class:^(code-url-handler)$"
+        "workspace 2, match:class ^(Code)$"
+        "workspace 2, match:class ^(code)$"
+        "workspace 2, match:class ^(code-url-handler)$"
 
         # Workspace 3: Discord
-        "workspace 3, class:^(discord)$"
-        "workspace 3, class:^(vesktop)$"
+        "workspace 3, match:class ^(discord)$"
+        "workspace 3, match:class ^(vesktop)$"
 
         # Workspace 4: Slack
-        "workspace 4, class:^(Slack)$"
+        "workspace 4, match:class ^(Slack)$"
 
         # Workspace 5: Communication
-        "workspace 5, class:^(telegram-desktop)$"
-        "workspace 5, class:^(TelegramDesktop)$"
+        "workspace 5, match:class ^(telegram-desktop)$"
+        "workspace 5, match:class ^(TelegramDesktop)$"
 
         # Uncommonly checked applications (high workspaces)
         # Workspace 7: Notes
-        "workspace 7, class:^(obsidian)$"
+        "workspace 7, match:class ^(obsidian)$"
 
         # Workspace 8: Music
-        "workspace 8, class:^(spotify)$"
+        "workspace 8, match:class ^(spotify)$"
 
         # Workspace 9: Git
-        "workspace 9, class:^(GitKraken)$"
+        "workspace 9, match:class ^(GitKraken)$"
 
         # Workspace 10: Email (bound to '0')
-        "workspace 10, class:^(Proton Mail)$"
+        "workspace 10, match:class ^(Proton Mail)$"
 
         # Floating window rules
-        "float, title:^(Picture-in-Picture)$"
-        "float, class:^(pwvucontrol)$"
-        "float, class:^(nm-connection-editor)$"
+        "float 1, match:title ^(Picture-in-Picture)$"
+        "float 1, match:class ^(pwvucontrol)$"
+        "float 1, match:class ^(nm-connection-editor)$"
 
         # Size rules for floating windows
-        "size 800 600, class:^(pwvucontrol)$"
-        "size 800 600, class:^(nm-connection-editor)$"
+        "size 800 600, match:class ^(pwvucontrol)$"
+        "size 800 600, match:class ^(nm-connection-editor)$"
       ];
     })
   ];
