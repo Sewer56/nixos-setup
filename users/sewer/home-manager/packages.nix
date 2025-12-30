@@ -4,7 +4,6 @@
     # System utilities
     file-roller
     brightnessctl
-    kdiskmark
     _010editor
     zip
     unzip

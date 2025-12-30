@@ -15,4 +15,9 @@
 
   # Enable zsh system-wide (required for user shell)
   programs.zsh.enable = true;
+
+  # User-specific system packages
+  environment.systemPackages = with pkgs; [
+    kdiskmark
+  ];
 }
