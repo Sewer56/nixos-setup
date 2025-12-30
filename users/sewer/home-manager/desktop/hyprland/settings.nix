@@ -41,15 +41,15 @@
         # workspace_swipe = false;
       };
 
-      # Example windowrule v1
+      # Window rules (new syntax)
       windowrule = [
         # WINE fix
-        "nomaxsize,class:^(winecfg\.exe)$"
-        "nomaxsize,class:^(.*)$"
+        "no_max_size on, match:class ^(winecfg\.exe)$"
+        "no_max_size on, match:class ^(.*)$"
         # Disable self-resizing of windows
-        "suppressevent fullscreen maximize,class:^(.*)$"
+        "suppress_event fullscreen maximize, match:class ^(.*)$"
         # Enable tearing for sonic.exe
-        "immediate,class:^(sonic\.exe)$"
+        "immediate on, match:class ^(sonic\.exe)$"
       ];
 
       debug = {
