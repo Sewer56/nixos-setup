@@ -1,12 +1,6 @@
 {
   "version": "2.0",
   "monitors": {
-    "Samsung Electric Company Odyssey G95NC HNTXC00136|DP-4": {
-      "wallpaper_path": "/home/sewer/Pictures/wallpapers/saved/dp19wl.jxl",
-      "resolution": "7680x2160",
-      "description": "Samsung Electric Company Odyssey G95NC HNTXC00136",
-      "port": "DP-4"
-    },
     "AU Optronics 0x7DB2|eDP-1": {
       "wallpaper_path": "/home/sewer/Pictures/wallpapers/saved/72r8ry.jxl",
       "resolution": "2560x1600",
@@ -25,14 +19,8 @@
       "description": "Dell Inc. DELL U2520D 8SGL923",
       "port": "DP-4"
     },
-    "Samsung Electric Company Odyssey G95NC HNTXC00136|DP-7": {
-      "wallpaper_path": "/home/sewer/Pictures/wallpapers/saved/o5xe5m.jxl",
-      "resolution": "7680x2160",
-      "description": "Samsung Electric Company Odyssey G95NC HNTXC00136",
-      "port": "DP-7"
-    },
     "Samsung Electric Company Odyssey G95NC HNTXC00136|DP-6": {
-      "wallpaper_path": "/home/sewer/Pictures/wallpapers/current_random_wallpaper/d8pyvo.jpg",
+      "wallpaper_path": "/home/sewer/Pictures/wallpapers/saved/d8pyvo.jxl",
       "resolution": "7680x2160",
       "description": "Samsung Electric Company Odyssey G95NC HNTXC00136",
       "port": "DP-6"
