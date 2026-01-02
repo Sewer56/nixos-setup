@@ -22,7 +22,7 @@ from lib.services.wallpaper_manager import WallpaperManager
 from lib.hyprland.lock_manager import hyprpaper_lock, HyprpaperLockError
 from lib.hyprland.screen_utils import get_monitor_info
 
-def wait_for_hyprpaper(timeout=5, poll_interval=0.1):
+def wait_for_hyprpaper(timeout=20, poll_interval=0.1):
     """Wait for hyprpaper to be ready
     
     Args:
@@ -69,7 +69,7 @@ def main():
             # Short delay to ensure hyprpaper is fully initialized
             # Needed for nixOS rebuild.
             notify_info("Restoring wallpapers...")
-            time.sleep(0.75) # TERRIBLE HACK.
+            time.sleep(1.5) # TERRIBLE HACK.
 
             # Restore saved wallpapers for each monitor
             try:
