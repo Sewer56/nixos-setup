@@ -17,8 +17,18 @@
       url = "github:sadjow/claude-code-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Hyprland ecosystem - we use hyprland's nixpkgs for cachix
     hyprland = {
       url = "github:hyprwm/Hyprland/v0.53.0";
+    };
+    hyprpaper = {
+      url = "github:hyprwm/hyprpaper/v0.8.0";
+      inputs.nixpkgs.follows = "hyprland/nixpkgs";
+      inputs.hyprutils.follows = "hyprland/hyprutils";
+      inputs.hyprlang.follows = "hyprland/hyprlang";
+      inputs.hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
+      inputs.systems.follows = "hyprland/systems";
     };
     hyprWorkspaceLayouts = {
       url = "github:zakk4223/hyprWorkspaceLayouts";
