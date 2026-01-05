@@ -13,5 +13,7 @@ permission:
   glob: allow
   todowrite: allow
   todoread: allow
-  task: allow
+  task: {
+    "*": "allow"
+  }
 ---

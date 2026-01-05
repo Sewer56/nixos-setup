@@ -9,9 +9,10 @@ permission:
   glob: allow
   list: allow
   edit: allow
-  task:
-    mcp-search: allow
-    "*": deny
+  task: {
+    "mcp-search": "allow",
+    "*": "deny"
+  }
 ---
 
 Create a complete implementation plan and append it to the prompt file. May call @mcp-search for library documentation.

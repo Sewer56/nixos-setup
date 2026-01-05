@@ -4,8 +4,9 @@ description: Use this for third-party library research and repository documentat
 permission:
   context7_*: allow
   deepwiki_*: allow
-  task:
-    orchestrator-*: deny
+  task: {
+    "orchestrator-*": "deny"
+  }
 ---
 
 You are a library research specialist focused on documentation lookup and analysis.

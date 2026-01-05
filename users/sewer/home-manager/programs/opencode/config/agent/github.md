@@ -3,8 +3,9 @@ mode: subagent
 description: This subagent should only be called manually by the user.
 permission:
   github_*: allow
-  task:
-    orchestrator-*: deny
+  task: {
+    "orchestrator-*": "deny"
+  }
 ---
 
 You are a GitHub specialist agent focused on repository operations.

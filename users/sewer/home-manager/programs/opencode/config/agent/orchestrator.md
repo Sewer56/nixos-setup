@@ -13,9 +13,10 @@ permission:
   glob: deny
   todowrite: allow
   todoread: allow
-  task:
-    orchestrator-*: allow
-    "*": deny
+  task: {
+    "orchestrator-*": "allow",
+    "*": "deny"
+  }
 ---
 
 # Task Orchestrator Agent
