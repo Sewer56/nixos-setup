@@ -10,8 +10,8 @@ permission:
   list: allow
   edit: allow
   task: {
-    "mcp-search": "allow",
-    "*": "deny"
+    "*": "deny",
+    "mcp-search": "allow"
   }
 ---
 

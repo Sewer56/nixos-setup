@@ -14,8 +14,8 @@ permission:
   todowrite: allow
   todoread: allow
   task: {
-    "orchestrator-*": "allow",
-    "*": "deny"
+    "*": "deny",
+    "orchestrator-*": "allow"
   }
 ---
 
