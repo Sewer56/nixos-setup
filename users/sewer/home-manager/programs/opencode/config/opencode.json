@@ -87,47 +87,4 @@ echo "Plugin update script finished successfully.")
   "experimental": {
     "disable_paste_summary": true,
   },
-  // Enable thinking for Anthropic models.
-  "provider": {
-    "anthropic": {
-      "models": {
-        "claude-sonnet-4-5": {
-          "options": {
-            "thinking": {
-              "type": "enabled",
-              "budgetTokens": 31999
-            }
-          }
-        },
-        "claude-haiku-4-5": {
-          "options": {
-            "thinking": {
-              "type": "enabled",
-              "budgetTokens": 31999
-            }
-          }
-        },
-        "claude-opus-4-5": {
-          "options": {
-            "thinking": {
-              "type": "enabled",
-              "budgetTokens": 31999
-            }
-          }
-        },
-      }
-    },
-    "github-copilot": {
-      "models": {
-        "claude-sonnet-4": {
-          "options": {
-            "thinking": {
-              "type": "enabled",
-              "budgetTokens": 31999
-            }
-          }
-        }
-      }
-    }
-  }
 }
