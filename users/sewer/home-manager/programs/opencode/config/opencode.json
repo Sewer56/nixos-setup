@@ -24,7 +24,8 @@ echo "Plugin update script finished successfully.")
     "doom_loop": "deny",
     "github_*": "deny",
     "context7_*": "deny",
-    "deepwiki_*": "deny"
+    "deepwiki_*": "deny",
+    "external_directory": "allow"
   },
   "agent": {
     "plan": {
