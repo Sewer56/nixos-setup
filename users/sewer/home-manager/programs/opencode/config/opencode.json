@@ -21,12 +21,10 @@ echo "Plugin update script finished successfully.")
       "*": "allow"
     },
     "webfetch": "allow",
-    "doom_loop": "deny"
-  },
-  "tools": {
-    "github_*": false,
-    "context7_*": false,
-    "deepwiki_*": false
+    "doom_loop": "deny",
+    "github_*": "deny",
+    "context7_*": "deny",
+    "deepwiki_*": "deny"
   },
   "agent": {
     "plan": {

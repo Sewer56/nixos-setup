@@ -3,14 +3,12 @@ mode: subagent
 hidden: true
 description: Unified objective validation and code review with verification checks (Sonnet reviewer)
 model: anthropic/claude-sonnet-4-5
-tools:
-  bash: true
-  read: true
-  grep: true
-  glob: true
-  task: false
 permission:
   bash: allow
+  read: allow
+  grep: allow
+  glob: allow
+  task: deny
   edit: deny
   patch: deny
 ---

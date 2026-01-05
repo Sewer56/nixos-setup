@@ -3,10 +3,10 @@ mode: subagent
 hidden: true
 description: Creates semantic commits matching repository style
 model: anthropic/claude-haiku-4-5
-tools:
-  bash: true
-  read: true
-  task: false
+permission:
+  bash: allow
+  read: allow
+  task: deny
 ---
 
 Create semantic commits that match the repository's existing commit style for completed work.

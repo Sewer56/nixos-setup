@@ -3,14 +3,12 @@ mode: subagent
 hidden: true
 description: Unified objective validation and code review with verification checks (GPT-5 reviewer)
 model: github-copilot/gpt-5.2
-tools:
-  bash: true
-  read: true
-  grep: true
-  glob: true
-  task: false
 permission:
   bash: allow
+  read: allow
+  grep: allow
+  glob: allow
+  task: deny
   edit: deny
   patch: deny
 ---

@@ -1,9 +1,8 @@
 ---
 mode: subagent
 description: This subagent should only be called manually by the user.
-tools:
-  github_*: true
 permission:
+  github_*: allow
   task:
     orchestrator-*: deny
 ---

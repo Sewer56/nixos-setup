@@ -1,10 +1,9 @@
 ---
 mode: subagent
 description: Use this for third-party library research and repository documentation analysis.
-tools:
-  context7_*: true
-  deepwiki_*: true
 permission:
+  context7_*: allow
+  deepwiki_*: allow
   task:
     orchestrator-*: deny
 ---

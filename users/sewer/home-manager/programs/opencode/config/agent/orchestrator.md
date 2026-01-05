@@ -1,23 +1,18 @@
 ---
 mode: primary
 description: Orchestrates multi-phase tasks with difficulty-based agent routing
-tools:
-  bash: false
-  edit: false
-  write: false
-  patch: false
-  webfetch: false
-  list: false
-  read: true
-  grep: false
-  glob: false
-  todowrite: true
-  todoread: true
-  task: true
 permission:
   bash: deny
   edit: deny
+  write: deny
+  patch: deny
   webfetch: deny
+  list: deny
+  read: allow
+  grep: deny
+  glob: deny
+  todowrite: allow
+  todoread: allow
   task:
     orchestrator-*: allow
     "*": deny

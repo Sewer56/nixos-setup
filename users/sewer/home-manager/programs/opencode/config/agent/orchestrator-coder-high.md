@@ -3,18 +3,18 @@ mode: subagent
 hidden: true
 description: Implements code changes and ensures all verification checks pass (Opus variant)
 model: anthropic/claude-opus-4-5
-tools:
-  bash: true
-  edit: true
-  write: true
-  patch: true
-  read: true
-  grep: true
-  glob: true
-  list: true
-  todowrite: true
-  todoread: true
-  task: false
+permission:
+  bash: allow
+  edit: allow
+  write: allow
+  patch: allow
+  read: allow
+  grep: allow
+  glob: allow
+  list: allow
+  todowrite: allow
+  todoread: allow
+  task: deny
 ---
 
 Implement requested changes and ensure all verification checks pass before returning.

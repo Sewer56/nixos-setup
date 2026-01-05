@@ -3,14 +3,12 @@ mode: subagent
 hidden: true
 description: Produces complete implementation plans with data model, types, and task list
 model: anthropic/claude-opus-4-5
-tools:
-  read: true
-  grep: true
-  glob: true
-  list: true
-  edit: true
-  task: true
 permission:
+  read: allow
+  grep: allow
+  glob: allow
+  list: allow
+  edit: allow
   task:
     mcp-search: allow
     "*": deny
