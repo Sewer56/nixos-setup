@@ -20,10 +20,10 @@
 
     # Hyprland ecosystem - we use hyprland's nixpkgs for cachix
     hyprland = {
-      url = "github:hyprwm/Hyprland/v0.53.0";
+      url = "github:hyprwm/Hyprland/v0.53.1";
     };
     hyprpaper = {
-      url = "github:hyprwm/hyprpaper/v0.8.0";
+      url = "github:hyprwm/hyprpaper/v0.8.1";
       inputs.nixpkgs.follows = "hyprland/nixpkgs";
       inputs.hyprutils.follows = "hyprland/hyprutils";
       inputs.hyprlang.follows = "hyprland/hyprlang";

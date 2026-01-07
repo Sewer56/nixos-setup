@@ -24,7 +24,6 @@
       enable = true;
       enableXdgAutostart = true;
     };
-    xwayland.enable = true;
   };
 
   # Must be synced with nixos module, due to home-manager bug that overrides.
