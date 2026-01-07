@@ -19,8 +19,15 @@
     };
 
     # Hyprland ecosystem - we use hyprland's nixpkgs for cachix
+    hyprgraphics = {
+      url = "github:hyprwm/hyprgraphics/v0.5.0";
+      inputs.nixpkgs.follows = "hyprland/nixpkgs";
+      inputs.hyprutils.follows = "hyprland/hyprutils";
+      inputs.systems.follows = "hyprland/systems";
+    };
     hyprland = {
       url = "github:hyprwm/Hyprland/v0.53.1";
+      inputs.hyprgraphics.follows = "hyprgraphics";
     };
     hyprpaper = {
       url = "github:hyprwm/hyprpaper/v0.8.1";
@@ -33,10 +40,12 @@
     hyprWorkspaceLayouts = {
       url = "github:zakk4223/hyprWorkspaceLayouts";
       inputs.hyprland.follows = "hyprland";
+      inputs.nixpkgs.follows = "hyprland/nixpkgs";
     };
     hypr-dynamic-cursors = {
       url = "github:VirtCode/hypr-dynamic-cursors";
       inputs.hyprland.follows = "hyprland";
+      inputs.nixpkgs.follows = "hyprland/nixpkgs";
     };
 
     # Catppuccin is a theme, we have no binary dependencies, so don't follow nixpkgs for the
