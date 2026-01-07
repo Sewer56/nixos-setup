@@ -22,15 +22,17 @@ Implement requested changes and ensure all verification checks pass before retur
 think
 
 # Inputs
-- `prompt_path`: standalone file with requirements and complete plan
-- Orchestrator context: distilled notes from prior phases
+- `prompt_path`: requirements and objectives
+- `plan_path`: implementation plan from planner (contains `## Types` and `## Implementation Steps`)
+- Orchestrator context: task intent and notes from prior phases
 
 # Workflow
 
-1) Read requirements
-- Read `prompt_path` which contains mission, requirements, constraints, and complete plan with `## Types` and `## Implementation Steps`
+1) Read requirements and plan
+- Read `prompt_path` for mission, requirements, constraints
+- Read `plan_path` for complete plan with `## Types` and `## Implementation Steps`
 - Follow `## Implementation Steps` exactly — they contain concrete code blocks to implement
-- Check `# Tests` section for test policy (basic|no)
+- Check `# Tests` section in prompt_path for test policy (basic|no)
 - Incorporate orchestrator context
 
 2) Implement changes
@@ -59,15 +61,16 @@ Return a single report in your final message:
 
 Status: SUCCESS | FAIL
 
-Changes Made
-- file: "path/to/file" — what changed; why it was needed
+## Coder Notes
+**Concerns**: Areas of uncertainty or deviation from plan (reviewer will focus here)
+**Related files reviewed**: Files examined but not modified
 
-Issues Encountered
+## Issues Encountered
 - Only list failures, errors, and warnings (omit passing checks)
 - Failed Checks: name → brief error and key details
 - Warnings: name → brief details
 
-Issues Remaining
+## Issues Remaining
 - If any unresolved issues remain, list them; otherwise "None"
 ```
 

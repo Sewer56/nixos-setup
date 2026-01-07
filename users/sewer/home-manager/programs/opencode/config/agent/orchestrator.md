@@ -47,7 +47,19 @@ Read `PROMPT-ORCHESTRATOR.md` to extract:
 ### 0.3: Plan Layer 0
 Spawn `@orchestrator-planner` for each Layer 0 prompt **in parallel**.
 Pass: `prompt_path` (absolute path)
+Parse from planner response: `plan_path`, `difficulty`
+Store both for later phases.
 Wait for all Layer 0 planning to complete before proceeding.
+
+### 0.4: Review Plans (Layer 0)
+For N Layer 0 plans, spawn 2N reviewers **in parallel**:
+- Each plan gets `@orchestrator-plan-reviewer-opus` AND `@orchestrator-plan-reviewer-gpt5`
+- All 2N reviews run concurrently
+
+Pass: `prompt_path`, `plan_path`
+Each plan approved only if BOTH its reviewers approve.
+If either rejects: distill feedback, re-invoke planner, re-review (max 2 iterations)
+Wait for all plans to pass before proceeding.
 
 ## Agent Routing by Difficulty
 
@@ -57,19 +69,25 @@ Wait for all Layer 0 planning to complete before proceeding.
 
 ## Per-Step Execution
 
-### Phase 1: Ensure Planned
-- Layer 0 prompts: already planned in Phase 0
-- Other prompts: already planned after their last dependency committed (see Phase 4)
-- Read `# Difficulty` from prompt file (set by planner)
+### Phase 1: Ensure Planned & Reviewed
+- Layer 0 prompts: already planned and reviewed in Phase 0
+- Other prompts: planned and reviewed after their last dependency committed (see Phase 4)
+- Use difficulty from planner's response (already parsed during planning phase)
 
 ### Phase 2: Implementation
 - Spawn coder based on difficulty (see routing table)
-- Pass `prompt_path`
+- Pass: `prompt_path`, `plan_path`, brief context of overall task
+- Parse coder's report, extract `## Coder Notes` (Concerns, Related files)
 - **Low only:** if `Status: ESCALATE`, trigger escalation (see below)
 
 ### Phase 3: Quality Gate (loop ≤ 3)
+- Build review context:
+  - Task intent (one-line from prompt)
+  - Coder's concerns (for focused review)
+  - Related files reviewed by coder
+  - Do NOT pass plan file to reviewer
 - Spawn reviewer(s) per routing table
-- Pass `prompt_path`, implementation context
+- Pass: `prompt_path`, review context
 - Parse results:
   - If PASS (all reviewers for high): continue to Phase 4
   - If FAIL/PARTIAL: distill issues, re-invoke coder, re-run gate
@@ -79,7 +97,11 @@ Wait for all Layer 0 planning to complete before proceeding.
 ### Phase 4: Commit + Cascade Planning (parallel)
 Spawn **in parallel**:
 1. `@orchestrator-commit` with `prompt_path`, summary of key changes (excludes `PROMPT-*` files)
-2. `@orchestrator-planner` for each prompt whose dependencies are now ALL committed
+2. For each prompt whose dependencies are now ALL committed:
+   - Spawn `@orchestrator-planner` → get `plan_path`, `difficulty`
+   - Then spawn both `@orchestrator-plan-reviewer-opus` and `@orchestrator-plan-reviewer-gpt5` in parallel
+   - Plan approved only if BOTH approve
+   - If either rejects: re-plan with feedback, re-review (max 2 iterations)
 
 ### Phase 5: Progress Tracking
 - Mark step complete in todo list
@@ -96,10 +118,11 @@ Spawn **in parallel**:
 4. Continue to commit
 
 ## Critical Constraints
-- Never run coders in parallel, only planners
-- Read prompt files during Phase 0 and Phase 1 (to get difficulty after planning)
+- Never run coders in parallel, only planners and plan reviewers
+- Read plan files for difficulty (not prompt files)
 - Pass distilled guidance, not raw reports
-- Ensure planning is complete before starting Phase 2 for any prompt
+- Do NOT pass plan file to quality gate reviewers
+- Ensure planning AND plan review complete before starting Phase 2
 - Do not stop until all prompts processed and committed (or gate loop exhausted)
 
 ## Status Output

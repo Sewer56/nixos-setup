@@ -18,9 +18,11 @@ Single-pass review that validates objectives and code, runs verification checks,
 think hard
 
 # Inputs
-- `prompt_path`: primary prompt with specific requirements
-- `objectives_path`: PROMPT-TASK-OBJECTIVES.md (optional)
-- Implementation context from coder (summarized by orchestrator)
+- `prompt_path`: requirements and objectives
+- Review context from orchestrator:
+  - Task intent (one-line summary)
+  - Coder's concerns (areas of uncertainty — focus review here)
+  - Related files reviewed by coder
 
 # Process
 
@@ -51,12 +53,16 @@ Analyze each changed file deeply. Reason through whether issues exist before con
 - **Error handling**: swallowed errors, missing cases, unclear messages, cleanup failures
 - **Architecture**: coupling, responsibility boundaries, contract changes, cross-file impact
 
-## 5) Review objectives
-- Read all objectives from prompt files
+## 5) Review coder concerns
+If the coder flagged concerns, examine those areas with extra scrutiny.
+These are areas where the implementer was uncertain — validate the approach or flag issues.
+
+## 6) Review objectives
+- Read all objectives from prompt file
 - Ensure each objective is met by the implementation
 - FAIL IF: An objective is not met
 
-## 6) Review tests
+## 7) Review tests
 - Tests: basic → ensure basic tests exist for new functionality and run tests
 - Tests: no → do not run tests; flag any found tests as overengineering
 - Check whole test files, not just diffs
@@ -65,11 +71,11 @@ Analyze each changed file deeply. Reason through whether issues exist before con
 - FAIL IF: tests could be parameterized to avoid duplication
 - FAIL IF: tests are non-deterministic (real I/O, time, network without mocking/seeding)
 
-## 7) Run verification checks
+## 8) Run verification checks
 - Run formatter, linter, and type/build checks per project conventions
 - Capture outputs and exit codes
 
-## 8) Decide status
+## 9) Decide status
 - **FAIL**: Any CRITICAL/HIGH severity finding, or objectives not met, or verification checks fail
 - **PARTIAL**: Only MEDIUM/LOW findings with all objectives met and checks passing
 - **PASS**: No findings, all objectives met, all checks pass

@@ -8,14 +8,14 @@ permission:
   grep: allow
   glob: allow
   list: allow
-  edit: allow
+  write: allow
   task: {
     "*": "deny",
     "mcp-search": "allow"
   }
 ---
 
-Create a complete implementation plan and append it to the prompt file. May call @mcp-search for library documentation.
+Create a complete implementation plan in a separate plan file. May call @mcp-search for library documentation.
 
 think hard
 
@@ -57,16 +57,17 @@ Based on how much thinking the coder needs beyond the plan:
 - **medium**: Some adaptation needed; coder may need to adjust to local context
 - **high**: Uncertain state until done; debugging likely required; coder must figure things out
 
-7) Append to Prompt
-Use Edit tool to append execution metadata and plan sections to prompt_path after existing content.
-Return absolute path in final message.
+7) Write Plan File
+Create a separate plan file: `{prompt_path}-PLAN.md`
+Example: `PROMPT-01-auth.md` → `PROMPT-01-auth-PLAN.md`
 
-# Appended Sections Format
+Do NOT modify the original prompt file.
+
+# Plan File Format
+
+Write this to `{prompt_path}-PLAN.md`:
 
 ```markdown
-
----
-
 # Difficulty
 low|medium|high
 
@@ -192,4 +193,6 @@ async fn create_user_rejects_duplicate_email() {
 ```
 
 # Output
-Final message must contain only the absolute path to the updated prompt file and the difficulty.
+Final message must contain:
+- Absolute path to the plan file (the new `-PLAN.md` file)
+- Difficulty level
