@@ -26,6 +26,7 @@
     ./programs/opencode/default.nix
     ./programs/corsair/ckb-next.nix
     ./programs/password-manager.nix
+    ./programs/gnome-keyring.nix
     ./programs/stretchly/default.nix
     ./programs/uv.nix
     ./themes/default.nix

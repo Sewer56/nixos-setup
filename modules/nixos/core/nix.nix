@@ -76,6 +76,9 @@
       # desktop software
       desktop-file-utils
       freetype
+
+      # secrets/keyring support for bundled apps
+      libsecret
     ]
     # Common game related binaries
     ++ (steam-run.args.multiPkgs pkgs);

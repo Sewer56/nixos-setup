@@ -4,6 +4,7 @@
     # System utilities
     file-roller
     brightnessctl
+    libsecret # Provides secret-tool for testing keyring
     _010editor
     zip
     unzip
