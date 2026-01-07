@@ -10,7 +10,6 @@
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
     withUWSM = true; # Session management
-    xwayland.enable = true;
   };
 
   # Must be synced with home-manager module, due to home-manager bug that overrides.

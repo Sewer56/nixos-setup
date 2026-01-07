@@ -48,6 +48,7 @@
     inter
     jetbrains-mono
     nerd-fonts.jetbrains-mono
+    noto-fonts-cjk-sans
 
     # Development Environment
     devenv
