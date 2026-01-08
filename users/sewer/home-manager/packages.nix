@@ -20,6 +20,7 @@
     slack
     imhex
     ghidra
+    postman
 
     # Media/torrents
     qbittorrent
