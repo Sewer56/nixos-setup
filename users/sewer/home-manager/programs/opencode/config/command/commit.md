@@ -24,7 +24,7 @@ Create meaningful commits following `Keep a Changelog` format.
 - Use clear, descriptive commit messages
 - Focus on what changed and why
 - Group related changes logically
-- Commit and push when ready
+- Commit when ready
 - Be concise but informative
 
 ## Format:
