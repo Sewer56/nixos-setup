@@ -1,4 +1,21 @@
 {pkgs, ...}: let
+  layoutToggle = pkgs.writeShellScript "layout-toggle" ''
+    #!/usr/bin/env bash
+
+    # Layout toggle script for Hyprland
+    # Toggles between master and dwindle layouts
+
+    CURRENT=$(hyprctl getoption general:layout -j | jq -r '.str')
+
+    if [ "$CURRENT" = "master" ]; then
+      hyprctl keyword general:layout dwindle
+      notify-send -t 1500 "Layout" "Switched to dwindle"
+    else
+      hyprctl keyword general:layout master
+      notify-send -t 1500 "Layout" "Switched to master"
+    fi
+  '';
+
   touchpadToggle = pkgs.writeShellScript "touchpad-toggle" ''
     #!/usr/bin/env bash
 
@@ -55,6 +72,7 @@ in {
       "$mod, Space, togglefloating,"
       "$mod, P, pseudo," # dwindle
       "$mod, J, togglesplit," # dwindle
+      "$mod, T, exec, ${layoutToggle}" # Toggle between master/dwindle layouts
 
       # Focus movement
       "$mod, left, movefocus, l"
