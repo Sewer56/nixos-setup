@@ -7,7 +7,7 @@
   systemd.mounts = lib.mkIf config.hostOptions.nas.enable [
     {
       type = "nfs";
-      what = "DietPi.local:/mnt";
+      what = "192.168.1.3:/mnt";
       where = "/home/sewer/NAS";
       options = "nfsvers=4,soft,intr,timeo=10,retrans=3,noauto";
       mountConfig = {
