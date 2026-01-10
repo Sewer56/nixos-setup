@@ -4,9 +4,9 @@ This is a modular NixOS configuration using flakes with clear separation between
 
 ## Directory Structure
 
-- `hosts/` - Machine-specific configurations (currently `laptop`)
+- `hosts/` - Machine-specific configurations (`laptop`, `desktop`)
 - `modules/nixos/` - System-level modules organized by purpose:
-  - `core/` - Essential system modules (audio, networking, locale, packages, security)
+  - `core/` - Essential system modules (audio, networking, locale, packages, security, tailscale)
   - `desktop/` - Desktop environment modules (hyprland, sddm)
   - `hardware/` - Hardware-specific modules for different GPU drivers
 - `users/sewer/` - User configuration with dual structure:

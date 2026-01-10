@@ -14,6 +14,7 @@
     ./packages.nix
     ./printing.nix
     ./security.nix
+    ./tailscale.nix
     ./virt-manager.nix
   ];
 
