@@ -68,6 +68,18 @@ Some secrets are decoded at eval time, so we use `--option allow-unsafe-native-c
 
 *Personal instructions only - ignore if not applicable to you.*
 
+### Tailscale VPN Setup
+
+Tailscale is enabled system-wide (`modules/nixos/core/tailscale.nix`) but requires one-time authentication per device:
+
+```bash
+sudo tailscale up
+```
+
+Follow the URL printed to authenticate in your browser. The authentication state persists in `/var/lib/tailscale` across rebuilds.
+
+**Note**: Auth keys are not used because they expire after 90 days, and regenerating them via the Tailscale website is more hassle than manual authentication.
+
 ### Proton Drive Setup
 
 Before the NixOS configuration can mount Proton Drive, run initial setup with 2FA:
