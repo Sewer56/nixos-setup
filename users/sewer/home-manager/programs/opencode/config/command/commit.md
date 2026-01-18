@@ -6,6 +6,11 @@ agent: build
 # Commit Changes
 
 Create meaningful commits following `Keep a Changelog` format.
+Additional user's instructions (if present) are below:
+
+```
+$ARGUMENTS
+```
 
 ## Process:
 
