@@ -13,6 +13,7 @@
     ./nix.nix
     ./packages.nix
     ./printing.nix
+    ./scanning.nix
     ./security.nix
     ./tailscale.nix
     ./virt-manager.nix
