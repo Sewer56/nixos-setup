@@ -13,7 +13,7 @@
     ffmpegthumbnailer # Video thumbnails
     poppler # PDF thumbnails (includes glib bindings)
     freetype # Font rendering for PDFs
-    f3d # 3D model thumbnails (STL, OBJ, GLTF, etc.)
+    # f3d # 3D model thumbnails - disabled 2026-01-19, broken (VTK/openturns build failure)
 
     # Custom thumbnailers (from overlay)
     tumbler-dds-thumbnailer # DDS texture files
