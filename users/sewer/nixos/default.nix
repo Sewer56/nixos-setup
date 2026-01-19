@@ -9,7 +9,7 @@
   users.users.sewer = {
     isNormalUser = true;
     description = "sewer";
-    extraGroups = ["networkmanager" "wheel" "cdrom"];
+    extraGroups = ["networkmanager" "wheel" "cdrom" "scanner" "lp"];
     shell = pkgs.zsh;
   };
 
