@@ -1,6 +1,7 @@
 ---
 mode: subagent
 description: Use this for third-party library research and repository documentation analysis.
+model: zai-coding-plan/glm-4.7
 permission:
   context7_*: allow
   deepwiki_*: allow

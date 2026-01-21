@@ -2,7 +2,8 @@
 mode: subagent
 hidden: true
 description: Produces complete implementation plans with data model, types, and task list
-model: anthropic/claude-opus-4-5
+model: openai/gpt-5.2-codex
+reasoningEffort: xhigh
 permission:
   read: allow
   grep: allow
