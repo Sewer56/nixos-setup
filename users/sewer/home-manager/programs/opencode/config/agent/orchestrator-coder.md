@@ -2,7 +2,7 @@
 mode: subagent
 hidden: true
 description: Implements code changes and ensures all verification checks pass
-model: anthropic/claude-sonnet-4-5
+model: zai-coding-plan/glm-4.7
 permission:
   bash: allow
   edit: allow
@@ -59,7 +59,7 @@ Return a single report in your final message:
 ```
 # CODE IMPLEMENTATION REPORT
 
-Status: SUCCESS | FAIL
+Status: SUCCESS | FAIL | ESCALATE
 
 ## Coder Notes
 **Concerns**: Areas of uncertainty or deviation from plan (reviewer will focus here)
@@ -72,9 +72,23 @@ Status: SUCCESS | FAIL
 
 ## Issues Remaining
 - If any unresolved issues remain, list them; otherwise "None"
+
+## Escalation Context (only when Status: ESCALATE)
+- Trigger: <reason>
+- Attempted: <what was tried>
+- Blocker: <issue preventing completion>
 ```
 
 # Constraints
 - Do not commit; the orchestrator handles commits
 - Keep reports concise; include only failures/warnings when present
-- Return only after all required checks have passed for the given Tests mode
+- Return only after all required checks pass (or escalation)
+
+# Escalation
+Escalate (`Status: ESCALATE`) when something unexpected blocks completion:
+- Tests fail for reasons unrelated to your changes
+- Build errors from unexpected dependencies or side effects
+- Code behaves differently than prompt described
+- Required files missing or structured unexpectedly
+
+Do not escalate for straightforward errors you can fix. Escalate early if stuck.

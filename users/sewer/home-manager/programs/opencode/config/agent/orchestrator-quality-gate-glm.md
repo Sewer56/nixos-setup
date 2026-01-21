@@ -1,8 +1,8 @@
 ---
 mode: subagent
 hidden: true
-description: Unified objective validation and code review with verification checks (Sonnet reviewer)
-model: anthropic/claude-sonnet-4-5
+description: Unified objective validation and code review with verification checks (GLM reviewer)
+model: zai-coding-plan/glm-4.7
 permission:
   bash: allow
   read: allow
@@ -85,7 +85,7 @@ These are areas where the implementer was uncertain — validate the approach or
 Provide this exact structure in the final message:
 
 ```
-# QUALITY GATE REPORT (SONNET)
+# QUALITY GATE REPORT (GLM)
 
 ## Summary
 [PASS|PARTIAL|FAIL] — X files, C critical, H high, M medium, L low

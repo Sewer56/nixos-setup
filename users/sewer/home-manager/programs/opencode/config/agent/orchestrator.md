@@ -63,7 +63,7 @@ Wait for all plans to pass before proceeding.
 
 ## Agent Routing by Difficulty
 
-- **low**: `@orchestrator-coder-low` → `@orchestrator-quality-gate-sonnet`
+- **low**: `@orchestrator-coder` → `@orchestrator-quality-gate-glm`
 - **medium**: `@orchestrator-coder` → `@orchestrator-quality-gate-opus`
 - **high**: `@orchestrator-coder-high` → `@orchestrator-quality-gate-opus` + `@orchestrator-quality-gate-gpt5`
 
