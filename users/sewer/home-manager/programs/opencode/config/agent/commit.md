@@ -1,6 +1,6 @@
 ---
 mode: subagent
-hidden: true
+hidden: false
 description: Creates semantic commits matching repository style
 model: anthropic/claude-haiku-4-5
 permission:

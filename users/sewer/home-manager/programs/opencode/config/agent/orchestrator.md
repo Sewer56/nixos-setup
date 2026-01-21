@@ -96,7 +96,7 @@ Wait for all plans to pass before proceeding.
 
 ### Phase 4: Commit + Cascade Planning (parallel)
 Spawn **in parallel**:
-1. `@orchestrator-commit` with `prompt_path`, summary of key changes (excludes `PROMPT-*` files)
+1. `@commit` with `prompt_path`, summary of key changes (excludes `PROMPT-*` files)
 2. For each prompt whose dependencies are now ALL committed:
    - Spawn `@orchestrator-planner` → get `plan_path`, `difficulty`
    - Then spawn both `@orchestrator-plan-reviewer-opus` and `@orchestrator-plan-reviewer-gpt5` in parallel
