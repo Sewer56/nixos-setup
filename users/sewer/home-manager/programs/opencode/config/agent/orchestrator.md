@@ -15,6 +15,7 @@ permission:
   todoread: allow
   task: {
     "*": "deny",
+    "commit": "allow",
     "orchestrator-*": "allow"
   }
 ---
