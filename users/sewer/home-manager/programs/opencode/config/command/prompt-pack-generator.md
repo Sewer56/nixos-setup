@@ -24,7 +24,10 @@ think hard
 - Draft list of prompt files needed (title + one-line objective each)
 - Order by dependencies
 
-### Phase 2: User Confirmation
+### Phase 2: Research
+Thoroughly investigate every item, source, and reference the user has provided - do not skip any. Use available subagents (`@codebase-explorer`, `@mcp-search`) to gather implementation hints: file paths, existing patterns, function signatures. Spawn as many as needed in parallel. Treat findings as suggestions, not specifications - use judgment when populating `# Implementation Hints`.
+
+### Phase 3: User Confirmation
 Present the proposed structure:
 ```
 Proposed Prompts:
@@ -38,13 +41,13 @@ Say "go" to continue, or suggest changes.
 ```
 Track user's tests preference (default: basic).
 Iterate on structure based on user feedback.
-**Continue to Phase 3 only when user says "go".**
+**Continue to Phase 4 only when user says "go".**
 
-### Phase 3: Generate Prompt Files
+### Phase 4: Generate Prompt Files
 Create in current working directory:
 - `PROMPT-NN-{title}.md` — one per task (standalone, self-contained)
 
-### Phase 4: Clarification Loop
+### Phase 5: Clarification Loop
 For each prompt file, scan for ambiguity using reduced taxonomy:
 1. **Scope Boundaries** — what's in/out of scope
 2. **Types** — entities, fields, relationships
@@ -83,12 +86,12 @@ Please review the generated PROMPT-*.md files to see if anything else comes to m
 Say "go" to generate the orchestrator index.
 ```
 
-### Phase 5: Generate Orchestrator Index
+### Phase 6: Generate Orchestrator Index
 Create `PROMPT-ORCHESTRATOR.md` in current working directory with:
 - Overall objective
 - Prompt list with dependencies and tests (difficulty set during orchestration)
 
-### Phase 6: Hand Off to User
+### Phase 7: Hand Off to User
 ```
 Ready for orchestration with @orchestrator primary mode/agent.
 ```
@@ -159,3 +162,4 @@ Before creating any prompt:
 - Drop any requirement where no change is needed
 - Order prompts by dependency
 - Each prompt must be standalone and self-contained
+- Every prompt must have code as a deliverable (no research-only prompts)

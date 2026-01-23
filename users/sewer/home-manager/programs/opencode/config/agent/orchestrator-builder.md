@@ -14,6 +14,8 @@ permission:
   todowrite: allow
   todoread: allow
   task: {
-    "*": "allow"
+    "*": "deny",
+    "codebase-explorer": "allow",
+    "mcp-search": "allow"
   }
 ---
