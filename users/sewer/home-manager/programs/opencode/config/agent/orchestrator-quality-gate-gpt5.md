@@ -2,7 +2,8 @@
 mode: subagent
 hidden: true
 description: Unified objective validation and code review with verification checks (GPT-5 reviewer)
-model: openai/gpt-5.2-codex
+model: github-copilot/gpt-5.2-codex
+reasoningEffort: xhigh
 permission:
   bash: allow
   read: allow

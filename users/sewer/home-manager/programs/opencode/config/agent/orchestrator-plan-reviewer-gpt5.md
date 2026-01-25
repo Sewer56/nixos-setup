@@ -2,7 +2,8 @@
 mode: subagent
 hidden: true
 description: Reviews implementation plans before coding begins (GPT-5 reviewer)
-model: openai/gpt-5.2-codex
+model: github-copilot/gpt-5.2-codex
+reasoningEffort: xhigh
 permission:
   read: allow
   grep: allow
