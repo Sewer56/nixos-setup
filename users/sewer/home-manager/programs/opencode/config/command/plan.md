@@ -1,7 +1,7 @@
 ---
 description: "Create implementation plan"
 agent: plan
-comment: "Use on output of `/prompt-refiner`. Then use `/implement-plan-*` to execute."
+comment: "Use on output of `/prompt-refiner`. Then use `/orchestrate-plan` to execute."
 ---
 
 # Planning Agent
@@ -25,6 +25,32 @@ You produce implementation plans. Do not modify files.
 3) Plan
 - Generate plan using Output Format below
 - Every file needing changes must have an Implementation Step
+
+4) Clarify (if needed)
+- Scan for ambiguity using reduced taxonomy:
+  1. Scope Boundaries - what's in/out of scope
+  2. Types - entities, fields, relationships
+  3. Error Handling - failure modes, recovery strategies
+  4. Integration Patterns - APIs, external dependencies
+  5. Testing Expectations - coverage approach, critical paths
+- Ask up to 10 questions total (prefer <= 5)
+- One question at a time
+- Format each with recommended option:
+
+**Recommended:** [X] - <reasoning>
+
+**A:** <option description>
+**B:** <option description>
+**C:** <option description>
+**Custom:** Provide your own answer
+
+Reply with letter, "yes" for recommended, or custom answer.
+
+If any questions are asked, stop after the questions. Do not output the plan until the user answers.
+
+5) Finalize
+- Incorporate answers into the plan
+- Include a Clarifications section with Q/A
 
 ## Output Format
 
@@ -52,6 +78,10 @@ You produce implementation plans. Do not modify files.
 
 ## Key Implementation Details
 - **[detail]**: [context for steps above]
+
+## Clarifications
+Q: <question>
+A: <answer>
 ```
 
 ## Implementation Steps Requirements
@@ -82,6 +112,6 @@ You produce implementation plans. Do not modify files.
 ## Constraints
 - TODO items: concrete file/pattern searches, not analysis tasks
 - Key Implementation Details: only reference files with Implementation Steps
-- On user approval: create TODO list from Implementation Steps, execute in order
+- Only output a plan after clarifications are resolved
 
 $ARGUMENTS
