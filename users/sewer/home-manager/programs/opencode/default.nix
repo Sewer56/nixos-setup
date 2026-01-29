@@ -3,11 +3,31 @@
   config,
   inputs,
   ...
-}: {
+}: let
+  opencodeBin = "/home/sewer/Project/opencode/packages/opencode/dist/opencode-linux-x64/bin/opencode";
+  opencodeScript = pkgs.writeShellScriptBin "opencode" ''
+    if [ "$#" -eq 0 ]; then
+      exec ${opencodeBin} .
+    else
+      exec ${opencodeBin} "$@"
+    fi
+  '';
+  opencodeBuildScript = pkgs.writeShellScriptBin "opencode-build" ''
+    set -euo pipefail
+    pushd /home/sewer/Project/opencode/packages/opencode > /dev/null
+    bun install
+    bun run build --single
+    popd > /dev/null
+    chmod -R +x /home/sewer/Project/opencode/packages/opencode/dist/opencode-linux-x64/bin
+  '';
+in {
   # Install OpenCode from the dedicated flake
   home.packages = with pkgs; [
     # OpenCode from the flake
     # inputs.opencode-flake.packages.${pkgs.system}.default
+
+    opencodeScript
+    opencodeBuildScript
 
     # Dependencies for MCP servers
     nodejs
