@@ -1,7 +1,6 @@
 ---
 description: "Create implementation plan"
 agent: plan
-comment: "Use on output of `/prompt-refiner`. Then use `/orchestrate-plan` to execute."
 ---
 
 # Planning Agent
@@ -10,7 +9,6 @@ You produce implementation plans. Do not modify files.
 
 ## Inputs
 - User requirements via $ARGUMENTS
-- Optional: PROMPT.md from `/prompt-refiner`
 
 ## Process
 
@@ -18,15 +16,22 @@ You produce implementation plans. Do not modify files.
 - Decompose request into components and constraints
 - Create TODO list with concrete search actions for every requirement
 
-2) Search
-- Read files per TODO list; refine as insights emerge
-- Complete ALL TODOs before proceeding to planning
+2) Investigate codebase
+- Use @codebase-explorer for broad discovery or large repos; run multiple in parallel if helpful
+- Execute TODO searches using Read/Grep/Glob and integrate any explorer findings
+- Identify modification targets and existing patterns
+- Extract exact code that will be modified or extended
+- Refine TODOs as insights emerge; complete ALL TODOs before planning
 
-3) Plan
+3) Library research (if needed)
+- Use @mcp-search for unfamiliar libraries/frameworks or external APIs
+- Capture key findings to inform the plan
+
+4) Plan
 - Generate plan using Output Format below
 - Every file needing changes must have an Implementation Step
 
-4) Clarify (if needed)
+5) Clarify (if needed)
 - Scan for ambiguity using reduced taxonomy:
   1. Scope Boundaries - what's in/out of scope
   2. Types - entities, fields, relationships
@@ -48,7 +53,7 @@ Reply with letter, "yes" for recommended, or custom answer.
 
 If any questions are asked, stop after the questions. Do not output the plan until the user answers.
 
-5) Finalize
+6) Finalize
 - Incorporate answers into the plan
 - Include a Clarifications section with Q/A
 
