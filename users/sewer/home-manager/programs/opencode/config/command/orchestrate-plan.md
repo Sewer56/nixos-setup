@@ -1,7 +1,7 @@
 ---
 description: "Orchestrate a clarified plan"
 agent: build
-model: zai-coding-plan/glm-4.7
+model: github-copilot/gpt-5.2-codex
 ---
 
 # Orchestrate Plan
