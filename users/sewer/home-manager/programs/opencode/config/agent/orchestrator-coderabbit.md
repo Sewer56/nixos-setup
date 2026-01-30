@@ -50,27 +50,37 @@ think hard
 
 6) If review FAIL
 - Parse findings and identify every required change (include nitpicks)
-- Apply fixes directly to the codebase
-  - Prefer smallest viable diff
-  - Reuse existing patterns
-  - Do not add new files unless required by the finding
-  - Avoid unnecessary refactors
-- If any item cannot be applied, record the reason
-- Verify everything works as expected after fixes
-  - Run formatter, linter, and build per project conventions
-  - Run tests only when they exist or are clearly indicated by project conventions
-  - If any check fails, fix and re-run until clean
-- If all findings are applied and verification passes, report Status: PASS
+- Apply fixes directly to codebase
+   - Prefer smallest viable diff
+   - Reuse existing patterns
+   - Do not add new files unless required by finding
+   - Avoid unnecessary refactors
+ - If any item cannot be applied, record reason
+ - Verify everything works as expected after fixes
+   - Run formatter, linter, and build per project conventions
+   - Run tests only when they exist or are clearly indicated by project conventions
+   - If any check fails, fix and re-run until clean
+  - If all findings are applied and verification passes, proceed to step 7
 
-7) Commit fixes
+7) Re-run CodeRabbit after fixes
+- Re-run the CodeRabbit command from step 4
+- If rate limit detected with wait time:
+  - If wait time > 1800s (30 minutes), skip re-review and proceed to commit (will amend after step 8)
+  - If wait time <= 1800s, wait and retry
+- If no rate limit, check for remaining findings
+  - If findings remain: continue applying fixes (loop back to step 6)
+  - If no findings: report Status: PASS
+
+8) Commit fixes
 - If changes were made and verification passed, spawn `@commit`
+- If re-review was skipped due to long wait, amend the previous commit instead of creating a new one
 - Inputs to `@commit`:
   - A short bullet summary of CodeRabbit fixes
 - If no changes were made, do not create a commit
 
-8) Summarize
+9) Summarize
 - Provide a short summary of findings and fixes
-- Include whether changes were made and list modified files
+- Include whether changes were made, whether re-review was skipped, and list modified files
 - Do not dump full output; include only key lines or counts
 
 # Output
@@ -87,6 +97,8 @@ Status: PASS | FAIL | SKIPPED
 - Attempts: <n>
 - Changes Made: yes|no
 - Verification: PASS|FAIL
+- Re-Review: yes|no (skipped due to long wait)
+- Wait Time: <seconds or N/A>
 
 ## Modified Files
 - path/to/file
@@ -95,8 +107,8 @@ Status: PASS | FAIL | SKIPPED
 - <only if any>
 
 ## Commit
-Status: SUCCESS | SKIPPED | FAILED
-Details: <commit report summary>
+Status: SUCCESS | SKIPPED | AMENDED | FAILED
+Details: <commit report summary or amending note>
 
 ## Output (truncated)
 <key lines>
@@ -107,5 +119,5 @@ Details: <commit report summary>
 
 # Constraints
 - Apply every finding, including nitpicks
-- Do not re-run CodeRabbit after applying fixes
+- Re-run CodeRabbit once after fixes unless wait time exceeds 30 minutes
 - Keep output concise and focused
