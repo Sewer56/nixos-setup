@@ -23,6 +23,7 @@ think hard
 - Extract core objective and components from user input
 - Draft list of prompt files needed (title + one-line objective each)
 - Order by dependencies
+- Apply task sizing guidance (default to small, single-objective prompts)
 
 ### Phase 2: Research
 Thoroughly investigate every item, source, and reference the user has provided - do not skip any. Use available subagents (`@codebase-explorer`, `@mcp-search`) to gather implementation hints: file paths, existing patterns, function signatures. Spawn as many as needed in parallel. Treat findings as suggestions, not specifications - use judgment when populating `# Implementation Hints`.
@@ -136,6 +137,7 @@ A: <answer>
 # Implementation Hints
 - [Discovered patterns, library usage, existing code to reuse]
 - [Actionable guidance for planner/coder]
+- [File paths planner will need to read to understand context]
 ```
 
 ## Orchestrator Index: `PROMPT-ORCHESTRATOR.md`
@@ -163,3 +165,11 @@ Before creating any prompt:
 - Order prompts by dependency
 - Each prompt must be standalone and self-contained
 - Every prompt must have code as a deliverable (no research-only prompts)
+
+## Task Sizing Guidance
+- Default to the smallest useful unit of work; one primary objective per prompt
+- If a task spans multiple subsystems or integrations, split into separate prompts ordered by dependency
+- Avoid cross-cutting refactors unless explicitly required by the user
+- Prefer prompts that touch only a few files; if likely to touch many, split
+- If work combines new types, integration changes, and tests, split into separate prompts
+- When unsure, err on more prompts with smaller scopes
