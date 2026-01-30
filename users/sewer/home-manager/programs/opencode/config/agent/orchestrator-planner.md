@@ -52,26 +52,18 @@ Build these sections:
 - No unnecessary abstractions; no single-impl interfaces
 - Restrict visibility; avoid public unless required
 
-6) Assess Difficulty
-Based on how much thinking the coder needs beyond the plan:
-- **low**: Copy-paste job; plan is complete and exact; no judgment calls
-- **medium**: Some adaptation needed; coder may need to adjust to local context
-- **high**: Uncertain state until done; debugging likely required; coder must figure things out
-
-7) Write Plan File
-Create a separate plan file: `{prompt_path}-PLAN.md`
-Example: `PROMPT-01-auth.md` → `PROMPT-01-auth-PLAN.md`
+6) Write Plan File
+Create a separate plan file named `<prompt_filename>-PLAN.md`.
+Example:
+- `PROMPT-01-auth.md` -> `PROMPT-01-auth-PLAN.md`
 
 Do NOT modify the original prompt file.
 
 # Plan File Format
 
-Write this to `{prompt_path}-PLAN.md`:
+Write this to `<prompt_filename>-PLAN.md`:
 
 ```markdown
-# Difficulty
-low|medium|high
-
 # Plan
 
 ## Types
@@ -196,4 +188,3 @@ async fn create_user_rejects_duplicate_email() {
 # Output
 Final message must contain:
 - Absolute path to the plan file (the new `-PLAN.md` file)
-- Difficulty level

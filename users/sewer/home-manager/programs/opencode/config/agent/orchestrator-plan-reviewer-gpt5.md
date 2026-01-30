@@ -56,12 +56,7 @@ REJECT IF: Any CRITICAL/HIGH severity issue is foreseeable in the planned code.
 - REJECT IF: planned tests duplicate existing coverage
 - REJECT IF: planned tests could be parameterized but aren't
 
-## 6) Validate Difficulty Assessment
-- **low**: Should be copy-paste; REJECT IF plan requires judgment calls
-- **medium**: Some adaptation OK; REJECT IF significant unknowns remain
-- **high**: Appropriate for uncertain/complex work
-
-## 7) Decide Status
+## 6) Decide Status
 - **APPROVE**: Plan is sound, complete, and will pass quality gate
 - **REVISE**: Plan has issues that must be fixed before coding
 
@@ -71,7 +66,7 @@ REJECT IF: Any CRITICAL/HIGH severity issue is foreseeable in the planned code.
 # PLAN REVIEW (GPT-5)
 
 ## Summary
-[APPROVE|REVISE] — Difficulty: [CONFIRMED|SHOULD_BE_low|medium|high]
+[APPROVE|REVISE]
 
 ## Requirements Coverage
 - "requirement" — [COVERED|MISSING|PARTIAL]

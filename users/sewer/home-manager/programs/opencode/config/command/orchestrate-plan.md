@@ -24,15 +24,15 @@ think hard
 - Implementation Hints: pull from the plan's steps and key details
 
 ### Phase 3: Create Plan File
-- Create `{prompt_path}-PLAN.md` using the planner-style format below
+- Create a plan file named `<prompt_filename>-PLAN.md`
+  - Example: `PROMPT-01-auth.md` -> `PROMPT-01-auth-PLAN.md`
 - Use `PROMPT-01-{title}.md` as the source of truth
 - Minimal code discovery only as needed to make steps concrete; otherwise reuse the plan details
 - Apply discipline: smallest viable change, inline tiny helpers, avoid new files, avoid unnecessary abstractions, restrict visibility
-- Assess difficulty: low|medium|high using the rubric in the planner-style format section
 - Do NOT modify the prompt file after creating its plan file
 
 ### Phase 4: Plan Review (Parallel)
-- Spawn `@orchestrator-plan-reviewer-opus` and `@orchestrator-plan-reviewer-gpt5` in parallel
+- Spawn `@orchestrator-plan-reviewer-glm` and `@orchestrator-plan-reviewer-gpt5` in parallel
 - Inputs: `prompt_path`, `plan_path`
 - Plan approved only if BOTH reviewers approve
 - If either reviewer requests changes:
@@ -42,26 +42,19 @@ think hard
 - If still not approved, report failure and stop
 
 ### Phase 5: Implementation
-- Read difficulty from the plan file
-- Route coder:
-  - low/medium: `@orchestrator-coder`
-  - high: `@orchestrator-coder-high`
+- Route coder: `@orchestrator-coder`
 - Inputs: `prompt_path`, `plan_path`, one-line task intent
 - Parse coder report; extract concerns and related files
-- If low coder returns `Status: ESCALATE`, switch to high coder and continue
 
 ### Phase 6: Quality Gate (Loop <= 3)
 - Build review context: task intent, coder concerns, related files
-- Reviewers by difficulty:
-  - low: `@orchestrator-quality-gate-glm`
-  - medium: `@orchestrator-quality-gate-opus`
-  - high: `@orchestrator-quality-gate-opus` + `@orchestrator-quality-gate-gpt5`
+- Reviewers: `@orchestrator-quality-gate-glm` and `@orchestrator-quality-gate-gpt5`
 - Do NOT pass the plan file to reviewers
 - If FAIL or PARTIAL:
   - Distill issues
   - Re-invoke coder with feedback
   - Re-run gate
-- Max 3 iterations; for low, if 2 failures then escalate to high coder and use high gates
+- Max 3 iterations
 
 ### Phase 7: Commit
 - Spawn `@commit` with `prompt_path` and a short bullet summary of key changes
@@ -112,14 +105,11 @@ A: <answer>
 - [Actionable guidance for planner/coder]
 ```
 
-## Planner-Style Plan File Format: `{prompt_path}-PLAN.md`
+## Planner-Style Plan File Format
 
-Write this to `{prompt_path}-PLAN.md`:
+Write this to `<prompt_filename>-PLAN.md`:
 
 ```markdown
-# Difficulty
-low|medium|high
-
 # Plan
 
 ## Types
@@ -244,4 +234,3 @@ async fn create_user_rejects_duplicate_email() {
 # Output
 Final message must contain:
 - Absolute path to the plan file (the new `-PLAN.md` file)
-- Difficulty level

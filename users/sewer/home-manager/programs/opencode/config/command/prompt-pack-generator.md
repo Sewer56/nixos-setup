@@ -89,11 +89,11 @@ Say "go" to generate the orchestrator index.
 ### Phase 6: Generate Orchestrator Index
 Create `PROMPT-ORCHESTRATOR.md` in current working directory with:
 - Overall objective
-- Prompt list with dependencies and tests (difficulty set during orchestration)
+- Prompt list with dependencies and tests
 
 ### Phase 7: Hand Off to User
 ```
-Ready for orchestration with @orchestrator primary mode/agent.
+Ready for orchestration with @orchestrator (scheduler). For a single prompt, use @orchestrator-runner.
 ```
 
 ## Prompt File Format: `PROMPT-NN-{title}.md`

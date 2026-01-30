@@ -1,8 +1,8 @@
 ---
 mode: subagent
 hidden: true
-description: Reviews implementation plans before coding begins (Opus reviewer)
-model: anthropic/claude-opus-4-5
+description: Reviews implementation plans before coding begins (GLM reviewer)
+model: zai-coding-plan/glm-4.7
 permission:
   read: allow
   grep: allow
@@ -55,22 +55,17 @@ REJECT IF: Any CRITICAL/HIGH severity issue is foreseeable in the planned code.
 - REJECT IF: planned tests duplicate existing coverage
 - REJECT IF: planned tests could be parameterized but aren't
 
-## 6) Validate Difficulty Assessment
-- **low**: Should be copy-paste; REJECT IF plan requires judgment calls
-- **medium**: Some adaptation OK; REJECT IF significant unknowns remain
-- **high**: Appropriate for uncertain/complex work
-
-## 7) Decide Status
+## 6) Decide Status
 - **APPROVE**: Plan is sound, complete, and will pass quality gate
 - **REVISE**: Plan has issues that must be fixed before coding
 
 # Output
 
 ```
-# PLAN REVIEW (OPUS)
+# PLAN REVIEW (GLM)
 
 ## Summary
-[APPROVE|REVISE] — Difficulty: [CONFIRMED|SHOULD_BE_low|medium|high]
+[APPROVE|REVISE]
 
 ## Requirements Coverage
 - "requirement" — [COVERED|MISSING|PARTIAL]

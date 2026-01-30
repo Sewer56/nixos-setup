@@ -1,7 +1,7 @@
 ---
 description: "Generate concise PR summary"
 agent: build
-model: anthropic/claude-opus-4-5
+model: github-copilot/gpt-5.2-codex
 ---
 
 # Simple PR Summary
