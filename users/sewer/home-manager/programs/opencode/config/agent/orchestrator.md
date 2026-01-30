@@ -39,6 +39,7 @@ think
 - Use a state file to resume orchestration between runs.
 - `state_path`: same directory as `PROMPT-ORCHESTRATOR.md`, filename `PROMPT-ORCHESTRATOR.state.md`
 - Update the state file after each prompt run (after the runner report).
+- Store prompt and plan paths as relative paths to the directory containing `PROMPT-ORCHESTRATOR.md`.
 - Only write the state file; never edit code.
 
 State file format (markdown):
@@ -52,7 +53,7 @@ Current Prompt Index: 0
 
 ## Prompts
 | Index | Status | Prompt Path | Plan Path | Tests | Dependencies |
-| 0 | PENDING | /abs/path/PROMPT-01-foo.md | /abs/path/PROMPT-01-foo-PLAN.md | basic | PROMPT-00-bar |
+| 0 | PENDING | PROMPT-01-foo.md | PROMPT-01-foo-PLAN.md | basic | PROMPT-00-bar |
 ```
 
 ## Phase 0: Initialize (once at start)
@@ -69,6 +70,7 @@ Read `PROMPT-ORCHESTRATOR.md` to extract:
 
 ### 0.3: Load/Init State (resume support)
 - If `state_path` exists, read and parse it as markdown using the format above.
+- Resolve any relative prompt/plan paths against the directory containing `PROMPT-ORCHESTRATOR.md`.
 - Validate that the prompt list (paths and order) matches the current orchestrator index.
   - If mismatch or unreadable, reinitialize state from the current index.
 - If resuming, find the first prompt with status != SUCCESS.
