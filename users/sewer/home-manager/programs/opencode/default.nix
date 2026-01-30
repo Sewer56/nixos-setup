@@ -28,6 +28,7 @@ in {
 
     opencodeScript
     opencodeBuildScript
+    inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.coderabbit-cli
 
     # Dependencies for MCP servers
     nodejs
