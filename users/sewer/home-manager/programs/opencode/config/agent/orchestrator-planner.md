@@ -27,7 +27,7 @@ think hard
 
 1) Read and Understand
 - Read prompt_path (contains mission, objective, requirements, constraints, tests, clarifications, implementation hints)
-- Extract what needs to be built and whether tests are required (from `# Tests` section)
+- Extract what needs to be built and the test policy from `# Tests`.
 - Review `# Implementation Hints` for discovered patterns and guidance from builder
 - Identify libraries/frameworks that need documentation lookup
 
@@ -44,7 +44,7 @@ think hard
 Build these sections:
 - **Types**: each type as a subsection with short explanation and code block
 - **Implementation Steps**: ordered by file, with concrete code blocks showing what to add/modify
-- **Test Steps**: only if `# Tests` is "basic"
+- **Test Steps**: include when `# Tests` is "basic"
 
 5) Apply Discipline
 - Smallest viable change; reuse existing patterns

@@ -17,6 +17,12 @@ Generate prompt files for orchestrated execution. Planning happens just-in-time 
 
 think hard
 
+## Core Principles
+- Deliverable-first: every prompt must produce working, usable code. No placeholder-only prompts.
+- Isolation-safe: each prompt must be executable in isolation; include all required context and file paths.
+- No speculative types/errors: define types/errors only when immediately used in this prompt's deliverables; later prompts may update or extend them.
+- Tests required: every prompt uses `basic` tests (no opt-out).
+
 ## Workflow
 
 ### Phase 1: Parse Requirements
@@ -24,9 +30,13 @@ think hard
 - Draft list of prompt files needed (title + one-line objective each)
 - Order by dependencies
 - Apply task sizing guidance (default to small, single-objective prompts)
+- Convert broad goals into vertical slices that yield working code
 
 ### Phase 2: Research
 Thoroughly investigate every item, source, and reference the user has provided - do not skip any. Use available subagents (`@codebase-explorer`, `@mcp-search`) to gather implementation hints: file paths, existing patterns, function signatures. Spawn as many as needed in parallel. Treat findings as suggestions, not specifications - use judgment when populating `# Implementation Hints`.
+- Prefer reusing existing types and patterns; only introduce new ones when required by the current prompt.
+- Gather enough context so a runner with no prior memory can execute the prompt successfully.
+- Identify the minimal required files to read and capture them in `# Required Reads`.
 
 ### Phase 3: User Confirmation
 Present the proposed structure:
@@ -36,7 +46,7 @@ Proposed Prompts:
 2. PROMPT-02-{title} — {objective}
 ...
 
-Tests: basic (say "no tests" to disable)
+Tests: basic (required)
 
 Say "go" to continue, or suggest changes.
 ```
@@ -47,14 +57,16 @@ Iterate on structure based on user feedback.
 ### Phase 4: Generate Prompt Files
 Create in current working directory:
 - `PROMPT-NN-{title}.md` — one per task (standalone, self-contained)
+- Ensure each prompt includes concrete deliverables
 
 ### Phase 5: Clarification Loop
 For each prompt file, scan for ambiguity using reduced taxonomy:
 1. **Scope Boundaries** — what's in/out of scope
-2. **Types** — entities, fields, relationships
-3. **Error Handling** — failure modes, recovery strategies
+2. **Data Shapes (used now)** — entities, fields, relationships required by this prompt
+3. **Error Handling (current flow only)** — failure modes, recovery strategies for this prompt
 4. **Integration Patterns** — APIs, external dependencies
-5. **Testing Expectations** — coverage approach, critical paths
+5. **Isolation Context** — missing info that would block a runner without prior context
+6. **Testing Expectations** — coverage approach, critical paths
 
 Question rules:
 - Ask up to 10 questions total (prefer ≤5)
@@ -107,15 +119,22 @@ Ready for orchestration with @orchestrator (scheduler). For a single prompt, use
 [What specifically needs to be achieved]
 
 # Context
-[Relevant background and current situation]
+[Relevant background and current situation; include file paths and decisions needed for isolated execution]
+
+# Required Reads
+- [Exact file paths that must be read for this prompt]
 
 # Requirements
 - [Specific, measurable requirements]
 - [Expected behaviors and outcomes]
 
+# Deliverables
+- [Concrete code artifacts produced by this prompt]
+
 # Constraints
 - [Technical constraints]
 - [What to avoid]
+- No placeholder types/errors; define new ones only when used in this prompt (later prompts may update/extend)
 
 # Success Criteria
 - [How we'll know the objective is met]
@@ -137,7 +156,6 @@ A: <answer>
 # Implementation Hints
 - [Discovered patterns, library usage, existing code to reuse]
 - [Actionable guidance for planner/coder]
-- [File paths planner will need to read to understand context]
 ```
 
 ## Orchestrator Index: `PROMPT-ORCHESTRATOR.md`
@@ -173,3 +191,4 @@ Before creating any prompt:
 - Prefer prompts that touch only a few files; if likely to touch many, split
 - If work combines new types, integration changes, and tests, split into separate prompts
 - When unsure, err on more prompts with smaller scopes
+- Aim to keep code changes per prompt around <=500 lines; split if likely to exceed
