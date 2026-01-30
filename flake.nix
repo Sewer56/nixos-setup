@@ -1,4 +1,9 @@
 {
+  nixConfig = {
+    extra-substituters = ["https://cache.numtide.com"];
+    extra-trusted-public-keys = ["niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="];
+  };
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
@@ -12,6 +17,9 @@
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
     };
     claude-code = {
       url = "github:sadjow/claude-code-nix";
