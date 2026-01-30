@@ -31,6 +31,7 @@ think
 - Parse the orchestrator index
 - Dispatch prompts one at a time to a sub-orchestrator
 - Collect results and advance the sequence
+- Validate PRD requirement coverage after execution
 
 ## Inputs
 - User provides path to `PROMPT-ORCHESTRATOR.md` as message (contains prompt list with dependencies)
@@ -47,13 +48,16 @@ State file format (markdown):
 # Orchestrator State
 
 Overall Objective: ...
+PRD Path: PROMPT-PRD.md
+Requirements Inventory: PROMPT-PRD-REQUIREMENTS.md
 Base Branch: main
 Status: RUNNING|SUCCESS|FAIL
+Validation Status: NONE|FINAL_OK|FINAL_FAIL
 Current Prompt Index: 0
 
 ## Prompts
-| Index | Status | Prompt Path | Plan Path | Tests | Dependencies |
-| 0 | PENDING | PROMPT-01-foo.md | PROMPT-01-foo-PLAN.md | basic | PROMPT-00-bar |
+| Index | Status | Prompt Path | Plan Path | Tests | Dependencies | Reqs |
+| 0 | PENDING | PROMPT-01-foo.md | PROMPT-01-foo-PLAN.md | basic | PROMPT-00-bar | REQ-001, REQ-002 |
 ```
 
 ## Phase 0: Initialize (once at start)
@@ -66,6 +70,8 @@ Read `PROMPT-ORCHESTRATOR.md` to extract:
 - Overall objective
 - List of prompt paths
 - Dependencies and tests for each prompt
+- Requirement coverage per prompt (Reqs: REQ-...)
+- PRD Path and Requirements Inventory path (if present)
 - If tests are missing, assume `basic` in memory (do not edit files)
 
 ### 0.3: Load/Init State (resume support)
@@ -73,6 +79,7 @@ Read `PROMPT-ORCHESTRATOR.md` to extract:
 - Resolve any relative prompt/plan paths against the directory containing `PROMPT-ORCHESTRATOR.md`.
 - Validate that the prompt list (paths and order) matches the current orchestrator index.
   - If mismatch or unreadable, reinitialize state from the current index.
+- If PRD Path or Requirements Inventory mismatch the index, reinitialize state.
 - If resuming, find the first prompt with status != SUCCESS.
   - If status is RUNNING, treat it as PENDING and re-run it.
 - Write the (possibly updated) state file before starting prompt execution.
@@ -112,6 +119,7 @@ State updates (required):
 - Before starting a prompt: mark its status `RUNNING`, set `current_prompt_index`, write state file.
 - After runner finishes: set prompt status `SUCCESS` or `FAIL`, store `plan_path`, write state file.
 - If FAIL: set overall `status` to `FAIL` and stop.
+- Preserve `Reqs` values from the orchestrator index in the state table.
 
 Do not run multiple runners in parallel; runners may invoke coders.
 
@@ -128,6 +136,19 @@ After each successful prompt, spawn `@orchestrator-coderabbit`.
 - If CodeRabbit status is FAIL for any other reason: report failure and stop
 - If CodeRabbit status is SKIPPED (missing CLI): continue silently
 
+## Phase 3: Final Requirements Validation
+After all prompts succeed, run `@orchestrator-requirements-final`.
+- Inputs:
+  - `orchestrator_path` (absolute)
+  - `requirements_path` (absolute)
+  - `prd_path` (absolute)
+  - `state_path` (absolute)
+  - `base_branch`
+- If PRD Path or Requirements Inventory are missing, set `Validation Status: FINAL_FAIL`, set overall status to FAIL, and stop
+- If status is FAIL or PARTIAL: set `Validation Status: FINAL_FAIL`, set overall status to FAIL, and stop
+- If PASS: set overall status to SUCCESS and `Validation Status: FINAL_OK`
+- Write validation report to `PROMPT-ORCHESTRATOR.validation.md`
+
 ## Status Output
 Format updates as:
 ```
@@ -136,4 +157,4 @@ Format updates as:
 
 ## Constraints
 - Do not read prompt files
-- Do not modify code or prompt files; only write the state file
+- Do not modify code or prompt files; only write the state file and validation report

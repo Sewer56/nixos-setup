@@ -24,12 +24,12 @@ think hard
 # Process
 
 ## 1) Understand Requirements
-- Read `prompt_path` for mission, objectives, constraints, success criteria
+- Read `prompt_path` for mission, objectives, requirements, constraints, success criteria
 - Note test policy from `# Tests` section
 
 ## 2) Review Plan Against Requirements
 - Read `plan_path` for proposed implementation
-- Verify every requirement has corresponding implementation steps
+- Verify every requirement and success criterion has corresponding implementation steps
 - REJECT IF: missing requirements or scope gaps
 
 ## 3) Review Planned Code Style

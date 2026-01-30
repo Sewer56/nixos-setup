@@ -16,6 +16,7 @@ permission:
   task: {
     "*": "deny",
     "codebase-explorer": "allow",
-    "mcp-search": "allow"
+    "mcp-search": "allow",
+    "orchestrator-requirements-preflight": "allow"
   }
 ---

@@ -28,7 +28,8 @@ think hard
 
 ## 1) Read objectives
 - Read `prompt_path` (and `objectives_path` if provided)
-- Extract objectives, constraints, and success criteria; note test policy from `# Tests` section
+- Extract objectives, requirements, and success criteria; treat each requirement and success criterion as an objective
+- Note test policy from `# Tests` section
 
 ## 2) Discover changes
 - Handle unstaged and untracked work; do not assume commits exist
@@ -58,9 +59,9 @@ If the coder flagged concerns, examine those areas with extra scrutiny.
 These are areas where the implementer was uncertain — validate the approach or flag issues.
 
 ## 6) Review objectives
-- Read all objectives from prompt file
-- Ensure each objective is met by the implementation
-- FAIL IF: An objective is not met
+- Read `# Objective`, `# Requirements`, and `# Success Criteria` from the prompt file
+- Ensure each requirement and success criterion is met by the implementation
+- FAIL IF: Any requirement or success criterion is not met
 
 ## 7) Review tests
 - Tests: basic → ensure basic tests exist for new functionality and run tests

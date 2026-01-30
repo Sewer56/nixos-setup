@@ -32,6 +32,16 @@ think hard
 - Apply task sizing guidance (default to small, single-objective prompts)
 - Convert broad goals into vertical slices that yield working code
 
+### Phase 1.5: Build Requirements Inventory
+- Create `PROMPT-PRD-REQUIREMENTS.md` in the current working directory
+- Extract every discrete requirement from the user input/PRD
+  - Use stable IDs: `REQ-001`, `REQ-002`, ... (zero-padded, sequential)
+  - Tag each with scope: `IN`, `OUT`, or `POST_INIT`
+  - Record source section (e.g., Key Goals, Features > Remapping & Bindings)
+  - Write a short acceptance note per requirement (what evidence would satisfy it)
+- Do not drop requirements; mark out-of-scope or post-init explicitly
+- Prefer per-requirement headings to reduce tokens in inventory files
+
 ### Phase 2: Research
 Thoroughly investigate every item, source, and reference the user has provided - do not skip any. Use available subagents (`@codebase-explorer`, `@mcp-search`) to gather implementation hints: file paths, existing patterns, function signatures. Spawn as many as needed in parallel. Treat findings as suggestions, not specifications - use judgment when populating `# Implementation Hints`.
 - Prefer reusing existing types and patterns; only introduce new ones when required by the current prompt.
@@ -58,6 +68,7 @@ Iterate on structure based on user feedback.
 Create in current working directory:
 - `PROMPT-NN-{title}.md` — one per task (standalone, self-contained)
 - Ensure each prompt includes concrete deliverables
+- Every prompt `# Requirements` entry must include a requirement ID (e.g., `REQ-012: ...`)
 
 ### Phase 5: Clarification Loop
 For each prompt file, scan for ambiguity using reduced taxonomy:
@@ -96,15 +107,25 @@ Clarification complete.
 
 Please review the generated PROMPT-*.md files to see if anything else comes to mind.
 
-Say "go" to generate the orchestrator index.
+Say "go" to validate requirements coverage and generate the orchestrator index.
 ```
 
-### Phase 6: Generate Orchestrator Index
+### Phase 6: Validate Requirements Coverage (Subagent)
+- Spawn `@orchestrator-requirements-preflight` with:
+  - `requirements_path` (absolute path to `PROMPT-PRD-REQUIREMENTS.md`)
+  - `prompts_dir` (absolute path to the current working directory)
+  - `prd_path` (absolute path to the PRD input)
+- If status is FAIL or PARTIAL: revise the prompt pack and re-run this phase
+- If PASS: proceed
+
+### Phase 7: Generate Orchestrator Index
 Create `PROMPT-ORCHESTRATOR.md` in current working directory with:
 - Overall objective
 - Prompt list with dependencies and tests
+- `PRD Path` and `Requirements Inventory` paths (relative)
+- Per-prompt `Reqs:` coverage list (requirement IDs)
 
-### Phase 7: Hand Off to User
+### Phase 8: Hand Off to User
 ```
 Ready for orchestration with @orchestrator (scheduler). For a single prompt, use @orchestrator-runner.
 ```
@@ -125,8 +146,8 @@ Ready for orchestration with @orchestrator (scheduler). For a single prompt, use
 - [Exact file paths that must be read for this prompt]
 
 # Requirements
-- [Specific, measurable requirements]
-- [Expected behaviors and outcomes]
+- REQ-###: [Specific, measurable requirement]
+- REQ-###: [Expected behaviors and outcomes]
 
 # Deliverables
 - [Concrete code artifacts produced by this prompt]
@@ -164,10 +185,28 @@ A: <answer>
 # Orchestrator Index
 
 Overall Objective: <short line>
+PRD Path: <relative path to PRD input>
+Requirements Inventory: PROMPT-PRD-REQUIREMENTS.md
 
 ## Prompts
-- PROMPT-01-{title}.md — Objective: <short> — Dependencies: None
-- PROMPT-02-{title}.md — Objective: <short> — Dependencies: PROMPT-01
+- PROMPT-01-{title}.md — Objective: <short> — Reqs: REQ-001, REQ-004 — Dependencies: None
+- PROMPT-02-{title}.md — Objective: <short> — Reqs: REQ-002 — Dependencies: PROMPT-01
+```
+
+## Requirements Inventory: `PROMPT-PRD-REQUIREMENTS.md`
+
+```markdown
+# PRD Requirements Inventory
+
+Source PRD: PROMPT-PRD.md
+
+## REQ-001 [IN] <requirement>
+- Source: <section>
+- Acceptance: <evidence or outcome>
+
+## REQ-002 [POST_INIT] <requirement>
+- Source: <section>
+- Acceptance: <evidence or outcome>
 ```
 
 ## Investigation Rules
@@ -179,7 +218,7 @@ Before creating any prompt:
 
 ## Constraints
 - Be thorough; validate work is needed before creating prompts
-- Drop any requirement where no change is needed
+- Do not omit requirements; mark as OUT or POST_INIT when no work is needed
 - Order prompts by dependency
 - Each prompt must be standalone and self-contained
 - Every prompt must have code as a deliverable (no research-only prompts)
