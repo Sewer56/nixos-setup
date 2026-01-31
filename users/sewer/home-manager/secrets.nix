@@ -5,11 +5,8 @@ let
 in {
   # Example secrets - uncomment and modify as needed
   "secrets/wallhaven-api-key.age".publicKeys = users;
-  "secrets/rclone-token.age".publicKeys = users;
   "secrets/github-token.age".publicKeys = users;
   "secrets/nix-access-tokens.age".publicKeys = users;
-  "secrets/proton-drive-username.age".publicKeys = users;
-  "secrets/proton-drive-password.age".publicKeys = users;
   "secrets/nexus-api-key.age".publicKeys = users;
   "secrets/reloaded-wiki-search-github-api-key.age".publicKeys = users;
 
