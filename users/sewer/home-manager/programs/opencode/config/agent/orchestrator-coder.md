@@ -32,6 +32,7 @@ think
 - Read `prompt_path` for mission, requirements, constraints
 - Read `plan_path` for complete plan with `## Types` and `## Implementation Steps`
 - Follow `## Implementation Steps` exactly — they contain concrete code blocks to implement
+- You may add or improve documentation beyond the plan when helpful (include parameters and return values for functions; examples are recommended, not required); note it in `## Coder Notes`
 - Check `# Tests` section in prompt_path for test policy (basic|no)
 - Incorporate orchestrator context
 

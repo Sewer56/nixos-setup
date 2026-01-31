@@ -29,6 +29,7 @@ think hard
 - Read prompt_path (contains mission, objective, requirements, constraints, tests, clarifications, implementation hints)
 - Extract what needs to be built and the test policy from `# Tests`.
 - Review `# Implementation Hints` for discovered patterns and guidance from builder
+- Determine project type (library vs binary/service) and documentation expectations
 - Identify libraries/frameworks that need documentation lookup
 
 2) Library Research (if needed)
@@ -43,7 +44,7 @@ think hard
 4) Draft Complete Plan
 Build these sections:
 - **Types**: each type as a subsection with short explanation and code block
-- **Implementation Steps**: ordered by file, with concrete code blocks showing what to add/modify
+- **Implementation Steps**: ordered by file, with concrete code blocks showing what to add/modify; include required documentation inline in code snippets (docstrings/README/API docs) with parameters and return values for functions. Examples are recommended, not required.
 - **Test Steps**: include when `# Tests` is "basic"
 
 5) Apply Discipline
@@ -51,6 +52,7 @@ Build these sections:
 - Inline tiny single-use helpers; avoid new files
 - No unnecessary abstractions; no single-impl interfaces
 - Restrict visibility; avoid public unless required
+- Documentation is required for public APIs unless the project is a binary (not a library). Documentation is also required for non-obvious behavior; keep it minimal and colocated inside the relevant code snippets. Examples are recommended, not required.
 
 6) Write Plan File
 Create a separate plan file named `<prompt_filename>-PLAN.md`.
@@ -100,6 +102,8 @@ enum UserError {
 
 ## Implementation Steps
 
+Include documentation inline in code snippets as needed (docstrings/README/API docs); include parameters and return values for functions. Examples are recommended, not required.
+
 ### src/services/user.rs
 
 Add UserService impl:
@@ -110,6 +114,12 @@ impl UserService {
         Self { repo }
     }
 
+    /// Creates a new user.
+    ///
+    /// Parameters:
+    /// - `input`: the user creation payload (email required)
+    ///
+    /// Returns: the created `User` on success or `UserError` on failure.
     pub async fn create_user(&self, input: CreateUserInput) -> Result<User, UserError> {
         if self.repo.find_by_email(&input.email).await?.is_some() {
             return Err(UserError::DuplicateEmail(input.email));
@@ -153,6 +163,12 @@ pub fn validate_email(email: &str) -> bool {
 }
 
 // After:
+/// Validate email format and length.
+///
+/// Parameters:
+/// - `email`: email address to validate
+///
+/// Returns: `true` when the email is valid; otherwise `false`.
 pub fn validate_email(email: &str) -> bool {
     if email.is_empty() || email.len() > 254 {
         return false;
