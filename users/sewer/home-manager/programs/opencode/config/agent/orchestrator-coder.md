@@ -92,4 +92,6 @@ Escalate (`Status: ESCALATE`) when something unexpected blocks completion:
 - Code behaves differently than prompt described
 - Required files missing or structured unexpectedly
 
+When escalating, include exact symbol/module paths and the relevant compiler errors or API mismatches that blocked progress.
+
 Do not escalate for straightforward errors you can fix. Escalate early if stuck.

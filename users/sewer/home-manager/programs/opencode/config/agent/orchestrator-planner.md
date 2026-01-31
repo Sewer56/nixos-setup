@@ -35,6 +35,7 @@ think hard
 2) Library Research (if needed)
 - Call @mcp-search for unfamiliar libraries
 - Document key findings for use in plan
+- When using external libraries, verify exact module paths, type names, function names, and enum variants from docs or crate source
 
 3) Code Discovery
 - Search codebase for relevant files

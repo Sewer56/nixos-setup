@@ -51,30 +51,52 @@ think hard
 ### Phase 2: Plan Review (parallel)
 1. Spawn `@orchestrator-plan-reviewer-gpt5` and `@orchestrator-plan-reviewer-glm` in parallel.
 2. Inputs: `prompt_path`, `plan_path`.
-3. Plan approved only if BOTH reviewers approve.
-4. If either reviewer requests changes:
-   - Distill feedback
+3. Decision rule for disagreements:
+   - Default: plan is approved only if BOTH reviewers approve.
+   - If they contradict directly, prefer GPT-5.
+4. If they disagree, run a contradiction check:
+   - Re-run BOTH reviewers with each other's feedback included
+   - Ask each reviewer to explicitly assess the other's concerns
+   - If GPT-5 explicitly says GLM's concern is a non-issue, accept GPT-5 and proceed
+   - If GLM explicitly resolves GPT-5's concern, accept approval
+5. If revision needed:
+   - Distill feedback and include BOTH reviewers' notes
    - Re-run planner with feedback
    - Re-run both reviewers (max 10 iterations)
-5. If still not approved, report failure and stop.
+6. If still not approved, report failure and stop.
 
-### Phase 3: Implementation
+### Phase 3: Implementation (loop <= 10)
 - Spawn `@orchestrator-coder`
 - Inputs: `prompt_path`, `plan_path`, one-line task intent
-- Parse coder report and extract `## Coder Notes`
-- If coder returns `Status: ESCALATE`, stop and report failure
+- Parse coder report and extract `## Coder Notes` and `## Escalation Context`
+- If coder returns `Status: SUCCESS`, continue
+- If coder returns `Status: FAIL` or `Status: ESCALATE`:
+  - Distill escalation context and issues encountered
+  - Re-run planner with feedback
+  - Re-run plan review (Phase 2 rules)
+  - Retry implementation
+- If still failing after 10 attempts, report failure and stop
 
-### Phase 4: Quality Gate (loop <= 3)
+### Phase 4: Quality Gate (loop <= 10)
 - Build review context:
   - task intent
   - coder concerns (from report)
   - related files reviewed by coder
 - Spawn `@orchestrator-quality-gate-glm` and `@orchestrator-quality-gate-gpt5` in parallel
 - Do NOT pass the plan file to reviewers
-- If either reviewer returns FAIL or PARTIAL:
-  - Distill issues
+- Decision rule for disagreements:
+  - Default: gate PASS only if BOTH reviewers PASS
+  - If they contradict directly, prefer GPT-5
+- If they disagree, run a contradiction check:
+  - Re-run BOTH reviewers with each other's findings included
+  - Ask each reviewer to explicitly assess the other's concerns
+  - If GPT-5 explicitly says GLM's concern is a non-issue, accept GPT-5 and proceed
+  - If GLM explicitly resolves GPT-5's concern, accept PASS
+- If revision needed:
+  - Distill issues and include BOTH reviewers' notes
   - Re-invoke coder with feedback
   - Re-run gate
+- If still not passing, report failure and stop
 - Max 10 iterations total
 
 ### Phase 5: Commit
