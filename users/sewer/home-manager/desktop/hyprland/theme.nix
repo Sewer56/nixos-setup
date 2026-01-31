@@ -45,21 +45,21 @@ in {
     };
 
     # Window transparency rules
-    windowrulev2 = [
+    windowrule = [
       # Terminal transparency
-      "opacity 0.9 0.9, class:^(Alacritty)$"
-      "opacity 0.9 0.9, class:^(kitty)$"
-      "opacity 0.9 0.9, class:^(org.wezfurlong.wezterm)$"
+      "opacity 0.9 0.9, match:class ^(Alacritty)$"
+      "opacity 0.9 0.9, match:class ^(kitty)$"
+      "opacity 0.9 0.9, match:class ^(org.wezfurlong.wezterm)$"
 
       # Code editor transparency
-      "opacity 0.9 0.9, class:^(code)$"
-      "opacity 0.9 0.9, class:^(code-url-handler)$"
-      # "opacity 0.9 0.9, class:^(jetbrains-rider)$" # Does not blur, so disabled for now.
+      "opacity 0.9 0.9, match:class ^(code)$"
+      "opacity 0.9 0.9, match:class ^(code-url-handler)$"
+      # "opacity 0.9 0.9, match:class ^(jetbrains-rider)$" # Does not blur, so disabled for now.
 
       # File manager transparency
-      "opacity 0.9 0.9, class:^(thunar)$"
-      "opacity 0.9 0.9, class:^(org.gnome.Nautilus)$"
-      "opacity 0.9 0.9, class:^(dolphin)$"
+      "opacity 0.9 0.9, match:class ^(thunar)$"
+      "opacity 0.9 0.9, match:class ^(org.gnome.Nautilus)$"
+      "opacity 0.9 0.9, match:class ^(dolphin)$"
     ];
   };
 }
