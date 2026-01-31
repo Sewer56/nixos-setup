@@ -46,6 +46,7 @@ think hard
   - If still rate limited after retries, return FAIL with note
 
 5) If review PASS
+- If the command output ends after "Review completed" (no further output), treat as PASS
 - Report PASS with no changes
 
 6) If review FAIL
