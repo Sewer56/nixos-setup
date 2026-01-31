@@ -55,7 +55,7 @@ think hard
 4. If either reviewer requests changes:
    - Distill feedback
    - Re-run planner with feedback
-   - Re-run both reviewers (max 5 iterations)
+   - Re-run both reviewers (max 10 iterations)
 5. If still not approved, report failure and stop.
 
 ### Phase 3: Implementation
@@ -75,7 +75,7 @@ think hard
   - Distill issues
   - Re-invoke coder with feedback
   - Re-run gate
-- Max 5 iterations total
+- Max 10 iterations total
 
 ### Phase 5: Commit
 - Spawn `@commit` with `prompt_path` and a short bullet summary of key changes
