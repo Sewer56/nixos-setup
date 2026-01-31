@@ -48,15 +48,24 @@ think hard
 4) Draft Complete Plan
 Build these sections:
 - **Types**: each type as a subsection with short explanation and code block
+- **External Symbols**: list existing APIs referenced (path + exact signature)
 - **Implementation Steps**: ordered by file, with concrete code blocks showing what to add/modify; include required documentation inline in code snippets (docstrings/README/API docs) with parameters and return values for functions. Examples are recommended, not required.
 - **Test Steps**: include when `# Tests` is "basic"
+
+Plan fidelity requirements:
+- External Symbols must list all referenced existing APIs with path + signature; new helpers/conversions must be fully defined with file/location (no placeholders).
+- On revision, include a short checklist addressing reviewer concerns.
 
 5) Apply Discipline
 - Smallest viable change; reuse existing patterns
 - Inline tiny single-use helpers; avoid new files
-- No unnecessary abstractions; no single-impl interfaces
 - Restrict visibility; avoid public unless required
 - Documentation is required for public APIs unless the project is a binary (not a library). Documentation is also required for non-obvious behavior; keep it minimal and colocated inside the relevant code snippets. Examples are recommended, not required.
+- Planned code must conform to style constraints:
+  - Avoid dead code or unused functions
+  - Avoid public visibility when private/protected suffices
+  - Avoid debug/logging code intended only for development
+  - Avoid unnecessary abstractions (interfaces with only 1 implementation)
 
 6) Write Plan File
 Create a separate plan file named `<prompt_filename>-PLAN.md`.
@@ -103,6 +112,12 @@ enum UserError {
     InvalidEmail,
 }
 ```
+
+## External Symbols
+
+List existing APIs referenced by the plan with evidence:
+
+- `crate::services::user::UserService::create_user` - `src/services/user.rs:12`: `pub async fn create_user(&self, input: CreateUserInput) -> Result<User, UserError>`
 
 ## Implementation Steps
 
@@ -203,6 +218,10 @@ async fn create_user_rejects_duplicate_email() {
     assert!(matches!(result, Err(UserError::DuplicateEmail(_))));
 }
 ```
+
+## Reviewer Concerns (Revision)
+
+- [ ] Address <concern>
 ```
 
 # Output

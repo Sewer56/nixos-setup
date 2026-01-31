@@ -31,6 +31,7 @@ think hard
 - Read `plan_path` for proposed implementation
 - Verify every requirement and success criterion has corresponding implementation steps
 - Verify documentation is included in planned code snippets when required (public APIs unless the project is a binary, and non-obvious behavior); include parameters and return values for functions. Examples are recommended, not required.
+- REJECT IF: plan references existing symbols without path + exact signature evidence (External Symbols list or inline)
 - REJECT IF: missing requirements or scope gaps
 
 ## 3) Review Planned Code Style
@@ -40,6 +41,8 @@ The plan contains code blocks. Review them as if reviewing final code:
 - REJECT IF: plan uses public visibility when private/protected suffices
 - REJECT IF: plan includes debug/logging code not intended for production
 - REJECT IF: plan creates unnecessary abstractions (interface with only 1 implementation)
+- For each issue, include a severity tag: [CRITICAL|HIGH|MEDIUM|LOW]
+- Always describe the fix needed in the plan
 
 ## 4) Review Planned Code Semantics
 Analyze the planned implementation deeply. Reason through whether issues will exist:
@@ -56,10 +59,12 @@ REJECT IF: Any CRITICAL/HIGH severity issue is foreseeable in the planned code.
 - If `# Tests` is "no": REJECT IF plan includes tests (overengineering)
 - REJECT IF: planned tests duplicate existing coverage
 - REJECT IF: planned tests could be parameterized but aren't
+- Tag test plan issues with [CRITICAL|HIGH|MEDIUM|LOW]; missing required tests is HIGH
 
 ## 6) Decide Status
 - **APPROVE**: Plan is sound, complete, and will pass quality gate
 - **REVISE**: Plan has issues that must be fixed before coding
+- LOW issues with clear fixes may be listed in Notes
 
 # Output
 
@@ -73,7 +78,7 @@ REJECT IF: Any CRITICAL/HIGH severity issue is foreseeable in the planned code.
 - "requirement" — [COVERED|MISSING|PARTIAL]
 
 ## Code Style Issues (predicted)
-- [INLINE_HELPER|DEAD_CODE|VISIBILITY|DEBUG_CODE|UNNECESSARY_ABSTRACTION]
+- [INLINE_HELPER|DEAD_CODE|VISIBILITY|DEBUG_CODE|UNNECESSARY_ABSTRACTION] [CRITICAL|HIGH|MEDIUM|LOW]
   What the plan proposes and why it's problematic
   **Fix:** How to revise the plan
 
@@ -84,7 +89,7 @@ REJECT IF: Any CRITICAL/HIGH severity issue is foreseeable in the planned code.
   **Fix:** How to revise the plan
 
 ## Test Plan Issues
-- [MISSING|DUPLICATE|OVERENGINEERED|NOT_PARAMETERIZED]
+- [MISSING|DUPLICATE|OVERENGINEERED|NOT_PARAMETERIZED] [CRITICAL|HIGH|MEDIUM|LOW]
   Description
 
 ## Notes

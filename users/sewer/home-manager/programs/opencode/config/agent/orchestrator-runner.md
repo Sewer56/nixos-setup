@@ -53,7 +53,9 @@ think hard
 2. Inputs: `prompt_path`, `plan_path`.
 3. Decision rule for disagreements:
    - Default: plan is approved only if BOTH reviewers approve.
+   - If severity is missing for any issue, treat it as HIGH.
    - If they contradict directly, prefer GPT-5.
+   - If plan is approved with LOW issues, pass them to coder as plan review notes.
 4. If they disagree, run a contradiction check:
    - Re-run BOTH reviewers with each other's feedback included
    - Ask each reviewer to explicitly assess the other's concerns
@@ -67,7 +69,7 @@ think hard
 
 ### Phase 3: Implementation (loop <= 10)
 - Spawn `@orchestrator-coder`
-- Inputs: `prompt_path`, `plan_path`, one-line task intent
+- Inputs: `prompt_path`, `plan_path`, one-line task intent, and any plan review notes
 - Parse coder report and extract `## Coder Notes` and `## Escalation Context`
 - If coder returns `Status: SUCCESS`, continue
 - If coder returns `Status: FAIL` or `Status: ESCALATE`:
