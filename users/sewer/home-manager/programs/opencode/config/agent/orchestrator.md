@@ -1,7 +1,7 @@
 ---
 mode: primary
 description: Schedules per-prompt orchestration via subagents
-model: zai-coding-plan/glm-4.7
+model: synthetic/hf:zai-org/GLM-4.7
 permission:
   bash: allow
   edit: allow

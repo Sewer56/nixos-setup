@@ -1,7 +1,7 @@
 ---
 mode: subagent
 description: Use this for third-party library research and repository documentation analysis.
-model: zai-coding-plan/glm-4.7
+model: synthetic/hf:zai-org/GLM-4.7
 permission:
   github_*: allow
   context7_*: allow

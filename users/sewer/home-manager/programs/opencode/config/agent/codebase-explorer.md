@@ -1,7 +1,7 @@
 ---
 mode: subagent
 description: Explores codebase structure, patterns, and implementation details.
-model: zai-coding-plan/glm-4.7
+model: synthetic/hf:zai-org/GLM-4.7
 permission:
   read: allow
   grep: allow

@@ -2,7 +2,7 @@
 mode: subagent
 hidden: false
 description: Creates semantic commits matching repository style
-model: zai-coding-plan/glm-4.7
+model: synthetic/hf:zai-org/GLM-4.7
 permission:
   bash: allow
   read: allow

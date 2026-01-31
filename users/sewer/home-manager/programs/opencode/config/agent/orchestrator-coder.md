@@ -2,7 +2,7 @@
 mode: subagent
 hidden: true
 description: Implements code changes and ensures all verification checks pass
-model: zai-coding-plan/glm-4.7
+model: synthetic/hf:zai-org/GLM-4.7
 permission:
   bash: allow
   edit: allow

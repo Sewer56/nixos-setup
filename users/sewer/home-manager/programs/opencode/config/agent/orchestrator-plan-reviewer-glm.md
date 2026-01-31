@@ -2,7 +2,7 @@
 mode: subagent
 hidden: true
 description: Reviews implementation plans before coding begins (GLM reviewer)
-model: zai-coding-plan/glm-4.7
+model: synthetic/hf:zai-org/GLM-4.7
 permission:
   read: allow
   grep: allow

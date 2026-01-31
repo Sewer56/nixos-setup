@@ -2,7 +2,7 @@
 mode: subagent
 hidden: true
 description: Orchestrates a single prompt end-to-end
-model: zai-coding-plan/glm-4.7
+model: synthetic/hf:zai-org/GLM-4.7
 permission:
   bash: allow
   edit: deny
