@@ -30,7 +30,6 @@ think hard
 - Read `plan_path` for proposed implementation
 - Verify every requirement and success criterion has corresponding implementation steps
 - Verify documentation is included in planned code snippets when required (public APIs unless the project is a binary, and non-obvious behavior); include parameters and return values for functions. Examples are recommended, not required.
-- REJECT IF: plan references existing symbols without path + exact signature evidence (External Symbols list or inline)
 - REJECT IF: placeholders in prose or code, except "copy/adapt from X" for simple external snippets with a named source
 - REJECT IF: missing requirements or scope gaps
 

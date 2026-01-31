@@ -36,24 +36,24 @@ think hard
 2) Library Research (if needed)
 - Call @mcp-search for unfamiliar libraries
 - Document key findings for use in plan
-- When using external libraries, verify exact module paths, type names, function names, and enum variants via @mcp-search results
+- When using external libraries, verify exact type names, function names, and enum variants via @mcp-search results
 - Do not read local dependency registries or caches for external library details
 
-3) Code Discovery
+1) Code Discovery
 - Search codebase for relevant files
 - Identify modification targets and existing patterns
 - Extract exact code that will be modified or extended
 - Only search/read within repo_root; do not read system paths, caches, or dependency registries
 
-4) Draft Complete Plan
+1) Draft Complete Plan
 Build these sections:
 - **Types**: each type as a subsection with short explanation and code block
-- **External Symbols**: list existing APIs referenced (path + exact signature)
-- **Implementation Steps**: ordered by file, with concrete code blocks showing what to add/modify; include required documentation inline in code snippets (docstrings/README/API docs) with parameters and return values for functions. Examples are recommended, not required.
+- **External Symbols**: map repo file paths to required `use` statements
+- **Implementation Steps**: ordered by file; include `use` lines in snippets and required docs with params/returns; examples recommended
 - **Test Steps**: include when `# Tests` is "basic"
 
 Plan fidelity requirements:
-- External Symbols must list all referenced existing APIs with path + signature; new helpers/conversions must be fully defined with file/location (no placeholders).
+- External Symbols: required `use` per file; snippets include them. New helpers/conversions must be fully defined with file/location (no placeholders).
 - No placeholders in prose or code. Only allow "copy/adapt from X" for simple external snippets with a named source.
 - On revision, include a short checklist addressing reviewer concerns.
 
@@ -116,19 +116,29 @@ enum UserError {
 
 ## External Symbols
 
-List existing APIs referenced by the plan with evidence:
+Map files to required `use` statements.
 
-- `crate::services::user::UserService::create_user` - `src/services/user.rs:12`: `pub async fn create_user(&self, input: CreateUserInput) -> Result<User, UserError>`
+Example:
+
+- `src/services/user.rs`:
+  - `use crate::repository::user::UserRepository;`
+  - `use serde::Serialize;`
 
 ## Implementation Steps
 
-Include documentation inline in code snippets as needed (docstrings/README/API docs); include parameters and return values for functions. Examples are recommended, not required.
+Include `use` lines in each file's snippet. Include required docs with params/returns; examples recommended.
 
 ### src/services/user.rs
 
 Add UserService impl:
 
 ```rust
+use chrono::Utc;
+use crate::repository::user::UserRepository;
+use crate::services::user::{CreateUserInput, User, UserError};
+use std::sync::Arc;
+use uuid::Uuid;
+
 impl UserService {
     pub fn new(repo: Arc<dyn UserRepository>) -> Self {
         Self { repo }
@@ -160,6 +170,9 @@ impl UserService {
 Add find_by_email to UserRepository trait and impl:
 
 ```rust
+use crate::db::DbError;
+use crate::models::User;
+
 // In trait:
 async fn find_by_email(&self, email: &str) -> Result<Option<User>, DbError>;
 
@@ -177,6 +190,8 @@ async fn find_by_email(&self, email: &str) -> Result<Option<User>, DbError> {
 Modify validate_email to handle edge case:
 
 ```rust
+use crate::regex::EMAIL_REGEX;
+
 // Before:
 pub fn validate_email(email: &str) -> bool {
     EMAIL_REGEX.is_match(email)
@@ -202,6 +217,8 @@ pub fn validate_email(email: &str) -> bool {
 ### tests/user_service.rs
 
 ```rust
+use crate::services::user::{CreateUserInput, UserError};
+
 #[tokio::test]
 async fn create_user_returns_user_with_id() {
     let service = setup_test_service().await;
