@@ -31,16 +31,19 @@ think hard
 - Review `# Implementation Hints` for discovered patterns and guidance from builder
 - Determine project type (library vs binary/service) and documentation expectations
 - Identify libraries/frameworks that need documentation lookup
+- Determine repo_root as the closest ancestor of prompt_path containing a `.git` directory; if not found, use prompt_path's parent directory
 
 2) Library Research (if needed)
 - Call @mcp-search for unfamiliar libraries
 - Document key findings for use in plan
-- When using external libraries, verify exact module paths, type names, function names, and enum variants from docs or crate source
+- When using external libraries, verify exact module paths, type names, function names, and enum variants via @mcp-search results
+- Do not read local dependency registries or caches for external library details
 
 3) Code Discovery
 - Search codebase for relevant files
 - Identify modification targets and existing patterns
 - Extract exact code that will be modified or extended
+- Only search/read within repo_root; do not read system paths, caches, or dependency registries
 
 4) Draft Complete Plan
 Build these sections:
@@ -205,3 +208,8 @@ async fn create_user_rejects_duplicate_email() {
 # Output
 Final message must contain:
 - Absolute path to the plan file (the new `-PLAN.md` file)
+
+# Constraints
+- Do not read outside repo_root
+- Do not read local registries/caches (e.g., `~/.cargo/registry`, `~/.local/share/opencode/tool-output`, `target/`, `node_modules/`)
+- External crate/SDK details must come from @mcp-search
