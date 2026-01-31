@@ -127,7 +127,7 @@ Create `PROMPT-ORCHESTRATOR.md` in current working directory with:
 
 ### Phase 8: Hand Off to User
 ```
-Ready for orchestration with @orchestrator (scheduler). For a single prompt, use @orchestrator-runner.
+Ready for orchestration with `@ orchestrator` (scheduler). For a single prompt, use `@ orchestrator-runner`.
 ```
 
 ## Prompt File Format: `PROMPT-NN-{title}.md`
