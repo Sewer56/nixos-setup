@@ -3,7 +3,7 @@ mode: subagent
 hidden: true
 description: Produces complete implementation plans with data model, types, and task list
 model: github-copilot/gpt-5.2-codex
-reasoningEffort: xhigh
+reasoningEffort: high
 permission:
   read: allow
   grep: allow
