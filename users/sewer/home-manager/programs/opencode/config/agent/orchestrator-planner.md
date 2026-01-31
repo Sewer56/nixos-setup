@@ -10,6 +10,7 @@ permission:
   glob: allow
   list: allow
   write: allow
+  edit: allow
   task: {
     "*": "deny",
     "mcp-search": "allow"
