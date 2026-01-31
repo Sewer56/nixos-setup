@@ -3,7 +3,7 @@ mode: subagent
 hidden: true
 description: Validates PRD requirement completion against final implementation
 model: github-copilot/gpt-5.2-codex
-reasoningEffort: xhigh
+reasoningEffort: high
 permission:
   bash: allow
   read: allow
