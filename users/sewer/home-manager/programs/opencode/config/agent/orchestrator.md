@@ -4,7 +4,7 @@ description: Schedules per-prompt orchestration via subagents
 model: zai-coding-plan/glm-4.7
 permission:
   bash: allow
-  edit: deny
+  edit: allow
   write: allow
   patch: deny
   webfetch: deny
@@ -116,10 +116,11 @@ For each prompt in the listed order:
 5. Run CodeRabbit review for this prompt (see Phase 2).
 
 State updates (required):
-- Before starting a prompt: mark its status `RUNNING`, set `current_prompt_index`, write state file.
-- After runner finishes: set prompt status `SUCCESS` or `FAIL`, store `plan_path`, write state file.
+- Before starting a prompt: mark its status `RUNNING`, set `current_prompt_index`, update the matching row.
+- After runner finishes: set prompt status `SUCCESS` or `FAIL`, store `plan_path`, update the matching row.
 - If FAIL: set overall `status` to `FAIL` and stop.
 - Preserve `Reqs` values from the orchestrator index in the state table.
+- Prefer `edit` to update only relevant lines in the state file; use full rewrite only on initial creation.
 
 Do not run multiple runners in parallel; runners may invoke coders.
 
