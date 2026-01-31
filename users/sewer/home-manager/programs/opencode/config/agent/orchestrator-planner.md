@@ -54,6 +54,7 @@ Build these sections:
 
 Plan fidelity requirements:
 - External Symbols must list all referenced existing APIs with path + signature; new helpers/conversions must be fully defined with file/location (no placeholders).
+- No placeholders in prose or code. Only allow "copy/adapt from X" for simple external snippets with a named source.
 - On revision, include a short checklist addressing reviewer concerns.
 
 5) Apply Discipline
