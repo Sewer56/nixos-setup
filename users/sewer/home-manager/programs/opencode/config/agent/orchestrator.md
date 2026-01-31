@@ -136,6 +136,7 @@ After each successful prompt, spawn `@orchestrator-coderabbit`.
   - Otherwise: warn and continue (skipped)
 - If CodeRabbit status is FAIL for any other reason: report failure and stop
 - If CodeRabbit status is SKIPPED (missing CLI): continue silently
+- If CodeRabbit reports Changes Made: yes but Commit Status is not SUCCESS or AMENDED: report failure and stop
 
 ## Phase 3: Final Requirements Validation
 After all prompts succeed, run `@orchestrator-requirements-final`.

@@ -72,12 +72,14 @@ think hard
   - If findings remain: continue applying fixes (loop back to step 6)
   - If no findings: report Status: PASS
 
-8) Commit fixes
-- If changes were made and verification passed, spawn `@commit`
-- If re-review was skipped due to long wait, amend the previous commit instead of creating a new one
+8) Commit fixes (mandatory when changes exist)
+- Determine whether changes exist with `git status --porcelain`
+- If any non-PROMPT files changed and verification passed, you MUST spawn the `@commit` subagent (task)
+- Do NOT run `git commit` directly
+- Always request amending the previous commit so CodeRabbit fixes are folded in
 - Inputs to `@commit`:
-  - A short bullet summary of CodeRabbit fixes
-- If no changes were made, do not create a commit
+  - A short bullet summary of CodeRabbit fixes (note any further changes)
+- Only skip when the working tree is clean
 
 9) Summarize
 - Provide a short summary of findings and fixes
