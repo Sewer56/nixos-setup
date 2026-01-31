@@ -44,6 +44,7 @@ think hard
 
 ### Phase 2: Research
 Thoroughly investigate every item, source, and reference the user has provided - do not skip any. Use available subagents (`@codebase-explorer`, `@mcp-search`) to gather implementation hints: file paths, existing patterns, function signatures. Spawn as many as needed in parallel. Treat findings as suggestions, not specifications - use judgment when populating `# Implementation Hints`.
+- When multiple sources need lookup, prefer parallel @mcp-search calls to cut latency.
 - Prefer reusing existing types and patterns; only introduce new ones when required by the current prompt.
 - Gather enough context so a runner with no prior memory can execute the prompt successfully.
 - Identify the minimal required files to read and capture them in `# Required Reads`.

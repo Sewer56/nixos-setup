@@ -35,6 +35,7 @@ think hard
 
 2) Library Research (if needed)
 - Use @mcp-search for unfamiliar libraries; capture key findings
+- When several lookups are needed, batch @mcp-search calls to reduce latency
 - Verify exact type/function/enum names from @mcp-search results
 - Do not read local registries/caches for external library details
 
