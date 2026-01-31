@@ -16,7 +16,7 @@ permission:
   }
 ---
 
-Create a complete implementation plan in a separate plan file. May call @mcp-search for library documentation.
+Create a complete implementation plan in a separate plan file. May call @mcp-search for docs.
 
 think hard
 
@@ -25,44 +25,42 @@ think hard
 
 # Process
 
-1) Read and Understand
-- Read prompt_path (contains mission, objective, requirements, constraints, tests, clarifications, implementation hints)
-- Extract what needs to be built and the test policy from `# Tests`.
-- Review `# Implementation Hints` for discovered patterns and guidance from builder
-- Determine project type (library vs binary/service) and documentation expectations
-- Identify libraries/frameworks that need documentation lookup
-- Determine repo_root as the closest ancestor of prompt_path containing a `.git` directory; if not found, use prompt_path's parent directory
+1) Read and Scope
+- Read prompt_path (mission, objective, requirements, constraints, tests, clarifications, implementation hints)
+- Extract what to build and the test policy from `# Tests`
+- Review `# Implementation Hints` for patterns and guidance
+- Determine project type (library vs binary/service) and doc expectations
+- Identify libraries/frameworks needing lookup
+- Set repo_root as the closest ancestor of prompt_path containing `.git`; if none, use prompt_path parent
 
 2) Library Research (if needed)
-- Call @mcp-search for unfamiliar libraries
-- Document key findings for use in plan
-- When using external libraries, verify exact type names, function names, and enum variants via @mcp-search results
-- Do not read local dependency registries or caches for external library details
+- Use @mcp-search for unfamiliar libraries; capture key findings
+- Verify exact type/function/enum names from @mcp-search results
+- Do not read local registries/caches for external library details
 
-1) Code Discovery
-- Search codebase for relevant files
-- Identify modification targets and existing patterns
-- Extract exact code that will be modified or extended
-- Only search/read within repo_root; do not read system paths, caches, or dependency registries
+3) Code Discovery
+- Search repo_root for relevant files and patterns
+- Identify exact modification targets and snippets to change/extend
+- Only read/search within repo_root
 
-1) Draft Complete Plan
+4) Draft Complete Plan
 Build these sections:
-- **Types**: each type as a subsection with short explanation and code block
+- **Types**: each type as a subsection with a short explanation and code block
 - **External Symbols**: map repo file paths to required `use` statements
 - **Implementation Steps**: ordered by file; include `use` lines in snippets and required docs with params/returns; examples recommended
 - **Test Steps**: include when `# Tests` is "basic"
 
-Plan fidelity requirements:
-- External Symbols: required `use` per file; snippets include them. New helpers/conversions must be fully defined with file/location (no placeholders).
-- No placeholders in prose or code. Only allow "copy/adapt from X" for simple external snippets with a named source.
+Plan fidelity:
+- External Symbols: required `use` per file; snippets include them.
+- New helpers/conversions must be fully defined with file/location; no placeholders in prose or code. Only allow "copy/adapt from X" for simple external snippets with a named source.
 - On revision, include a short checklist addressing reviewer concerns.
 
 5) Apply Discipline
 - Smallest viable change; reuse existing patterns
 - Inline tiny single-use helpers; avoid new files
 - Restrict visibility; avoid public unless required
-- Documentation is required for public APIs unless the project is a binary (not a library). Documentation is also required for non-obvious behavior; keep it minimal and colocated inside the relevant code snippets. Examples are recommended, not required.
-- Planned code must conform to style constraints:
+- Documentation required for public APIs unless project is a binary; required for non-obvious behavior. Keep minimal and colocated in snippets. Examples recommended, not required.
+- Style constraints:
   - Avoid dead code or unused functions
   - Avoid public visibility when private/protected suffices
   - Avoid debug/logging code intended only for development
@@ -70,8 +68,7 @@ Plan fidelity requirements:
 
 6) Write Plan File
 Create a separate plan file named `<prompt_filename>-PLAN.md`.
-Example:
-- `PROMPT-01-auth.md` -> `PROMPT-01-auth-PLAN.md`
+Example: `PROMPT-01-auth.md` -> `PROMPT-01-auth-PLAN.md`
 
 Do NOT modify the original prompt file.
 
@@ -85,18 +82,17 @@ Write this to `<prompt_filename>-PLAN.md`:
 ## Types
 
 ### User
-Core domain entity representing a registered user.
+Core domain entity.
 
 ```rust
 struct User {
     id: Uuid,
     email: String,
-    created_at: DateTime<Utc>,
 }
 ```
 
 ### CreateUserInput
-Input DTO for user creation endpoint.
+Input DTO for user creation.
 
 ```rust
 struct CreateUserInput {
@@ -110,15 +106,12 @@ Error variants for user operations.
 ```rust
 enum UserError {
     DuplicateEmail(String),
-    InvalidEmail,
 }
 ```
 
 ## External Symbols
 
 Map files to required `use` statements.
-
-Example:
 
 - `src/services/user.rs`:
   - `use crate::repository::user::UserRepository;`
@@ -133,7 +126,6 @@ Include `use` lines in each file's snippet. Include required docs with params/re
 Add UserService impl:
 
 ```rust
-use chrono::Utc;
 use crate::repository::user::UserRepository;
 use crate::services::user::{CreateUserInput, User, UserError};
 use std::sync::Arc;
@@ -147,18 +139,14 @@ impl UserService {
     /// Creates a new user.
     ///
     /// Parameters:
-    /// - `input`: the user creation payload (email required)
+    /// - `input`: user creation payload
     ///
-    /// Returns: the created `User` on success or `UserError` on failure.
+    /// Returns: created `User` on success or `UserError` on failure.
     pub async fn create_user(&self, input: CreateUserInput) -> Result<User, UserError> {
         if self.repo.find_by_email(&input.email).await?.is_some() {
             return Err(UserError::DuplicateEmail(input.email));
         }
-        let user = User {
-            id: Uuid::new_v4(),
-            email: input.email,
-            created_at: Utc::now(),
-        };
+        let user = User { id: Uuid::new_v4(), email: input.email };
         self.repo.create(&user).await?;
         Ok(user)
     }
@@ -185,48 +173,12 @@ async fn find_by_email(&self, email: &str) -> Result<Option<User>, DbError> {
 }
 ```
 
-### src/validation.rs
-
-Modify validate_email to handle edge case:
-
-```rust
-use crate::regex::EMAIL_REGEX;
-
-// Before:
-pub fn validate_email(email: &str) -> bool {
-    EMAIL_REGEX.is_match(email)
-}
-
-// After:
-/// Validate email format and length.
-///
-/// Parameters:
-/// - `email`: email address to validate
-///
-/// Returns: `true` when the email is valid; otherwise `false`.
-pub fn validate_email(email: &str) -> bool {
-    if email.is_empty() || email.len() > 254 {
-        return false;
-    }
-    EMAIL_REGEX.is_match(&email.to_lowercase().trim())
-}
-```
-
 ## Test Steps
 
 ### tests/user_service.rs
 
 ```rust
 use crate::services::user::{CreateUserInput, UserError};
-
-#[tokio::test]
-async fn create_user_returns_user_with_id() {
-    let service = setup_test_service().await;
-    let user = service.create_user(CreateUserInput { 
-        email: "test@example.com".into() 
-    }).await.unwrap();
-    assert!(!user.id.is_nil());
-}
 
 #[tokio::test]
 async fn create_user_rejects_duplicate_email() {
