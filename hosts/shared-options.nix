@@ -7,7 +7,11 @@
       default = "stable";
       description = "NVIDIA driver version to use (stable, beta, production, vulkan_beta, legacy_470, legacy_390)";
     };
-    nas.enable = lib.mkEnableOption "NAS NFS mounts";
+    nas.mode = lib.mkOption {
+      type = lib.types.enum ["disabled" "local" "tailscale"];
+      default = "disabled";
+      description = "NAS mount mode (local LAN or Tailscale)";
+    };
 
     desktop.hyprland = {
       displayMode = lib.mkOption {
