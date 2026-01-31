@@ -7,8 +7,8 @@
   systemd.mounts = lib.mkIf config.hostOptions.nas.enable [
     {
       type = "nfs";
-      what = "192.168.1.3:/mnt";
-      where = "/home/sewer/NAS";
+      what = "nixos-homelab:/mnt";
+      where = "/mnt/NAS";
       options = "nfsvers=4,soft,intr,timeo=10,retrans=3,noauto";
       mountConfig = {
         TimeoutSec = "2";
@@ -24,12 +24,12 @@
       automountConfig = {
         TimeoutIdleSec = "0"; # Disable automatic unmounting
       };
-      where = "/home/sewer/NAS";
+      where = "/mnt/NAS";
     }
   ];
 
   # Create the mount point directory
   systemd.tmpfiles.rules = lib.mkIf config.hostOptions.nas.enable [
-    "d /home/sewer/NAS 0755 sewer users -"
+    "d /mnt/NAS 0755 sewer users -"
   ];
 }

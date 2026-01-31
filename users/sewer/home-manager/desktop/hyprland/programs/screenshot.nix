@@ -14,12 +14,10 @@
       #!/usr/bin/env bash
 
       # Advanced region selection screenshot script
-      # Based on legacy Arch setup with NAS/Cloud fallback
 
-      # Try storage paths in order: NAS first, then Cloud, then local fallback
+      # Try storage paths in order: NAS first, then local fallback
       STORAGE_PATHS=(
-        "$HOME/NAS/seagate-pcloud/Images/NonSyncable/ShareX/Screenshots"
-        "$HOME/Cloud/Images/NonSyncable/ShareX/Screenshots"
+        "/mnt/NAS/seagate-pcloud/Images/NonSyncable/ShareX/Screenshots"
         "$HOME/Pictures/Screenshots"
       )
 
@@ -59,12 +57,10 @@
       #!/usr/bin/env bash
 
       # Advanced full screen screenshot script
-      # Based on legacy Arch setup with NAS/Cloud fallback
 
-      # Try storage paths in order: NAS first, then Cloud, then local fallback
+      # Try storage paths in order: NAS first, then local fallback
       STORAGE_PATHS=(
-        "$HOME/NAS/seagate-pcloud/Images/NonSyncable/ShareX/Screenshots"
-        "$HOME/Cloud/Images/NonSyncable/ShareX/Screenshots"
+        "/mnt/NAS/seagate-pcloud/Images/NonSyncable/ShareX/Screenshots"
         "$HOME/Pictures/Screenshots"
       )
 
@@ -104,12 +100,10 @@
       #!/usr/bin/env bash
 
       # Advanced current window screenshot script with intelligent window detection
-      # Based on legacy Arch setup with NAS/Cloud fallback
 
-      # Try storage paths in order: NAS first, then Cloud, then local fallback
+      # Try storage paths in order: NAS first, then local fallback
       STORAGE_PATHS=(
-        "$HOME/NAS/seagate-pcloud/Images/NonSyncable/ShareX/Screenshots"
-        "$HOME/Cloud/Images/NonSyncable/ShareX/Screenshots"
+        "/mnt/NAS/seagate-pcloud/Images/NonSyncable/ShareX/Screenshots"
         "$HOME/Pictures/Screenshots"
       )
 

@@ -20,7 +20,6 @@
     ./programs/mangohud.nix
     ./programs/rust.nix
     ./programs/direnv.nix
-    ./programs/remote-file-sync.nix
     ./programs/music-streaming.nix
     ./programs/claude-code/default.nix
     ./programs/opencode/default.nix
@@ -121,19 +120,6 @@
       file = ./secrets/wallhaven-api-key.age;
       path = "${config.home.homeDirectory}/.secrets/wallhaven-api-key";
       mode = "600";
-    };
-
-    # RClone Mount
-    rclone-token = {
-      file = ./secrets/rclone-token.age;
-    };
-
-    # Proton Drive credentials for rclone
-    proton-drive-username = {
-      file = ./secrets/proton-drive-username.age;
-    };
-    proton-drive-password = {
-      file = ./secrets/proton-drive-password.age;
     };
 
     # GitHub Personal Access Token for Claude Code MCP servers
