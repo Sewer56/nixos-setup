@@ -27,7 +27,7 @@
     hardware.corsair.enable = lib.mkDefault true;
     hardware.hasBattery = lib.mkDefault false;
     hardware.nvidia.driverVersion = lib.mkDefault "beta";
-    nas.enable = lib.mkDefault true;
+    nas.mode = lib.mkDefault "local";
     desktop.hyprland.displayMode = lib.mkDefault "ultrawide";
     desktop.hyprland.preferDedicatedLaptopGpu = lib.mkDefault false;
     theme.accent = lib.mkDefault "teal";
