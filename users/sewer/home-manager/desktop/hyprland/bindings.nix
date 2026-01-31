@@ -67,7 +67,6 @@ in {
 
       # Window management
       "$mod, Q, killactive,"
-      "$mod, M, exit,"
       "$mod, F, fullscreen,"
       "$mod, Space, togglefloating,"
       "$mod, P, pseudo," # dwindle
