@@ -23,10 +23,16 @@ think hard
 
 # Inputs
 - `prompt_path`: absolute path to PROMPT-NN-*.md file
+- `revision_notes` (optional): feedback from plan review or coder escalation
 
 # Process
 
-1) Read and Scope
+1) Plan Resume
+- `plan_path` = `<prompt_path_without_extension>-PLAN.md`; if it exists and hasn’t been read or written this invocation, read it as a resume baseline.
+- First call: no `revision_notes` → use existing plan as context only. Successive call: `revision_notes` → revise using existing plan + notes.
+- Ensure `plan_path` contains a complete plan (create or revise) and return only `plan_path`.
+
+2) Read and Scope
 - Read prompt_path (mission, objective, requirements, constraints, tests, clarifications, implementation hints)
 - Extract what to build and the test policy from `# Tests`
 - Review `# Implementation Hints` for patterns and guidance
@@ -34,18 +40,18 @@ think hard
 - Identify libraries/frameworks needing lookup
 - Set repo_root as the closest ancestor of prompt_path containing `.git`; if none, use prompt_path parent
 
-2) Library Research (if needed)
+3) Library Research (if needed)
 - Use @mcp-search for unfamiliar libraries; capture key findings
 - When several lookups are needed, batch @mcp-search calls to reduce latency
 - Verify exact type/function/enum names from @mcp-search results
 - Do not read local registries/caches for external library details
 
-3) Code Discovery
+4) Code Discovery
 - Search repo_root for relevant files and patterns
 - Identify exact modification targets and snippets to change/extend
 - Only read/search within repo_root
 
-4) Draft Complete Plan
+5) Draft Complete Plan
 Build these sections:
 - **Types**: each type as a subsection with a short explanation and code block
 - **External Symbols**: map repo file paths to required `use` statements
@@ -57,7 +63,7 @@ Plan fidelity:
 - New helpers/conversions must be fully defined with file/location; no placeholders in prose or code. Only allow "copy/adapt from X" for simple external snippets with a named source.
 - On revision, include a short checklist addressing reviewer concerns.
 
-5) Apply Discipline
+6) Apply Discipline
 - Smallest viable change; reuse existing patterns
 - Inline tiny single-use helpers; avoid new files
 - Restrict visibility; avoid public unless required
@@ -68,8 +74,8 @@ Plan fidelity:
   - Avoid debug/logging code intended only for development
   - Avoid unnecessary abstractions (interfaces with only 1 implementation)
 
-6) Write Plan File
-Create a separate plan file named `<prompt_filename>-PLAN.md`.
+7) Write Plan File
+Create or update a plan file named `<prompt_filename>-PLAN.md` (may already exist).
 Example: `PROMPT-01-auth.md` -> `PROMPT-01-auth-PLAN.md`
 
 Do NOT modify the original prompt file.

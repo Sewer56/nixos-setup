@@ -40,7 +40,7 @@ think hard
 
 ### Phase 1: Plan
 1. Read `prompt_path` and `overall_objective` to extract a one-line task intent.
-2. Spawn `@orchestrator-planner` with `prompt_path`.
+2. Spawn `@orchestrator-planner` with `prompt_path` (no `revision_notes` on first call).
 3. Parse response for `plan_path`.
 4. Validate plan path naming:
    - Must be `<prompt_path_without_extension>-PLAN.md`
@@ -63,7 +63,7 @@ think hard
    - If GLM explicitly resolves GPT-5's concern, accept approval
 5. If revision needed:
    - Distill feedback and include BOTH reviewers' notes
-   - Re-run planner with feedback
+   - Re-run planner with `revision_notes: <feedback>`
    - Re-run both reviewers (max 10 iterations)
 6. If still not approved, report failure and stop.
 
@@ -74,7 +74,7 @@ think hard
 - If coder returns `Status: SUCCESS`, continue
 - If coder returns `Status: FAIL` or `Status: ESCALATE`:
   - Distill escalation context and issues encountered
-  - Re-run planner with feedback
+  - Re-run planner with `revision_notes: <feedback>`
   - Re-run plan review (Phase 2 rules)
   - Retry implementation
 - If still failing after 10 attempts, report failure and stop
