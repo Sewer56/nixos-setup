@@ -6,9 +6,7 @@ permission:
   github_*: allow
   context7_*: allow
   deepwiki_*: allow
-  task: {
-    "orchestrator-*": "deny"
-  }
+  task: deny
 ---
 
 You are a library research specialist focused on documentation lookup and analysis.
