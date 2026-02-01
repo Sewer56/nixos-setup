@@ -1,7 +1,7 @@
 ---
 mode: subagent
 hidden: true
-description: Validates PRD requirement completion against final implementation
+description: Validates PRD requirement completion and writes a validation report
 model: github-copilot/gpt-5.2-codex
 reasoningEffort: high
 permission:
@@ -11,12 +11,12 @@ permission:
   glob: allow
   list: allow
   edit: deny
-  write: deny
+  write: allow
   patch: deny
   task: deny
 ---
 
-Validate that the PRD requirements are satisfied by completed work. Never modify files.
+Validate that the PRD requirements are satisfied by completed work. Write a validation report file only.
 
 think hard
 
@@ -63,8 +63,14 @@ think hard
 - FAIL if evidence is missing for a requirement marked as met by a prompt (excluding known unmet)
 - List known unmet requirements separately; do not treat them as missing coverage or evidence gaps
 
+## 5) Write Validation Report
+- Write the full report (format below) to `PROMPT-ORCHESTRATOR.validation.md`
+- Location: same directory as `orchestrator_path`
+- Overwrite if it already exists
+- Do not write any other files
+
 # Output
-Return a single report in this format:
+Write the report to `PROMPT-ORCHESTRATOR.validation.md`, then return the same report in this format:
 
 ```
 # REQUIREMENTS FINAL VALIDATION
@@ -95,6 +101,6 @@ Status: PASS | PARTIAL | FAIL
 ```
 
 # Constraints
-- Review-only: never modify files
+- Only write the validation report file; do not modify any other files
 - Be explicit about missing coverage and unknown IDs
 - Prefer factual evidence (file paths, diffs) over assumptions

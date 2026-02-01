@@ -154,7 +154,8 @@ After all prompts complete (SUCCESS or INCOMPLETE), run `@orchestrator-requireme
 - If PRD Path or Requirements Inventory are missing, set `Validation Status: FINAL_FAIL`, set overall status to FAIL, and stop
 - If status is FAIL or PARTIAL: set `Validation Status: FINAL_FAIL`, set overall status to FAIL, and stop
 - If PASS: set overall status to SUCCESS and `Validation Status: FINAL_OK`
-- Write validation report to `PROMPT-ORCHESTRATOR.validation.md`
+- Expect the validator to write `PROMPT-ORCHESTRATOR.validation.md` in the same directory as `PROMPT-ORCHESTRATOR.md`
+- Read `PROMPT-ORCHESTRATOR.validation.md` and use it for summary; if missing, fall back to the validator's returned report
 
 ## Status Output
 Format updates as:
@@ -164,4 +165,5 @@ Format updates as:
 
 ## Constraints
 - Do not read prompt files
-- Do not modify code or prompt files; only write the state file and validation report
+- Do not modify code or prompt files; only write the state file
+- Do not write the validation report (the validator owns it)
