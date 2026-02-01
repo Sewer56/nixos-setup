@@ -22,14 +22,22 @@ think hard
 - Create `PROMPT-01-{title}.md` in the current working directory using the prompt file format below
 - Dependencies: None
 - Implementation Hints: pull from the plan's steps and key details
+- Required Reads: include minimal paths with brief relevance notes
+- Findings: start empty; populate if you perform code discovery or library research
 
 ### Phase 3: Create Plan File
 - Create a plan file named `<prompt_filename>-PLAN.md`
   - Example: `PROMPT-01-auth.md` -> `PROMPT-01-auth-PLAN.md`
 - Use `PROMPT-01-{title}.md` as the source of truth
 - Minimal code discovery only as needed to make steps concrete; otherwise reuse the plan details
+- If additional code discovery is needed:
+  - Use `@codebase-explorer` to find relevant files and patterns
+  - Update the prompt's `# Required Reads` with new paths and relevance notes
+  - Log each relevant/important discovery to `PROMPT-FINDING-<prompt-stem>-NN.md`
+  - Update the prompt's `# Findings` list with each finding file and a one-line relevance note
+- If external library/API details are needed, use `@mcp-search` and log findings the same way
 - Apply discipline: smallest viable change, inline tiny helpers, avoid new files, avoid unnecessary abstractions, restrict visibility
-- Do NOT modify the prompt file after creating its plan file
+- Do NOT modify the prompt file except to update `# Required Reads` and `# Findings`
 
 ### Phase 4: Plan Review (Parallel)
 - Spawn `@orchestrator-plan-reviewer-glm` and `@orchestrator-plan-reviewer-gpt5` in parallel
@@ -37,24 +45,33 @@ think hard
 - Plan approved only if BOTH reviewers approve
 - If either reviewer requests changes:
   - Distill feedback
-  - Revise the plan file
+  - Revise the plan file (add `## Reviewer Concerns (Revision)` at the top and update `## Plan Notes` revision history)
   - Re-run both reviewers (max 2 iterations)
 - If still not approved, report failure and stop
 
 ### Phase 5: Implementation
 - Route coder: `@orchestrator-coder`
 - Inputs: `prompt_path`, `plan_path`, one-line task intent
-- Parse coder report; extract concerns and related files
+- Parse the coder response as `# CODER RESULT` to extract Status and Coder Notes Path
+- Read the coder notes file and extract concerns, related files, and issues remaining from the latest iteration
+- If the coder response or notes are missing required fields, re-run coder and request corrected output
+- If Status is FAIL or ESCALATE:
+  - Distill escalation details (if present) and issues encountered/remaining
+  - Revise the plan and re-run plan review
+  - Retry implementation (max 3 attempts)
+  - If still failing, report failure and stop
 
 ### Phase 6: Quality Gate (Loop <= 3)
-- Build review context: task intent, coder concerns, related files
+- Build review context: task intent, coder concerns and related files (from coder notes)
 - Reviewers: `@orchestrator-quality-gate-glm` and `@orchestrator-quality-gate-gpt5`
 - Do NOT pass the plan file to reviewers
+- Do not pass coder notes; reviewers derive and read `-CODER-NOTES.md` directly
 - If FAIL or PARTIAL:
   - Distill issues
   - Re-invoke coder with feedback
   - Re-run gate
 - Max 3 iterations
+- If still FAIL or PARTIAL after max iterations, proceed to commit and report Status: INCOMPLETE
 
 ### Phase 7: Commit
 - Spawn `@commit` with `prompt_path` and a short bullet summary of key changes
@@ -62,6 +79,7 @@ think hard
 
 ### Phase 8: Hand Off
 - Provide a concise status summary of each phase and final outcome
+- Status: SUCCESS | FAIL | INCOMPLETE
 
 ## Prompt File Format: `PROMPT-01-{title}.md`
 
@@ -74,6 +92,9 @@ think hard
 
 # Context
 [Relevant background and current situation]
+
+# Required Reads
+- path/to/file: [Why this file is relevant]
 
 # Requirements
 - [Specific, measurable requirements]
@@ -100,6 +121,9 @@ None
 Q: <question>
 A: <answer>
 
+# Findings
+- PROMPT-FINDING-<prompt-stem>-01.md: <one-line relevance>
+
 # Implementation Hints
 - [Discovered patterns, library usage, existing code to reuse]
 - [Actionable guidance for planner/coder]
@@ -111,6 +135,26 @@ Write this to `<prompt_filename>-PLAN.md`:
 
 ```markdown
 # Plan
+
+## Reviewer Concerns (Revision)
+- [ ] Address <concern>
+
+## Plan Notes
+
+### Summary
+- <short overview of intent and risks>
+
+### Assumptions
+- <assumptions made while planning>
+
+### Risks and Open Questions
+- <unknowns or potential blockers>
+
+### Review Focus
+- <areas reviewers should scrutinize>
+
+### Revision History
+- Iteration <n>: <what changed and why>
 
 ## Types
 
@@ -143,6 +187,14 @@ enum UserError {
     InvalidEmail,
 }
 ```
+
+## External Symbols
+
+Map files to required `use` statements.
+
+- `src/services/user.rs`:
+  - `use crate::repository::user::UserRepository;`
+  - `use serde::Serialize;`
 
 ## Implementation Steps
 
@@ -229,6 +281,26 @@ async fn create_user_rejects_duplicate_email() {
     assert!(matches!(result, Err(UserError::DuplicateEmail(_))));
 }
 ```
+```
+
+## Findings File Format: `PROMPT-FINDING-<prompt-stem>-NN.md`
+
+```markdown
+# Prompt Finding
+
+Query: <what was searched or inspected>
+
+## Summary
+- <concise, reusable facts>
+
+## Details
+- <key API signatures, constraints, or patterns>
+
+## Relevant Paths
+- path/to/file
+
+## Links
+- https://example.com/docs
 ```
 
 # Output

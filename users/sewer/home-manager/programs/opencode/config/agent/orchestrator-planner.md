@@ -13,11 +13,12 @@ permission:
   edit: allow
   task: {
     "*": "deny",
-    "mcp-search": "allow"
+    "mcp-search": "allow",
+    "codebase-explorer": "allow"
   }
 ---
 
-Create a complete implementation plan in a separate plan file. May call @mcp-search for docs.
+Create a complete implementation plan in a separate plan file. Use @mcp-search for external docs and @codebase-explorer for codebase search; log findings.
 
 think hard
 
@@ -29,28 +30,39 @@ think hard
 
 1) Plan Resume
 - `plan_path` = `<prompt_path_without_extension>-PLAN.md`; if it exists and hasn’t been read or written this invocation, read it as a resume baseline.
-- First call: no `revision_notes` → use existing plan as context only. Successive call: `revision_notes` → revise using existing plan + notes.
+- First call: no `revision_notes` and no existing plan → create a new plan from scratch.
+- Successive call: `revision_notes` → revise using existing plan.
+- If `revision_notes` are provided but the plan is missing, create a new plan and note the missing context in `## Plan Notes`.
 - Ensure `plan_path` contains a complete plan (create or revise) and return only `plan_path`.
 
 2) Read and Scope
 - Read prompt_path (mission, objective, requirements, constraints, tests, clarifications, implementation hints)
+- Read each file listed in `# Required Reads` and ensure each entry includes a brief relevance note; add missing notes
 - Extract what to build and the test policy from `# Tests`
 - Review `# Implementation Hints` for patterns and guidance
 - Determine project type (library vs binary/service) and doc expectations
 - Identify libraries/frameworks needing lookup
 - Set repo_root as the closest ancestor of prompt_path containing `.git`; if none, use prompt_path parent
 
-3) Library Research (if needed)
-- Use @mcp-search for unfamiliar libraries; capture key findings
+3) Code Discovery (conditional)
+- If `# Required Reads` do not provide enough information, use the @codebase-explorer subagent to find additional relevant files and patterns
+- Update the prompt's `# Required Reads` section to add newly discovered files with brief relevance notes
+- Do not run @codebase-explorer if the required reads are sufficient
+- Identify exact modification targets and snippets to change/extend
+- Only read/search within repo_root
+- Log code discovery results as prompt-scoped findings files and update the prompt's `# Findings` list
+- Also capture any other research discoveries (manual reads, inferred constraints, important design decisions) as prompt-scoped findings files
+
+4) Library Research (if needed)
+- **Required:** use @mcp-search for any external library lookup; capture key findings
 - When several lookups are needed, batch @mcp-search calls to reduce latency
 - Verify exact type/function/enum names from @mcp-search results
 - Do not read local registries/caches for external library details
-
-4) Code Discovery
-- Search repo_root for relevant files and patterns
-- Identify exact modification targets and snippets to change/extend
-- Only read/search within repo_root
-
+- Log each relevant/important finding from library lookups as a prompt-scoped findings file:
+  - `PROMPT-FINDING-<prompt-stem>-NN.md` (prompt-stem is the prompt filename without extension)
+  - Update the prompt's `# Findings` list with the file path and a one-line relevance note
+- If a lookup yields nothing relevant, still create a findings file with a short summary stating that no relevant information was found
+- Findings must remain scoped to a single prompt; duplicating info across prompts is acceptable
 5) Draft Complete Plan
 Build these sections:
 - **Types**: each type as a subsection with a short explanation and code block
@@ -77,8 +89,14 @@ Plan fidelity:
 7) Write Plan File
 Create or update a plan file named `<prompt_filename>-PLAN.md` (may already exist).
 Example: `PROMPT-01-auth.md` -> `PROMPT-01-auth-PLAN.md`
+- If revising, place `## Reviewer Concerns (Revision)` at the top of the plan (immediately after `# Plan`)
 
-Do NOT modify the original prompt file.
+8) Findings and Plan Notes
+- Create or update `## Plan Notes` inside the plan file with key assumptions, risks, open questions, and review focus areas
+- If findings were created, ensure the prompt's `# Findings` section includes each file path with a short relevance note
+- If the prompt lacks a `# Findings` section, add one and list findings as they are created
+
+Do NOT modify the original prompt file except to update its `# Findings` and `# Required Reads` sections.
 
 # Plan File Format
 
@@ -86,6 +104,26 @@ Write this to `<prompt_filename>-PLAN.md`:
 
 ```markdown
 # Plan
+
+## Reviewer Concerns (Revision)
+- [ ] Address <concern>
+
+## Plan Notes
+
+### Summary
+- <short overview of intent and risks>
+
+### Assumptions
+- <assumptions made while planning>
+
+### Risks and Open Questions
+- <unknowns or potential blockers>
+
+### Review Focus
+- <areas reviewers should scrutinize>
+
+### Revision History
+- Iteration <n>: <what changed and why>
 
 ## Types
 
@@ -197,9 +235,28 @@ async fn create_user_rejects_duplicate_email() {
 }
 ```
 
-## Reviewer Concerns (Revision)
+```
 
-- [ ] Address <concern>
+# Findings File Format
+
+Write each finding to `PROMPT-FINDING-<prompt-stem>-NN.md`:
+
+```markdown
+# Prompt Finding
+
+Query: <what was searched or inspected>
+
+## Summary
+- <concise, reusable facts (relevant only)>
+
+## Details
+- <key API signatures, constraints, or patterns (omit irrelevant output)>
+
+## Relevant Paths
+- path/to/file
+
+## Links
+- https://example.com/docs
 ```
 
 # Output

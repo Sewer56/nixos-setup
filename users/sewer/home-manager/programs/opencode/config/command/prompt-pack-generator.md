@@ -43,11 +43,13 @@ think hard
 - Prefer per-requirement headings to reduce tokens in inventory files
 
 ### Phase 2: Research
-Thoroughly investigate every item, source, and reference the user has provided - do not skip any. Use available subagents (`@codebase-explorer`, `@mcp-search`) to gather implementation hints: file paths, existing patterns, function signatures. Spawn as many as needed in parallel. Treat findings as suggestions, not specifications - use judgment when populating `# Implementation Hints`.
+Thoroughly investigate every item, source, and reference the user has provided - do not skip any. Use subagents as needed (`@mcp-search` for external library/API specifics, `@codebase-explorer` for codebase search/pattern discovery). Spawn as many as needed in parallel. Treat findings as suggestions, not specifications - use judgment when populating `# Implementation Hints`.
 - When multiple sources need lookup, prefer parallel @mcp-search calls to cut latency.
 - Prefer reusing existing types and patterns; only introduce new ones when required by the current prompt.
 - Gather enough context so a runner with no prior memory can execute the prompt successfully.
-- Identify the minimal required files to read and capture them in `# Required Reads`.
+- Identify the minimal required files to read and capture them in `# Required Reads` with brief relevance notes.
+- Log findings per prompt in `PROMPT-FINDING-<prompt-stem>-NN.md` (relevant details only) and add a one-line entry in the prompt's `# Findings`.
+- Include other research discoveries the same way; keep findings prompt-scoped (duplication across prompts is OK).
 
 ### Phase 3: User Confirmation
 Present the proposed structure:
@@ -144,7 +146,7 @@ Ready for orchestration with `@ orchestrator` (scheduler). For a single prompt, 
 [Relevant background and current situation; include file paths and decisions needed for isolated execution]
 
 # Required Reads
-- [Exact file paths that must be read for this prompt]
+- path/to/file: [Why this file is relevant]
 
 # Requirements
 - REQ-###: [Specific, measurable requirement]
@@ -174,6 +176,9 @@ None | depends on PROMPT-NN-...
 # Clarifications
 Q: <question>
 A: <answer>
+
+# Findings
+- PROMPT-FINDING-<prompt-stem>-01.md: <one-line relevance>
 
 # Implementation Hints
 - [Discovered patterns, library usage, existing code to reuse]
@@ -232,3 +237,23 @@ Before creating any prompt:
 - If work combines new types, integration changes, and tests, split into separate prompts
 - When unsure, err on more prompts with smaller scopes
 - Aim to keep code changes per prompt around <=500 lines; split if likely to exceed
+
+## Findings File Format: `PROMPT-FINDING-<prompt-stem>-NN.md`
+
+```markdown
+# Prompt Finding
+
+Query: <what was searched or inspected>
+
+## Summary
+- <concise, reusable facts>
+
+## Details
+- <key API signatures, constraints, or patterns>
+
+## Relevant Paths
+- path/to/file
+
+## Links
+- https://example.com/docs
+```

@@ -29,6 +29,7 @@ think hard
 
 ## 2) Review Plan Against Requirements
 - Read `plan_path` for proposed implementation
+- Use the plan's `## Plan Notes` section as additional context for awareness of focus areas and risks
 - Verify every requirement and success criterion has corresponding implementation steps
 - Verify documentation is included in planned code snippets when required (public APIs unless the project is a binary, and non-obvious behavior); include parameters and return values for functions. Examples are recommended, not required.
 - REJECT IF: placeholders in prose or code, except "copy/adapt from X" for simple external snippets with a named source

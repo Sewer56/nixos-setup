@@ -31,6 +31,8 @@ think hard
 - Read `prompt_path` (and `objectives_path` if provided)
 - Extract objectives, requirements, and success criteria; treat each requirement and success criterion as an objective
 - Note test policy from `# Tests` section
+- Derive `coder_notes_path` from `prompt_path` by replacing the extension with `-CODER-NOTES.md`
+- If the coder notes file exists, read it as additional coder context and prioritize review around noted concerns, deviations, and unresolved issues
 
 ## 2) Discover changes
 - Handle unstaged and untracked work; do not assume commits exist

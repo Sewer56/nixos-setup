@@ -60,6 +60,8 @@ Current Prompt Index: 0
 | 0 | PENDING | PROMPT-01-foo.md | PROMPT-01-foo-PLAN.md | basic | PROMPT-00-bar | REQ-001, REQ-002 |
 ```
 
+Prompt Status values: PENDING | RUNNING | SUCCESS | FAIL | INCOMPLETE
+
 ## Phase 0: Initialize (once at start)
 
 ### 0.1: Determine State Path
@@ -80,8 +82,9 @@ Read `PROMPT-ORCHESTRATOR.md` to extract:
 - Validate that the prompt list (paths and order) matches the current orchestrator index.
   - If mismatch or unreadable, reinitialize state from the current index.
 - If PRD Path or Requirements Inventory mismatch the index, reinitialize state.
-- If resuming, find the first prompt with status != SUCCESS.
+- If resuming, find the first prompt with status PENDING or RUNNING.
   - If status is RUNNING, treat it as PENDING and re-run it.
+  - Prompts with status SUCCESS or INCOMPLETE are considered complete for resume purposes.
 - Write the (possibly updated) state file before starting prompt execution.
 
 ### 0.4: Prepare Execution Order
@@ -103,21 +106,22 @@ For each prompt in the listed order:
 1. Spawn `@orchestrator-runner`.
    - Inputs: `prompt_path` (absolute path), one-line overall objective
 2. Wait for the runner to finish and parse its report:
-   - Status: SUCCESS|FAIL
+   - Status: SUCCESS|FAIL|INCOMPLETE
    - Plan path
    - Quality gate result
    - Commit summary
+   - Coder Notes Summary (if present)
    - Store a prompt -> plan mapping for later use
      - Plan path rule: replace the trailing `.md` on the prompt filename with `-PLAN.md`
        - `PROMPT-01-auth.md` -> `PROMPT-01-auth-PLAN.md`
      - If the runner did not include a plan path, compute it using the rule above
 3. If status FAIL: stop and report failure.
-4. If SUCCESS: mark prompt complete.
-5. Run CodeRabbit review for this prompt (see Phase 2).
+4. If status INCOMPLETE: mark prompt as INCOMPLETE.
+5. Run CodeRabbit review for this prompt (see Phase 2) unless status is FAIL.
 
 State updates (required):
 - Before starting a prompt: mark its status `RUNNING`, set `current_prompt_index`, update the matching row.
-- After runner finishes: set prompt status `SUCCESS` or `FAIL`, store `plan_path`, update the matching row.
+- After runner finishes: set prompt status `SUCCESS`, `FAIL`, or `INCOMPLETE`, store `plan_path`, update the matching row.
 - If FAIL: set overall `status` to `FAIL` and stop.
 - Preserve `Reqs` values from the orchestrator index in the state table.
 - Prefer `edit` to update only relevant lines in the state file; use full rewrite only on initial creation.
@@ -125,7 +129,7 @@ State updates (required):
 Do not run multiple runners in parallel; runners may invoke coders.
 
 ## Phase 2: CodeRabbit Review (after each prompt)
-After each successful prompt, spawn `@orchestrator-coderabbit`.
+After each prompt with status SUCCESS or INCOMPLETE, spawn `@orchestrator-coderabbit`.
 - Input: always pass `base_branch` determined in Phase 0
 - If CodeRabbit status is PASS: continue
 - If CodeRabbit status is FAIL due to rate limit (detect: "rate limit", "429", "too many requests"):
@@ -139,13 +143,14 @@ After each successful prompt, spawn `@orchestrator-coderabbit`.
 - If CodeRabbit reports Changes Made: yes but Commit Status is not SUCCESS or AMENDED: report failure and stop
 
 ## Phase 3: Final Requirements Validation
-After all prompts succeed, run `@orchestrator-requirements-final`.
+After all prompts complete (SUCCESS or INCOMPLETE), run `@orchestrator-requirements-final`.
 - Inputs:
   - `orchestrator_path` (absolute)
   - `requirements_path` (absolute)
   - `prd_path` (absolute)
   - `state_path` (absolute)
   - `base_branch`
+- Requirements final validation should read `PROMPT-REQUIREMENTS-UNMET.md` (if present) to exclude known unmet requirements from failures while still reporting them
 - If PRD Path or Requirements Inventory are missing, set `Validation Status: FINAL_FAIL`, set overall status to FAIL, and stop
 - If status is FAIL or PARTIAL: set `Validation Status: FINAL_FAIL`, set overall status to FAIL, and stop
 - If PASS: set overall status to SUCCESS and `Validation Status: FINAL_OK`

@@ -31,6 +31,7 @@ think hard
 ## 1) Load Requirements Inventory
 - Read `requirements_path`
 - Parse requirement IDs, scope tags, and acceptance notes
+- Ignore any `## Unmet Requirements` or `## Unachieved Requirements` sections; do not treat those as inventory entries
 - FAIL if any ID is duplicated or malformed
 - WARN if any requirement is missing scope or acceptance
 
