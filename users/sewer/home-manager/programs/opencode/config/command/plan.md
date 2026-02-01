@@ -57,7 +57,7 @@ If any questions are asked, stop after the questions. Do not output the plan unt
 - Incorporate answers into the plan
 - Include a Clarifications section with Q/A
 
-## Output Format
+# Output Format
 
 ```markdown
 # [Plan Title]

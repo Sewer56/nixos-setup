@@ -39,7 +39,7 @@ When invoked:
 
 6. Generate a `PR-SUMMARY.md` file with a concise summary.
 
-## Output Format
+# Output Format
 
 Save to `PR-SUMMARY.md`:
 

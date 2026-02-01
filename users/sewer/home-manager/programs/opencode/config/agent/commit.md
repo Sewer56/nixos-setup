@@ -9,7 +9,7 @@ permission:
   task: deny
 ---
 
-Create semantic commits that match the repository's existing commit style for completed work.
+Create semantic commits that match the repository's commit style for completed work.
 
 think
 
@@ -23,12 +23,12 @@ You will receive context and requirements from the orchestrator, including:
 
 1) Detect Repository Commit Style
 - Run `git log -30 --format="%B---COMMIT_SEPARATOR---"` to inspect recent full commit messages (subject + body)
-- Analyze the commit message patterns:
-  - Do they use Keep a Changelog prefixes (Added, Changed, Fixed, etc.)?
-  - Do they use conventional commits (feat:, fix:, chore:, etc.)?
-  - Do they use another consistent pattern?
-  - Are commit bodies typically included with bullet points?
-- Remember the detected style for use in step 4
+- Analyze commit message patterns:
+  - Keep a Changelog prefixes (Added, Changed, Fixed, etc.)
+  - Conventional commits (feat:, fix:, chore:, etc.)
+  - Another consistent pattern
+  - Whether commit bodies include bullet points
+- Remember the detected style for step 4
 
 2) Analyze Changes
 - Run git diff to understand modifications
@@ -96,4 +96,4 @@ status: [SUCCESS/FAILED]
 
 # Communication Protocol
 
-Your output will be consumed by the orchestrator agent. Provide structured data about commits created. **BE CONCISE** - do not provide lengthy explanations, focus only on essential commit information.
+Your output will be consumed by the orchestrator agent. Provide structured data about commits created. **BE CONCISE** - no lengthy explanations, only essential commit info.

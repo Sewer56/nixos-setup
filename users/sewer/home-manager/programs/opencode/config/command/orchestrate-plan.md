@@ -6,7 +6,7 @@ model: github-copilot/gpt-5.2-codex
 
 # Orchestrate Plan
 
-Use the plan from the immediately previous assistant message. Assume clarifications are done. Orchestrate a single prompt without any index.
+Use the plan from the immediately previous assistant message. Assume clarifications are done. Orchestrate a single prompt without an index.
 
 think hard
 
@@ -16,10 +16,10 @@ think hard
 - Use the immediately previous assistant message as the plan input
 - Accept any reasonable plan structure; extract objective, requirements, constraints, and ordered steps
 - Choose a short, stable title for the prompt
-- Tests: set to `basic` unless the plan explicitly says no tests
+- Tests: always `basic`
 
 ### Phase 2: Create Prompt File
-- Create `PROMPT-01-{title}.md` in the current working directory using the prompt file format below
+- Create `PROMPT-01-{title}.md` in the current working directory using the format below
 - Dependencies: None
 - Implementation Hints: pull from the plan's steps and key details
 - Required Reads: include minimal paths with brief relevance notes
@@ -29,7 +29,7 @@ think hard
 - Create a plan file named `<prompt_filename>-PLAN.md`
   - Example: `PROMPT-01-auth.md` -> `PROMPT-01-auth-PLAN.md`
 - Use `PROMPT-01-{title}.md` as the source of truth
-- Minimal code discovery only as needed to make steps concrete; otherwise reuse the plan details
+- Do minimal code discovery only as needed to make steps concrete; otherwise reuse the plan details
 - If additional code discovery is needed:
   - Use `@codebase-explorer` to find relevant files and patterns
   - Update the prompt's `# Required Reads` with new paths and relevance notes
@@ -42,7 +42,7 @@ think hard
 ### Phase 4: Plan Review (Parallel)
 - Spawn `@orchestrator-plan-reviewer-glm` and `@orchestrator-plan-reviewer-gpt5` in parallel
 - Inputs: `prompt_path`, `plan_path`
-- Plan approved only if BOTH reviewers approve
+- Plan approved only if both reviewers approve
 - If either reviewer requests changes:
   - Distill feedback
   - Revise the plan file (add `## Reviewer Concerns (Revision)` at the top and update `## Plan Notes` revision history)
@@ -62,9 +62,9 @@ think hard
   - If still failing, report failure and stop
 
 ### Phase 6: Quality Gate (Loop <= 3)
-- Build review context: task intent, coder concerns and related files (from coder notes)
+- Build review context: task intent, coder concerns, and related files (from coder notes)
 - Reviewers: `@orchestrator-quality-gate-glm` and `@orchestrator-quality-gate-gpt5`
-- Do NOT pass the plan file to reviewers
+- Do not pass the plan file to reviewers
 - Do not pass coder notes; reviewers derive and read `-CODER-NOTES.md` directly
 - If FAIL or PARTIAL:
   - Distill issues

@@ -44,7 +44,7 @@ When invoked:
 
 7. Generate a `PR-SUMMARY.md` file with detailed documentation.
 
-## Output Format
+# Output Format
 
 Save to `PR-SUMMARY.md`:
 

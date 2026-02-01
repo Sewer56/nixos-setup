@@ -13,21 +13,21 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 # Prompt Pack Generator
 
-Generate prompt files for orchestrated execution. Planning happens just-in-time during orchestration.
+Generate prompt files for orchestrated execution. Planning happens during orchestration.
 
 think hard
 
 ## Core Principles
-- Deliverable-first: every prompt must produce working, usable code. No placeholder-only prompts.
-- Isolation-safe: each prompt must be executable in isolation; include all required context and file paths.
-- No speculative types/errors: define types/errors only when immediately used in this prompt's deliverables; later prompts may update or extend them.
-- Tests required: every prompt uses `basic` tests (no opt-out).
+- Deliverable-first: each prompt must produce working code. No placeholder-only prompts.
+- Isolation-safe: each prompt must run in isolation; include all required context and file paths.
+- No speculative types/errors: define types/errors only when used in this prompt; later prompts may extend.
+- Tests required: every prompt uses `basic` tests.
 
 ## Workflow
 
 ### Phase 1: Parse Requirements
 - Extract core objective and components from user input
-- Draft list of prompt files needed (title + one-line objective each)
+- Draft prompt list (title + one-line objective)
 - Order by dependencies
 - Apply task sizing guidance (default to small, single-objective prompts)
 - Convert broad goals into vertical slices that yield working code
@@ -43,10 +43,14 @@ think hard
 - Prefer per-requirement headings to reduce tokens in inventory files
 
 ### Phase 2: Research
-Thoroughly investigate every item, source, and reference the user has provided - do not skip any. Use subagents as needed (`@mcp-search` for external library/API specifics, `@codebase-explorer` for codebase search/pattern discovery). Spawn as many as needed in parallel. Treat findings as suggestions, not specifications - use judgment when populating `# Implementation Hints`.
-- When multiple sources need lookup, prefer parallel @mcp-search calls to cut latency.
+- Review every item, source, and reference from the user input; do not skip.
+- Use subagents as needed:
+  - `@mcp-search` for external library/API specifics
+  - `@codebase-explorer` for codebase search and pattern discovery
+- Default to parallel subagent calls; only serialize when a dependency requires it.
+- Treat findings as suggestions, not specs; use judgment when populating `# Implementation Hints`.
 - Prefer reusing existing types and patterns; only introduce new ones when required by the current prompt.
-- Gather enough context so a runner with no prior memory can execute the prompt successfully.
+- Gather enough context so a runner with no prior memory can execute the prompt.
 - Identify the minimal required files to read and capture them in `# Required Reads` with brief relevance notes.
 - Log findings per prompt in `PROMPT-FINDING-<prompt-stem>-NN.md` (relevant details only) and add a one-line entry in the prompt's `# Findings`.
 - Include other research discoveries the same way; keep findings prompt-scoped (duplication across prompts is OK).
@@ -63,7 +67,6 @@ Tests: basic (required)
 
 Say "go" to continue, or suggest changes.
 ```
-Track user's tests preference (default: basic).
 Iterate on structure based on user feedback.
 **Continue to Phase 4 only when user says "go".**
 
@@ -137,13 +140,13 @@ Ready for orchestration with `@ orchestrator` (scheduler). For a single prompt, 
 
 ```markdown
 # Mission
-[1-2 sentence overall goal for this task]
+[1-2 sentence goal for this task]
 
 # Objective
-[What specifically needs to be achieved]
+[What must be achieved]
 
 # Context
-[Relevant background and current situation; include file paths and decisions needed for isolated execution]
+[Relevant background; include file paths and decisions for isolated execution]
 
 # Required Reads
 - path/to/file: [Why this file is relevant]
@@ -153,15 +156,15 @@ Ready for orchestration with `@ orchestrator` (scheduler). For a single prompt, 
 - REQ-###: [Expected behaviors and outcomes]
 
 # Deliverables
-- [Concrete code artifacts produced by this prompt]
+- [Concrete code artifacts from this prompt]
 
 # Constraints
 - [Technical constraints]
 - [What to avoid]
-- No placeholder types/errors; define new ones only when used in this prompt (later prompts may update/extend)
+- No placeholder types/errors; define new ones only when used here; later prompts may extend
 
 # Success Criteria
-- [How we'll know the objective is met]
+- [How to know the objective is met]
 
 # Scope
 - IN: [what's in scope]
@@ -181,7 +184,7 @@ A: <answer>
 - PROMPT-FINDING-<prompt-stem>-01.md: <one-line relevance>
 
 # Implementation Hints
-- [Discovered patterns, library usage, existing code to reuse]
+- [Patterns, library usage, existing code to reuse]
 - [Actionable guidance for planner/coder]
 ```
 
@@ -217,8 +220,8 @@ Source PRD: PROMPT-PRD.md
 
 ## Investigation Rules
 Before creating any prompt:
-- **Update/sync tasks**: fetch and compare; skip if already identical
-- **Add/create tasks**: check it doesn't already exist
+- **Update/sync tasks**: fetch and compare; skip if identical
+- **Add/create tasks**: confirm it doesn't already exist
 - **Fix tasks**: confirm the bug is real
 - **Migration tasks**: compare current vs target; skip if compliant
 
@@ -230,13 +233,13 @@ Before creating any prompt:
 - Every prompt must have code as a deliverable (no research-only prompts)
 
 ## Task Sizing Guidance
-- Default to the smallest useful unit of work; one primary objective per prompt
-- If a task spans multiple subsystems or integrations, split into separate prompts ordered by dependency
+- Default to the smallest useful unit; one primary objective per prompt
+- If a task spans subsystems or integrations, split into prompts ordered by dependency
 - Avoid cross-cutting refactors unless explicitly required by the user
-- Prefer prompts that touch only a few files; if likely to touch many, split
-- If work combines new types, integration changes, and tests, split into separate prompts
+- Prefer prompts that touch few files; if likely to touch many, split
+- If work combines new types, integration changes, and tests, split
 - When unsure, err on more prompts with smaller scopes
-- Aim to keep code changes per prompt around <=500 lines; split if likely to exceed
+- Aim for <=500 lines per prompt; split if likely to exceed
 
 ## Findings File Format: `PROMPT-FINDING-<prompt-stem>-NN.md`
 
@@ -246,10 +249,10 @@ Before creating any prompt:
 Query: <what was searched or inspected>
 
 ## Summary
-- <concise, reusable facts>
+- <concise facts>
 
 ## Details
-- <key API signatures, constraints, or patterns>
+- <key API signatures, constraints, patterns>
 
 ## Relevant Paths
 - path/to/file

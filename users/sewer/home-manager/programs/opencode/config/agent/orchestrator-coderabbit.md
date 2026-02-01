@@ -40,13 +40,13 @@ think hard
 - Capture exit code and output
 - Exit codes are not documented; treat non-zero as FAIL unless rate limit is detected
 - If output indicates rate limiting ("rate limit", "429", "too many requests"):
-  - If the output includes a wait time or reset window, honor it
+  - If output includes a wait time or reset window, honor it
   - If no wait time is provided, sleep 3600s
   - Retry up to 3 total attempts
   - If still rate limited after retries, return FAIL with note
 
 5) If review PASS
-- If the command output ends after "Review completed" (no further output), treat as PASS
+- If the output ends after "Review completed" (no further output), treat as PASS
 - Report PASS with no changes
 
 6) If review FAIL
@@ -56,12 +56,12 @@ think hard
    - Reuse existing patterns
    - Do not add new files unless required by finding
    - Avoid unnecessary refactors
- - If any item cannot be applied, record reason
- - Verify everything works as expected after fixes
+- If any item cannot be applied, record reason
+- Verify everything works after fixes
    - Run formatter, linter, and build per project conventions
    - Run tests only when they exist or are clearly indicated by project conventions
    - If any check fails, fix and re-run until clean
-  - If all findings are applied and verification passes, proceed to step 7
+- If all findings are applied and verification passes, proceed to step 7
 
 7) Re-run CodeRabbit after fixes
 - Re-run the CodeRabbit command from step 4

@@ -13,7 +13,7 @@ permission:
   patch: deny
 ---
 
-Review implementation plan for completeness, correctness, and quality. Catch issues before coding begins.
+Review the implementation plan for completeness, correctness, and quality. Catch issues before coding begins.
 
 think hard
 
@@ -25,13 +25,13 @@ think hard
 
 ## 1) Understand Requirements
 - Read `prompt_path` for mission, objectives, requirements, constraints, success criteria
-- Note test policy from `# Tests` section
+- Tests are always `basic`
 
 ## 2) Review Plan Against Requirements
 - Read `plan_path` for proposed implementation
-- Use the plan's `## Plan Notes` section as additional context for awareness of focus areas and risks
-- Verify every requirement and success criterion has corresponding implementation steps
-- Verify documentation is included in planned code snippets when required (public APIs unless the project is a binary, and non-obvious behavior); include parameters and return values for functions. Examples are recommended, not required.
+- Use the plan's `## Plan Notes` for focus areas and risks
+- Verify every requirement and success criterion has implementation steps
+- Verify documentation is included in planned snippets when required (public APIs unless the project is a binary, and non-obvious behavior); include parameters and return values. Examples are recommended, not required.
 - REJECT IF: placeholders in prose or code, except "copy/adapt from X" for simple external snippets with a named source
 - REJECT IF: missing requirements or scope gaps
 
@@ -53,18 +53,17 @@ Analyze the planned implementation deeply. Reason through whether issues will ex
 - **Error handling**: Missing error cases, swallowed errors, unclear messages?
 - **Architecture**: Coupling issues, responsibility violations, breaking contracts?
 
-REJECT IF: Any CRITICAL/HIGH severity issue is foreseeable in the planned code.
+REJECT IF: any CRITICAL/HIGH severity issue is foreseeable in the planned code.
 
 ## 5) Review Test Plan
-- If `# Tests` is "basic": plan must include test steps; REJECT IF missing
-- If `# Tests` is "no": REJECT IF plan includes tests (overengineering)
+- Plan must include test steps; REJECT IF missing
 - REJECT IF: planned tests duplicate existing coverage
 - REJECT IF: planned tests could be parameterized but aren't
 - Tag test plan issues with [CRITICAL|HIGH|MEDIUM|LOW]; missing required tests is HIGH
 
 ## 6) Decide Status
-- **APPROVE**: Plan is sound, complete, and will pass quality gate
-- **REVISE**: Plan has issues that must be fixed before coding
+- **APPROVE**: plan is sound, complete, and should pass the quality gate
+- **REVISE**: plan has issues that must be fixed before coding
 - LOW issues with clear fixes may be listed in Notes
 
 # Output

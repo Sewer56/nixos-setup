@@ -14,7 +14,7 @@ Discover available issue templates and recommend the appropriate `/write-issue` 
 3. Based on user's description, select the most appropriate template
 4. Return all templates with the recommended one highlighted
 
-## Output Format
+# Output Format
 
 ```
 ## Available Templates

@@ -23,25 +23,23 @@ permission:
 
 # Orchestrator Scheduler
 
-Coordinates execution by delegating each prompt to a dedicated sub-orchestrator. Never edits code. May run git commands for branch detection.
+Runs prompts via sub-orchestrators, tracks state, runs reviews, and validates requirements.
 
 think
 
 ## Role
 - Parse the orchestrator index
-- Dispatch prompts one at a time to a sub-orchestrator
-- Collect results and advance the sequence
-- Validate PRD requirement coverage after execution
+- Run prompts one at a time via a sub-orchestrator
+- Collect results and move to the next prompt
+- Validate PRD requirements after all prompts
 
 ## Inputs
-- User provides path to `PROMPT-ORCHESTRATOR.md` as message (contains prompt list with dependencies)
+- User provides path to `PROMPT-ORCHESTRATOR.md` (prompt list with dependencies)
 
-## Resume/Suspend Marker
-- Use a state file to resume orchestration between runs.
+## State File and Resume Rules
 - `state_path`: same directory as `PROMPT-ORCHESTRATOR.md`, filename `PROMPT-ORCHESTRATOR.state.md`
-- Update the state file after each prompt run (after the runner report).
-- Store prompt and plan paths as relative paths to the directory containing `PROMPT-ORCHESTRATOR.md`.
-- Only write the state file; never edit code.
+- Store prompt and plan paths relative to the orchestrator directory.
+- Update the state file after each runner report.
 
 State file format (markdown):
 ```
@@ -60,7 +58,19 @@ Current Prompt Index: 0
 | 0 | PENDING | PROMPT-01-foo.md | PROMPT-01-foo-PLAN.md | basic | PROMPT-00-bar | REQ-001, REQ-002 |
 ```
 
-Prompt Status values: PENDING | RUNNING | SUCCESS | FAIL | INCOMPLETE
+Prompt status values: PENDING | RUNNING | SUCCESS | FAIL | INCOMPLETE
+
+Plan path rule: replace the prompt `.md` suffix with `-PLAN.md`.
+
+Resume rules:
+- If `state_path` exists, read and parse it using the format above.
+- Resolve relative prompt/plan paths against the orchestrator directory.
+- Validate the prompt list (paths and order) matches the current orchestrator index.
+  - If mismatch or unreadable, reinitialize state from the current index.
+- If PRD Path or Requirements Inventory mismatch the index, reinitialize state.
+- If resuming, find the first prompt with status PENDING or RUNNING.
+  - If status is RUNNING, treat it as PENDING and re-run it.
+  - Treat SUCCESS or INCOMPLETE as complete for resume purposes.
 
 ## Phase 0: Initialize (once at start)
 
@@ -74,18 +84,12 @@ Read `PROMPT-ORCHESTRATOR.md` to extract:
 - Dependencies and tests for each prompt
 - Requirement coverage per prompt (Reqs: REQ-...)
 - PRD Path and Requirements Inventory path (if present)
-- If tests are missing, assume `basic` in memory (do not edit files)
+- If tests are missing, assume `basic` in memory; do not edit files
 
 ### 0.3: Load/Init State (resume support)
-- If `state_path` exists, read and parse it as markdown using the format above.
-- Resolve any relative prompt/plan paths against the directory containing `PROMPT-ORCHESTRATOR.md`.
-- Validate that the prompt list (paths and order) matches the current orchestrator index.
-  - If mismatch or unreadable, reinitialize state from the current index.
-- If PRD Path or Requirements Inventory mismatch the index, reinitialize state.
-- If resuming, find the first prompt with status PENDING or RUNNING.
-  - If status is RUNNING, treat it as PENDING and re-run it.
-  - Prompts with status SUCCESS or INCOMPLETE are considered complete for resume purposes.
+- If `state_path` exists, apply resume rules; otherwise initialize state from the current index.
 - Write the (possibly updated) state file before starting prompt execution.
+- Prefer `edit` to update only relevant lines; use full rewrite only on initial creation.
 
 ### 0.4: Prepare Execution Order
 - Use the prompt list order from `PROMPT-ORCHESTRATOR.md`
@@ -103,34 +107,25 @@ Determine `base_branch` at start and store it for later use:
 ## Phase 1: Execute Prompts (sequential)
 For each prompt in the listed order:
 
-1. Spawn `@orchestrator-runner`.
+1. Update state: set prompt status `RUNNING`, set `current_prompt_index`, update the row, preserve `Reqs`, write state file.
+2. Spawn `@orchestrator-runner`.
    - Inputs: `prompt_path` (absolute path), one-line overall objective
-2. Wait for the runner to finish and parse its report:
-   - Status: SUCCESS|FAIL|INCOMPLETE
-   - Plan path
-   - Quality gate result
-   - Commit summary
-   - Coder Notes Summary (if present)
-   - Store a prompt -> plan mapping for later use
-     - Plan path rule: replace the trailing `.md` on the prompt filename with `-PLAN.md`
-       - `PROMPT-01-auth.md` -> `PROMPT-01-auth-PLAN.md`
-     - If the runner did not include a plan path, compute it using the rule above
-3. If status FAIL: stop and report failure.
-4. If status INCOMPLETE: mark prompt as INCOMPLETE.
-5. Run CodeRabbit review for this prompt (see Phase 2) unless status is FAIL.
-
-State updates (required):
-- Before starting a prompt: mark its status `RUNNING`, set `current_prompt_index`, update the matching row.
-- After runner finishes: set prompt status `SUCCESS`, `FAIL`, or `INCOMPLETE`, store `plan_path`, update the matching row.
-- If FAIL: set overall `status` to `FAIL` and stop.
-- Preserve `Reqs` values from the orchestrator index in the state table.
-- Prefer `edit` to update only relevant lines in the state file; use full rewrite only on initial creation.
-
-Do not run multiple runners in parallel; runners may invoke coders.
+3. Wait for the runner and parse its report:
+    - Status: SUCCESS|FAIL|INCOMPLETE
+    - Plan path
+    - Quality gate result
+    - Commit summary
+    - Coder Notes Summary (if present)
+    - If plan path is missing, compute it using the plan path rule
+    - Store a prompt -> plan mapping for later use
+4. Update state: set prompt status `SUCCESS`, `FAIL`, or `INCOMPLETE`, store `plan_path`, update the row, preserve `Reqs`, write state file.
+5. If status FAIL: set overall `status` to `FAIL`, write state file, stop.
+6. If status INCOMPLETE: continue (prompt stays INCOMPLETE in state).
+7. Run CodeRabbit review for this prompt (see Phase 2) unless status is FAIL.
 
 ## Phase 2: CodeRabbit Review (after each prompt)
 After each prompt with status SUCCESS or INCOMPLETE, spawn `@orchestrator-coderabbit`.
-- Input: always pass `base_branch` determined in Phase 0
+- Input: always pass `base_branch` from Phase 0
 - If CodeRabbit status is PASS: continue
 - If CodeRabbit status is FAIL due to rate limit (detect: "rate limit", "429", "too many requests"):
   - If this is the final prompt:
@@ -150,7 +145,7 @@ After all prompts complete (SUCCESS or INCOMPLETE), run `@orchestrator-requireme
   - `prd_path` (absolute)
   - `state_path` (absolute)
   - `base_branch`
-- Requirements final validation should read `PROMPT-REQUIREMENTS-UNMET.md` (if present) to exclude known unmet requirements from failures while still reporting them
+- Final validation should read `PROMPT-REQUIREMENTS-UNMET.md` (if present) to exclude known unmet requirements from failures while still reporting them
 - If PRD Path or Requirements Inventory are missing, set `Validation Status: FINAL_FAIL`, set overall status to FAIL, and stop
 - If status is FAIL or PARTIAL: set `Validation Status: FINAL_FAIL`, set overall status to FAIL, and stop
 - If PASS: set overall status to SUCCESS and `Validation Status: FINAL_OK`
@@ -167,3 +162,4 @@ Format updates as:
 - Do not read prompt files
 - Do not modify code or prompt files; only write the state file
 - Do not write the validation report (the validator owns it)
+- Do not run multiple runners in parallel (runners may invoke coders)

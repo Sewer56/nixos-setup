@@ -16,7 +16,7 @@ permission:
   task: deny
 ---
 
-Validate that the PRD requirements are satisfied by completed work. Write a validation report file only.
+Verify PRD requirements are satisfied by completed work. Write only the validation report file.
 
 think hard
 
@@ -32,22 +32,22 @@ think hard
 
 ## 1) Load Sources
 - Read `requirements_path` and parse requirement IDs, scope, and acceptance notes
-- Ignore any `## Unmet Requirements` or `## Unachieved Requirements` sections; do not treat those as inventory entries
-- Read `orchestrator_path` to locate prompt list and requirement coverage (Reqs: ...)
-- Read prompt files referenced by the orchestrator index to extract `# Requirements` entries and requirement IDs
+- Ignore `## Unmet Requirements` or `## Unachieved Requirements` sections; they are not inventory entries
+- Read `orchestrator_path` for prompt list and requirement coverage (Reqs: ...)
+- Read prompt files referenced by the orchestrator index; extract `# Requirements` IDs
 - Read `state_path` and collect prompt statuses
   - FAIL if `state_path` is missing or unreadable
 - Derive `unmet_requirements_path` if not provided and read it when present
   - Parse `## REQ-###` headings to collect known unmet requirement IDs
-  - Parse `### Prompt: PROMPT-##-*.md` entries under each heading to associate unmet requirements with specific prompts
+  - Parse `### Prompt: PROMPT-##-*.md` entries to associate unmet requirements with prompts
   - Warn (do not fail) if the unmet file references unknown requirement IDs
 
 ## 2) Validate Inventory Integrity
 - FAIL if any requirement ID is duplicated or malformed
-- WARN if any requirement is missing a scope or acceptance note
+- WARN if any requirement lacks scope or acceptance
 
 ## 3) Coverage Consistency
-- For each `IN` requirement, ensure it appears in at least one prompt's `# Requirements`
+- Each `IN` requirement must appear in at least one prompt's `# Requirements`
 - FAIL if any `IN` requirement is unmapped and not listed as known unmet
 - FAIL if any prompt references a requirement ID not in the inventory
 - WARN if any prompt maps only to `OUT` or `POST_INIT` requirements

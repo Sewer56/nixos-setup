@@ -34,9 +34,9 @@ think
 1) Read requirements and plan
 - Read `prompt_path` for mission, requirements, constraints
 - Read `plan_path` for complete plan with `## Types` and `## Implementation Steps`
-- Follow `## Implementation Steps` exactly — they contain concrete code blocks to implement
+- Follow `## Implementation Steps` exactly; they contain concrete code blocks to implement
 - You may add or improve documentation beyond the plan when helpful (include parameters and return values for functions; examples are recommended, not required); note it in `## Coder Notes`
-- Check `# Tests` section in prompt_path for test policy (basic|no)
+- Tests are always `basic`
 - Incorporate orchestrator context
 
 2) Implement changes
@@ -51,7 +51,6 @@ think
 3) Verify
 - Run formatter (unless forbidden by system prompt), linter, and build; iterate until clean
 - Tests: basic → add minimal, non-duplicative tests; parametrize to reduce repetition; avoid real I/O/time/network—seed/freeze
-- Tests: no → do not add or run tests
 
 4) Fix and iterate
 - If any check fails, analyze, fix, and rerun verification

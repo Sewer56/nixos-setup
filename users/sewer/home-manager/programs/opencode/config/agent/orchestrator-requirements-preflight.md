@@ -16,7 +16,7 @@ permission:
   task: deny
 ---
 
-Validate that PRD requirements are mapped to prompt files before orchestration. Never modify files.
+Verify PRD requirements map to prompt files before orchestration. Never modify files.
 
 think hard
 
@@ -31,22 +31,22 @@ think hard
 ## 1) Load Requirements Inventory
 - Read `requirements_path`
 - Parse requirement IDs, scope tags, and acceptance notes
-- Ignore any `## Unmet Requirements` or `## Unachieved Requirements` sections; do not treat those as inventory entries
+- Ignore `## Unmet Requirements` or `## Unachieved Requirements` sections; they are not inventory entries
 - FAIL if any ID is duplicated or malformed
-- WARN if any requirement is missing scope or acceptance
+- WARN if any requirement lacks scope or acceptance
 
 ## 2) Determine Prompt List
 - If `orchestrator_path` is provided, parse it and use the listed prompt paths
-- Otherwise, resolve `prompts_dir` (or use the directory containing `requirements_path`)
+- Otherwise, use `prompts_dir` (or the directory containing `requirements_path`)
   - Glob for `PROMPT-*.md`
   - Exclude `PROMPT-ORCHESTRATOR.md`, `PROMPT-PRD-REQUIREMENTS.md`, and `*-PLAN.md`
 
 ## 3) Collect Coverage
-- Read each prompt file and collect requirement IDs from the `# Requirements` section
+- Read each prompt and collect IDs from `# Requirements`
 - FAIL if any prompt references a requirement ID not in the inventory
 
 ## 4) Validate Coverage
-- For each `IN` requirement, ensure it appears in at least one prompt
+- Each `IN` requirement must appear in at least one prompt
 - FAIL if any `IN` requirement is unmapped
 - WARN if any prompt maps only to `OUT` or `POST_INIT` requirements
 

@@ -14,7 +14,7 @@ permission:
   patch: deny
 ---
 
-Single-pass review that validates objectives and code, runs verification checks, and reports results. Never edits files.
+Single-pass review that validates objectives and code, runs checks, and reports results. Never edits files.
 
 think hard
 
@@ -30,9 +30,9 @@ think hard
 ## 1) Read objectives
 - Read `prompt_path` (and `objectives_path` if provided)
 - Extract objectives, requirements, and success criteria; treat each requirement and success criterion as an objective
-- Note test policy from `# Tests` section
+- Tests are always `basic`
 - Derive `coder_notes_path` from `prompt_path` by replacing the extension with `-CODER-NOTES.md`
-- If the coder notes file exists, read it as additional coder context and prioritize review around noted concerns, deviations, and unresolved issues
+- If the coder notes file exists, read it and prioritize review around noted concerns, deviations, and unresolved issues
 
 ## 2) Discover changes
 - Handle unstaged and untracked work; do not assume commits exist
@@ -49,7 +49,7 @@ think hard
 
 ## 4) Review code semantics
 
-Analyze each changed file deeply. Reason through whether issues exist before concluding — don't just scan for patterns. Be comprehensive; flag anything suspicious.
+Analyze each changed file deeply. Reason through whether issues exist before concluding. Be comprehensive; flag anything suspicious.
 
 - **Security**: vulnerabilities, auth issues, data exposure, injection vectors, cryptographic weaknesses
 - **Correctness**: logic bugs, edge cases, race conditions, resource handling, state management
@@ -59,16 +59,15 @@ Analyze each changed file deeply. Reason through whether issues exist before con
 
 ## 5) Review coder concerns
 If the coder flagged concerns, examine those areas with extra scrutiny.
-These are areas where the implementer was uncertain — validate the approach or flag issues.
+These are areas where the implementer was uncertain; validate the approach or flag issues.
 
 ## 6) Review objectives
 - Read `# Objective`, `# Requirements`, and `# Success Criteria` from the prompt file
 - Ensure each requirement and success criterion is met by the implementation
-- FAIL IF: Any requirement or success criterion is not met
+- FAIL IF: any requirement or success criterion is not met
 
 ## 7) Review tests
 - Tests: basic → ensure basic tests exist for new functionality and run tests
-- Tests: no → do not run tests; flag any found tests as overengineering
 - Check whole test files, not just diffs
 - FAIL IF: newly added tests duplicate existing test coverage
 - FAIL IF: same behavior is asserted in multiple tests (if one verifies it, others should skip)
@@ -80,9 +79,9 @@ These are areas where the implementer was uncertain — validate the approach or
 - Capture outputs and exit codes
 
 ## 9) Decide status
-- **FAIL**: Any CRITICAL/HIGH severity finding, or objectives not met, or verification checks fail
-- **PARTIAL**: Only MEDIUM/LOW findings with all objectives met and checks passing
-- **PASS**: No findings, all objectives met, all checks pass
+- **FAIL**: any CRITICAL/HIGH severity finding, objectives not met, or checks fail
+- **PARTIAL**: only MEDIUM/LOW findings with all objectives met and checks passing
+- **PASS**: no findings, all objectives met, all checks pass
 
 # Output
 
@@ -120,7 +119,7 @@ Detailed explanation of the problem and why it matters
 ```
 
 ## Test Issues
-[basic|no] — [PASS|FAIL|FORBIDDEN_TESTS_FOUND]
+[basic] — [PASS|FAIL]
 
 ### path/to/test:line
 [DUPLICATE|NON_DETERMINISTIC|MISSING_COVERAGE|OVERENGINEERED]

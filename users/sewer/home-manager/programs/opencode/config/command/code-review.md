@@ -54,7 +54,7 @@ When invoked:
 - Architecture and design patterns
 - Consistency with codebase standards
 
-## Output Format (save to `REVIEW.md`)
+# Output Format (save to `REVIEW.md`)
 
 <prompt_md_example>
 # Code Review Report
