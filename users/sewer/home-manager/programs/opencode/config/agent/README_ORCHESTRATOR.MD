@@ -71,6 +71,10 @@ PROMPT-NN-*-PLAN.md      PROMPT-NN-*-CODER-NOTES.md
 - **Scheduler state is persisted** in `PROMPT-ORCHESTRATOR.state.md` after each prompt for resume support.
 - **Validation output is persisted** by the requirements checker in `PROMPT-ORCHESTRATOR.validation.md` after the final validation run.
 
+**Iterative Updates (Planner and Coder)**
+- **Planner revisions**: updates the same `PROMPT-*-PLAN.md` across iterations, adding `## Reviewer Concerns (Revision)` and updating `## Plan Notes` and revision history when feedback requests changes.
+- **Coder iterations**: appends a new `## Iteration N` block in `PROMPT-*-CODER-NOTES.md` on each run, capturing status, concerns, issues encountered, and issues remaining.
+
 **Roles At A Glance**
 - **Scheduler**: `orchestrator` manages state, ordering, and final validation; never edits code.
 - **Runner**: `orchestrator-runner` coordinates the plan -> build -> gate -> commit cycle per prompt.
