@@ -18,6 +18,8 @@
     ../../modules/nixos/hardware/bluetooth.nix
     # Hyprland desktop
     ../../modules/nixos/desktop/default.nix
+    # OpenRGB (desktop only)
+    ../../modules/nixos/desktop/openrgb.nix
     # My user stuff
     ../../users/sewer/default.nix
   ];
