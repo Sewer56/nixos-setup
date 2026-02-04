@@ -16,5 +16,6 @@
     ./programs/clipboard.nix
     ./programs/network.nix
     ./programs/hyprpaper.nix
+    ./programs/hyprsunset.nix
   ];
 }

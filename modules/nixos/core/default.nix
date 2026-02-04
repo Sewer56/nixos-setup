@@ -5,6 +5,7 @@
     ./cachix.nix
     ./cdemu.nix
     ./docker.nix
+    ./flatpak.nix
     ./input.nix
     ./locale.nix
     ./mount.nix

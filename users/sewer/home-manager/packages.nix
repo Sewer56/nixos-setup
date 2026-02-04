@@ -45,6 +45,7 @@
 
     # Desktop environment
     waybar
+    hyprsunset
 
     # Fonts
     inter

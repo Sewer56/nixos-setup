@@ -13,6 +13,10 @@
         allow_tearing = true; # Reduce latency in games at cost of tearing.
       };
 
+      exec-once = [
+        "hyprsunset"
+      ];
+
       misc = {
         animate_manual_resizes = true; # enables animations for manual (keyboard) resizes
         vfr = true; # Reduce amount of processed frames, saving battery.
