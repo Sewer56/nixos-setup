@@ -34,6 +34,9 @@ in {
 
     # system profiling
     perf
+
+    # flatpak & discover
+    kdePackages.discover
   ];
 
   environment.sessionVariables = {
