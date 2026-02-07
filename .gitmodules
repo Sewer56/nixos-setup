@@ -1,0 +1,8 @@
+[submodule "users/sewer/home-manager/programs/opencode"]
+	path = users/sewer/home-manager/programs/opencode
+	url = https://github.com/Sewer56/nixos-opencode-config.git
+	branch = main
+[submodule "users/sewer/home-manager/programs/claude-code"]
+	path = users/sewer/home-manager/programs/claude-code
+	url = https://github.com/Sewer56/nixos-claude-code-config.git
+	branch = main
