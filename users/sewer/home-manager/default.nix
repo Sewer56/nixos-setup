@@ -129,6 +129,13 @@
       mode = "600";
     };
 
+    # Discord bot token for OpenCode Discord MCP server
+    discord-token = {
+      file = ./secrets/discord-token.age;
+      path = "${config.home.homeDirectory}/.secrets/discord-token";
+      mode = "600";
+    };
+
     # Nix access tokens for GitHub rate limiting
     nix-access-tokens = {
       file = ./secrets/nix-access-tokens.age;
