@@ -42,8 +42,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Use latest kernel.
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # TEMP: Pinned to 6_18 for nvidia compatibility
+  boot.kernelPackages = pkgs.linuxPackages_6_18;
 
   # Swapfile sized to match RAM (32GB) for hibernation support
   swapDevices = [

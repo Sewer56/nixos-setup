@@ -42,7 +42,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Use latest kernel.
+  # TEMP: Pinned to 6_18 for nvidia compatibility
   boot.kernelPackages = pkgs.linuxPackages_6_18;
 
   # Swapfile sized for desktop use (64GB)
