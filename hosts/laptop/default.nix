@@ -53,6 +53,19 @@
     }
   ];
 
+  # EarlyOOM - proactive OOM killer to prevent system lockups
+  # Fedora uses 4% - scales well for both large and small systems
+  services.earlyoom = {
+    enable = true;
+    freeMemThreshold = 4; # Kill when <4% RAM free (~1.3GB on laptop)
+    freeSwapThreshold = 4; # Also watch swap usage
+    enableNotifications = true; # GUI notification when process killed
+    extraArgs = [
+      "--prefer '^(firefox|chromium|chrome|electron)$'" # Kill browsers first
+      "--avoid '^(bash|zsh|ssh|pipewire|hyprland|systemd|dbus)$'" # Protect system
+    ];
+  };
+
   # Machine-specific Intel iGPU driver
   services.xserver.videoDrivers = [
     "modesetting" # Intel iGPU;
