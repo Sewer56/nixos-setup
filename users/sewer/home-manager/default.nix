@@ -42,6 +42,29 @@
 
   # Enable font configuration
   fonts.fontconfig.enable = true;
+  fonts.fontconfig.defaultFonts = {
+    emoji = ["Twitter Color Emoji"];
+  };
+  
+  # Force Twitter Color Emoji priority over Noto Color Emoji
+  xdg.configFile."fontconfig/conf.d/99-emoji-priority.conf".text = ''
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+    <fontconfig>
+      <alias binding="strong">
+        <family>Noto Color Emoji</family>
+        <prefer>
+          <family>Twitter Color Emoji</family>
+        </prefer>
+      </alias>
+      <alias binding="strong">
+        <family>emoji</family>
+        <prefer>
+          <family>Twitter Color Emoji</family>
+        </prefer>
+      </alias>
+    </fontconfig>
+  '';
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release

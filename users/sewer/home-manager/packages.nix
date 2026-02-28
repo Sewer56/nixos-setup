@@ -52,6 +52,7 @@
     jetbrains-mono
     nerd-fonts.jetbrains-mono
     noto-fonts-cjk-sans
+    twitter-color-emoji
 
     # Development Environment
     devenv
