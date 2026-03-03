@@ -47,13 +47,6 @@
     waybar
     hyprsunset
 
-    # Fonts
-    inter
-    jetbrains-mono
-    nerd-fonts.jetbrains-mono
-    noto-fonts-cjk-sans
-    twitter-color-emoji
-
     # Development Environment
     devenv
     spec-kit

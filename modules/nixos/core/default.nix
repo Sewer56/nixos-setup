@@ -6,6 +6,7 @@
     ./cdemu.nix
     ./docker.nix
     ./flatpak.nix
+    ./fonts.nix
     ./input.nix
     ./locale.nix
     ./mount.nix
