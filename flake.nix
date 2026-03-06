@@ -28,28 +28,16 @@
     };
 
     # Hyprland ecosystem - we use hyprland's nixpkgs for cachix
-    hyprgraphics = {
-      url = "github:hyprwm/hyprgraphics/v0.5.0";
-      inputs.nixpkgs.follows = "hyprland/nixpkgs";
-      inputs.hyprutils.follows = "hyprland/hyprutils";
-      inputs.systems.follows = "hyprland/systems";
-    };
     hyprland = {
-      url = "github:hyprwm/Hyprland/v0.53.1";
-      inputs.hyprgraphics.follows = "hyprgraphics";
+      url = "github:hyprwm/Hyprland/v0.54.1";
     };
     hyprpaper = {
-      url = "github:hyprwm/hyprpaper/v0.8.1";
+      url = "github:hyprwm/hyprpaper/v0.8.3";
       inputs.nixpkgs.follows = "hyprland/nixpkgs";
       inputs.hyprutils.follows = "hyprland/hyprutils";
       inputs.hyprlang.follows = "hyprland/hyprlang";
       inputs.hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
       inputs.systems.follows = "hyprland/systems";
-    };
-    hyprWorkspaceLayouts = {
-      url = "github:zakk4223/hyprWorkspaceLayouts";
-      inputs.hyprland.follows = "hyprland";
-      inputs.nixpkgs.follows = "hyprland/nixpkgs";
     };
     hypr-dynamic-cursors = {
       url = "github:VirtCode/hypr-dynamic-cursors";

@@ -28,24 +28,16 @@
 
     # ====== ULTRAWIDE MODE SETTINGS ======
     (lib.mkIf (hostOptions.desktop.hyprland.displayMode == "ultrawide") {
-      # Override general layout for ultrawide mode
-      general.layout = lib.mkForce "workspacelayout";
-
-      # Plugin configuration for wslayout
-      plugin.wslayout = {
-        default_layout = "master";
-      };
-
-      # Workspace-specific layout configurations
+      # Workspace-specific layout configurations (native Hyprland 0.54+)
       # Ultrawide workspaces (1-4): Layout-optimized for ultrawide display
       # High workspaces (7-10): Uncommonly checked applications
       workspace = [
         # Ultrawide-specific workspaces with monitor assignment and layouts
-        "0, layoutopt:wslayout-layout:master, default:true"
-        "1, layoutopt:wslayout-layout:master"
-        "2, layoutopt:wslayout-layout:dwindle"
-        "3, layoutopt:wslayout-layout:master"
-        "4, layoutopt:wslayout-layout:dwindle"
+        "0, layout:master, default:true"
+        "1, layout:master"
+        "2, layout:dwindle"
+        "3, layout:master"
+        "4, layout:dwindle"
       ];
 
       # Application workspace assignments optimized for ultrawide layout
