@@ -3,6 +3,7 @@
   home.packages = with pkgs; [
     grim # Screenshot utility for Wayland
     slurp # Region selection for screenshots
+    hyprpicker # Freeze screen during interactive captures
     wl-clipboard # Wayland clipboard utilities
     libnotify # Desktop notifications
     jq # For parsing hyprctl JSON output
@@ -39,8 +40,25 @@
       FILENAME="$(date +"%Y%m%d_%Hh%Mm%Ss").png"
       FILEPATH="$FULL_DIR/$FILENAME"
 
-      # Take screenshot with region selection
-      grim -l 9 -g "$(slurp)" "$FILEPATH"
+      # Freeze the current frame while selecting a region
+      FREEZE_PID=""
+      cleanup() {
+        if [[ -n "$FREEZE_PID" ]]; then
+          kill "$FREEZE_PID" 2>/dev/null || true
+          wait "$FREEZE_PID" 2>/dev/null || true
+          FREEZE_PID=""
+        fi
+      }
+      trap cleanup EXIT
+
+      hyprpicker -r -z >/dev/null 2>&1 &
+      FREEZE_PID=$!
+      # Give hyprpicker time to map the frozen overlay before slurp starts.
+      sleep 0.2
+
+      REGION=$(slurp) || exit 0
+      grim -l 9 -g "$REGION" "$FILEPATH"
+      cleanup
 
       # Copy to clipboard and show notification
       if [[ -f "$FILEPATH" ]]; then

@@ -44,6 +44,11 @@ in {
       ];
     };
 
+    # hyprpicker provides the screenshot freeze overlay; disable only its layer animation.
+    layerrule = [
+      "match:namespace hyprpicker, no_anim on"
+    ];
+
     # Window transparency rules
     windowrule = [
       # Terminal transparency
