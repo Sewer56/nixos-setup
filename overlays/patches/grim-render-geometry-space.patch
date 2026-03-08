@@ -1,0 +1,39 @@
+--- a/render.c
++++ b/render.c
+@@ -166,11 +166,8 @@
+			return NULL;
+		}
+
+-		int32_t output_x = capture->logical_geometry.x - geometry->x;
+-		int32_t output_y = capture->logical_geometry.y - geometry->y;
+-		int32_t output_width = capture->logical_geometry.width;
+-		int32_t output_height = capture->logical_geometry.height;
+-
++		int32_t raw_output_x = (capture->logical_geometry.x - geometry->x) * scale;
++		int32_t raw_output_y = (capture->logical_geometry.y - geometry->y) * scale;
+		int32_t raw_output_width = buffer->width;
+		int32_t raw_output_height = buffer->height;
+		apply_output_transform(capture->transform, &raw_output_width, &raw_output_height);
+@@ -194,18 +191,15 @@
+		pixman_f_transform_translate(&out2com, NULL,
+			-(double)buffer->width / 2,
+			-(double)buffer->height / 2);
+-		pixman_f_transform_scale(&out2com, NULL,
+-			(double)output_width / raw_output_width,
+-			(double)output_height * output_flipped_y / raw_output_height);
++		pixman_f_transform_scale(&out2com, NULL, 1, output_flipped_y);
+		pixman_f_transform_rotate(&out2com, NULL,
+			round(cos(get_output_rotation(capture->transform))),
+			round(sin(get_output_rotation(capture->transform))));
+		pixman_f_transform_scale(&out2com, NULL, output_flipped_x, 1);
+		pixman_f_transform_translate(&out2com, NULL,
+-			(double)output_width / 2,
+-			(double)output_height / 2);
+-		pixman_f_transform_translate(&out2com, NULL, output_x, output_y);
+-		pixman_f_transform_scale(&out2com, NULL, scale, scale);
++			(double)buffer->width / 2,
++			(double)buffer->height / 2);
++		pixman_f_transform_translate(&out2com, NULL, raw_output_x, raw_output_y);
+
+		struct grim_box composite_dest;
+		bool grid_aligned;

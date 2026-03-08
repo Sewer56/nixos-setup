@@ -17,6 +17,16 @@ final: prev: {
       '';
   });
 
+  # Carry a pending grim fractional-scaling fix from grim-dev.
+  # Original patch: https://lists.sr.ht/~emersion/grim-dev/patches/56912
+  grim = prev.grim.overrideAttrs (oldAttrs: {
+    patches =
+      (oldAttrs.patches or [])
+      ++ [
+        ./patches/grim-render-geometry-space.patch
+      ];
+  });
+
   # Override magnetic-catppuccin-gtk with our updated local package
   magnetic-catppuccin-gtk = final.callPackage ../packages/catppuccin-gtk {
     inherit (prev) lib stdenv fetchFromGitHub jdupes sassc gtk-engine-murrine;
