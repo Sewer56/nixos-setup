@@ -29,7 +29,7 @@
 
     # Hyprland ecosystem - we use hyprland's nixpkgs for cachix
     hyprland = {
-      url = "github:hyprwm/Hyprland/v0.54.1";
+      url = "github:hyprwm/Hyprland/v0.54.2";
     };
     hyprpaper = {
       url = "github:hyprwm/hyprpaper/v0.8.3";
