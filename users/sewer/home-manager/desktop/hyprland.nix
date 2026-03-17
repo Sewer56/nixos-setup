@@ -35,6 +35,12 @@
     config.common.default = "gtk";
   };
 
+  xdg.configFile."hypr/xdph.conf".text = ''
+    screencopy {
+        allow_token_by_default=true
+    }
+  '';
+
   # Polkit agent for privilege escalation in text editors like vscode
   services.hyprpolkitagent.enable = true;
 
