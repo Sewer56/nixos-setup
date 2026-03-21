@@ -10,6 +10,7 @@
     unzip
     qpwgraph
     ffmpeg
+    bubblewrap
 
     # Browser (user-specific)
     vivaldi
