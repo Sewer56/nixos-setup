@@ -158,6 +158,20 @@
       mode = "600";
       symlink = false; # Needs to be read before agenix kicks in
     };
+
+    slack-xoxp-token = {
+      file = ./secrets/slack-xoxp-token.age;
+      path = "${config.home.homeDirectory}/.secrets/slack-xoxp-token";
+      mode = "600";
+      symlink = false;
+    };
+
+    linear-api-key = {
+      file = ./secrets/linear-api-key.age;
+      path = "${config.home.homeDirectory}/.secrets/linear-api-key";
+      mode = "600";
+      symlink = false;
+    };
   };
 
   # Configure nix access tokens to avoid GitHub rate limiting
