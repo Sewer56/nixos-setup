@@ -25,6 +25,7 @@
 
     # Media/torrents
     qbittorrent
+    tauon
 
     # Wine
     wineWow64Packages.stagingFull
