@@ -45,15 +45,15 @@
         # workspace_swipe = false;
       };
 
-      # Window rules (new syntax)
+      # Window rules (Hyprland 0.54+ unified syntax)
       windowrule = [
         # WINE fix
-        "no_max_size on, match:class ^(winecfg\.exe)$"
-        "no_max_size on, match:class ^(.*)$"
+        "no_max_size true, match:class ^(winecfg\.exe)$"
+        "no_max_size true, match:class ^(.*)$"
         # Disable self-resizing of windows
         "suppress_event fullscreen maximize, match:class ^(.*)$"
         # Enable tearing for sonic.exe
-        "immediate on, match:class ^(sonic\.exe)$"
+        "immediate true, match:class ^(sonic\.exe)$"
       ];
 
       debug = {

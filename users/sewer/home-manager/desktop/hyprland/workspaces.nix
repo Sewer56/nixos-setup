@@ -63,9 +63,9 @@
         "workspace 4 silent, match:class ^(Proton Mail)$"
 
         # Floating window rules
-        "float 1, match:title ^(Picture-in-Picture)$"
-        "float 1, match:class ^(pwvucontrol)$"
-        "float 1, match:class ^(nm-connection-editor)$"
+        "float on, match:title ^(Picture-in-Picture)$"
+        "float on, match:class ^(pwvucontrol)$"
+        "float on, match:class ^(nm-connection-editor)$"
         "size 800 600, match:class ^(pwvucontrol)$"
         "size 800 600, match:class ^(nm-connection-editor)$"
       ];
@@ -111,9 +111,9 @@
         "workspace 10, match:class ^(Proton Mail)$"
 
         # Floating window rules
-        "float 1, match:title ^(Picture-in-Picture)$"
-        "float 1, match:class ^(pwvucontrol)$"
-        "float 1, match:class ^(nm-connection-editor)$"
+        "float on, match:title ^(Picture-in-Picture)$"
+        "float on, match:class ^(pwvucontrol)$"
+        "float on, match:class ^(nm-connection-editor)$"
         "size 800 600, match:class ^(pwvucontrol)$"
         "size 800 600, match:class ^(nm-connection-editor)$"
       ];
@@ -173,9 +173,9 @@
         "workspace 10, match:class ^(Proton Mail)$"
 
         # Floating window rules
-        "float 1, match:title ^(Picture-in-Picture)$"
-        "float 1, match:class ^(pwvucontrol)$"
-        "float 1, match:class ^(nm-connection-editor)$"
+        "float on, match:title ^(Picture-in-Picture)$"
+        "float on, match:class ^(pwvucontrol)$"
+        "float on, match:class ^(nm-connection-editor)$"
 
         # Size rules for floating windows
         "size 800 600, match:class ^(pwvucontrol)$"
