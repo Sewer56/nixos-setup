@@ -20,6 +20,7 @@
         description = "Display mode configuration for Hyprland workspaces and window management";
       };
       preferDedicatedLaptopGpu = lib.mkEnableOption "Use dedicated GPU (card1) for Hyprland rendering on laptop";
+      idleLock.enable = lib.mkEnableOption "automatic idle locking with hypridle";
     };
 
     theme.accent = lib.mkOption {

@@ -32,6 +32,7 @@
     nas.mode = lib.mkDefault "local";
     desktop.hyprland.displayMode = lib.mkDefault "ultrawide";
     desktop.hyprland.preferDedicatedLaptopGpu = lib.mkDefault false;
+    desktop.hyprland.idleLock.enable = lib.mkDefault false;
     theme.accent = lib.mkDefault "teal";
   };
 

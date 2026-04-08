@@ -32,6 +32,7 @@
     nas.mode = lib.mkDefault "tailscale";
     desktop.hyprland.displayMode = lib.mkDefault "single";
     desktop.hyprland.preferDedicatedLaptopGpu = lib.mkDefault true;
+    desktop.hyprland.idleLock.enable = lib.mkDefault true;
     theme.accent = lib.mkDefault "lavender";
   };
 

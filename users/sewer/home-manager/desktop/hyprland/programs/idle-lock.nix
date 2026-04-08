@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  osConfig,
   ...
 }: let
   semantic = config.lib.theme.semantic;
@@ -11,9 +12,9 @@ in {
     hypridle # Idle daemon for Hyprland
   ];
 
-  # Configure hypridle for automatic locking
+  # Configure hypridle for automatic locking (controlled by host option)
   services.hypridle = {
-    enable = true;
+    enable = osConfig.hostOptions.desktop.hyprland.idleLock.enable;
     settings = {
       general = {
         lock_cmd = "pidof hyprlock || hyprlock";
