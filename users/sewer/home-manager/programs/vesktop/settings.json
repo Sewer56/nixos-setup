@@ -1,0 +1,12 @@
+{
+  "minimizeToTray": false,
+  "startMinimized": false,
+  "hardwareAcceleration": true,
+  "autoUpdate": false,
+  "spellcheck": true,
+  "notifications": {
+    "enable": true,
+    "flashWindow": true,
+    "showUnreadBadge": true
+  }
+}
