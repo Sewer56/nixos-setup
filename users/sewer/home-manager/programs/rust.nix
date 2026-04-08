@@ -5,6 +5,7 @@
   home.packages = with pkgs; [
     # Rustup for toolchain management and cross-rs compatibility
     rustup
+    cargo-public-api
 
     # Additional development dependencies
     clang_multi # C compiler for linking (provides `cc`)
