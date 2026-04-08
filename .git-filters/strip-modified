@@ -1,0 +1,2 @@
+#!/bin/sh
+sed 's/\\Modified=[a-fA-F0-9]*/\\Modified=/g'
