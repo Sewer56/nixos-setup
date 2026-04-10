@@ -83,6 +83,7 @@ in {
       "$mod, W, layoutmsg, swapprev noloop" # Swap with previous window
       "$mod, E, layoutmsg, swapnext noloop" # Swap with next window
       "$mod, O, layoutmsg, addmaster" # Add master window
+      "$mod SHIFT, O, layoutmsg, removemaster" # Remove master window
 
       # Application pass-through bindings
       "ALT, 5, pass, class:^(com\.obsproject\.Studio)$"
