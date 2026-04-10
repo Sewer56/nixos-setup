@@ -1,18 +1,14 @@
 {pkgs, ...}: let
   layoutToggle = pkgs.writeShellScript "layout-toggle" ''
-    #!/usr/bin/env bash
-
-    # Layout toggle script for Hyprland
-    # Toggles between master and dwindle layouts
-
-    CURRENT=$(hyprctl getoption general:layout -j | jq -r '.str')
+    WS_ID=$(hyprctl activeworkspace -j | jq -r .id)
+    CURRENT=$(hyprctl activeworkspace -j | jq -r .tiledLayout)
 
     if [ "$CURRENT" = "master" ]; then
-      hyprctl keyword general:layout dwindle
-      notify-send -t 1500 "Layout" "Switched to dwindle"
+      hyprctl keyword workspace "$WS_ID, layout:dwindle"
+      notify-send -t 1500 "Layout" "Workspace $WS_ID: dwindle"
     else
-      hyprctl keyword general:layout master
-      notify-send -t 1500 "Layout" "Switched to master"
+      hyprctl keyword workspace "$WS_ID, layout:master"
+      notify-send -t 1500 "Layout" "Workspace $WS_ID: master"
     fi
   '';
 
@@ -44,23 +40,6 @@
         hyprctl keyword "device[$TOUCHPAD]:enabled" false
         touch "$STATE_FILE"
         echo "Touchpad disabled"
-    fi
-  '';
-
-  masterOrientationToggle = pkgs.writeShellScript "master-orientation-toggle" ''
-    #!/usr/bin/env bash
-
-    # Master orientation toggle script for Hyprland
-    # Toggles between center (vertical) and bottom (horizontal) orientations
-
-    CURRENT=$(hyprctl getoption master:orientation -j | jq -r '.str')
-
-    if [ "$CURRENT" = "center" ]; then
-      hyprctl keyword master:orientation bottom
-      notify-send -t 1500 "Master Layout" "Orientation: bottom (horizontal)"
-    else
-      hyprctl keyword master:orientation center
-      notify-send -t 1500 "Master Layout" "Orientation: center (vertical)"
     fi
   '';
 in {
@@ -101,7 +80,7 @@ in {
       "$mod, E, layoutmsg, swapnext noloop" # Swap with next window
       "$mod, O, layoutmsg, addmaster" # Add master window
       "$mod SHIFT, O, layoutmsg, removemaster" # Remove master window
-      "$mod SHIFT, T, exec, ${masterOrientationToggle}" # Toggle master orientation (center/bottom)
+      "$mod SHIFT, T, layoutmsg, orientationcycle center bottom" # Toggle master orientation (center/bottom)
 
       # Application pass-through bindings
       "ALT, 5, pass, class:^(com\.obsproject\.Studio)$"
