@@ -46,6 +46,23 @@
         echo "Touchpad disabled"
     fi
   '';
+
+  masterOrientationToggle = pkgs.writeShellScript "master-orientation-toggle" ''
+    #!/usr/bin/env bash
+
+    # Master orientation toggle script for Hyprland
+    # Toggles between center (vertical) and bottom (horizontal) orientations
+
+    CURRENT=$(hyprctl getoption master:orientation -j | jq -r '.str')
+
+    if [ "$CURRENT" = "center" ]; then
+      hyprctl keyword master:orientation bottom
+      notify-send -t 1500 "Master Layout" "Orientation: bottom (horizontal)"
+    else
+      hyprctl keyword master:orientation center
+      notify-send -t 1500 "Master Layout" "Orientation: center (vertical)"
+    fi
+  '';
 in {
   home.packages = with pkgs; [
     playerctl # Music controls.
@@ -84,6 +101,7 @@ in {
       "$mod, E, layoutmsg, swapnext noloop" # Swap with next window
       "$mod, O, layoutmsg, addmaster" # Add master window
       "$mod SHIFT, O, layoutmsg, removemaster" # Remove master window
+      "$mod SHIFT, T, exec, ${masterOrientationToggle}" # Toggle master orientation (center/bottom)
 
       # Application pass-through bindings
       "ALT, 5, pass, class:^(com\.obsproject\.Studio)$"
