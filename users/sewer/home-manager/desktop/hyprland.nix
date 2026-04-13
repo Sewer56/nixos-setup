@@ -16,9 +16,9 @@
   # Hyprland Window Manager (User Configuration)
   wayland.windowManager.hyprland = {
     enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     plugins = [
-      inputs.hypr-dynamic-cursors.packages.${pkgs.system}.default
+      inputs.hypr-dynamic-cursors.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
     systemd = {
       enable = true;

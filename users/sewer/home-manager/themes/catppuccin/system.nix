@@ -1,6 +1,6 @@
 # Catppuccin system integration configuration
 # Provides Home Manager configuration for Catppuccin theme system integration
-themeConfig: pkgs:
+themeConfig: config: pkgs:
 with pkgs; let
   # Map catppuccin variants to magnetic-catppuccin-gtk tweaks
   # mocha = default (no tweak), frappe/macchiato = respective tweaks
@@ -63,6 +63,10 @@ in {
     };
     gtk2.extraConfig = "gtk-application-prefer-dark-theme = true";
     gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
+    gtk4 = {
+      extraConfig.gtk-application-prefer-dark-theme = true;
+      theme = config.gtk.theme;
+    };
   };
 
   qt = {

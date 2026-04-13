@@ -43,7 +43,7 @@
     libjxl
 
     # VPN
-    protonvpn-gui
+    proton-vpn
 
     # Desktop environment
     waybar

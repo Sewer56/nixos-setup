@@ -25,6 +25,6 @@ lib.mkMerge [
   # Import theme-specific system integration conditionally
   (
     lib.mkIf (config.theme.name == "catppuccin")
-    (import ./themes/catppuccin/system.nix config.theme pkgs)
+    (import ./themes/catppuccin/system.nix config.theme config pkgs)
   )
 ]

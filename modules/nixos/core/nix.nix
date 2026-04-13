@@ -40,13 +40,13 @@
       cups
       expat
       libxkbcommon
-      xorg.libX11
-      xorg.libXcomposite
-      xorg.libXdamage
-      xorg.libxcb
-      xorg.libXext
-      xorg.libXfixes
-      xorg.libXrandr
+      libx11
+      libxcomposite
+      libxdamage
+      libxcb
+      libxext
+      libxfixes
+      libxrandr
       cairo
       pango
       alsa-lib

@@ -12,7 +12,7 @@
 
       touchpad = {
         natural_scroll = false;
-        scroll_factor = 0.666666666;
+        scroll_factor = "0.666666666";
         drag_lock = 0;
       };
 

@@ -15,7 +15,7 @@
         f=$(mktemp)
         trap "rm $f" EXIT
         cd /home/sewer/nixos/users/sewer/home-manager
-        ${inputs.agenix.packages.${pkgs.system}.default}/bin/agenix -d "${relativePath}" --identity "/home/sewer/.ssh/id_rsa" | tr -d '\n' > "$f"
+        ${inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/agenix -d "${relativePath}" --identity "/home/sewer/.ssh/id_rsa" | tr -d '\n' > "$f"
         ${pkgs.nix}/bin/nix-instantiate --eval -E "builtins.readFile $f"
       ''
     ];
