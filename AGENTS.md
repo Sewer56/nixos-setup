@@ -1,4 +1,4 @@
-# CLAUDE.md
+# AGENTS.md
 
 This is a modular NixOS configuration using flakes with clear separation between system and user concerns.
 

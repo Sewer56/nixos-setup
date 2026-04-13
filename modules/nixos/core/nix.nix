@@ -8,10 +8,6 @@
   # Auto-optimise store to save disk space
   nix.settings.auto-optimise-store = true;
 
-  # Disable sandbox for builds
-  # Needed temporarily for broken claude code package.
-  nix.settings.sandbox = false;
-
   # Allow unsafe native code during evaluation for agenix secrets
   nix.extraOptions = ''
     allow-unsafe-native-code-during-evaluation = true

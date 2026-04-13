@@ -21,7 +21,6 @@
     ./programs/rust.nix
     ./programs/direnv.nix
     ./programs/music-streaming.nix
-    ./programs/claude-code/default.nix
     ./programs/opencode/default.nix
     ./programs/corsair/ckb-next.nix
     ./programs/password-manager.nix
