@@ -12,6 +12,7 @@ in {
   "secrets/reloaded-wiki-search-github-api-key.age".publicKeys = users;
   "secrets/slack-xoxp-token.age".publicKeys = users;
   "secrets/linear-api-key.age".publicKeys = users;
+  "secrets/bifrost-url.age".publicKeys = users;
 
   # "api-token.age".publicKeys = users;
   # "database-password.age".publicKeys = users;

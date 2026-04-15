@@ -171,6 +171,13 @@
       mode = "600";
       symlink = false;
     };
+
+    # Bifrost proxy URL for OpenCode
+    bifrost-url = {
+      file = ./secrets/bifrost-url.age;
+      path = "${config.home.homeDirectory}/.secrets/bifrost-url";
+      mode = "600";
+    };
   };
 
   # Configure nix access tokens to avoid GitHub rate limiting
