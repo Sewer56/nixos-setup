@@ -19,6 +19,7 @@
     ./programs/file-manager.nix
     ./programs/mangohud.nix
     ./programs/rust.nix
+    ./programs/go.nix
     ./programs/direnv.nix
     ./programs/music-streaming.nix
     ./programs/opencode/default.nix
