@@ -179,6 +179,13 @@
       path = "${config.home.homeDirectory}/.secrets/bifrost-url";
       mode = "600";
     };
+
+    # Wafer Pass API key
+    wafer-key = {
+      file = ./secrets/wafer-key.age;
+      path = "${config.home.homeDirectory}/.secrets/wafer-key";
+      mode = "600";
+    };
   };
 
   # Configure nix access tokens to avoid GitHub rate limiting

@@ -13,6 +13,7 @@ in {
   "secrets/slack-xoxp-token.age".publicKeys = users;
   "secrets/linear-api-key.age".publicKeys = users;
   "secrets/bifrost-url.age".publicKeys = users;
+  "secrets/wafer-key.age".publicKeys = users;
 
   # "api-token.age".publicKeys = users;
   # "database-password.age".publicKeys = users;
