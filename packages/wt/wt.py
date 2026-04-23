@@ -57,6 +57,40 @@ def compute_worktree_path(repo_root: Path, branch: str) -> Path:
     return repo_root.parent / f"{repo_root.name}-{branch_dir}"
 
 
+def get_default_branch(repo_root: Path) -> str | None:
+    """Detect the default branch (main, master, etc.)."""
+    # Try refs/remotes/origin/HEAD
+    result = subprocess.run(
+        ["git", "-C", str(repo_root), "symbolic-ref", "refs/remotes/origin/HEAD"],
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode == 0:
+        ref = result.stdout.strip()
+        return ref.replace("refs/remotes/origin/", "")
+    # Fallback: try main, then master
+    for name in ("main", "master"):
+        if branch_exists(repo_root, name):
+            return name
+    return None
+
+
+def is_branch_merged(repo_root: Path, branch: str, default_branch: str) -> bool:
+    """Check if branch is merged into default branch."""
+    result = subprocess.run(
+        ["git", "-C", str(repo_root), "branch", "--merged", default_branch],
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        return False
+    # Output lines: "  main", "* feature/auth", etc.
+    merged = [
+        line.strip().lstrip("* ") for line in result.stdout.strip().split("\n")
+    ]
+    return branch in merged
+
+
 @click.group()
 @click.version_option(version="1.0.0", prog_name="wt")
 def cli():
@@ -165,6 +199,8 @@ def remove(branch, force):
     """Remove a worktree by branch name.
 
     Resolves the worktree path using the same naming convention as add.
+    Automatically deletes the local branch if it is merged into the default
+    branch (main/master). Unmerged branches are left intact.
     """
     repo_root = get_repo_root()
     worktree_path = compute_worktree_path(repo_root, branch)
@@ -184,6 +220,17 @@ def remove(branch, force):
         sys.exit(1)
 
     click.echo(f"Removed worktree at {worktree_path}")
+
+    # Auto-prune branch if merged into default branch
+    default_branch = get_default_branch(repo_root)
+    if default_branch and branch != default_branch and branch_exists(repo_root, branch):
+        if is_branch_merged(repo_root, branch, default_branch):
+            subprocess.run(
+                ["git", "-C", str(repo_root), "branch", "-d", branch],
+                capture_output=True,
+                text=True,
+            )
+            click.echo(f"Deleted branch {branch} (merged into {default_branch})")
 
 
 @cli.command("list")
