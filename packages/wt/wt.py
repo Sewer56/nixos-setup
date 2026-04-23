@@ -89,7 +89,8 @@ def cli():
     default=False,
     help="Force creation even if branch is checked out elsewhere",
 )
-def add(branch, base, existing, track, force):
+@click.option("--exec", "-e", "exec_cmd", default=None, help="Run command in worktree after creation")
+def add(branch, base, existing, track, force, exec_cmd):
     """Add a worktree for BRANCH.
 
     If the branch does not exist, it is created from HEAD (or --base).
@@ -141,6 +142,15 @@ def add(branch, base, existing, track, force):
         click.echo(f"  Branch: {branch} (new, from {base_ref})")
     else:
         click.echo(f"  Branch: {branch} (existing)")
+
+    if exec_cmd:
+        click.echo(f"  Running: {exec_cmd}")
+        result = subprocess.run(exec_cmd, shell=True, cwd=str(worktree_path))
+        if result.returncode != 0:
+            click.echo(
+                f"  Warning: command exited with code {result.returncode}",
+                err=True,
+            )
 
 
 @cli.command()
