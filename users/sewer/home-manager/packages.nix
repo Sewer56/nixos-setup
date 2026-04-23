@@ -59,6 +59,9 @@
     heaptrack
     rustc-demangle
 
+    # Worktree manager
+    wt
+
     # File transfer
     filezilla
   ];

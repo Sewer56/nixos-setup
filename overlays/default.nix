@@ -32,6 +32,9 @@ final: prev: {
     inherit (prev) lib stdenv fetchFromGitHub jdupes sassc gtk-engine-murrine;
   };
 
+  # Worktree manager
+  wt = final.callPackage ../packages/wt/default.nix {};
+
   # Thumbnailer packages
   tumbler-dds-thumbnailer = final.callPackage ../packages/thumbnailers/tumbler-dds-thumbnailer/default.nix {};
   tumbler-text-thumbnailer = final.callPackage ../packages/thumbnailers/tumbler-text-thumbnailer/default.nix {};
