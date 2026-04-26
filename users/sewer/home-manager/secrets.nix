@@ -14,6 +14,8 @@ in {
   "secrets/linear-api-key.age".publicKeys = users;
   "secrets/bifrost-url.age".publicKeys = users;
   "secrets/wafer-key.age".publicKeys = users;
+  "secrets/axonhub-key.age".publicKeys = users;
+  "secrets/axonhub-url.age".publicKeys = users;
 
   # "api-token.age".publicKeys = users;
   # "database-password.age".publicKeys = users;

@@ -186,6 +186,20 @@
       path = "${config.home.homeDirectory}/.secrets/wafer-key";
       mode = "600";
     };
+
+    # AxonHub API key
+    axonhub-key = {
+      file = ./secrets/axonhub-key.age;
+      path = "${config.home.homeDirectory}/.secrets/axonhub-key";
+      mode = "600";
+    };
+
+    # AxonHub URL
+    axonhub-url = {
+      file = ./secrets/axonhub-url.age;
+      path = "${config.home.homeDirectory}/.secrets/axonhub-url";
+      mode = "600";
+    };
   };
 
   # Configure nix access tokens to avoid GitHub rate limiting
