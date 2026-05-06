@@ -52,6 +52,7 @@
     # Development Environment
     devenv
     spec-kit
+    pnpm
     (jetbrains.rider.override {forceWayland = true;})
 
     # Profiling tools
