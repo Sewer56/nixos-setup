@@ -25,14 +25,16 @@
 
     # Hyprland ecosystem - we use hyprland's nixpkgs for cachix
     hyprland = {
-      url = "github:hyprwm/Hyprland/v0.54.2";
+      url = "github:hyprwm/Hyprland/v0.55.1";
     };
     hyprpaper = {
-      url = "github:hyprwm/hyprpaper/v0.8.3";
+      url = "github:hyprwm/hyprpaper/v0.8.4";
       inputs.nixpkgs.follows = "hyprland/nixpkgs";
       inputs.hyprutils.follows = "hyprland/hyprutils";
       inputs.hyprlang.follows = "hyprland/hyprlang";
       inputs.hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
+      inputs.hyprgraphics.follows = "hyprland/hyprgraphics";
+      inputs.aquamarine.follows = "hyprland/aquamarine";
       inputs.systems.follows = "hyprland/systems";
     };
     hypr-dynamic-cursors = {

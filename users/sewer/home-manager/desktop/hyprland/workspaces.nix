@@ -50,7 +50,7 @@
         "workspace 1 silent, match:class ^(vesktop)$"
 
         # Workspace 2: Secondary development tools (master layout)
-        "workspace 2 silent, match:class ^(GitKraken)$"
+        "workspace 2 silent, match:class (?i)^(gitkraken)$"
         "workspace 2 silent, match:class ^(obsidian)$"
         "workspace 2 silent, match:class ^(electron)$, match:title ^(.*Obsidian.*)$"
 
@@ -110,7 +110,7 @@
         "workspace 7, match:class ^(obsidian)$"
         "workspace 7, match:class ^(electron)$, match:title ^(.*Obsidian.*)$"
         "workspace 8, match:class ^(spotify)$"
-        "workspace 9, match:class ^(GitKraken)$"
+        "workspace 9, match:class (?i)^(gitkraken)$"
         "workspace 10, match:class ^(Proton Mail)$"
         "workspace 10, match:class ^(electron)$, match:title ^(Proton Mail)$"
 
@@ -172,7 +172,7 @@
         "workspace 8, match:class ^(spotify)$"
 
         # Workspace 9: Git
-        "workspace 9, match:class ^(GitKraken)$"
+        "workspace 9, match:class (?i)^(gitkraken)$"
 
         # Workspace 10: Email (bound to '0')
         "workspace 10, match:class ^(Proton Mail)$"

@@ -19,7 +19,6 @@
 
       misc = {
         animate_manual_resizes = true; # enables animations for manual (keyboard) resizes
-        vfr = true; # Reduce amount of processed frames, saving battery.
         disable_hyprland_logo = true; # Prevent logo from showing during wallpaper transitions
         disable_splash_rendering = true; # Disable splash rendering
       };
@@ -27,7 +26,6 @@
       # Layout settings
       dwindle = {
         # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
-        pseudotile = true; # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
         preserve_split = true; # you probably want this
       };
 

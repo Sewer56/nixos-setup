@@ -17,6 +17,8 @@
   wayland.windowManager.hyprland = {
     enable = true;
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    # Plugin doesn't support lua config yet
+    configType = "hyprlang";
     plugins = [
       inputs.hypr-dynamic-cursors.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
