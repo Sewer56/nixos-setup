@@ -1,12 +1,29 @@
 {
-  "minimizeToTray": false,
-  "startMinimized": false,
-  "hardwareAcceleration": true,
-  "autoUpdate": false,
-  "spellcheck": true,
-  "notifications": {
-    "enable": true,
-    "flashWindow": true,
-    "showUnreadBadge": true
-  }
+    "minimizeToTray": false,
+    "startMinimized": false,
+    "hardwareAcceleration": true,
+    "autoUpdate": false,
+    "spellcheck": true,
+    "notifications": {
+        "enable": true,
+        "flashWindow": true,
+        "showUnreadBadge": true
+    },
+    "spellCheckLanguages": [
+        "en-GB",
+        "en"
+    ],
+    "splashColor": "rgb(205, 214, 244)",
+    "splashBackground": "rgb(17, 17, 27)",
+    "arRPC": true,
+    "audio": {
+        "workaround": false,
+        "deviceSelect": false,
+        "granularSelect": false,
+        "ignoreDevices": false,
+        "onlySpeakers": true,
+        "onlyDefaultSpeakers": true,
+        "ignoreInputMedia": true,
+        "ignoreVirtual": true
+    }
 }
