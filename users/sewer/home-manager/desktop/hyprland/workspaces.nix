@@ -58,11 +58,16 @@
         "workspace 3 silent, match:class ^(Slack)$"
         "workspace 3 silent, match:class ^(telegram-desktop)$"
         "workspace 3 silent, match:class ^(TelegramDesktop)$"
+        # Alternate class names (version-dependent)
+        "workspace 3 silent, match:class ^(slack)$"
 
         # Workspace 4: Miscellaneous apps (dwindle layout)
         "workspace 4 silent, match:class ^(spotify)$"
         "workspace 4 silent, match:class ^(Proton Mail)$"
         "workspace 4 silent, match:class ^(electron)$, match:title ^(Proton Mail)$"
+        # Alternate class names (version-dependent)
+        "workspace 4 silent, match:class ^(Spotify)$"
+        "workspace 4 silent, match:class ^(proton-mail)$"
 
         # Floating window rules
         "float on, match:title ^(Picture-in-Picture)$"
@@ -103,6 +108,8 @@
         "workspace 3, match:class ^(Slack)$"
         "workspace 3, match:class ^(discord)$"
         "workspace 3, match:class ^(vesktop)$"
+        # Alternate class names (version-dependent)
+        "workspace 3, match:class ^(slack)$"
 
         # Other workspaces on right screen (eDP-1)
         "workspace 4, match:class ^(telegram-desktop)$"
@@ -110,9 +117,11 @@
         "workspace 7, match:class ^(obsidian)$"
         "workspace 7, match:class ^(electron)$, match:title ^(.*Obsidian.*)$"
         "workspace 8, match:class ^(spotify)$"
+        "workspace 8, match:class ^(Spotify)$" # Alternate class names (version-dependent)
         "workspace 9, match:class (?i)^(gitkraken)$"
         "workspace 10, match:class ^(Proton Mail)$"
         "workspace 10, match:class ^(electron)$, match:title ^(Proton Mail)$"
+        "workspace 10, match:class ^(proton-mail)$" # Alternate class names (version-dependent)
 
         # Floating window rules
         "float on, match:title ^(Picture-in-Picture)$"
@@ -158,6 +167,8 @@
 
         # Workspace 4: Slack
         "workspace 4, match:class ^(Slack)$"
+        # Alternate class names (version-dependent)
+        "workspace 4, match:class ^(slack)$"
 
         # Workspace 5: Communication
         "workspace 5, match:class ^(telegram-desktop)$"
@@ -170,6 +181,8 @@
 
         # Workspace 8: Music
         "workspace 8, match:class ^(spotify)$"
+        # Alternate class names (version-dependent)
+        "workspace 8, match:class ^(Spotify)$"
 
         # Workspace 9: Git
         "workspace 9, match:class (?i)^(gitkraken)$"
@@ -177,6 +190,8 @@
         # Workspace 10: Email (bound to '0')
         "workspace 10, match:class ^(Proton Mail)$"
         "workspace 10, match:class ^(electron)$, match:title ^(Proton Mail)$"
+        # Alternate class names (version-dependent)
+        "workspace 10, match:class ^(proton-mail)$"
 
         # Floating window rules
         "float on, match:title ^(Picture-in-Picture)$"

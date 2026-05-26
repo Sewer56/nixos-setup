@@ -66,7 +66,6 @@ in {
       "$mod, F, fullscreen,"
       "$mod, Space, togglefloating,"
       "$mod, P, pseudo," # dwindle
-      "$mod, J, layoutmsg, togglesplit" # dwindle
       "$mod, T, exec, ${layoutToggle}" # Toggle between master/dwindle layouts
 
       # Focus movement
