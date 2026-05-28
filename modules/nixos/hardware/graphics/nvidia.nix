@@ -4,6 +4,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: let
   # Map driver version option to actual package
@@ -25,6 +26,35 @@ in {
   environment.systemPackages = with pkgs; [
     nvitop
   ];
+
+  # Early loading of NVIDIA kernel modules in initrd.
+  # Without this, nvidia-drm registers late (28s+ after boot on some systems)
+  # and fails to properly enumerate displays on warm boot:
+  #   "Failed to get dynamic displays during device registration"
+  #   "Cannot find any crtc or sizes"
+  # This causes DP link training to fall back to 60Hz instead of 240Hz.
+  boot.initrd.kernelModules = [
+    "nvidia"
+    "nvidia_modeset"
+    "nvidia_drm"
+  ];
+
+  # Explicit kernel params — the NixOS nvidia module conditionally adds these
+  # but only when services.xserver.enable=true for kernelModules. The kernelParams
+  # should be unconditional but have been observed missing from cmdline, so we
+  # force them here to be safe.
+  boot.kernelParams = [
+    "nvidia-drm.modeset=1"
+    "nvidia-drm.fbdev=1"
+  ];
+
+  # NVIDIA VRR must be explicitly allowed via env vars on the open kernel module.
+  # Without these, the driver won't expose VRR capability to Wayland compositors,
+  # resulting in vrr: false even when misc:vrr is set in Hyprland.
+  environment.sessionVariables = {
+    __GL_GSYNC_ALLOWED = "1";
+    __GL_VRR_ALLOWED = "1";
+  };
 
   hardware.nvidia = {
     # Modesetting is required.
