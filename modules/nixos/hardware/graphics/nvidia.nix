@@ -33,7 +33,8 @@ in {
   #   "Failed to get dynamic displays during device registration"
   #   "Cannot find any crtc or sizes"
   # This causes DP link training to fall back to 60Hz instead of 240Hz.
-  boot.initrd.kernelModules = [
+  # Gated by hostOptions — only desktop enables this (laptop ESP too small).
+  boot.initrd.kernelModules = lib.mkIf config.hostOptions.hardware.nvidia.earlyLoading [
     "nvidia"
     "nvidia_modeset"
     "nvidia_drm"
@@ -43,7 +44,7 @@ in {
   # but only when services.xserver.enable=true for kernelModules. The kernelParams
   # should be unconditional but have been observed missing from cmdline, so we
   # force them here to be safe.
-  boot.kernelParams = [
+  boot.kernelParams = lib.mkIf config.hostOptions.hardware.nvidia.earlyLoading [
     "nvidia-drm.modeset=1"
     "nvidia-drm.fbdev=1"
   ];
@@ -51,7 +52,7 @@ in {
   # NVIDIA VRR must be explicitly allowed via env vars on the open kernel module.
   # Without these, the driver won't expose VRR capability to Wayland compositors,
   # resulting in vrr: false even when misc:vrr is set in Hyprland.
-  environment.sessionVariables = {
+  environment.sessionVariables = lib.mkIf config.hostOptions.hardware.nvidia.earlyLoading {
     __GL_GSYNC_ALLOWED = "1";
     __GL_VRR_ALLOWED = "1";
   };

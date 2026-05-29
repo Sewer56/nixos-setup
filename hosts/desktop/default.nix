@@ -28,6 +28,7 @@
   hostOptions = {
     hardware.corsair.enable = lib.mkDefault true;
     hardware.hasBattery = lib.mkDefault false;
+    hardware.nvidia.earlyLoading = lib.mkDefault true;
     hardware.nvidia.driverVersion = lib.mkDefault "beta";
     nas.mode = lib.mkDefault "local";
     desktop.hyprland.displayMode = lib.mkDefault "ultrawide";
