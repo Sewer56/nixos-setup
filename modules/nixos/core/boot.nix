@@ -1,4 +1,7 @@
 {...}: {
+  # Higher zstd compression for initrd — smaller boot files with no decompress penalty
+  boot.initrd.compressorArgs = ["-16"];
+
   # Configure tmpfs for /tmp directory
   boot.tmp.cleanOnBoot = true;
 
