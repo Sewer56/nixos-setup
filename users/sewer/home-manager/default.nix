@@ -194,6 +194,13 @@
       mode = "600";
     };
 
+    # AxonHub work API key
+    axonhub-work-key = {
+      file = ./secrets/axonhub-work-key.age;
+      path = "${config.home.homeDirectory}/.secrets/axonhub-work-key";
+      mode = "600";
+    };
+
     # AxonHub URL
     axonhub-url = {
       file = ./secrets/axonhub-url.age;

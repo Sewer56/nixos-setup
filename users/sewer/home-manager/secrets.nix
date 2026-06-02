@@ -15,6 +15,7 @@ in {
   "secrets/bifrost-url.age".publicKeys = users;
   "secrets/wafer-key.age".publicKeys = users;
   "secrets/axonhub-key.age".publicKeys = users;
+  "secrets/axonhub-work-key.age".publicKeys = users;
   "secrets/axonhub-url.age".publicKeys = users;
 
   # "api-token.age".publicKeys = users;

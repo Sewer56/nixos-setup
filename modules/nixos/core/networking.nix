@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -9,6 +9,9 @@
   networking.networkmanager = {
     enable = true;
     wifi.backend = "iwd";
+    plugins = with pkgs; [
+      networkmanager-openvpn
+    ];
   };
 
   # Enable wireless networking via iwd
