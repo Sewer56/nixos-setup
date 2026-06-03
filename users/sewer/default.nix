@@ -9,6 +9,7 @@
 }: {
   imports = [
     # NixOS-specific user settings (user account, groups, etc.)
+    inputs.agenix.nixosModules.default
     ./nixos/default.nix
 
     # Import home-manager module
