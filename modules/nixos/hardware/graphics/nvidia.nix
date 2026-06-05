@@ -41,10 +41,9 @@ in {
   ];
 
   # Explicit kernel params — the NixOS nvidia module conditionally adds these
-  # but only when services.xserver.enable=true for kernelModules. The kernelParams
-  # should be unconditional but have been observed missing from cmdline, so we
-  # force them here to be safe.
-  boot.kernelParams = lib.mkIf config.hostOptions.hardware.nvidia.earlyLoading [
+  # but only when services.xserver.enable=true for kernelModules. Force them
+  # unconditionally since they've been observed missing from cmdline.
+  boot.kernelParams = [
     "nvidia-drm.modeset=1"
     "nvidia-drm.fbdev=1"
   ];
@@ -52,7 +51,7 @@ in {
   # NVIDIA VRR must be explicitly allowed via env vars on the open kernel module.
   # Without these, the driver won't expose VRR capability to Wayland compositors,
   # resulting in vrr: false even when misc:vrr is set in Hyprland.
-  environment.sessionVariables = lib.mkIf config.hostOptions.hardware.nvidia.earlyLoading {
+  environment.sessionVariables = {
     __GL_GSYNC_ALLOWED = "1";
     __GL_VRR_ALLOWED = "1";
   };
