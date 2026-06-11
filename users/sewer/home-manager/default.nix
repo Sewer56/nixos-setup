@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  inputs,
   ...
 }: {
   imports = [
@@ -22,7 +23,7 @@
     ./programs/go.nix
     ./programs/direnv.nix
     ./programs/music-streaming.nix
-    ./programs/opencode/default.nix
+    inputs.opencode-config.homeManagerModules.default
     ./programs/corsair/ckb-next.nix
     ./programs/password-manager.nix
     ./programs/gnome-keyring.nix

@@ -5,7 +5,6 @@
   };
 
   inputs = {
-    self.submodules = true;
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -21,6 +20,16 @@
     };
     llm-agents = {
       url = "github:numtide/llm-agents.nix";
+    };
+
+    opencode-config = {
+      # Local flake owns OpenCode HM module, CLI packages, apps, and devShell.
+      # Use git+file rather than root self.submodules=true so root evaluation
+      # does not fetch nested opencode-source submodules.
+      url = "git+file:///home/sewer/nixos/users/sewer/home-manager/programs/opencode";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.rust-overlay.follows = "rust-overlay";
+      inputs.llm-agents.follows = "llm-agents";
     };
 
     # Hyprland ecosystem - we use hyprland's nixpkgs for cachix

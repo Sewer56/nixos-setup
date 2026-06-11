@@ -804,6 +804,31 @@
         "type": "github"
       }
     },
+    "opencode-config": {
+      "inputs": {
+        "llm-agents": [
+          "llm-agents"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": [
+          "rust-overlay"
+        ]
+      },
+      "locked": {
+        "dirtyRev": "8411b82f3e81c28e51c590ce6da8440d68981375-dirty",
+        "dirtyShortRev": "8411b82-dirty",
+        "lastModified": 1781214095,
+        "narHash": "sha256-gEH0drhFVzKfeeiBWcSNnc5Q+MVZPMlxGTIgjDkI6kA=",
+        "type": "git",
+        "url": "file:///home/sewer/nixos/users/sewer/home-manager/programs/opencode"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///home/sewer/nixos/users/sewer/home-manager/programs/opencode"
+      }
+    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -837,6 +862,7 @@
         "hyprpaper": "hyprpaper",
         "llm-agents": "llm-agents",
         "nixpkgs": "nixpkgs_4",
+        "opencode-config": "opencode-config",
         "rust-overlay": "rust-overlay"
       }
     },
