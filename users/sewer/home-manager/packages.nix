@@ -35,6 +35,7 @@
     dolphin-emu
     pcsx2
     xenia-canary
+    parsec-bin
 
     # General Tools
     qalculate-gtk
