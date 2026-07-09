@@ -241,11 +241,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783222121,
-        "narHash": "sha256-E/ElL373TO8lQ2aMvYyzN+k4xkVaUGoRqoa8AtM71tI=",
+        "lastModified": 1783618078,
+        "narHash": "sha256-F43DGcBoIO8xOZFAfodg3jy0VghB9NGdb6xbTYAIx1A=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "a1645f40777620c4bd2b6d854b290c2fc354a266",
+        "rev": "144f4e36d0186195037da9fce80a727108978070",
         "type": "github"
       },
       "original": {
@@ -730,11 +730,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1783243767,
-        "narHash": "sha256-iiQL/IHgQlmnZgKgs4wBOiDA9+S3tRFsQPRxtYIhUYo=",
+        "lastModified": 1783603646,
+        "narHash": "sha256-plXAK4U32Kub++YIs9zPYMfE2y6GAAcKjjY8yuqOkWE=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "22f1080fb54a217bdda6cfd6eca5dbf9e7afddac",
+        "rev": "89b3d6ef814f387a2c6b574a0153a8fb40db7bf7",
         "type": "github"
       },
       "original": {
@@ -774,11 +774,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1783187857,
-        "narHash": "sha256-CoKGv2FwkvFwzsVLB/N89eFjr40puk/p51IMvIp+ddo=",
+        "lastModified": 1783279667,
+        "narHash": "sha256-/NAkDSsve+GNM0Bt6tleJdCGfsTlK89nPjkVOzZMo0s=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "19a8a1e6d8b7315b6fd84e5a51977ce6f69d5a5b",
+        "rev": "f205b5574fd0cb7da5b702a2da51507b7f4fdd1b",
         "type": "github"
       },
       "original": {
@@ -817,10 +817,11 @@
         ]
       },
       "locked": {
-        "dirtyRev": "531ceb234abe380954827562cf8064bd0cfb895b-dirty",
-        "dirtyShortRev": "531ceb2-dirty",
-        "lastModified": 1783334625,
-        "narHash": "sha256-a/XR2bPqldrUuWA+d1KVmP+HbE4uc3Rdmn+rYGhImdo=",
+        "lastModified": 1783620441,
+        "narHash": "sha256-uCzXrppQZSLUZN/R+sAyipU/itBB4UEmSQqGdx0FFqA=",
+        "ref": "refs/heads/cleanup-rework-all",
+        "rev": "bd83f9c8f8ba5f715f6db32d70472f5411f77056",
+        "revCount": 730,
         "type": "git",
         "url": "file:///home/sewer/nixos/users/sewer/home-manager/programs/opencode"
       },
@@ -873,11 +874,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783320166,
-        "narHash": "sha256-l7C/OsjcnWDOk2K3ssj+SBduwL67LashjBqis9+t468=",
+        "lastModified": 1783614422,
+        "narHash": "sha256-zSX553aXiIKJHWzUF6nrDKgeNRlfNK/SdyNYSbs2nkM=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "20ee15370c9256669d66968b89ee20a4b0a4e673",
+        "rev": "e8e9d70b96113fd49ccde6c3e08fb260b6ef5dd6",
         "type": "github"
       },
       "original": {
