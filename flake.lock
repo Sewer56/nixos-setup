@@ -817,11 +817,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783720802,
-        "narHash": "sha256-ZygrEya+dlzn6yom6KAoEqGNDQeoOn7tBByRHMH9dIc=",
+        "lastModified": 1783880518,
+        "narHash": "sha256-oTLTEb2FBd1Tex1pwBuDS8QhyKhRY9k5M7x3YBl77ho=",
         "ref": "refs/heads/cleanup-rework-all",
-        "rev": "7bd5767c691fa1f8d303f61ba7d4d14d7f454cb2",
-        "revCount": 736,
+        "rev": "909117c33e006b6c203fb357fd42e09105a988bd",
+        "revCount": 740,
         "type": "git",
         "url": "file:///home/sewer/nixos/users/sewer/home-manager/programs/opencode"
       },
