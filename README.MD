@@ -94,6 +94,16 @@ sudo nix-collect-garbage --delete-older-than 7d
 
 For hardware setup, configuration, and debugging, see [HARDWARE.md](HARDWARE.md).
 
+### Git Pre-commit Hook
+
+A `pre-commit` hook prevents committing an `opencode` submodule bump
+without a matching `flake.lock` bump (which causes `NAR hash mismatch`
+build failures). To activate it in your local clone:
+
+```bash
+git config core.hooksPath hooks
+```
+
 ---
 
 ## ⚠️ Non-NixOS Usage (NOT TESTED)

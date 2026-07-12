@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# pre-commit: block committing an opencode submodule bump without a matching
+# flake.lock bump. Prevents the "NAR hash mismatch" build failure at the source.
+#
+# Invariant enforced:
+#   staged submodule pointer for users/sewer/home-manager/programs/opencode
+#   MUST equal flake.lock's pinned rev for opencode-config.
+#
+# Activated by `core.hooksPath = hooks` (set by Home Manager). Runs in any
+# repo that has a `hooks/` dir; silently skips when the opencode submodule
+# isn't staged, so it's harmless on other repositories.
+#
+# If you hit this hook: run, then re-stage and re-commit:
+#   nix flake lock --update-input opencode-config && git add flake.lock
+
+set -euo pipefail
+
+SUBMOD="users/sewer/home-manager/programs/opencode"
+
+# Submodule pointer staged for commit? If not, nothing to check.
+STAGED_SUB=$(git ls-files -s -- "$SUBMOD" 2>/dev/null | awk '{print $2}')
+[ -z "$STAGED_SUB" ] && exit 0
+
+# Did the submodule pointer actually change vs HEAD? If not, skip.
+HEAD_SUB=$(git ls-tree HEAD -- "$SUBMOD" 2>/dev/null | awk '{print $3}')
+[ "$STAGED_SUB" = "$HEAD_SUB" ] && exit 0
+
+# Submodule is being bumped → flake.lock MUST be staged with matching rev.
+# Prefer the staged flake.lock; fall back to working tree if not staged.
+LOCK_REV=""
+if git diff --cached --name-only -- flake.lock | grep -q .; then
+  LOCK_REV=$(git show :flake.lock 2>/dev/null \
+    | python3 -c "import json,sys; print(json.load(sys.stdin)['nodes']['opencode-config']['locked']['rev'])" 2>/dev/null || true)
+else
+  LOCK_REV=$(python3 -c "import json; print(json.load(open('flake.lock'))['nodes']['opencode-config']['locked']['rev'])" 2>/dev/null || true)
+fi
+
+LOCK_SHORT="${LOCK_REV:0:12}"; LOCK_SHORT="${LOCK_SHORT:-MISSING}"
+if [ -z "$LOCK_REV" ] || [ "$STAGED_SUB" != "$LOCK_REV" ]; then
+  echo "ERROR: opencode submodule bumped to ${STAGED_SUB:0:12} but flake.lock pins $LOCK_SHORT." >&2
+  echo "Submodule rev and flake.lock rev must match or the build fails (NAR hash mismatch)." >&2
+  echo "Fix:" >&2
+  echo "  nix flake lock --update-input opencode-config && git add flake.lock" >&2
+  exit 1
+fi
+
+exit 0
