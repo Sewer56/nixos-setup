@@ -791,11 +791,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783881603,
-        "narHash": "sha256-Ol49PSlDN4zeyqcSX0+OyUeTIqhpRPFb++vCZYV0mEI=",
+        "lastModified": 1783971733,
+        "narHash": "sha256-ctwAzZTLh9sgcaxEsx4EZrYvy8QUBUZQlXDitdio7M4=",
         "ref": "refs/heads/cleanup-rework-all",
-        "rev": "23708b6a59ee2e507b41dcf04b8de5869cb9f89b",
-        "revCount": 741,
+        "rev": "745059176119247a5d75f30ffc761d4bd387e8da",
+        "revCount": 745,
         "type": "git",
         "url": "file:///home/sewer/nixos/users/sewer/home-manager/programs/opencode"
       },
