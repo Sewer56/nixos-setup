@@ -3,6 +3,7 @@
     ./audio.nix
     ./boot.nix
     ./cachix.nix
+    ./catppuccin.nix
     ./cdemu.nix
     ./docker.nix
     ./flatpak.nix

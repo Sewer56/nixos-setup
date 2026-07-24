@@ -36,15 +36,21 @@ in {
 
   # Enable Catppuccin theme globally
   catppuccin.enable = true;
+  catppuccin.autoEnable = true;
   catppuccin.flavor = themeConfig.variant;
   catppuccin.accent = themeConfig.accent;
 
   # Disable Catppuccin rofi theme (using custom theme instead)
   catppuccin.rofi.enable = false;
   catppuccin.hyprlock.enable = false;
+  # Disable Catppuccin hyprland module: new versions inject Lua-only
+  # `colors._var` entry into hyprland.conf, which errors on legacy .conf configs.
+  # We theme hyprland directly in desktop/hyprland/theme.nix instead.
+  catppuccin.hyprland.enable = false;
 
   # Enable Catppuccin for Cursors
   catppuccin.cursors.enable = true;
+  home.pointerCursor.enable = true;
 
   # Configure GTK theme
   catppuccin.gtk.icon.enable = true;
