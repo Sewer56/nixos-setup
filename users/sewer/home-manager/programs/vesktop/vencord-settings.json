@@ -394,9 +394,6 @@
         "IrcColors": {
             "enabled": false
         },
-        "LastFMRichPresence": {
-            "enabled": false
-        },
         "LoadingQuotes": {
             "enabled": false
         },
@@ -603,6 +600,9 @@
         },
         "YoutubeAdblock": {
             "enabled": false
+        },
+        "MusicRichPresence": {
+            "enabled": false
         }
     },
     "notifications": {
@@ -615,11 +615,12 @@
         "authenticated": false,
         "url": "https://api.vencord.dev/",
         "settingsSync": false,
-        "settingsSyncVersion": 1776804868248
+        "settingsSyncVersion": 1784324732356
     },
     "enabledThemes": [],
     "uiElements": {
         "chatBarButtons": {},
         "messagePopoverButtons": {}
-    }
+    },
+    "windowsMaterial": "none"
 }
