@@ -4,7 +4,6 @@
   fetchFromGitHub,
   jdupes,
   sassc,
-  gtk-engine-murrine,
   themeName ? "Catppuccin",
   accent ? ["blue"],
   shade ? "dark",
@@ -32,10 +31,6 @@ in
     nativeBuildInputs = [
       jdupes
       sassc
-    ];
-
-    buildInputs = [
-      gtk-engine-murrine
     ];
 
     dontBuild = true;

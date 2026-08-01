@@ -22,7 +22,6 @@
         "proton-mail"
         "vivaldi"
         "obsidian"
-        "stretchly"
       ];
     }
 

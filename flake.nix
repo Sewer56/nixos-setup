@@ -6,8 +6,9 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # BISECT 2: home-manager pinned to gen 379-era rev (32de400b, 2026-07-24); broken = bf9ce9fe (2026-08-01)
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/32de400b6ac9f43042bca706f4a64f6ad08117e8";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     agenix = {
@@ -34,7 +35,7 @@
 
     # Hyprland ecosystem - we use hyprland's nixpkgs for cachix
     hyprland = {
-      url = "github:hyprwm/Hyprland/v0.56.0";
+      url = "github:hyprwm/Hyprland/v0.56.1";
     };
     hyprpaper = {
       url = "github:hyprwm/hyprpaper/v0.8.4";

@@ -29,7 +29,7 @@ final: prev: {
 
   # Override magnetic-catppuccin-gtk with our updated local package
   magnetic-catppuccin-gtk = final.callPackage ../packages/catppuccin-gtk {
-    inherit (prev) lib stdenv fetchFromGitHub jdupes sassc gtk-engine-murrine;
+    inherit (prev) lib stdenv fetchFromGitHub jdupes sassc;
   };
 
   # Worktree manager
