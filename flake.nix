@@ -6,9 +6,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    # BISECT 2: home-manager pinned to gen 379-era rev (32de400b, 2026-07-24); broken = bf9ce9fe (2026-08-01)
+    # Pinned: bf9ce9fe+ introduced broken hyprland session cleanup (exec-shutdown +
+    # PropagatesStopTo=graphical-session.target deadlocks with uwsm). ca287c2 = parent of that change.
     home-manager = {
-      url = "github:nix-community/home-manager/32de400b6ac9f43042bca706f4a64f6ad08117e8";
+      url = "github:nix-community/home-manager/ca287c205447e1671c52c2400b262e735e5657ca";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     agenix = {
