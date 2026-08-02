@@ -62,10 +62,6 @@
     freeMemThreshold = 4; # Kill when <4% RAM free (~3.8GB on desktop)
     freeSwapThreshold = 4; # Also watch swap usage
     enableNotifications = true; # GUI notification when process killed
-    extraArgs = [
-      "--prefer '^(firefox|chromium|chrome|electron)$'" # Kill browsers first
-      "--avoid '^(bash|zsh|ssh|pipewire|hyprland|systemd|dbus)$'" # Protect system
-    ];
   };
 
   # Machine-specific Nvidia driver only (desktop typically has dedicated GPU)
