@@ -24,7 +24,6 @@ end)
 -- Wallpaper: set random wallpaper and sync collection in background
 hl.on("hyprland.start", function()
   hl.exec_cmd("~/.config/waybar/scripts/wallpaper/startup-wrapper.py")
-  hl.exec_cmd("hyprctl setcursor @cursorTheme@ 32")
   hl.exec_cmd("~/.config/waybar/scripts/wallpaper/sync-wallpapers.py")
   hl.exec_cmd("~/.config/waybar/scripts/wallpaper/startup-sync.py")
 end)

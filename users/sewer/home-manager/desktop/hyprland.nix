@@ -68,7 +68,9 @@ in {
     ./hyprland/default.nix
   ];
 
-  # Enable Wayland support for Chrome/Chromium-based applications
+  # Enable Wayland support for Chrome/Chromium-based applications.
+  # Cursor theme/size set via `home.pointerCursor` (see themes/catppuccin/system.nix),
+  # which the catppuccin HM module exports as HYPRCURSOR_*/XCURSOR_* env.
   home.sessionVariables = {
     NIXOS_OZONE_WL = "1";
   };
@@ -111,11 +113,7 @@ in {
           }
           ./hyprland/lua/binds.lua;
         rules = rulesFile;
-        autostart =
-          substitute {
-            "@cursorTheme@" = "catppuccin-${config.theme.variant}-${config.theme.accent}-cursors";
-          }
-          ./hyprland/lua/autostart.lua;
+        autostart = ./hyprland/lua/autostart.lua;
         plugins = ./hyprland/lua/plugins.lua;
       }
       (lib.mkIf hostOptions.desktop.hyprland.preferDedicatedLaptopGpu {

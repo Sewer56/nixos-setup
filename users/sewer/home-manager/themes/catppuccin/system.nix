@@ -47,9 +47,15 @@ in {
   # Catppuccin hyprland module (colors._var is Lua-only; needs configType = "lua")
   catppuccin.hyprland.enable = true;
 
-  # Enable Catppuccin for Cursors
+  # Enable Catppuccin for Cursors.
+  # Cursor size set explicitly: HM default is 24; must match what the removed
+  # autostart `hyprctl setcursor ... 32` used to force. Setting it via
+  # HYPRCURSOR_SIZE (catppuccin HM module) avoids the crashing setcursor call.
   catppuccin.cursors.enable = true;
-  home.pointerCursor.enable = true;
+  home.pointerCursor = {
+    enable = true;
+    size = 32;
+  };
 
   # Configure GTK theme
   catppuccin.gtk.icon.enable = true;
