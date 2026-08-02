@@ -6,7 +6,6 @@
   # - Rofi Wayland: https://github.com/lbonn/rofi
   imports = [
     ./themes/default.nix
-    ./bindings.nix
   ];
 
   programs.rofi = {

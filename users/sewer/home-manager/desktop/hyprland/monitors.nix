@@ -4,20 +4,15 @@
     nwg-displays
   ];
 
-  # Create empty monitors.conf if it doesn't exist
+  # Create empty monitors.lua if it doesn't exist
   # This allows for non-declarative monitor configuration
-  home.activation.createMonitorsConf = ''
-    MONITORS_CONF="$HOME/.config/hypr/monitors.conf"
-    if [ ! -f "$MONITORS_CONF" ]; then
-      run echo "Creating empty monitors.conf at $MONITORS_CONF"
-      run mkdir -p "$(dirname "$MONITORS_CONF")"
-      run touch "$MONITORS_CONF"
+  # (required by lua/config.lua; file is user-editable with hl.monitor calls)
+  home.activation.createMonitorsLua = ''
+    MONITORS_LUA="$HOME/.config/hypr/monitors.lua"
+    if [ ! -f "$MONITORS_LUA" ]; then
+      run echo "Creating empty monitors.lua at $MONITORS_LUA"
+      run mkdir -p "$(dirname "$MONITORS_LUA")"
+      run printf -- "-- Managed manually. Use hl.monitor({ output = ..., mode = ..., position = ..., scale = ... }) calls.\n" > "$MONITORS_LUA"
     fi
-  '';
-
-  # Source the monitors.conf file in Hyprland
-  # Allow non-declarative overrides of monitor settings
-  wayland.windowManager.hyprland.extraConfig = ''
-    source = ~/.config/hypr/monitors.conf
   '';
 }

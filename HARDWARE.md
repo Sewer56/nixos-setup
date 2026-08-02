@@ -110,9 +110,9 @@ For systems with both integrated and discrete GPUs, you may need additional conf
 
 ### Hyprland Monitor Setup
 
-The system automatically creates an empty `~/.config/hypr/monitors.conf` file during home-manager activation if it doesn't exist when using hyprland.
+The system automatically creates an empty `~/.config/hypr/monitors.lua` file during home-manager activation if it doesn't exist when using hyprland.
 
-Use `nwg-displays` to modify this.
+Use `nwg-displays` to modify this (or edit `monitors.lua` directly with `hl.monitor({ ... })` calls).
 This is made non-declarative to allow for manual adjustments on the fly, e.g. without needing to rebuild the entire system configuration.
 
 ## Graphics Debugging and Utilities

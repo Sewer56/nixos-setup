@@ -43,10 +43,9 @@ in {
   # Disable Catppuccin rofi theme (using custom theme instead)
   catppuccin.rofi.enable = false;
   catppuccin.hyprlock.enable = false;
-  # Disable Catppuccin hyprland module: new versions inject Lua-only
-  # `colors._var` entry into hyprland.conf, which errors on legacy .conf configs.
-  # We theme hyprland directly in desktop/hyprland/theme.nix instead.
-  catppuccin.hyprland.enable = false;
+
+  # Catppuccin hyprland module (colors._var is Lua-only; needs configType = "lua")
+  catppuccin.hyprland.enable = true;
 
   # Enable Catppuccin for Cursors
   catppuccin.cursors.enable = true;

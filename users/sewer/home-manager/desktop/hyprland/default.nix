@@ -1,12 +1,5 @@
 {...}: {
   imports = [
-    ./settings.nix
-    ./bindings.nix
-    ./workspaces.nix
-    ./theme.nix
-    ./plugins.nix
-    ./monitors.nix
-    ./input.nix
     ./programs/waybar/default.nix
     ./programs/rofi/default.nix
     ./programs/notifications.nix

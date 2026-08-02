@@ -29,12 +29,7 @@ in {
     };
   };
 
-  wayland.windowManager.hyprland.settings = {
-    bind = [
-      # Lock screen manually
-      "$mod, Escape, exec, hyprlock"
-    ];
-  };
+  # Lock screen binding (SUPER + Escape) is in lua/binds.lua
 
   # Configure hyprlock with Home Manager module
   programs.hyprlock = {
