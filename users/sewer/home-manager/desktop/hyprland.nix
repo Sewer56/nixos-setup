@@ -144,4 +144,10 @@ in {
 
   # Polkit agent for privilege escalation in text editors like vscode
   services.hyprpolkitagent.enable = true;
+
+  # HM >= bf9ce9fe sets PropagatesStopTo=graphical-session.target on hyprland-session.target,
+  # so HM's exec-once `systemctl --user stop hyprland-session.target` tears down the whole
+  # uwsm session (wayland-session@ BindsTo=graphical-session.target), then the shutdown hook
+  # deadlocks systemd (stop-sigterm timeout -> SIGKILL -> sddm greeter). Remove propagation.
+  systemd.user.targets.hyprland-session.Unit.PropagatesStopTo = lib.mkForce [];
 }

@@ -6,10 +6,12 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    # Pinned: bf9ce9fe+ introduced broken hyprland session cleanup (exec-shutdown +
-    # PropagatesStopTo=graphical-session.target deadlocks with uwsm). ca287c2 = parent of that change.
+    # NOTE: HM >= bf9ce9fe adds broken session cleanup (PropagatesStopTo=graphical-session.target
+    # + exec-shutdown) that deadlocks with uwsm. Neutralized via
+    # systemd.user.targets.hyprland-session.Unit.PropagatesStopTo = lib.mkForce [] in
+    # users/sewer/home-manager/desktop/hyprland.nix. Revisit when upstream fixes.
     home-manager = {
-      url = "github:nix-community/home-manager/ca287c205447e1671c52c2400b262e735e5657ca";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     agenix = {
