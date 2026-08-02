@@ -14,6 +14,9 @@ hl.config({
     animate_manual_resizes = true; -- enables animations for manual (keyboard) resizes
     disable_hyprland_logo = true; -- Prevent logo from showing during wallpaper transitions
     disable_splash_rendering = true; -- Disable splash rendering
+    -- Direct launch via uwsm (no start-hyprland). Suppress the cosmetic
+    -- "started without start-hyprland" notification this triggers.
+    disable_watchdog_warning = true;
     vrr = 3; -- Fullscreen only (game/video only)
   };
 
