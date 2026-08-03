@@ -21,6 +21,7 @@
     ./programs/mangohud.nix
     ./programs/rust.nix
     ./programs/go.nix
+    ./programs/ruby.nix
     ./programs/direnv.nix
     ./programs/music-streaming.nix
     inputs.opencode-config.homeManagerModules.default
