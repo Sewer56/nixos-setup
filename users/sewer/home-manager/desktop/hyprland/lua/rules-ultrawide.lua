@@ -17,6 +17,7 @@ hl.window_rule({ workspace = "1 silent", match = { class = "^(vesktop)$" } })
 
 -- Workspace 2: Secondary development tools (master layout)
 hl.window_rule({ workspace = "2 silent", match = { class = "(?i)^(gitkraken)$" } })
+hl.window_rule({ workspace = "2 silent", match = { class = "^(md.Obsidian)$" } })
 hl.window_rule({ workspace = "2 silent", match = { class = "^(obsidian)$" } })
 hl.window_rule({ workspace = "2 silent", match = { class = "^(electron)$", title = "^(.*Obsidian.*)$" } })
 
