@@ -697,11 +697,11 @@
     },
     "nixos-secrets": {
       "locked": {
-        "lastModified": 1785957679,
-        "narHash": "sha256-NX0JTXRTs5XeAxLXfCAqqvT8yLpBn1FPwKGgzh/SC+4=",
+        "lastModified": 1785961066,
+        "narHash": "sha256-+gEHXI+U0QAqUpHhwKDRSumMsuzF4xrAJH3MfwERBaU=",
         "ref": "refs/heads/main",
-        "rev": "0506e60a7c6c1c0c605a8f8b4b00e404725c54c3",
-        "revCount": 2,
+        "rev": "cc30644ab75efc0c0b0086387a024cca5c36e62d",
+        "revCount": 3,
         "type": "git",
         "url": "file:///home/sewer/nixos/users/sewer/secrets"
       },
