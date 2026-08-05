@@ -18,6 +18,27 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # All age-encrypted secrets live in a separate private repo, so this repo
+    # holds no secret material at all.
+    #
+    # Vendored as a git submodule at users/sewer/secrets and consumed via
+    # git+file:// pointing at that submodule's working directory, exactly like
+    # opencode-config below. Two reasons for git+file:// over
+    # git+ssh://github.com:
+    #   - `sudo nixos-rebuild` evaluates as root, and root has no SSH key or
+    #     GitHub credentials, so a remote URL breaks every rebuild.
+    #   - a submodule working dir is a normal git repo, so nix fetches it
+    #     without needing root-level `?submodules=1` (which would also drag in
+    #     opencode-source's nested submodules).
+    #
+    # Being a submodule means `git clone --recurse-submodules` is all that is
+    # needed to bootstrap; the path is no longer an out-of-band convention.
+    #
+    # NOTE: editing a secret needs BOTH the submodule pointer and this input's
+    # flake.lock entry bumped. hooks/pre-commit enforces that they agree.
+    nixos-secrets = {
+      url = "git+file:///home/sewer/nixos/users/sewer/secrets";
+    };
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";

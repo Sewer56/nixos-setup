@@ -1,47 +1,65 @@
 #!/usr/bin/env bash
-# pre-commit: block committing an opencode submodule bump without a matching
-# flake.lock bump. Prevents the "NAR hash mismatch" build failure at the source.
+# pre-commit: block committing a submodule bump without a matching flake.lock
+# bump. Prevents the "NAR hash mismatch" build failure at the source, and — for
+# the secrets submodule — the subtler failure where the pointer moves but the
+# build silently keeps using the old secret values.
 #
-# Invariant enforced:
-#   staged submodule pointer for users/sewer/home-manager/programs/opencode
-#   MUST equal flake.lock's pinned rev for opencode-config.
+# Invariant enforced, for each pair below:
+#   staged submodule pointer MUST equal flake.lock's pinned rev for the
+#   corresponding flake input.
 #
-# Activated by `core.hooksPath = hooks` (set by Home Manager). Runs in any
-# repo that has a `hooks/` dir; silently skips when the opencode submodule
-# isn't staged, so it's harmless on other repositories.
+# Activated by `core.hooksPath = hooks`. Runs in any repo that has a `hooks/`
+# dir; silently skips when neither submodule is staged, so it's harmless on
+# other repositories.
 #
 # If you hit this hook: run, then re-stage and re-commit:
-#   nix flake lock --update-input opencode-config && git add flake.lock
+#   nix flake update <input> && git add flake.lock
 
 set -euo pipefail
 
-SUBMOD="users/sewer/home-manager/programs/opencode"
+# submodule path : flake input name
+PAIRS=(
+  "users/sewer/home-manager/programs/opencode:opencode-config"
+  "users/sewer/secrets:nixos-secrets"
+)
 
-# Submodule pointer staged for commit? If not, nothing to check.
-STAGED_SUB=$(git ls-files -s -- "$SUBMOD" 2>/dev/null | awk '{print $2}')
-[ -z "$STAGED_SUB" ] && exit 0
+# Read a locked rev out of flake.lock. Prefers the staged copy, falls back to
+# the working tree when flake.lock isn't staged.
+lock_rev() {
+  local input="$1"
+  local prog="import json,sys; print(json.load(sys.stdin)['nodes']['$input']['locked']['rev'])"
+  if git diff --cached --name-only -- flake.lock | grep -q .; then
+    git show :flake.lock 2>/dev/null | python3 -c "$prog" 2>/dev/null || true
+  else
+    python3 -c "$prog" < flake.lock 2>/dev/null || true
+  fi
+}
 
-# Did the submodule pointer actually change vs HEAD? If not, skip.
-HEAD_SUB=$(git ls-tree HEAD -- "$SUBMOD" 2>/dev/null | awk '{print $3}')
-[ "$STAGED_SUB" = "$HEAD_SUB" ] && exit 0
+status=0
 
-# Submodule is being bumped → flake.lock MUST be staged with matching rev.
-# Prefer the staged flake.lock; fall back to working tree if not staged.
-LOCK_REV=""
-if git diff --cached --name-only -- flake.lock | grep -q .; then
-  LOCK_REV=$(git show :flake.lock 2>/dev/null \
-    | python3 -c "import json,sys; print(json.load(sys.stdin)['nodes']['opencode-config']['locked']['rev'])" 2>/dev/null || true)
-else
-  LOCK_REV=$(python3 -c "import json; print(json.load(open('flake.lock'))['nodes']['opencode-config']['locked']['rev'])" 2>/dev/null || true)
-fi
+for pair in "${PAIRS[@]}"; do
+  submod="${pair%%:*}"
+  input="${pair##*:}"
 
-LOCK_SHORT="${LOCK_REV:0:12}"; LOCK_SHORT="${LOCK_SHORT:-MISSING}"
-if [ -z "$LOCK_REV" ] || [ "$STAGED_SUB" != "$LOCK_REV" ]; then
-  echo "ERROR: opencode submodule bumped to ${STAGED_SUB:0:12} but flake.lock pins $LOCK_SHORT." >&2
-  echo "Submodule rev and flake.lock rev must match or the build fails (NAR hash mismatch)." >&2
-  echo "Fix:" >&2
-  echo "  nix flake lock --update-input opencode-config && git add flake.lock" >&2
-  exit 1
-fi
+  # Submodule pointer staged for commit? If not, nothing to check.
+  staged=$(git ls-files -s -- "$submod" 2>/dev/null | awk '{print $2}')
+  [ -z "$staged" ] && continue
 
-exit 0
+  # Did the submodule pointer actually change vs HEAD? If not, skip.
+  head_rev=$(git ls-tree HEAD -- "$submod" 2>/dev/null | awk '{print $3}')
+  [ "$staged" = "$head_rev" ] && continue
+
+  # Submodule is being bumped → flake.lock MUST be staged with matching rev.
+  locked=$(lock_rev "$input")
+  short="${locked:0:12}"; short="${short:-MISSING}"
+
+  if [ -z "$locked" ] || [ "$staged" != "$locked" ]; then
+    echo "ERROR: $submod bumped to ${staged:0:12} but flake.lock pins $input at $short." >&2
+    echo "Submodule rev and flake.lock rev must match, or the build uses the wrong revision." >&2
+    echo "Fix:" >&2
+    echo "  nix flake update $input && git add flake.lock" >&2
+    status=1
+  fi
+done
+
+exit "$status"

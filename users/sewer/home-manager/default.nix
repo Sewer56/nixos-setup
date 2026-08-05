@@ -25,6 +25,8 @@
     ./programs/direnv.nix
     ./programs/music-streaming.nix
     inputs.opencode-config.homeManagerModules.default
+    # age.secrets declarations live in the private nixos-secrets repo.
+    inputs.nixos-secrets.homeManagerModules.default
     ./programs/corsair/ckb-next.nix
     ./programs/password-manager.nix
     ./programs/gnome-keyring.nix
@@ -113,102 +115,6 @@
   };
   programs.gh.enable = true;
   programs.gh.gitCredentialHelper.enable = true;
-
-  # Agenix configuration for secrets management
-  age.secrets = {
-    # Example secret configurations (uncomment as needed):
-    wallhaven-api-key = {
-      file = ./secrets/wallhaven-api-key.age;
-      path = "${config.home.homeDirectory}/.secrets/wallhaven-api-key";
-      mode = "600";
-    };
-
-    # GitHub Personal Access Token for Claude Code MCP servers
-    github-token = {
-      file = ./secrets/github-token.age;
-      path = "${config.home.homeDirectory}/.secrets/github-token";
-      mode = "600";
-    };
-
-    # Discord bot token for OpenCode Discord MCP server
-    discord-token = {
-      file = ./secrets/discord-token.age;
-      path = "${config.home.homeDirectory}/.secrets/discord-token";
-      mode = "600";
-    };
-
-    # Nix access tokens for GitHub rate limiting
-    nix-access-tokens = {
-      file = ./secrets/nix-access-tokens.age;
-      path = "${config.home.homeDirectory}/.secrets/nix-access-tokens";
-      mode = "600";
-    };
-
-    # Nexus API key
-    nexus-api-key = {
-      file = ./secrets/nexus-api-key.age;
-      path = "${config.home.homeDirectory}/.secrets/nexus-api-key";
-      mode = "600";
-      symlink = false; # Needs to be read before agenix kicks in
-    };
-
-    # Reloaded-II wiki
-    reloaded-wiki-search-github-api-key = {
-      file = ./secrets/reloaded-wiki-search-github-api-key.age;
-      path = "${config.home.homeDirectory}/.secrets/reloaded-wiki-search-github-api-key";
-      mode = "600";
-      symlink = false; # Needs to be read before agenix kicks in
-    };
-
-    slack-xoxp-token = {
-      file = ./secrets/slack-xoxp-token.age;
-      path = "${config.home.homeDirectory}/.secrets/slack-xoxp-token";
-      mode = "600";
-      symlink = false;
-    };
-
-    linear-api-key = {
-      file = ./secrets/linear-api-key.age;
-      path = "${config.home.homeDirectory}/.secrets/linear-api-key";
-      mode = "600";
-      symlink = false;
-    };
-
-    # Bifrost proxy URL for OpenCode
-    bifrost-url = {
-      file = ./secrets/bifrost-url.age;
-      path = "${config.home.homeDirectory}/.secrets/bifrost-url";
-      mode = "600";
-    };
-
-    # Wafer Pass API key
-    wafer-key = {
-      file = ./secrets/wafer-key.age;
-      path = "${config.home.homeDirectory}/.secrets/wafer-key";
-      mode = "600";
-    };
-
-    # AxonHub API key
-    axonhub-key = {
-      file = ./secrets/axonhub-key.age;
-      path = "${config.home.homeDirectory}/.secrets/axonhub-key";
-      mode = "600";
-    };
-
-    # AxonHub work API key
-    axonhub-work-key = {
-      file = ./secrets/axonhub-work-key.age;
-      path = "${config.home.homeDirectory}/.secrets/axonhub-work-key";
-      mode = "600";
-    };
-
-    # AxonHub URL
-    axonhub-url = {
-      file = ./secrets/axonhub-url.age;
-      path = "${config.home.homeDirectory}/.secrets/axonhub-url";
-      mode = "600";
-    };
-  };
 
   # Configure nix access tokens to avoid GitHub rate limiting
   nix.extraOptions = ''

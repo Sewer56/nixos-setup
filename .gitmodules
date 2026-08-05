@@ -2,3 +2,7 @@
 	path = users/sewer/home-manager/programs/opencode
 	url = https://github.com/Sewer56/nixos-opencode-config.git
 	branch = main
+[submodule "users/sewer/secrets"]
+	path = users/sewer/secrets
+	url = git@github.com:Sewer56/nixos-secrets.git
+	branch = main

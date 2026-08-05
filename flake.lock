@@ -695,6 +695,21 @@
         "type": "github"
       }
     },
+    "nixos-secrets": {
+      "locked": {
+        "lastModified": 1785957679,
+        "narHash": "sha256-NX0JTXRTs5XeAxLXfCAqqvT8yLpBn1FPwKGgzh/SC+4=",
+        "ref": "refs/heads/main",
+        "rev": "0506e60a7c6c1c0c605a8f8b4b00e404725c54c3",
+        "revCount": 2,
+        "type": "git",
+        "url": "file:///home/sewer/nixos/users/sewer/secrets"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///home/sewer/nixos/users/sewer/secrets"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1785301185,
@@ -813,6 +828,7 @@
         "hyprland": "hyprland",
         "hyprpaper": "hyprpaper",
         "llm-agents": "llm-agents",
+        "nixos-secrets": "nixos-secrets",
         "nixpkgs": "nixpkgs_4",
         "opencode-config": "opencode-config",
         "rust-overlay": "rust-overlay"

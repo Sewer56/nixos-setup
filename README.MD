@@ -34,8 +34,11 @@ Reproduces my laptop setup and installs to `/home/sewer/nixos` as usual.
 
 ## Daily Usage
 
-If building first time, you'll need to set `--option allow-unsafe-native-code-during-evaluation true`, if using
-evaluation time secrets like my email account.
+> [!NOTE]
+> Secrets live in a separate **private** repo, vendored as a submodule at
+> `users/sewer/secrets`. Editing one requires bumping both the submodule pointer
+> and `flake.lock` — see
+> [users/sewer/secrets/README.md](users/sewer/secrets/README.md).
 
 ### Applying Changes
 
@@ -93,6 +96,8 @@ sudo nix-collect-garbage --delete-older-than 7d
 ## Setting Up for New Machines
 
 For hardware setup, configuration, and debugging, see [HARDWARE.md](HARDWARE.md).
+For SSH key and secrets-repo access, which must be in place *before* the first
+rebuild, see [SECRETS.md](SECRETS.md#setup-for-new-machine).
 
 ### Git Pre-commit Hook
 

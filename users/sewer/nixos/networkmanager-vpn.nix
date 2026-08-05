@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  inputs,
   ...
 }: let
   caCert = pkgs.writeText "nexus-vpn-ca.pem" ''
@@ -26,19 +27,12 @@
     -----END CERTIFICATE-----
   '';
 in {
+  # age.secrets declarations live in the private nixos-secrets repo.
+  imports = [inputs.nixos-secrets.nixosModules.default];
+
+  # Stays here rather than in nixos-secrets: this describes the machine, not
+  # the secrets.
   age.identityPaths = ["/home/sewer/.ssh/id_rsa"];
-
-  age.secrets = {
-    nexus-vpn = {
-      file = ./secrets/nexus-vpn.env.age;
-      mode = "600";
-    };
-
-    nexus-vpn-ta = {
-      file = ./secrets/nexus-vpn-ta.age;
-      mode = "600";
-    };
-  };
 
   networking.networkmanager.ensureProfiles = {
     environmentFiles = [config.age.secrets.nexus-vpn.path];

@@ -8,61 +8,73 @@ This document covers hardware-specific setup, configuration, and debugging for N
 
    ```bash
    sudo mv /etc/nixos /etc/nixos.backup  # Backup existing config
-   sudo git clone https://github.com/Sewer56/nixos-setup.git /home/sewer/nixos
+   git clone --recurse-submodules https://github.com/Sewer56/nixos-setup.git /home/sewer/nixos
    cd /home/sewer/nixos
+   git config core.hooksPath hooks
    ```
 
-2. **Create host directory**:
+2. **Set up secrets access** — see [SECRETS.md](SECRETS.md#setup-for-new-machine).
+
+3. **Create host directory**:
    ```bash
-    sudo mkdir -p /home/sewer/nixos/hosts/<hostname>
+   mkdir -p /home/sewer/nixos/hosts/<hostname>
    ```
 
-3. **Generate hardware configuration**:
+4. **Generate hardware configuration**:
    ```bash
    sudo nixos-generate-config --show-hardware-config > hosts/<hostname>/hardware-configuration.nix
    ```
 
-4. **Create host configuration** (`hosts/<hostname>/default.nix`):
+5. **Create host configuration** (`hosts/<hostname>/default.nix`):
 
-   Copy this from `hosts/laptop/default.nix` and adapt the GPU
-   driver and `stateVersion` as needed.
+   Copy `hosts/laptop/default.nix` and adapt the GPU driver and
+   `stateVersion` as needed.
+
+   ```bash
+   cp hosts/laptop/default.nix hosts/<hostname>/default.nix
+   ```
+
+   The parts to review:
 
    ```nix
-   # Adapt some parts as needed
-   {pkgs, ...}: {
+   {pkgs, lib, ...}: {
       imports = [
+        ./hardware-configuration.nix
+        ../../modules/nixos/core/default.nix
+        ../../modules/nixos/desktop/default.nix
+        ../../users/sewer/default.nix
         # Graphics modules (choose one):
         # ../../modules/nixos/hardware/graphics/nvidia.nix
-        # ../../modules/nixos/hardware/graphics/amd.nix 
+        # ../../modules/nixos/hardware/graphics/amd.nix
         # ../../modules/nixos/hardware/graphics/intel.nix
       ];
 
+      # See hosts/shared-options.nix for the full set
+      hostOptions = { /* ... */ };
+
+      networking.hostName = "<hostname>";
       system.stateVersion = "25.05";
    }
    ```
 
-5. **Update flake.nix** to add the new host:
+6. **Update flake.nix** to add the new host via `mkSystem`:
    ```nix
-    nixosConfigurations = {
-      laptop = # ... existing config
-      <hostname> = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs;};
-        modules = [
-          ./hosts/<hostname>/default.nix
-          inputs.home-manager.nixosModules.default
-        ];
-      };
-   };
+   nixosConfigurations.laptop = mkSystem ./hosts/laptop/default.nix;
+   nixosConfigurations.desktop = mkSystem ./hosts/desktop/default.nix;
+   nixosConfigurations.<hostname> = mkSystem ./hosts/<hostname>/default.nix;
    ```
 
-6. **Deploy the configuration**:
+7. **Stage the new files** — flakes only see git-tracked files, so an unstaged
+   host directory fails with "not tracked by Git":
+   ```bash
+   git add hosts/<hostname>
+   ```
+
+8. **Deploy the configuration**:
    ```bash
    # Use existing package versions for reproducibility
-   sudo nixos-rebuild switch --flake .#<hostname> --option allow-unsafe-native-code-during-evaluation true
+   sudo nixos-rebuild switch --flake .#<hostname>
    ```
-
-Some secrets are decoded at eval time, so we use `--option allow-unsafe-native-code-during-evaluation true` to allow this.
 
 ## Manual Steps (New Machine Setup Only)
 
@@ -79,16 +91,6 @@ sudo tailscale up
 Follow the URL printed to authenticate in your browser. The authentication state persists in `/var/lib/tailscale` across rebuilds.
 
 **Note**: Auth keys are not used because they expire after 90 days, and regenerating them via the Tailscale website is more hassle than manual authentication.
-
-### Proton Drive Setup
-
-Before the NixOS configuration can mount Proton Drive, run initial setup with 2FA:
-
-```bash
-rclone config
-```
-
-Edit the existing `Cloud-private` remote, enter 2FA code when prompted. This generates required tokens that the NixOS configuration will use.
 
 ### Proton Mail Setup
 
