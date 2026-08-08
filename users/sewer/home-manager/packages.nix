@@ -36,6 +36,7 @@
     pcsx2
     xenia-canary
     parsec-bin
+    r2modman
 
     # General Tools
     qalculate-gtk

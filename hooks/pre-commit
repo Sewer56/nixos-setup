@@ -1,20 +1,18 @@
 #!/usr/bin/env bash
-# pre-commit: block committing a submodule bump without a matching flake.lock
-# bump. Prevents the "NAR hash mismatch" build failure at the source, and — for
-# the secrets submodule — the subtler failure where the pointer moves but the
-# build silently keeps using the old secret values.
+# pre-commit: sync flake.lock after a submodule bump. Prevents the "NAR hash
+# mismatch" build failure at the source, and — for the secrets submodule — the
+# subtler failure where the pointer moves but the build silently keeps using
+# the old secret values.
 #
 # Invariant enforced, for each pair below:
 #   staged submodule pointer MUST equal flake.lock's pinned rev for the
-#   corresponding flake input.
+#   corresponding flake input. The hook updates and stages flake.lock when
+#   needed.
 #
 # Activated by `core.hooksPath = hooks`. Runs in any repo that has a `hooks/`
 # dir; silently skips when neither submodule is staged, so it's harmless on
 # other repositories.
 #
-# If you hit this hook: run, then re-stage and re-commit:
-#   nix flake update <input> && git add flake.lock
-
 set -euo pipefail
 
 # submodule path : flake input name
@@ -54,11 +52,14 @@ for pair in "${PAIRS[@]}"; do
   short="${locked:0:12}"; short="${short:-MISSING}"
 
   if [ -z "$locked" ] || [ "$staged" != "$locked" ]; then
-    echo "ERROR: $submod bumped to ${staged:0:12} but flake.lock pins $input at $short." >&2
-    echo "Submodule rev and flake.lock rev must match, or the build uses the wrong revision." >&2
-    echo "Fix:" >&2
-    echo "  nix flake update $input && git add flake.lock" >&2
-    status=1
+    echo "Updating flake.lock: $input ${short} -> ${staged:0:12}" >&2
+    if ! nix flake update "$input"; then
+      echo "ERROR: failed updating flake.lock for $input." >&2
+      echo "Run: nix flake update $input && git add flake.lock" >&2
+      status=1
+      continue
+    fi
+    git add flake.lock
   fi
 done
 

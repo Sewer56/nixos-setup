@@ -101,9 +101,9 @@ rebuild, see [SECRETS.md](SECRETS.md#setup-for-new-machine).
 
 ### Git Pre-commit Hook
 
-A `pre-commit` hook prevents committing an `opencode` submodule bump
-without a matching `flake.lock` bump (which causes `NAR hash mismatch`
-build failures). To activate it in your local clone:
+A `pre-commit` hook automatically updates and stages matching `flake.lock`
+entries when submodules move. This prevents `NAR hash mismatch` build
+failures. To activate it in your local clone:
 
 ```bash
 git config core.hooksPath hooks
