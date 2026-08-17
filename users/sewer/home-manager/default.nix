@@ -23,6 +23,7 @@
     ./programs/go.nix
     ./programs/ruby.nix
     ./programs/direnv.nix
+    ./programs/opencode-auto-poweroff.nix
     ./programs/music-streaming.nix
     inputs.opencode-config.homeManagerModules.default
     # age.secrets declarations live in the private nixos-secrets repo.
