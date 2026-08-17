@@ -20,6 +20,11 @@
       # Command that powers off; override it so tests never shut the machine down.
       POWEROFF_CMD="''${OPENCODE_AUTO_POWEROFF_CMD:-systemctl poweroff}"
       CANCEL="''${XDG_RUNTIME_DIR:-/tmp}/opencode-auto-poweroff.cancel"
+      LOCK="''${XDG_RUNTIME_DIR:-/tmp}/opencode-auto-poweroff.lock"
+
+      # Only one instance may run; a second would delete the cancel file mid-countdown.
+      exec 9>"$LOCK"
+      flock -n 9 || exit 0
 
       if [ ! -f "$LOG" ]; then
         echo "opencode log not found: $LOG" >&2
@@ -31,12 +36,16 @@
 
       while :; do
         [ -e "$CANCEL" ] && exit 0
-        quiet=$(( $(date +%s) - $(stat -c %Y "$LOG") ))
+        # After this line: quiet is seconds since last log write, or the log vanished.
+        if ! quiet=$(( $(date +%s) - $(stat -c %Y "$LOG") )) 2>/dev/null; then
+          echo "opencode log vanished: $LOG" >&2
+          exit 1
+        fi
         [ "$quiet" -ge "$TIMEOUT" ] && break
         sleep "$POLL"
       done
 
-      wall "opencode idle $((TIMEOUT / 60)) min, powering off in $((GRACE / 60)) min. touch $CANCEL to abort."
+      command -v wall >/dev/null && wall "opencode idle $((TIMEOUT / 60)) min, powering off in $((GRACE / 60)) min. touch $CANCEL to abort."
       command -v notify-send >/dev/null && notify-send "opencode idle" "Powering off in $((GRACE / 60)) min. touch $CANCEL to abort."
 
       sleep "$GRACE"
