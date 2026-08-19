@@ -8,7 +8,8 @@
       sane-airscan # Driverless Apple AirScan and Microsoft WSD
       hplipWithPlugin # HP scanners
       epkowa # Epson scanners (epkowa backend)
-      utsushi # Epson scanners (newer models)
+      # NOTE: utsushi (newer Epson) removed: package dropped from nixpkgs
+      # (archived upstream, gtk2 dependency)
     ];
 
     # Disable default escl backend to avoid duplicate scanner detection with sane-airscan
@@ -18,7 +19,6 @@
   # Required for scanner detection
   services.udev.packages = with pkgs; [
     sane-airscan
-    utsushi
   ];
 
   # Enable IPP-USB for USB-connected network scanners
