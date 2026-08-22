@@ -4,9 +4,9 @@
     hardware.hasBattery = lib.mkEnableOption "this device is battery powered";
     hardware.nvidia.earlyLoading = lib.mkEnableOption "early loading of NVIDIA kernel modules in initrd for early display setup";
     hardware.nvidia.driverVersion = lib.mkOption {
-      type = lib.types.enum ["stable" "beta" "production" "vulkan_beta" "legacy_470" "legacy_390"];
+      type = lib.types.enum ["stable" "beta" "production" "vulkan_beta" "latest" "legacy_470" "legacy_390"];
       default = "stable";
-      description = "NVIDIA driver version to use (stable, beta, production, vulkan_beta, legacy_470, legacy_390)";
+      description = "NVIDIA driver version to use (stable, beta, production, vulkan_beta, latest, legacy_470, legacy_390)";
     };
     nas.mode = lib.mkOption {
       type = lib.types.enum ["disabled" "local" "tailscale"];

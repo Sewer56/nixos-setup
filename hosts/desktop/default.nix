@@ -29,7 +29,7 @@
     hardware.corsair.enable = lib.mkDefault true;
     hardware.hasBattery = lib.mkDefault false;
     hardware.nvidia.earlyLoading = lib.mkDefault false;
-    hardware.nvidia.driverVersion = lib.mkDefault "beta";
+    hardware.nvidia.driverVersion = lib.mkDefault "latest";
     nas.mode = lib.mkDefault "local";
     desktop.hyprland.displayMode = lib.mkDefault "ultrawide";
     desktop.hyprland.preferDedicatedLaptopGpu = lib.mkDefault false;

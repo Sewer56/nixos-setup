@@ -13,6 +13,7 @@
     beta = config.boot.kernelPackages.nvidiaPackages.beta;
     production = config.boot.kernelPackages.nvidiaPackages.production;
     vulkan_beta = config.boot.kernelPackages.nvidiaPackages.vulkan_beta;
+    latest = config.boot.kernelPackages.nvidiaPackages.latest;
     legacy_470 = config.boot.kernelPackages.nvidiaPackages.legacy_470;
     legacy_390 = config.boot.kernelPackages.nvidiaPackages.legacy_390;
   };
