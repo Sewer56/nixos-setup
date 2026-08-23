@@ -2,6 +2,7 @@
   # Screenshot functionality for Hyprland
   home.packages = with pkgs; [
     grim # Screenshot utility for Wayland
+    libwebp # cwebp encoder for lossless WebP screenshots
     slurp # Region selection for screenshots
     hyprpicker # Freeze screen during interactive captures
     wl-clipboard # Wayland clipboard utilities
@@ -37,11 +38,12 @@
       mkdir -p "$FULL_DIR"
 
       # Generate filename with timestamp
-      FILENAME="$(date +"%Y%m%d_%Hh%Mm%Ss").png"
+      FILENAME="$(date +"%Y%m%d_%Hh%Mm%Ss").webp"
       FILEPATH="$FULL_DIR/$FILENAME"
 
       # Freeze the current frame while selecting a region
       FREEZE_PID=""
+      TMP_PPM=""
       cleanup() {
         if [[ -n "$FREEZE_PID" ]]; then
           kill "$FREEZE_PID" 2>/dev/null || true
@@ -49,7 +51,7 @@
           FREEZE_PID=""
         fi
       }
-      trap cleanup EXIT
+      trap 'cleanup; [[ -n "$TMP_PPM" ]] && rm -f "$TMP_PPM"' EXIT
 
       hyprpicker -r -z >/dev/null 2>&1 &
       FREEZE_PID=$!
@@ -57,12 +59,16 @@
       sleep 0.2
 
       REGION=$(slurp) || exit 0
-      grim -l 9 -g "$REGION" "$FILEPATH"
+
+      # Capture raw (instant), then encode lossless WebP
+      TMP_PPM=$(mktemp /tmp/screenshot.XXXXXX.ppm)
+      grim -t ppm -g "$REGION" "$TMP_PPM"
       cleanup
+      cwebp -quiet -lossless -q 100 -m 4 -mt "$TMP_PPM" -o "$FILEPATH"
 
       # Copy to clipboard and show notification
       if [[ -f "$FILEPATH" ]]; then
-        wl-copy < "$FILEPATH"
+        wl-copy -t image/webp < "$FILEPATH"
         FILE_SIZE=$(du -h "$FILEPATH" | cut -f1)
         notify-send "Screenshot saved" "File: $FILENAME\nSize: $FILE_SIZE\nLocation: $FULL_DIR" -i "$FILEPATH"
       fi
@@ -97,15 +103,18 @@
       mkdir -p "$FULL_DIR"
 
       # Generate filename with timestamp
-      FILENAME="$(date +"%Y%m%d_%Hh%Mm%Ss").png"
+      FILENAME="$(date +"%Y%m%d_%Hh%Mm%Ss").webp"
       FILEPATH="$FULL_DIR/$FILENAME"
 
-      # Take full screenshot
-      grim -l 9 "$FILEPATH"
+      # Capture raw (instant), then encode lossless WebP
+      TMP_PPM=$(mktemp /tmp/screenshot.XXXXXX.ppm)
+      trap 'rm -f "$TMP_PPM"' EXIT
+      grim -t ppm "$TMP_PPM"
+      cwebp -quiet -lossless -q 100 -m 4 -mt "$TMP_PPM" -o "$FILEPATH"
 
       # Copy to clipboard and show notification
       if [[ -f "$FILEPATH" ]]; then
-        wl-copy < "$FILEPATH"
+        wl-copy -t image/webp < "$FILEPATH"
         FILE_SIZE=$(du -h "$FILEPATH" | cut -f1)
         notify-send "Screenshot saved" "File: $FILENAME\nSize: $FILE_SIZE\nLocation: $FULL_DIR" -i "$FILEPATH"
       fi
@@ -153,18 +162,21 @@
       # Generate filename with timestamp and window title
       TIMESTAMP="$(date +"%Y%m%d_%Hh%Mm%Ss")"
       if [[ -n "$CLEAN_TITLE" && "$CLEAN_TITLE" != "null" ]]; then
-        FILENAME="''${TIMESTAMP}_''${CLEAN_TITLE}.png"
+        FILENAME="''${TIMESTAMP}_''${CLEAN_TITLE}.webp"
       else
-        FILENAME="''${TIMESTAMP}.png"
+        FILENAME="''${TIMESTAMP}.webp"
       fi
       FILEPATH="$FULL_DIR/$FILENAME"
 
-      # Take screenshot of specific window geometry
-      grim -l 9 -g "''${WINDOW_X},''${WINDOW_Y} ''${WINDOW_WIDTH}x''${WINDOW_HEIGHT}" "$FILEPATH"
+      # Capture raw (instant), then encode lossless WebP
+      TMP_PPM=$(mktemp /tmp/screenshot.XXXXXX.ppm)
+      trap 'rm -f "$TMP_PPM"' EXIT
+      grim -t ppm -g "''${WINDOW_X},''${WINDOW_Y} ''${WINDOW_WIDTH}x''${WINDOW_HEIGHT}" "$TMP_PPM"
+      cwebp -quiet -lossless -q 100 -m 4 -mt "$TMP_PPM" -o "$FILEPATH"
 
       # Copy to clipboard and show notification
       if [[ -f "$FILEPATH" ]]; then
-        wl-copy < "$FILEPATH"
+        wl-copy -t image/webp < "$FILEPATH"
         FILE_SIZE=$(du -h "$FILEPATH" | cut -f1)
         notify-send "Window Screenshot saved" "Window: $WINDOW_TITLE\nFile: $FILENAME\nSize: $FILE_SIZE\nLocation: $FULL_DIR" -i "$FILEPATH"
       fi
