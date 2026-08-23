@@ -70,7 +70,7 @@ hl.bind("SUPER + period", hl.dsp.exec_cmd("rofi -show emoji -emoji-mode copy -em
 hl.bind("ALT + Tab", hl.dsp.exec_cmd("rofi -show window"))
 
 -- Clipboard manager (Super+V = open clipboard history)
-hl.bind("SUPER + V", hl.dsp.exec_cmd("cliphist list | rofi -dmenu -theme ~/.config/rofi/themes/clipboard/laptop.rasi | cliphist decode | wl-copy"))
+hl.bind("SUPER + V", hl.dsp.exec_cmd("~/.local/bin/clipboard_history_pick.sh"))
 
 -- Lock screen manually
 hl.bind("SUPER + Escape", hl.dsp.exec_cmd("hyprlock"))
