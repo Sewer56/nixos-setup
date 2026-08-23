@@ -9,7 +9,10 @@
 
     # Additional development dependencies
     clang_multi # C compiler for linking (provides `cc`)
-    libclang # Required for bindgen and some crates
+    # libclang.lib: bindgen only needs the library (LIBCLANG_PATH below).
+    # Plain 'libclang' would leak the whole clang toolset (incl. an unwrapped
+    # clangd) onto PATH; clangd now comes from clang-tools in packages.nix.
+    libclang.lib # Required for bindgen and some crates
     pkg-config # Required for linking system libraries
   ];
 
