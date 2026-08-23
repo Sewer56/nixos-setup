@@ -68,7 +68,9 @@
 
       # Copy to clipboard and show notification
       if [[ -f "$FILEPATH" ]]; then
-        wl-copy -t image/webp < "$FILEPATH"
+        # File reference for clipboard: paste in Discord/browsers uploads the
+        # original WebP from disk; image-byte offers would re-encode anyway
+        wl-copy -t text/uri-list <<< "file://$FILEPATH"
         FILE_SIZE=$(du -h "$FILEPATH" | cut -f1)
         notify-send "Screenshot saved" "File: $FILENAME\nSize: $FILE_SIZE\nLocation: $FULL_DIR" -i "$FILEPATH"
       fi
@@ -114,7 +116,9 @@
 
       # Copy to clipboard and show notification
       if [[ -f "$FILEPATH" ]]; then
-        wl-copy -t image/webp < "$FILEPATH"
+        # File reference for clipboard: paste in Discord/browsers uploads the
+        # original WebP from disk; image-byte offers would re-encode anyway
+        wl-copy -t text/uri-list <<< "file://$FILEPATH"
         FILE_SIZE=$(du -h "$FILEPATH" | cut -f1)
         notify-send "Screenshot saved" "File: $FILENAME\nSize: $FILE_SIZE\nLocation: $FULL_DIR" -i "$FILEPATH"
       fi
@@ -176,7 +180,9 @@
 
       # Copy to clipboard and show notification
       if [[ -f "$FILEPATH" ]]; then
-        wl-copy -t image/webp < "$FILEPATH"
+        # File reference for clipboard: paste in Discord/browsers uploads the
+        # original WebP from disk; image-byte offers would re-encode anyway
+        wl-copy -t text/uri-list <<< "file://$FILEPATH"
         FILE_SIZE=$(du -h "$FILEPATH" | cut -f1)
         notify-send "Window Screenshot saved" "Window: $WINDOW_TITLE\nFile: $FILENAME\nSize: $FILE_SIZE\nLocation: $FULL_DIR" -i "$FILEPATH"
       fi
