@@ -37,8 +37,12 @@
       FULL_DIR="$SCREENSHOT_DIR/$YEAR_MONTH"
       mkdir -p "$FULL_DIR"
 
+      # Output format: WebP (default) or PNG with --png (SUPER binds)
+      EXT="webp"
+      [[ "''${1:-}" == "--png" ]] && EXT="png"
+
       # Generate filename with timestamp
-      FILENAME="$(date +"%Y%m%d_%Hh%Mm%Ss").webp"
+      FILENAME="$(date +"%Y%m%d_%Hh%Mm%Ss").$EXT"
       FILEPATH="$FULL_DIR/$FILENAME"
 
       # Freeze the current frame while selecting a region
@@ -60,11 +64,17 @@
 
       REGION=$(slurp) || exit 0
 
-      # Capture raw (instant), then encode lossless WebP
-      TMP_PPM=$(mktemp /tmp/screenshot.XXXXXX.ppm)
-      grim -t ppm -g "$REGION" "$TMP_PPM"
-      cleanup
-      cwebp -quiet -lossless -q 100 -m 4 -mt "$TMP_PPM" -o "$FILEPATH"
+      if [[ "$EXT" == "png" ]]; then
+        # PNG: grim encodes directly (default compression is fast)
+        grim -g "$REGION" "$FILEPATH"
+        cleanup
+      else
+        # WebP: capture raw (instant), then encode lossless
+        TMP_PPM=$(mktemp /tmp/screenshot.XXXXXX.ppm)
+        grim -t ppm -g "$REGION" "$TMP_PPM"
+        cleanup
+        cwebp -quiet -lossless -q 100 -m 4 -mt "$TMP_PPM" -o "$FILEPATH"
+      fi
 
       # Copy to clipboard and show notification
       if [[ -f "$FILEPATH" ]]; then
@@ -104,15 +114,26 @@
       FULL_DIR="$SCREENSHOT_DIR/$YEAR_MONTH"
       mkdir -p "$FULL_DIR"
 
+      # Output format: WebP (default) or PNG with --png (SUPER binds)
+      EXT="webp"
+      [[ "''${1:-}" == "--png" ]] && EXT="png"
+
       # Generate filename with timestamp
-      FILENAME="$(date +"%Y%m%d_%Hh%Mm%Ss").webp"
+      FILENAME="$(date +"%Y%m%d_%Hh%Mm%Ss").$EXT"
       FILEPATH="$FULL_DIR/$FILENAME"
 
-      # Capture raw (instant), then encode lossless WebP
-      TMP_PPM=$(mktemp /tmp/screenshot.XXXXXX.ppm)
-      trap 'rm -f "$TMP_PPM"' EXIT
-      grim -t ppm "$TMP_PPM"
-      cwebp -quiet -lossless -q 100 -m 4 -mt "$TMP_PPM" -o "$FILEPATH"
+      # Capture: PNG direct via grim; WebP via raw PPM + cwebp (lossless)
+      TMP_PPM=""
+      trap '[[ -n "$TMP_PPM" ]] && rm -f "$TMP_PPM"' EXIT
+      if [[ "$EXT" == "png" ]]; then
+        # PNG: grim encodes directly (default compression is fast)
+        grim "$FILEPATH"
+      else
+        # WebP: capture raw (instant), then encode lossless
+        TMP_PPM=$(mktemp /tmp/screenshot.XXXXXX.ppm)
+        grim -t ppm "$TMP_PPM"
+        cwebp -quiet -lossless -q 100 -m 4 -mt "$TMP_PPM" -o "$FILEPATH"
+      fi
 
       # Copy to clipboard and show notification
       if [[ -f "$FILEPATH" ]]; then
@@ -163,20 +184,31 @@
       # Sanitize window title for filename (replace spaces with underscores, remove special chars)
       CLEAN_TITLE=$(echo "$WINDOW_TITLE" | sed 's/[^a-zA-Z0-9 ]//g' | sed 's/ /_/g')
 
+      # Output format: WebP (default) or PNG with --png (SUPER binds)
+      EXT="webp"
+      [[ "''${1:-}" == "--png" ]] && EXT="png"
+
       # Generate filename with timestamp and window title
       TIMESTAMP="$(date +"%Y%m%d_%Hh%Mm%Ss")"
       if [[ -n "$CLEAN_TITLE" && "$CLEAN_TITLE" != "null" ]]; then
-        FILENAME="''${TIMESTAMP}_''${CLEAN_TITLE}.webp"
+        FILENAME="''${TIMESTAMP}_''${CLEAN_TITLE}.$EXT"
       else
-        FILENAME="''${TIMESTAMP}.webp"
+        FILENAME="''${TIMESTAMP}.$EXT"
       fi
       FILEPATH="$FULL_DIR/$FILENAME"
 
-      # Capture raw (instant), then encode lossless WebP
-      TMP_PPM=$(mktemp /tmp/screenshot.XXXXXX.ppm)
-      trap 'rm -f "$TMP_PPM"' EXIT
-      grim -t ppm -g "''${WINDOW_X},''${WINDOW_Y} ''${WINDOW_WIDTH}x''${WINDOW_HEIGHT}" "$TMP_PPM"
-      cwebp -quiet -lossless -q 100 -m 4 -mt "$TMP_PPM" -o "$FILEPATH"
+      # Capture: PNG direct via grim; WebP via raw PPM + cwebp (lossless)
+      TMP_PPM=""
+      trap '[[ -n "$TMP_PPM" ]] && rm -f "$TMP_PPM"' EXIT
+      if [[ "$EXT" == "png" ]]; then
+        # PNG: grim encodes directly (default compression is fast)
+        grim -g "''${WINDOW_X},''${WINDOW_Y} ''${WINDOW_WIDTH}x''${WINDOW_HEIGHT}" "$FILEPATH"
+      else
+        # WebP: capture raw (instant), then encode lossless
+        TMP_PPM=$(mktemp /tmp/screenshot.XXXXXX.ppm)
+        grim -t ppm -g "''${WINDOW_X},''${WINDOW_Y} ''${WINDOW_WIDTH}x''${WINDOW_HEIGHT}" "$TMP_PPM"
+        cwebp -quiet -lossless -q 100 -m 4 -mt "$TMP_PPM" -o "$FILEPATH"
+      fi
 
       # Copy to clipboard and show notification
       if [[ -f "$FILEPATH" ]]; then

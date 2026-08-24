@@ -57,11 +57,13 @@ hl.bind("SUPER + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
 hl.bind("SUPER + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 
 -- Screenshot bindings
--- Print = area to clipboard, Shift+Print = full to clipboard
--- Ctrl+Print = area to file, Ctrl+Shift+Print = full to file
+-- WebP lossless by default; hold SUPER for PNG instead
 hl.bind("SHIFT + Print", hl.dsp.exec_cmd("~/.local/bin/take_screenshot.sh")) -- Region selection
 hl.bind("ALT + Print", hl.dsp.exec_cmd("~/.local/bin/take_current_window_screenshot.sh")) -- Current window
 hl.bind("CTRL + Print", hl.dsp.exec_cmd("~/.local/bin/take_full_screenshot.sh")) -- Full screen
+hl.bind("SUPER + SHIFT + Print", hl.dsp.exec_cmd("~/.local/bin/take_screenshot.sh --png")) -- Region selection (PNG)
+hl.bind("SUPER + ALT + Print", hl.dsp.exec_cmd("~/.local/bin/take_current_window_screenshot.sh --png")) -- Current window (PNG)
+hl.bind("SUPER + CTRL + Print", hl.dsp.exec_cmd("~/.local/bin/take_full_screenshot.sh --png")) -- Full screen (PNG)
 
 -- Window switcher (Alt+Tab) and rofi launcher bindings
 hl.bind("SUPER + D", hl.dsp.exec_cmd("rofi -show drun"))
