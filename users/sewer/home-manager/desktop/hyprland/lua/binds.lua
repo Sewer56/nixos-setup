@@ -34,13 +34,13 @@ hl.bind("SUPER + O", hl.dsp.layout("addmaster")) -- Add master window
 hl.bind("SUPER + SHIFT + O", hl.dsp.layout("removemaster")) -- Remove master window
 hl.bind("SUPER + SHIFT + T", hl.dsp.layout("orientationcycle center bottom")) -- Toggle master orientation (center/bottom)
 
--- Application pass-through bindings
-hl.bind("ALT + KP_1", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" }))
-hl.bind("ALT + KP_2", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" }))
-hl.bind("ALT + KP_3", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" }))
-hl.bind("ALT + KP_4", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" }))
-hl.bind("ALT + KP_5", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" }))
-hl.bind("ALT + KP_6", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" }))
+-- Application pass-through bindings (OBS hotkeys: Alt+numpad 1-6, delivered with MOD2/NumLock so OBS reads NUM keys, not arrows)
+hl.bind("ALT + code:87", hl.dsp.send_shortcut({ mods = "ALT MOD2", key = "KP_1", window = "class:^(com\\.obsproject\\.Studio)$" }))
+hl.bind("ALT + code:88", hl.dsp.send_shortcut({ mods = "ALT MOD2", key = "KP_2", window = "class:^(com\\.obsproject\\.Studio)$" }))
+hl.bind("ALT + code:89", hl.dsp.send_shortcut({ mods = "ALT MOD2", key = "KP_3", window = "class:^(com\\.obsproject\\.Studio)$" }))
+hl.bind("ALT + code:83", hl.dsp.send_shortcut({ mods = "ALT MOD2", key = "KP_4", window = "class:^(com\\.obsproject\\.Studio)$" }))
+hl.bind("ALT + code:84", hl.dsp.send_shortcut({ mods = "ALT MOD2", key = "KP_5", window = "class:^(com\\.obsproject\\.Studio)$" }))
+hl.bind("ALT + code:85", hl.dsp.send_shortcut({ mods = "ALT MOD2", key = "KP_6", window = "class:^(com\\.obsproject\\.Studio)$" }))
 hl.bind("SUPER + C", hl.dsp.pass({ window = "^(qemu)$" }))
 
 -- Window movement
