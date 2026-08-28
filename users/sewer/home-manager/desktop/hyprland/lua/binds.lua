@@ -35,8 +35,12 @@ hl.bind("SUPER + SHIFT + O", hl.dsp.layout("removemaster")) -- Remove master win
 hl.bind("SUPER + SHIFT + T", hl.dsp.layout("orientationcycle center bottom")) -- Toggle master orientation (center/bottom)
 
 -- Application pass-through bindings
-hl.bind("ALT + 5", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" }))
-hl.bind("ALT + 6", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" }))
+hl.bind("ALT + KP_1", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" }))
+hl.bind("ALT + KP_2", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" }))
+hl.bind("ALT + KP_3", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" }))
+hl.bind("ALT + KP_4", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" }))
+hl.bind("ALT + KP_5", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" }))
+hl.bind("ALT + KP_6", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" }))
 hl.bind("SUPER + C", hl.dsp.pass({ window = "^(qemu)$" }))
 
 -- Window movement
