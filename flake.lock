@@ -779,15 +779,16 @@
         "nixpkgs": [
           "nixpkgs"
         ],
+        "rust-llm-tidy": "rust-llm-tidy",
         "rust-overlay": [
           "rust-overlay"
         ]
       },
       "locked": {
-        "dirtyRev": "522e15479293c82a8b0dc84ef309bf6968c2b8bc-dirty",
-        "dirtyShortRev": "522e154-dirty",
-        "lastModified": 1788303002,
-        "narHash": "sha256-X1/LT8Bx4ZqpNwz/mQYAan7Igl9HbmEEMbXc77I4928=",
+        "dirtyRev": "d7ffbcebdfdb0e5ab738843ceddfdc1f3ebee5b6-dirty",
+        "dirtyShortRev": "d7ffbce-dirty",
+        "lastModified": 1788386624,
+        "narHash": "sha256-KryMSTnl4x5fPSu9miLRVJ9FrNgeR3volfYYfyJCHKo=",
         "type": "git",
         "url": "file:///home/sewer/nixos/users/sewer/home-manager/programs/opencode"
       },
@@ -831,6 +832,22 @@
         "nixpkgs": "nixpkgs_4",
         "opencode-config": "opencode-config",
         "rust-overlay": "rust-overlay"
+      }
+    },
+    "rust-llm-tidy": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788384795,
+        "narHash": "sha256-85w8ltvPeqi6zHeZHXZ0+Ma8Rrg1psN/pNM6htKhbuo=",
+        "ref": "refs/heads/csharp",
+        "rev": "54a7df3e7a4fde61006ba84b00d8ea0dbb0a0171",
+        "revCount": 250,
+        "type": "git",
+        "url": "file:///home/sewer/nixos/users/sewer/home-manager/programs/opencode/tools/rust-llm-tidy"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///home/sewer/nixos/users/sewer/home-manager/programs/opencode/tools/rust-llm-tidy"
       }
     },
     "rust-overlay": {
