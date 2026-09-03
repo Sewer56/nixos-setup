@@ -12,7 +12,7 @@
 
       LOG="''${OPENCODE_LOG:-$HOME/.local/share/opencode/log/opencode.log}"
       # Seconds of log silence before starting the shutdown countdown.
-      TIMEOUT="''${OPENCODE_AUTO_POWEROFF_TIMEOUT:-900}"
+      TIMEOUT="''${OPENCODE_AUTO_POWEROFF_TIMEOUT:-1800}"
       # Seconds between countdown start and poweroff, time to cancel.
       GRACE="''${OPENCODE_AUTO_POWEROFF_GRACE:-120}"
       # Seconds between log mtime checks.
