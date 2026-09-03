@@ -788,7 +788,7 @@
         "dirtyRev": "d7ffbcebdfdb0e5ab738843ceddfdc1f3ebee5b6-dirty",
         "dirtyShortRev": "d7ffbce-dirty",
         "lastModified": 1788386624,
-        "narHash": "sha256-KryMSTnl4x5fPSu9miLRVJ9FrNgeR3volfYYfyJCHKo=",
+        "narHash": "sha256-utlfiecp4+sOa/tDfcAI2hc/DHpVLq531/xCKf2nn2Q=",
         "type": "git",
         "url": "file:///home/sewer/nixos/users/sewer/home-manager/programs/opencode"
       },
