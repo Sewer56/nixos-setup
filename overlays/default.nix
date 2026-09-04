@@ -1,4 +1,10 @@
 final: prev: {
+  # hplip pulls python3Packages.pyqt5, which fails to build on python 3.14
+  # ("ABI v12 is being targeted but the PyQt5.QtCore module doesn't support it").
+  # withQt5 only gates the hp-toolbox GUI; printing/scanning/fax CLI is unaffected.
+  hplip = prev.hplip.override {withQt5 = false;};
+  hplipWithPlugin = prev.hplipWithPlugin.override {withQt5 = false;};
+
   # Override heaptrack with rustc-demangle support for Rust symbol demangling
   # rustc_demangle is a runtime dependency loaded via dlopen()
   # - Qt apps (heaptrack_gui, heaptrack_print) are wrapped via qtWrapperArgs
