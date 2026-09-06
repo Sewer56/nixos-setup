@@ -59,7 +59,7 @@
     devenv
     spec-kit
     pnpm
-    (jetbrains.rider.override {forceWayland = true;})
+    jetbrains.rider
 
     # Profiling tools
     hotspot
