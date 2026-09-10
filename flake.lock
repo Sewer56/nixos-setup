@@ -785,11 +785,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1789065521,
-        "narHash": "sha256-gXiOPu4wmYU9gea+keQAu1JFcIGaR7YpSJTEN66MOA4=",
+        "lastModified": 1789067149,
+        "narHash": "sha256-AFgAtA6iAEdR2u98NIZ+8d0waf23ygbl0mn+/+01Bh4=",
         "ref": "refs/heads/main",
-        "rev": "06ff90b1ee40cd626e8d440e0036fed1f434e4f0",
-        "revCount": 1069,
+        "rev": "6ae30fcbd624405b00f7d5b3ba763aec62d3771b",
+        "revCount": 1070,
         "type": "git",
         "url": "file:///home/sewer/nixos/users/sewer/home-manager/programs/opencode"
       },
@@ -838,11 +838,11 @@
     "rust-llm-tidy": {
       "flake": false,
       "locked": {
-        "lastModified": 1789063713,
-        "narHash": "sha256-APo7u2Rv4quVSH6bsjhsv6DgcJMJkj+y8h3os8bhJW8=",
+        "lastModified": 1789066847,
+        "narHash": "sha256-Ur7jUIrFnhiYYnrhrxrDyXS4DiDbdNaek3rh2TeFdG8=",
         "ref": "refs/heads/main",
-        "rev": "c6aa25330ce3199cc339954ecf769b3dd307b352",
-        "revCount": 482,
+        "rev": "57b012f25ec611f1a83d73e65ca677a50d949a84",
+        "revCount": 484,
         "type": "git",
         "url": "file:///home/sewer/nixos/users/sewer/home-manager/programs/opencode/tools/rust-llm-tidy"
       },
