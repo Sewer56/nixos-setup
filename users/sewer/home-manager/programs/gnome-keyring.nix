@@ -5,7 +5,7 @@
   };
 
   home.packages = with pkgs; [
-    gcr # Provides gcr-prompter for unlock dialogs
+    gcr_4 # Provides gcr-prompter for unlock dialogs
     seahorse # GUI for managing keyrings
   ];
 }
