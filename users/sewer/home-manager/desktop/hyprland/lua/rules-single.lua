@@ -35,7 +35,7 @@ hl.window_rule({ workspace = "5", match = { class = "^(telegram-desktop)$" } })
 hl.window_rule({ workspace = "5", match = { class = "^(TelegramDesktop)$" } })
 
 -- Workspace 7: Notes
-hl.window_rule({ workspace = "7", match = { class = "^(md.Obsidian)$" } })
+hl.window_rule({ workspace = "7", match = { class = "^(md\\.obsidian\\.Obsidian)$" } })
 hl.window_rule({ workspace = "7", match = { class = "^(obsidian)$" } })
 hl.window_rule({ workspace = "7", match = { class = "^(electron)$", title = "^(.*Obsidian.*)$" } })
 
