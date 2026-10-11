@@ -13,7 +13,8 @@
     ffmpegthumbnailer # Video thumbnails
     poppler # PDF thumbnails (includes glib bindings)
     freetype # Font rendering for PDFs
-    f3d # 3D model thumbnails
+    # TODO: re-enable once nixpkgs pin includes vtk PEGTL fix (PR #572295, merged 2026-10-10)
+    # f3d # 3D model thumbnails
 
     # Custom thumbnailers (from overlay)
     tumbler-dds-thumbnailer # DDS texture files
