@@ -1,5 +1,6 @@
-# NVIDIA GPU configuration
-# This module configures NVIDIA graphics cards with Intel Prime offloading
+# NVIDIA driver setup for the desktop and laptop.
+# Laptop PRIME setup is in hosts/laptop/default.nix.
+# Many tweaks come from https://gitlab.com/fazzi/nixohess/-/blob/main/modules/hardware/nvidia.nix
 # Reference: https://wiki.nixos.org/wiki/Nvidia
 {
   config,
@@ -7,7 +8,7 @@
   lib,
   ...
 }: let
-  # Map driver version option to actual package
+  # Values allowed in hostOptions.hardware.nvidia.driverVersion.
   driverPackages = {
     stable = config.boot.kernelPackages.nvidiaPackages.stable;
     beta = config.boot.kernelPackages.nvidiaPackages.beta;
@@ -23,76 +24,60 @@ in {
     ./common.nix
   ];
 
-  # NVIDIA-specific packages
+  # Terminal GPU monitor.
   environment.systemPackages = with pkgs; [
     nvitop
   ];
 
-  # Early loading of NVIDIA kernel modules in initrd.
-  # Without this, nvidia-drm registers late (28s+ after boot on some systems)
-  # and fails to properly enumerate displays on warm boot:
-  #   "Failed to get dynamic displays during device registration"
-  #   "Cannot find any crtc or sizes"
-  # This causes DP link training to fall back to 60Hz instead of 240Hz.
-  # Gated by hostOptions: only desktop enables this (laptop ESP too small).
+  # Load the driver early from the initrd.
+  # Otherwise nvidia-drm can load 28s+ late, miss the monitors on warm boot,
+  # and DisplayPort falls back to 60Hz instead of 240Hz.
+  # Off on the laptop: its EFI partition is too small.
   boot.initrd.kernelModules = lib.mkIf config.hostOptions.hardware.nvidia.earlyLoading [
     "nvidia"
     "nvidia_modeset"
     "nvidia_drm"
   ];
 
-  # Explicit kernel params: the NixOS nvidia module conditionally adds these
-  # but only when services.xserver.enable=true for kernelModules. Force them
-  # unconditionally since they've been observed missing from cmdline.
+  # NixOS should set these already, but they've gone missing before.
   boot.kernelParams = [
     "nvidia-drm.modeset=1"
     "nvidia-drm.fbdev=1"
   ];
 
-  # NVIDIA VRR must be explicitly allowed via env vars on the open kernel module.
-  # Without these, the driver won't expose VRR capability to Wayland compositors,
-  # resulting in vrr: false even when misc:vrr is set in Hyprland.
-  # Gaming/cache tweaks borrowed from fazzi/nixohess:
-  # https://gitlab.com/fazzi/nixohess/-/blob/main/modules/hardware/nvidia.nix
   environment.sessionVariables = {
+    # Allow G-Sync/VRR. Without these, Hyprland reports `vrr: false`.
     __GL_GSYNC_ALLOWED = "1";
     __GL_VRR_ALLOWED = "1";
 
-    # Cap frames in flight in the OpenGL driver queue -> lower latency
+    # Queue at most one frame, for lower latency.
     __GL_MaxFramesAllowed = "1";
 
-    # Shader disk cache: enabled, 12GiB cap, kept under XDG cache instead of ~/.nv
+    # Shader cache: on, 12 GiB max, out of ~/.nv.
     __GL_SHADER_DISK_CACHE = "1";
     __GL_SHADER_DISK_CACHE_SIZE = toString (12 * 1024 * 1024 * 1024);
     __GL_SHADER_DISK_CACHE_PATH = "$XDG_CACHE_HOME/nv";
 
-    # Keep the CUDA compute cache out of ~/.nv too
+    # CUDA cache out of ~/.nv too.
     CUDA_CACHE_PATH = "$XDG_CACHE_HOME/nv";
-    # Stop forcing max clocks whenever anything touches CUDA (battery/heat)
+
+    # Don't force high clocks whenever CUDA runs.
     CUDA_DISABLE_PERF_BOOST = "1";
 
-    # Fix NVIDIA EGL hw accel inside bwrap sandboxes (wrapped appimages, osu!lazer)
+    # Fix GPU acceleration in bwrap sandboxes (osu!lazer, wrapped AppImages).
     __EGL_EXTERNAL_PLATFORM_CONFIG_DIRS = "/run/current-system/etc/egl/egl_external_platform.d";
 
-    # Proton gaming: report D3D12 NV shader extensions to VKD3D-Proton and use
-    # descriptor heaps (both queue-related perf wins on NV hardware)
+    # Proton: expose NVIDIA D3D12 shader extensions and use descriptor heaps.
     DXVK_NVAPI_D3D12_NV_SHADER_EXTN = "1";
     VKD3D_CONFIG = "descriptor_heap";
   };
 
-  # NVIDIA application profiles (borrowed from fazzi/nixohess, see URL above).
-  # feature "true" = catch-all rule, applies to every process.
-  #
-  # Safe with vendor rules: per README "Rule Precedence", settings from ALL
-  # matching rules merge, and on key conflicts the earlier file wins. Our
-  # catch-all only sets GLVidHeapReuseRatio / CudaNoStablePerfLimit, with the
-  # same values the vendor database uses, so NVIDIA's own per-application
-  # rules keep working unchanged.
-  #
-  # 50: "No VidMem Reuse" (GLVidHeapReuseRatio=0): vendor applies this only to
-  # compositors (incl. "Hyprland", though that rule misses NixOS's
-  # ".Hyprland-wrapped" procname); globalizing it trades VRAM headroom for
-  # slightly more realloc work in every GL process.
+  # Driver profiles applied to every process (`feature = "true"`).
+  # Safe alongside NVIDIA's own rules: matching rules merge,
+  # and ours use the same values NVIDIA does.
+
+  # Lower VRAM use. NVIDIA only does this for compositors,
+  # and its Hyprland rule misses NixOS's ".Hyprland-wrapped".
   environment.etc."nvidia/nvidia-application-profiles-rc.d/50-vram-alloc-fixes.json".text = builtins.toJSON {
     rules = [
       {
@@ -105,10 +90,7 @@ in {
     ];
   };
 
-  # 51: "CudaNoStablePerfLimit": stop locking CUDA processes to the stable p2
-  # perf state (vendor ships this only for obs/Discord). Note this pulls
-  # against CUDA_DISABLE_PERF_BOOST=1 above; different mechanisms (perf lock
-  # vs boost), so they coexist.
+  # Don't hold CUDA apps at the slower P2 state. NVIDIA only does this for OBS and Discord.
   environment.etc."nvidia/nvidia-application-profiles-rc.d/51-dont-nerf-cuda-perf.json".text = builtins.toJSON {
     rules = [
       {
@@ -122,48 +104,32 @@ in {
   };
 
   hardware.nvidia = {
-    # Modesetting is required.
+    # Needed by Wayland compositors.
     modesetting.enable = true;
 
-    # Use the NVidia open source kernel module (not to be confused with the
-    # independent third-party "nouveau" open source driver).
-    # Support is limited to the Turing and later architectures. Full list of
-    # supported GPUs is at:
-    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
-    # Only available from driver 515.43.04+
+    # NVIDIA's open kernel module (not nouveau). Needs a Turing (RTX 20 / GTX 16) or newer GPU.
     open = true;
 
-    # Enable the Nvidia settings menu,
-    # accessible via `nvidia-settings`.
     nvidiaSettings = true;
 
-    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-    # Enable this if you have graphical corruption issues or application crashes after waking
-    # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead
-    # of just the bare essentials.
+    # Save all VRAM on suspend, to avoid glitches after wake. Experimental.
     powerManagement.enable = true;
 
-    # Driver version is configurable per-host via hostOptions.hardware.nvidia.driverVersion
+    # Set per host with hostOptions.hardware.nvidia.driverVersion.
     package = driverPackages.${selectedDriver};
 
-    # Kernel module parameters borrowed from fazzi/nixohess:
-    # https://gitlab.com/fazzi/nixohess/-/blob/main/modules/hardware/nvidia.nix
-    # NOTE: ReBAR only takes effect with "Above 4G decoding" + "Resizable BAR"
-    # enabled in BIOS; the param is harmless without it.
-    # NOTE: fazzi also sets nvidia-drm.vblank=1, but driver 595 exposes no such
-    # module param (only modeset/fbdev) and an unknown param aborts module load.
+    # Not copying fazzi's nvidia-drm.vblank=1: driver 595 doesn't have it, so the module won't load.
     moduleParams = {
       nvidia = {
-        # Faster PCIe write path; safe and long-recommended
+        # Faster CPU writes to GPU memory.
         NVreg_UsePageAttributeTable = 1;
-        # Resizable BAR
+
+        # Resizable BAR. Needs "Above 4G decoding" and "Resizable BAR" on in the BIOS.
         NVreg_EnableResizableBar = 1;
-        # Low-latency vblank handling. Registry dwords are passed through the
-        # generic string param.
+
+        # Lower display latency.
         NVreg_RegistryDwords = "RmEnableAggressiveVblank=1";
       };
-      # Don't force memory clocks to P0 while VRR is active (flicker/power)
-      nvidia-modeset.disable_vrr_memclk_switch = 1;
     };
   };
 }
