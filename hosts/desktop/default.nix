@@ -2,6 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running 'nixos-help').
 {
+  config,
   pkgs,
   lib,
   ...
@@ -70,6 +71,18 @@
 
   # Desktop-specific Nvidia power management override for suspend/resume
   hardware.nvidia.powerManagement.enable = lib.mkForce true;
+
+  # Driver-only update from fazzi/nixohess. Keep laptop driver selection unchanged.
+  # https://gitlab.com/fazzi/nixohess/-/blob/main/modules/hardware/nvidia.nix
+  # Fazzi's pin supplies no nvidia-settings source hash.
+  hardware.nvidia.nvidiaSettings = lib.mkForce false;
+  hardware.nvidia.package = lib.mkForce (config.boot.kernelPackages.nvidiaPackages.mkDriver {
+    version = "615.78.08";
+    sha256_64bit = "sha256-Pj9t3cLudnoIGFMAr3vjyyhuznZpjS3eNSRZl4LQf/4=";
+    openSha256 = "sha256-HBINiOjL0ZJLIAJeNIBYHBnwgUXtNwPPtnFpAI1YwF4=";
+    usePersistenced = false;
+    useSettings = false;
+  });
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
