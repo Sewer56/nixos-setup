@@ -41,6 +41,12 @@
   # Host-specific settings
   networking.hostName = "desktop"; # Define your hostname.
 
+  # Keep Logitech settings applied when the wireless mouse reconnects after idle.
+  programs.solaar = {
+    enable = true;
+    userService.enable = true;
+  };
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
