@@ -53,13 +53,12 @@ in {
     # Queue at most one frame, for lower latency.
     __GL_MaxFramesAllowed = "1";
 
-    # Shader cache: on, 12 GiB max, out of ~/.nv.
+    # Shader cache: on, 12 GiB max.
     __GL_SHADER_DISK_CACHE = "1";
     __GL_SHADER_DISK_CACHE_SIZE = toString (12 * 1024 * 1024 * 1024);
-    __GL_SHADER_DISK_CACHE_PATH = "$XDG_CACHE_HOME/nv";
 
-    # CUDA cache out of ~/.nv too.
-    CUDA_CACHE_PATH = "$XDG_CACHE_HOME/nv";
+    # CUDA cache out of ~/.nv.
+    CUDA_CACHE_PATH = "$HOME/.cache/nvidia/ComputeCache";
 
     # Don't force high clocks whenever CUDA runs.
     CUDA_DISABLE_PERF_BOOST = "1";

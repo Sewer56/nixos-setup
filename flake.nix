@@ -60,16 +60,19 @@
 
     # Hyprland ecosystem - we use hyprland's nixpkgs for cachix
     hyprland = {
-      url = "github:hyprwm/Hyprland/v0.56.1";
+      url = "github:hyprwm/Hyprland/v0.57.0";
     };
     hyprpaper = {
-      url = "github:hyprwm/hyprpaper/v0.8.4";
+      # Unreleased main: v0.8.4 builds with GCC 15, but Hyprland v0.57 libs need GCC 16.
+      url = "github:hyprwm/hyprpaper/83395d42ba886280ba077628573139a20155d352";
       inputs.nixpkgs.follows = "hyprland/nixpkgs";
       inputs.hyprutils.follows = "hyprland/hyprutils";
       inputs.hyprlang.follows = "hyprland/hyprlang";
       inputs.hyprwayland-scanner.follows = "hyprland/hyprwayland-scanner";
       inputs.hyprgraphics.follows = "hyprland/hyprgraphics";
       inputs.aquamarine.follows = "hyprland/aquamarine";
+      inputs.hyprwire.follows = "hyprland/hyprwire";
+      inputs.hyprtoolkit.follows = "hyprland/hyprtoolkit";
       inputs.systems.follows = "hyprland/systems";
     };
     hypr-dynamic-cursors = {
