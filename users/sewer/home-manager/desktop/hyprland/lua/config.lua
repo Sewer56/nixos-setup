@@ -38,6 +38,7 @@ hl.config({
 
   render = {
     direct_scanout = 1; -- Enable direct scanout for lower latency in fullscreen.
+    cm_auto_hdr = 0; -- Keep output in SDR even when fullscreen apps request HDR.
   };
 
   -- unscale XWayland
