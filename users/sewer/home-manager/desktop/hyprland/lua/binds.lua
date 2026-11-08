@@ -34,13 +34,13 @@ hl.bind("SUPER + O", hl.dsp.layout("addmaster")) -- Add master window
 hl.bind("SUPER + SHIFT + O", hl.dsp.layout("removemaster")) -- Remove master window
 hl.bind("SUPER + SHIFT + T", hl.dsp.layout("orientationcycle center bottom")) -- Toggle master orientation (center/bottom)
 
--- Application pass-through bindings (OBS hotkeys: Alt+numpad 1-6, delivered with MOD2/NumLock so OBS reads NUM keys, not arrows)
-hl.bind("ALT + code:87", hl.dsp.send_shortcut({ mods = "ALT MOD2", key = "KP_1", window = "class:^(com\\.obsproject\\.Studio)$" }))
-hl.bind("ALT + code:88", hl.dsp.send_shortcut({ mods = "ALT MOD2", key = "KP_2", window = "class:^(com\\.obsproject\\.Studio)$" }))
-hl.bind("ALT + code:89", hl.dsp.send_shortcut({ mods = "ALT MOD2", key = "KP_3", window = "class:^(com\\.obsproject\\.Studio)$" }))
-hl.bind("ALT + code:83", hl.dsp.send_shortcut({ mods = "ALT MOD2", key = "KP_4", window = "class:^(com\\.obsproject\\.Studio)$" }))
-hl.bind("ALT + code:84", hl.dsp.send_shortcut({ mods = "ALT MOD2", key = "KP_5", window = "class:^(com\\.obsproject\\.Studio)$" }))
-hl.bind("ALT + code:85", hl.dsp.send_shortcut({ mods = "ALT MOD2", key = "KP_6", window = "class:^(com\\.obsproject\\.Studio)$" }))
+-- Application pass-through bindings (OBS hotkeys: Alt+numpad 1-6)
+hl.bind("ALT + code:87", hl.dsp.send_shortcut({ mods = "ALT MOD2", key = "code:87", window = "class:^(com\\.obsproject\\.Studio)$" })) -- ALT+NUMPAD1
+hl.bind("ALT + code:88", hl.dsp.send_shortcut({ mods = "ALT MOD2", key = "code:88", window = "class:^(com\\.obsproject\\.Studio)$" })) -- ALT+NUMPAD2
+hl.bind("ALT + code:89", hl.dsp.send_shortcut({ mods = "ALT MOD2", key = "code:89", window = "class:^(com\\.obsproject\\.Studio)$" })) -- ALT+NUMPAD3
+hl.bind("ALT + code:83", hl.dsp.send_shortcut({ mods = "ALT MOD2", key = "code:83", window = "class:^(com\\.obsproject\\.Studio)$" })) -- ALT+NUMPAD4
+hl.bind("ALT + code:84", hl.dsp.send_shortcut({ mods = "ALT MOD2", key = "code:84", window = "class:^(com\\.obsproject\\.Studio)$" })) -- ALT+NUMPAD5
+hl.bind("ALT + code:85", hl.dsp.send_shortcut({ mods = "ALT MOD2", key = "code:85", window = "class:^(com\\.obsproject\\.Studio)$" })) -- ALT+NUMPAD6
 hl.bind("SUPER + C", hl.dsp.pass({ window = "^(qemu)$" }))
 
 -- Window movement
