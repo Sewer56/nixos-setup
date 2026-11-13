@@ -1,6 +1,10 @@
-{...}: {
+{pkgs, ...}: {
   # Add polkit for privilege escalation when needed by some programs
   security.polkit.enable = true;
+
+  # Let GNOME Keyring show its unlock dialog. It needs GCR 3, not GCR 4.
+  # Home Manager already runs the keyring, so only add the dialog here.
+  services.dbus.packages = [pkgs.gcr_3];
 
   # Enable pcscd service for smart card support (YubiKey, etc.)
   services.pcscd.enable = true;
