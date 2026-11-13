@@ -39,6 +39,11 @@
   # Host-specific settings
   networking.hostName = "laptop"; # Define your hostname.
 
+  # Keep monitor settings editable outside Nix.
+  home-manager.users.sewer.imports = [
+    ../../users/sewer/home-manager/desktop/hyprland/monitors.nix
+  ];
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
