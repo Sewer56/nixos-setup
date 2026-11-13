@@ -568,11 +568,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1794357254,
-        "narHash": "sha256-gk6RJDnpbSh+zf/BX7JM+v2P7PYe+9PdhyY1L/Lf4E8=",
+        "lastModified": 1794529915,
+        "narHash": "sha256-7RDIC9WIlfKgsyh+OkjeL3Ae5KvokiF5JclFFtHrLUM=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "579f423b564d6bb4fa5560fe6bc2c0b481371681",
+        "rev": "60533bc9bb15b0c60c12607ecf8dfc00c87b298e",
         "type": "github"
       },
       "original": {
@@ -626,11 +626,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1794042290,
-        "narHash": "sha256-ziZn2PvCJE5JEEpqTdxXwJpPB+L3YqoCpTAMCzyaP3U=",
+        "lastModified": 1794386569,
+        "narHash": "sha256-x9sADJvoVG0L6RejZB+/BB4YiGZFBZrfTlhF4uBq1tQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "f4a03c008967841f2a0b3cb7c436fc6fc31671f6",
+        "rev": "d4f25a3e562008648d45bcf2d70bcc7422cad84e",
         "type": "github"
       },
       "original": {
@@ -654,11 +654,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794278635,
-        "narHash": "sha256-jANCI4LYXIoxhJOSQbWXTc3VJtqP3A6TjjWqdcmgcaU=",
+        "lastModified": 1794540062,
+        "narHash": "sha256-X7IJnW/nUNL6ifRcU6JBs2J2ImIO8wP0qD1pOx5EV5U=",
         "ref": "refs/heads/main",
-        "rev": "2b68e60147279987c111d5d9ad1214721b9b9bab",
-        "revCount": 1225,
+        "rev": "83be5a5ebf925687dd5ce8da559012a5f681a388",
+        "revCount": 1226,
         "type": "git",
         "url": "file:///home/sewer/nixos/users/sewer/home-manager/programs/opencode"
       },
@@ -707,11 +707,10 @@
     "rust-llm-tidy": {
       "flake": false,
       "locked": {
-        "lastModified": 1793122897,
-        "narHash": "sha256-U0aDLgtOL18HsnyxuRqZ2YQi7yZ0l7W8by1gk0hHu2E=",
-        "ref": "refs/heads/reorder-upgrade",
-        "rev": "ffcc26e617189f3b0153968f48f56a007febbc14",
-        "revCount": 554,
+        "lastModified": 1790802193,
+        "narHash": "sha256-2nYkINTXsMNDjrUPLfKyMiLZRTk8RPG1RCMMiMPI7Kk=",
+        "rev": "183a0985c3134cc264054587d114cbafd57592a2",
+        "revCount": 546,
         "type": "git",
         "url": "file:///home/sewer/nixos/users/sewer/home-manager/programs/opencode/tools/rust-llm-tidy"
       },
@@ -727,11 +726,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794303164,
-        "narHash": "sha256-UZMtOt43/HRVssXPSuPv8t11Toq9+CjyWUfYQ3tqGVE=",
+        "lastModified": 1794518310,
+        "narHash": "sha256-NmwbbRaUf/AoY+NoJimXOdjlbkwl6+aDbe8nodaaZzY=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "89750a2ef1c6a44db9f4251b16c23deffdcfddff",
+        "rev": "8bbfc858c7b85f5e6ed6d6cc201ffcee1bb08a9b",
         "type": "github"
       },
       "original": {
