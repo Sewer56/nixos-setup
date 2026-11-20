@@ -22,7 +22,6 @@
     imhex
     ghidra
     postman
-    clang
     cmake
     clang-tools # wrapped clangd. resolves nix stdlib out the box
 
