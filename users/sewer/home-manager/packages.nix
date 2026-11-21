@@ -22,10 +22,8 @@
     imhex
     ghidra
     postman
-    # Wrapped clangd: resolves nix stdlib include paths out of the box.
-    # (Repo-level --query-driver flag in project settings stays as safety net;
-    # the wrapper detects it and skips its own injection, so they coexist.)
-    clang-tools
+    cmake
+    clang-tools # wrapped clangd. resolves nix stdlib out the box
 
     # Media/torrents
     qbittorrent
