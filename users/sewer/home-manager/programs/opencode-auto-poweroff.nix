@@ -1,12 +1,10 @@
 {...}: {
   # Power off or suspend the PC once every opencode instance has gone idle.
-  # Idle is detected by silence in the shared log all instances append to.
   home.file.".local/bin/opencode-auto-poweroff" = {
     text = ''
       #!/usr/bin/env bash
-      # Power off after all opencode instances are idle; use --suspend to suspend instead.
-      # Idle = the shared log has not been written for OPENCODE_AUTO_POWEROFF_TIMEOUT seconds.
-      # Any write cancels the countdown; a cancel file aborts at every stage.
+      # Idle = the shared opencode log has not been written for OPENCODE_AUTO_POWEROFF_TIMEOUT seconds.
+      # Touching the cancel file aborts at any stage.
       # Set OPENCODE_AUTO_POWEROFF_CMD to a no-op when testing, e.g. "echo dry-run".
       set -u
 

@@ -1,9 +1,7 @@
 # Catppuccin system integration configuration
-# Provides Home Manager configuration for Catppuccin theme system integration
 themeConfig: config: pkgs:
 with pkgs; let
   # Map catppuccin variants to magnetic-catppuccin-gtk tweaks
-  # mocha = default (no tweak), frappe/macchiato = respective tweaks
   variantTweaks = {
     mocha = [];
     frappe = ["frappe"];
@@ -48,9 +46,7 @@ in {
   catppuccin.hyprland.enable = true;
 
   # Enable Catppuccin for Cursors.
-  # Cursor size set explicitly: HM default is 24; must match what the removed
-  # autostart `hyprctl setcursor ... 32` used to force. Setting it via
-  # HYPRCURSOR_SIZE (catppuccin HM module) avoids the crashing setcursor call.
+  # Size 32 is set here because `hyprctl setcursor` crashes; HM defaults to 24.
   catppuccin.cursors.enable = true;
   home.pointerCursor = {
     enable = true;

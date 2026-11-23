@@ -1,10 +1,6 @@
--- hypr-dynamic-cursors plugin configuration
--- Plugin values register into the config system; set via hl.config.
--- Note: plugin value names normalize `-` to `_` (dynamic_cursors) and the
--- plugin registers tilt/stretch mode as `activation` (old `function` key was dead).
 hl.config({
   plugin = {
-    ["dynamic_cursors"] = {
+    ["dynamic_cursors"] = { -- hypr-dynamic-cursors
       -- enables the plugin
       enabled = true,
 

@@ -1,32 +1,23 @@
 #!/usr/bin/env bash
-# pre-commit: sync flake.lock after a submodule bump. Prevents the "NAR hash
-# mismatch" build failure at the source, and — for the secrets submodule — the
-# subtler failure where the pointer moves but the build silently keeps using
-# the old secret values.
-#
-# Invariant enforced, for each pair below:
-#   staged submodule pointer MUST equal flake.lock's pinned rev for the
-#   corresponding flake input. The hook updates and stages flake.lock when
-#   needed.
-#
-# Activated by `core.hooksPath = hooks`. Runs in any repo that has a `hooks/`
-# dir; silently skips when neither submodule is staged, so it's harmless on
-# other repositories.
-#
+# Bump flake.lock when a submodule is bumped.
+# Otherwise the build fails with "NAR hash mismatch", or uses a stale copy.
 set -euo pipefail
 
-# submodule path : flake input name
+# submodule path : flake input
 PAIRS=(
   "users/sewer/home-manager/programs/opencode:opencode-config"
   "users/sewer/secrets:nixos-secrets"
 )
 
-# Read a locked rev out of flake.lock. Prefers the staged copy, falls back to
-# the working tree when flake.lock isn't staged.
+# Locked rev for an input. Uses the staged flake.lock if there is one.
+# Prints nothing if the input isn't in flake.lock.
 lock_rev() {
   local input="$1"
+  # Python one-liner: read flake.lock JSON from stdin, print nodes.<input>.locked.rev
   local prog="import json,sys; print(json.load(sys.stdin)['nodes']['$input']['locked']['rev'])"
+
   if git diff --cached --name-only -- flake.lock | grep -q .; then
+    # flake.lock is staged; ':flake.lock' is the staged copy
     git show :flake.lock 2>/dev/null | python3 -c "$prog" 2>/dev/null || true
   else
     python3 -c "$prog" < flake.lock 2>/dev/null || true
@@ -36,21 +27,26 @@ lock_rev() {
 status=0
 
 for pair in "${PAIRS[@]}"; do
+  # Split "path:input" on the colon
   submod="${pair%%:*}"
   input="${pair##*:}"
 
-  # Submodule pointer staged for commit? If not, nothing to check.
+  # Staged submodule commit (2nd column of `git ls-files -s`)
   staged=$(git ls-files -s -- "$submod" 2>/dev/null | awk '{print $2}')
   [ -z "$staged" ] && continue
 
-  # Did the submodule pointer actually change vs HEAD? If not, skip.
+  # Submodule commit in HEAD (3rd column of `git ls-tree`)
   head_rev=$(git ls-tree HEAD -- "$submod" 2>/dev/null | awk '{print $3}')
+
+  # Same as HEAD, so the submodule wasn't bumped
   [ "$staged" = "$head_rev" ] && continue
 
-  # Submodule is being bumped → flake.lock MUST be staged with matching rev.
   locked=$(lock_rev "$input")
+
+  # Short rev for the log message, or MISSING if the input isn't locked
   short="${locked:0:12}"; short="${short:-MISSING}"
 
+  # flake.lock is behind the submodule: update it and stage it with this commit
   if [ -z "$locked" ] || [ "$staged" != "$locked" ]; then
     echo "Updating flake.lock: $input ${short} -> ${staged:0:12}" >&2
     if ! nix flake update "$input"; then
@@ -63,4 +59,5 @@ for pair in "${PAIRS[@]}"; do
   fi
 done
 
+# Non-zero blocks the commit
 exit "$status"

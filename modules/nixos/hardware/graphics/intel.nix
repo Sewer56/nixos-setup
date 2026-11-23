@@ -1,7 +1,5 @@
 # Intel GPU configuration
-# UNTESTED - Based on NixOS wiki research
-# This module configures Intel integrated graphics with appropriate media drivers
-# Reference: https://wiki.nixos.org/wiki/Intel_Graphics
+# UNTESTED. Reference: https://wiki.nixos.org/wiki/Intel_Graphics
 {pkgs, ...}: {
   imports = [
     ./common.nix

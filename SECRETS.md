@@ -1,8 +1,8 @@
 # Secret Management with agenix
 
 Secrets use [agenix](https://github.com/ryantm/agenix) and live in the private
-submodule at `users/sewer/secrets`, not in this repo. To add, edit or rekey one,
-see [its README](users/sewer/secrets/README.md).
+submodule at `users/sewer/secrets`. To add, edit or rekey one, see
+[its README](users/sewer/secrets/README.md).
 
 Below is the one-time setup needed per machine.
 

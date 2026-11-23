@@ -1,5 +1,4 @@
 # Shared theme helper functions
-# These utilities work across all themes and are commonly needed
 {
   # Hyprland color format converters
   # Convert hex color (#rrggbb) to hyprland rgb format: rgb(rrggbb)
@@ -14,7 +13,6 @@
   # Input: hex="#1e1e2e", alpha="bf" -> Output: "#1e1e2ebf"
   hexToRgbaHex = hex: alpha: "${hex}${alpha}";
 
-  # CSS rgba helper (if needed in future)
   # Convert hex color to CSS rgba format with decimal alpha (0.0-1.0)
   hexToCssRgba = hex: alpha: let
     r = toString (builtins.fromTOML "r=0x${builtins.substring 1 2 hex}").r;

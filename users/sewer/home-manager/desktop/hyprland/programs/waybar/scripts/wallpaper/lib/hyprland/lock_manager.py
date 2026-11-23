@@ -29,26 +29,10 @@ def hyprpaper_lock(silent_exit: bool = False) -> Generator[None, None, None]:
         
     Raises:
         HyprpaperLockError: When lock cannot be acquired and silent_exit=False
-        
-    Example:
-        # Script-level locking (silent exit when busy)
-        with hyprpaper_lock(silent_exit=True):
-            # Script logic here
-            pass
-            
-        # Operation-level locking (exception when busy)  
-        try:
-            with hyprpaper_lock(silent_exit=False):
-                # Hyprpaper operation here
-                pass
-        except HyprpaperLockError:
-            # Handle busy lock
-            pass
     """
     try:
         with open(HYPRPAPER_LOCK_FILE, 'w') as lockfile:
             # Try to acquire exclusive lock (non-blocking)
-            # Errors if lock cannot be acquired
             fcntl.flock(lockfile.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
             
             # Lock acquired - yield control to caller

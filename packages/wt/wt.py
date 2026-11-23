@@ -1,18 +1,38 @@
 #!/usr/bin/env python3
-"""wt - Git worktree manager.
+# Shown as `wt --help`. \b stops click rewrapping the next block.
+"""Git worktree manager. Puts each worktree next to the repo, with submodules checked out.
 
-Creates worktrees as sibling directories beside the original repo.
-Pattern: <repo>-<branch> (e.g. Vortex-feature-auth next to Vortex/)
+\b
+Usage:
+  wt add BRANCH [--base REF] [--exec CMD]   create ../<repo>-<branch>
+  wt remove BRANCH [--force]                remove it, and the branch if merged
+  wt list                                   show all worktrees
 
-Branch names with slashes use dashes in directory names:
-  feature/auth → Vortex-feature-auth
+\b
+Examples, inside ~/projects/Vortex:
+  wt add feature/auth                  creates ~/projects/Vortex-feature-auth
+  wt add feature/auth --exec "code ."  same, then opens it in VS Code
 """
 
 import subprocess
 import sys
 from pathlib import Path
+from typing import NoReturn
 
 import click
+
+
+def fail(message: str, hint: str | None = None) -> NoReturn:
+    """Print an error, and how to fix it, then exit."""
+    click.echo(f"Error: {message}", err=True)
+    if hint:
+        click.echo(f"Try: {hint}", err=True)
+    sys.exit(1)
+
+
+def usage_error(message: str) -> NoReturn:
+    """Exit with MESSAGE and the current command's usage line."""
+    raise click.UsageError(message, click.get_current_context())
 
 
 def get_repo_root() -> Path:
@@ -23,8 +43,7 @@ def get_repo_root() -> Path:
         text=True,
     )
     if result.returncode != 0:
-        click.echo("Error: not inside a git repository.", err=True)
-        sys.exit(1)
+        usage_error("not inside a git repository. cd into the repo first.")
     return Path(result.stdout.strip())
 
 
@@ -55,6 +74,45 @@ def compute_worktree_path(repo_root: Path, branch: str) -> Path:
     """
     branch_dir = branch.replace("/", "-")
     return repo_root.parent / f"{repo_root.name}-{branch_dir}"
+
+
+def has_submodules(path: Path) -> bool:
+    """Check if the checkout at PATH declares any submodules."""
+    return (path / ".gitmodules").is_file()
+
+
+def unsaved_work(worktree_path: Path) -> str | None:
+    """Return why deleting WORKTREE_PATH would lose work, or None if it's safe."""
+    # Same check `git worktree remove` does, including inside submodules
+    status = subprocess.run(
+        [
+            "git", "-C", str(worktree_path), "status", "--porcelain",
+            "--ignore-submodules=none", "--untracked-files=normal",
+        ],
+        capture_output=True,
+        text=True,
+    )
+    if status.returncode != 0:
+        return status.stderr.strip()
+    if status.stdout.strip():
+        return "it has uncommitted changes:\n" + status.stdout.rstrip()
+
+    # Each worktree has its own submodule clones, deleted along with it.
+    # List submodules whose checked-out commit isn't on any remote.
+    unpushed = subprocess.run(
+        [
+            "git", "-C", str(worktree_path), "submodule", "--quiet", "foreach", "--recursive",
+            'c=$(git rev-list -n1 HEAD --not --remotes); [ -z "$c" ] || echo "$displaypath"',
+        ],
+        capture_output=True,
+        text=True,
+    )
+    if unpushed.returncode != 0:
+        return unpushed.stderr.strip()
+    if unpushed.stdout.strip():
+        return "these submodules have unpushed commits:\n" + unpushed.stdout.rstrip()
+
+    return None
 
 
 def get_default_branch(repo_root: Path) -> str | None:
@@ -91,14 +149,9 @@ def is_branch_merged(repo_root: Path, branch: str, default_branch: str) -> bool:
     return branch in merged
 
 
-@click.group()
+@click.group(help=__doc__)
 @click.version_option(version="1.0.0", prog_name="wt")
 def cli():
-    """Git worktree manager.
-
-    Creates worktrees as sibling directories beside the original repo.
-    Branch slashes become dashes: feature/auth → <repo>-feature-auth
-    """
     pass
 
 
@@ -125,27 +178,17 @@ def cli():
 )
 @click.option("--exec", "-e", "exec_cmd", default=None, help="Run command in worktree after creation")
 def add(branch, base, existing, track, force, exec_cmd):
-    """Add a worktree for BRANCH.
-
-    If the branch does not exist, it is created from HEAD (or --base).
-    If the branch exists, it is checked out in a new worktree.
-
-    The worktree is created beside the repo:
-      ~/projects/Vortex/ + feature/auth
-      → ~/projects/Vortex-feature-auth/
-    """
+    """Add a worktree for BRANCH, creating it from HEAD (or --base) if missing."""
     repo_root = get_repo_root()
     worktree_path = compute_worktree_path(repo_root, branch)
 
     if worktree_path.exists():
-        click.echo(f"Error: {worktree_path} already exists.", err=True)
-        sys.exit(1)
+        fail(f"{worktree_path} already exists.", f"wt remove {branch}")
 
     exists = branch_exists(repo_root, branch)
 
     if existing and not exists:
-        click.echo(f"Error: branch '{branch}' does not exist and --existing was set.", err=True)
-        sys.exit(1)
+        usage_error(f"branch '{branch}' does not exist. Drop --existing to create it.")
 
     cmd = ["git", "-C", str(repo_root), "worktree", "add"]
 
@@ -167,8 +210,7 @@ def add(branch, base, existing, track, force, exec_cmd):
     result = subprocess.run(cmd, capture_output=True, text=True)
 
     if result.returncode != 0:
-        click.echo(f"Error: {result.stderr.strip()}", err=True)
-        sys.exit(1)
+        fail(result.stderr.strip(), f"wt add {branch} --force, if it's checked out in another worktree")
 
     click.echo(f"Created worktree at {worktree_path}")
     if not exists:
@@ -176,6 +218,19 @@ def add(branch, base, existing, track, force, exec_cmd):
         click.echo(f"  Branch: {branch} (new, from {base_ref})")
     else:
         click.echo(f"  Branch: {branch} (existing)")
+
+    # Check out submodules, like `git clone --recurse-submodules`.
+    # Output isn't captured, so progress and credential prompts show.
+    if has_submodules(worktree_path):
+        click.echo("  Checking out submodules")
+        result = subprocess.run(
+            ["git", "-C", str(worktree_path), "submodule", "update", "--init", "--recursive"],
+        )
+        if result.returncode != 0:
+            fail(
+                "submodule checkout failed. The worktree was still created.",
+                f"git -C {worktree_path} submodule update --init --recursive",
+            )
 
     if exec_cmd:
         click.echo(f"  Running: {exec_cmd}")
@@ -193,31 +248,33 @@ def add(branch, base, existing, track, force, exec_cmd):
     "--force",
     is_flag=True,
     default=False,
-    help="Force remove even with uncommitted changes",
+    help="Remove even with uncommitted changes or unpushed submodule commits",
 )
 def remove(branch, force):
     """Remove a worktree by branch name.
 
-    Resolves the worktree path using the same naming convention as add.
-    Automatically deletes the local branch if it is merged into the default
-    branch (main/master). Unmerged branches are left intact.
+    Also deletes the branch if it is merged into the default branch.
     """
     repo_root = get_repo_root()
     worktree_path = compute_worktree_path(repo_root, branch)
 
     if not worktree_path.exists():
-        click.echo(f"Error: worktree at {worktree_path} not found.", err=True)
-        sys.exit(1)
+        fail(f"no worktree at {worktree_path}.", "wt list")
+
+    if not force:
+        reason = unsaved_work(worktree_path)
+        if reason:
+            fail(f"not removing {worktree_path}, {reason}", f"commit or push first, or wt remove {branch} --force")
 
     cmd = ["git", "-C", str(repo_root), "worktree", "remove", str(worktree_path)]
-    if force:
+    # git refuses any worktree with submodules unless forced; unsaved_work() already checked it
+    if force or has_submodules(worktree_path):
         cmd.append("--force")
 
     result = subprocess.run(cmd, capture_output=True, text=True)
 
     if result.returncode != 0:
-        click.echo(f"Error: {result.stderr.strip()}", err=True)
-        sys.exit(1)
+        fail(result.stderr.strip())
 
     click.echo(f"Removed worktree at {worktree_path}")
 
@@ -244,8 +301,7 @@ def list_worktrees():
     )
 
     if result.returncode != 0:
-        click.echo(f"Error: {result.stderr.strip()}", err=True)
-        sys.exit(1)
+        fail(result.stderr.strip())
 
     # Parse porcelain output into structured entries
     entries = []
@@ -278,4 +334,5 @@ def list_worktrees():
 
 
 if __name__ == "__main__":
-    cli()
+    # Without this, help and errors say "Usage: <hash>-wt.py" (the Nix store filename)
+    cli(prog_name="wt")

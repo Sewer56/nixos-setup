@@ -1,8 +1,5 @@
 # Sewer's Personal NixOS Configuration
 
-> [!NOTE]
-> I'm new to Nix, so this is my personal learning repository and might not follow best practices everywhere.
-
 My personal NixOS configuration using flakes with modular architecture
 and separated system/user concerns.
 
@@ -34,12 +31,6 @@ Reproduces my laptop setup and installs to `/home/sewer/nixos` as usual.
 
 ## Daily Usage
 
-> [!NOTE]
-> Secrets live in a separate **private** repo, vendored as a submodule at
-> `users/sewer/secrets`. Editing one requires bumping both the submodule pointer
-> and `flake.lock` — see
-> [users/sewer/secrets/README.md](users/sewer/secrets/README.md).
-
 ### Applying Changes
 
 **Test changes before applying**:
@@ -62,7 +53,7 @@ Edit `users/sewer/home-manager/packages.nix`
 
 ### Updating System Packages
 
-All software versions are fixed/locked until the flake is updated,
+All software versions are locked until the flake is updated:
 
 ```bash
 sudo nix flake update
@@ -101,9 +92,9 @@ rebuild, see [SECRETS.md](SECRETS.md#setup-for-new-machine).
 
 ### Git Pre-commit Hook
 
-A `pre-commit` hook automatically updates and stages matching `flake.lock`
-entries when submodules move. This prevents `NAR hash mismatch` build
-failures. To activate it in your local clone:
+Keeps `flake.lock` in sync with submodules, preventing `NAR hash mismatch` errors.
+
+Enable with:
 
 ```bash
 git config core.hooksPath hooks
@@ -113,4 +104,4 @@ git config core.hooksPath hooks
 
 ## ⚠️ Non-NixOS Usage (NOT TESTED)
 
-See [HARDWARE.md](HARDWARE.md#️-non-nixos-usage-not-tested) for information about using this configuration on non-NixOS systems.
+See [HARDWARE.md](HARDWARE.md#️-non-nixos-usage-not-tested).

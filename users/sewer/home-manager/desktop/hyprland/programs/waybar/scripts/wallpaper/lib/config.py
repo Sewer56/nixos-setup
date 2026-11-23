@@ -19,8 +19,6 @@ class WallpaperConfig:
         Args:
             base_dir: Base wallpaper directory (defaults to ~/Pictures/wallpapers)
             subdirs: Custom subdirectory names. Merges with defaults, overriding matching keys.
-                    Example: {'saved': 'favorites', 'temp': 'downloads', 'archive': 'old'}
-                    Results in directories: favorites/, downloads/, old/
             state_file: Monitor state file name (defaults to monitor_state.json)
             cache_max_age_days: Maximum age for cache entries in days (defaults to 7)
         """

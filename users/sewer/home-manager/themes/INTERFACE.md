@@ -2,8 +2,6 @@
 
 ## Universal Theme Interface
 
-All themes must implement the following interface to be compatible with the theme system:
-
 ### Required Exports
 
 Every theme's `default.nix` must export an attribute set containing:
@@ -35,36 +33,34 @@ Semantic color mappings defined within each theme's own `semantic-colors.nix`:
 
 #### `accent` (required)
 
-Current accent color (should match one of the colors in the palette)
+Current accent color, from the palette.
 
 #### `accent2` (optional)
 
-Secondary accent color - next color in hue progression for smooth gradients.
-Useful for borders, transitions, and multi-color effects like Hyprland borders.
-Falls back to `accent` if not provided.
+Next color in hue after `accent`, for gradients such as Hyprland borders.
+Falls back to `accent`.
 
 #### `accentColors` (optional)
 
-Available accent colors for this theme as an attribute set of color names to hex values.
-Used for accent color export functionality. For catppuccin themes, should include
-all 14 accent colors: rosewater, flamingo, pink, mauve, red, maroon, peach, yellow,
+Accent color names mapped to hex values, for the accent color export.
+Catppuccin lists all 14: rosewater, flamingo, pink, mauve, red, maroon, peach, yellow,
 green, teal, sky, sapphire, blue, lavender.
 
 #### `helpers` (optional)
 
-Universal helper functions. All themes automatically inherit shared helpers from `../shared/helpers.nix`:
+Color converters from `../shared/helpers.nix`:
 - `hexToRgbHyprland` - Convert hex to Hyprland rgb format
 - `hexToRgbaHyprland` - Convert hex to Hyprland rgba format  
 - `hexToRgbaHex` - Convert hex to hex rgba format
 - `hexToCssRgba` - Convert hex to CSS rgba format
-
-Themes can extend with additional theme-specific helpers if needed.
+- `hexAlphaToCssRgba` - Convert `#rrggbbaa` to CSS rgba format
 
 #### `metadata` (optional)
 
 Theme information:
 - `name` - Theme display name
 - `variant` - Current variant/flavor
+- `accentName` - Current accent name
 - `description` - Theme description
 
 ### Usage in Configurations
@@ -99,55 +95,12 @@ Users select themes via:
 
 ### System Integration (Optional)
 
-Themes can provide system integration (Home Manager configuration) through an optional `system.nix` file:
-
-#### `themes/themename/system.nix` (optional)
-
-Should export a function that takes `themeConfig` and returns Home Manager configuration:
-
-```nix
-# Example: themes/catppuccin/system.nix
-themeConfig: {
-  # Home Manager configuration specific to this theme
-  catppuccin.enable = true;
-  catppuccin.flavor = themeConfig.variant;
-  catppuccin.accent = themeConfig.accent;
-  
-  gtk = {
-    enable = true;
-    gtk2.extraConfig = "gtk-application-prefer-dark-theme = true";
-  };
-  
-  # ... other theme-specific system configuration
-}
-```
-
-#### Integration Usage
-
-System integration is imported conditionally in the main theme configuration:
-
-```nix
-# In theme.nix or wherever theme selection occurs
-{config, lib, ...}:
-lib.mkMerge [
-  {
-    theme = {
-      name = "catppuccin";
-      variant = "mocha"; 
-      accent = "lavender";
-    };
-  }
-  
-  # Conditional system integration
-  (lib.mkIf (config.theme.name == "catppuccin")
-    (import ./themes/catppuccin/system.nix config.theme)
-  )
-]
-```
+A theme can add Home Manager settings (GTK, cursors) in `themes/themename/system.nix`.
+See `themes/catppuccin/system.nix`.
 
 ### Accent Color Export
 
-The system automatically generates `~/.config/theme/accent-colors.json` during build with the following format:
+Every build writes `~/.config/theme/accent-colors.json`:
 
 ```json
 {
@@ -172,8 +125,6 @@ The system automatically generates `~/.config/theme/accent-colors.json` during b
   }
 }
 ```
-
-This enables external tools to access theme accent colors programmatically.
 
 ### Adding New Themes
 

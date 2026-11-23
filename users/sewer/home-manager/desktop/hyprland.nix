@@ -69,8 +69,6 @@ in {
   ];
 
   # Enable Wayland support for Chrome/Chromium-based applications.
-  # Cursor theme/size set via `home.pointerCursor` (see themes/catppuccin/system.nix),
-  # which the catppuccin HM module exports as HYPRCURSOR_*/XCURSOR_* env.
   home.sessionVariables = {
     NIXOS_OZONE_WL = "1";
   };
@@ -140,12 +138,10 @@ in {
     }
   '';
 
-  # Polkit agent for privilege escalation in text editors like vscode
+  # Password prompts for apps like VS Code.
   services.hyprpolkitagent.enable = true;
 
-  # HM >= bf9ce9fe sets PropagatesStopTo=graphical-session.target on hyprland-session.target,
-  # so HM's exec-once `systemctl --user stop hyprland-session.target` tears down the whole
-  # uwsm session (wayland-session@ BindsTo=graphical-session.target), then the shutdown hook
-  # deadlocks systemd (stop-sigterm timeout -> SIGKILL -> sddm greeter). Remove propagation.
+  # HM >= bf9ce9fe: stopping hyprland-session.target also stops the uwsm session.
+  # HM stops that target on startup, which deadlocks systemd.
   systemd.user.targets.hyprland-session.Unit.PropagatesStopTo = lib.mkForce [];
 }

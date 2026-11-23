@@ -1,7 +1,5 @@
 # Hardware Setup and Configuration
 
-This document covers hardware-specific setup, configuration, and debugging for NixOS systems.
-
 ## Adding a New Machine (Host)
 
 1. **Clone this repository into /home/sewer/nixos/**:
@@ -13,7 +11,7 @@ This document covers hardware-specific setup, configuration, and debugging for N
    git config core.hooksPath hooks
    ```
 
-2. **Set up secrets access** — see [SECRETS.md](SECRETS.md#setup-for-new-machine).
+2. **Set up secrets access**: see [SECRETS.md](SECRETS.md#setup-for-new-machine).
 
 3. **Create host directory**:
    ```bash
@@ -64,7 +62,7 @@ This document covers hardware-specific setup, configuration, and debugging for N
    nixosConfigurations.<hostname> = mkSystem ./hosts/<hostname>/default.nix;
    ```
 
-7. **Stage the new files** — flakes only see git-tracked files, so an unstaged
+7. **Stage the new files**. Flakes only see git-tracked files, so an unstaged
    host directory fails with "not tracked by Git":
    ```bash
    git add hosts/<hostname>
@@ -88,42 +86,42 @@ Tailscale is enabled system-wide (`modules/nixos/core/tailscale.nix`) but requir
 sudo tailscale up
 ```
 
-Follow the URL printed to authenticate in your browser. The authentication state persists in `/var/lib/tailscale` across rebuilds.
-
-**Note**: Auth keys are not used because they expire after 90 days, and regenerating them via the Tailscale website is more hassle than manual authentication.
+Open the printed URL to log in.
 
 ### Proton Mail Setup
 
-Proton Mail may crash on first boot with Wayland, run with X11 at least once:
+Proton Mail may crash on its first Wayland launch.
+
+Run it once under X11:
 
 ```bash
 XDG_SESSION_TYPE=x11 proton-mail
 ```
 
-Future invocations will run successfully on wayland.
+After that it runs fine on Wayland.
 
 ## Hardware Configuration
 
 ### Multi-GPU Systems (like laptop)
 
-For systems with both integrated and discrete GPUs, you may need additional configuration in your host file (see `hosts/laptop/default.nix` for Prime offloading example).
+Nvidia + Intel hybrid setups may need PRIME settings; see `hosts/laptop/default.nix`.
 
 ## Monitor Configuration
 
 ### Hyprland Monitor Setup
 
-The system automatically creates an empty `~/.config/hypr/monitors.lua` file during home-manager activation if it doesn't exist when using hyprland.
+Home Manager creates an empty `~/.config/hypr/monitors.lua` if it doesn't exist.
 
-Use `nwg-displays` to modify this (or edit `monitors.lua` directly with `hl.monitor({ ... })` calls).
-This is made non-declarative to allow for manual adjustments on the fly, e.g. without needing to rebuild the entire system configuration.
+Edit it with `nwg-displays`, or by hand with `hl.monitor({ ... })` calls.
+It's kept outside Nix so you can change monitors without a rebuild.
 
 ## Graphics Debugging and Utilities
 
-The graphics modules provide minimal configurations. For debugging graphics issues, use these utilities temporarily:
+Run these on demand when debugging graphics:
 
 **OpenGL information**:
 ```bash
-nix shell nixpkgs#glxinfo --command glxinfo | grep "OpenGL renderer"
+nix shell nixpkgs#mesa-demos --command glxinfo | grep "OpenGL renderer"
 ```
 
 **Vulkan information**:
@@ -136,9 +134,9 @@ nix shell nixpkgs#vulkan-tools --command vulkaninfo
 nix shell nixpkgs#libva-utils --command vainfo
 ```
 
-**VDPAU support** (Video Decode and Presentation API for Unix - hardware-accelerated video decoding):
+**VDPAU support** (Video Decode and Presentation API for Unix):
 ```bash
-nix shell nixpkgs#libva-utils --command vdpauinfo
+nix shell nixpkgs#vdpauinfo --command vdpauinfo
 ```
 
 **GPU monitoring**:
@@ -155,10 +153,7 @@ nix shell nixpkgs#intel-gpu-tools --command intel_gpu_top
 
 ## ⚠️ Non-NixOS Usage (NOT TESTED)
 
-This configuration is designed for NixOS systems. Using the Home Manager parts on non-NixOS systems has **not been tested** and comes with significant limitations:
+The Home Manager parts have **not been tested** outside NixOS.
 
-**Package installations will have issues** - Many GUI applications require graphics driver integration that Home Manager cannot provide on non-NixOS systems.
-
-**Alternative approach**: Consider [nix-system-graphics](https://github.com/soupglasses/nix-system-graphics) which uses system-manager instead of Home Manager for better graphics integration, though this requires a more complex setup.
-
-**Recommendation**: Use this configuration as reference for your own setup rather than direct deployment on non-NixOS systems.
+Many GUI apps may fail there, because Home Manager can't set up graphics drivers.
+[nix-system-graphics](https://github.com/soupglasses/nix-system-graphics) can fill that gap.

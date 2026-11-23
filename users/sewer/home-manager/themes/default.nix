@@ -57,8 +57,7 @@ in {
         # Current accent color
         accent = selectedTheme.accent;
 
-        # Secondary accent color - next color in hue progression for smooth gradients
-        # Useful for borders, transitions, and multi-color effects like Hyprland borders
+        # Secondary accent color - next color in hue progression, for gradients like Hyprland borders
         accent2 = selectedTheme.accent2 or selectedTheme.accent;
 
         # Available accent colors from selected theme
