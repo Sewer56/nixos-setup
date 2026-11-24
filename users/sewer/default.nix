@@ -16,6 +16,10 @@
     inputs.home-manager.nixosModules.default
   ];
 
+  # At boot, dconf can start GVFS on a temporary D-Bus session.
+  # When that session ends, GVFS can crash and leave ~/.gvfs inaccessible.
+  systemd.services.home-manager-sewer.environment.GIO_USE_VFS = "local";
+
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
